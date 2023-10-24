@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flow id="3c97d3dd-f31b-431f-aa71-15891f1de533">
-  <descriptionCdata><![CDATA[3c97d3dd-f31b-431f-aa71-15891f1de533.38d77cdc-990b-469e-bd61-4c4d1b14c972.description=<pre>Generates a random number.\n\nInputs\:\nmax - The maximum number that can be returned.\nmin - The minimum number that can be returned.\n\nResponses\:\nsuccess - The operation completed Successfully.\nfailure - Something went wrong.\n\nReturns\:\nA random number between max and min (inclusive)</pre>
-3c97d3dd-f31b-431f-aa71-15891f1de533.8a04efd2-17c7-4c20-89b1-69bc4b9adca9.description=<pre>Generates a random number.\n\nInputs\:\nmax - The maximum number that can be returned.\nmin - The minimum number that can be returned.\n\nResponses\:\nsuccess - The operation completed Successfully.\nfailure - Something went wrong.\n\nReturns\:\nA random number between max and min (inclusive)</pre>
-3c97d3dd-f31b-431f-aa71-15891f1de533.c878cc68-af57-4e8f-8044-2ce20e8e14a6.description=<pre>\nCreates a SSH Shell session to be used by multiple SSH Shell operations.\n\nInputs\:\n    host - The hostname/IP address of the remote machine.\n    port - The port number for SSH protocol.\nDefault value\: 22\n    username - Name of the account on the remote machine.\n    password - The password for the username. When using a private key file or a private key string, this input will be used as the passphrase for the file or string. For security reasons it is recommend to provide this input and protect the private key when using the 'privateKeyData' and the 'privateKeyFile' inputs.\n    proxyHost - The proxy server used to access the remote machine.\n    proxyPort - The proxy server port. Default\: 8080. Valid values\: -1 and numbers greater than 0.\n    proxyUsername - The user name used when connecting to the proxy.\n    proxyPassword - The proxy server password associated with the proxyUsername input value.\n    privateKeyFile - Path to private key file (OpenSSH type) on the machine where is the worker. For security reasons it is recommend that the private key be protected by a passphrase that should be provided through the 'password' input.\n    privateKeyData \u2013 A string representing the private key (OpenSSH type) used for authenticating the user. This string is usually the content of a private key file. The 'privateKeyData' and the 'privateKeyFile' inputs are mutually exclusive. For security reasons it is recommend that the private key be protected by a passphrase that should be provided through the 'password' input.\n    knownHostsPolicy - The policy used for managing known_hosts file. We recommend to use a "strict" policy so as to verify the host key against a local file containing known, trustworthy machines. If you choose "allow" or "add" policy then you will connect to the server without any verification. If there is a Man-In-The-Middle attack then you will be connected to a fake server and the SSH commands that you send will go through that fake server. \nValid values\:  \nallow\=It will permit the connection to any hosts. \nstrict\=It will permit the connection only to the hosts specified in known_hosts file. \nadd\=It will permit the connection to any hosts, if the host is not in the known_hosts file it will be added. \nDefault value\: strict\n    allowedCiphers - A comma separated list of ciphers that will be used in the client-server handshake mechanism when the connection is created. Check the notes section for security concerns regarding your choice of ciphers. The default value will be used even if the input is not added to the operation.\nDefault value\: aes128-ctr,aes128-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc\n    connectTimeout - Time in milliseconds to wait for the connection to be made.\nDefault value\: 10000\n    useGlobalContext -  Specifies whether to enable the session sharing into the subflows.\nValid values\: false, true \nDefault value\: false\n\nResults\:\n    returnResult - The newly created sessionId.\n    sessionId - The ssh session identifier to be used for SSH Shell and SSH Shell Logoff operations.  This session identifier can only be used in the flow run context that it is created in. Multiple ssh shell sessions can be created and distinguished by assigning this sessionId to unique flow variables.\n    TimedOut - Is set to "true" if the value set in the "timeout" input has elapsed and the command timed out.\n\nResponses\:\n    success - SSH shell session and sessionId successfully created.\n    failure - An error occurred while attempting to create the ssh shell session.\n\nNotes\:\n1. Hidden inputs\:\n    knownHostsPath -  Specifies the path to the known_hots file on the running server.\nDefault value\: <user.home>/.ssh/known_hosts\nExamples\: /home/admin/.ssh/known_hosts\n2. In order to use private keys with different encryption types (ex.\: aes256-cbc) needs to be updated the <OO_Home>/java/lib/security/local_policy.jar JAR file with one that accept all security policies (ex.\: http\://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html). After update you must restart the Studio or Central service.\n3. The operation supports connections through HTTP proxy with username and password authentication.\n4. For security reasons, HPE does not recommend the use of outdated or vulnerable ciphers. Therefore "arcfour" cihpers should be avoided because they do not provide confidentiality for data in transit and using them can lead to information leakage.\nArcfour is vulnerable to the following attacks\: Fluhrer, Mantin and Shamir attack, Klein's attack, Royal Holloway attack, Bar-mitzvah attack and NOMORE attack.\n</pre>
+  <descriptionCdata><![CDATA[3c97d3dd-f31b-431f-aa71-15891f1de533.0508e5b6-01ef-43c1-8417-d88001c495fa.description=<pre>Generates a random number.\n\nInputs\:\nmax - The maximum number that can be returned.\nmin - The minimum number that can be returned.\n\nResponses\:\nsuccess - The operation completed Successfully.\nfailure - Something went wrong.\n\nReturns\:\nA random number between max and min (inclusive)</pre>
+3c97d3dd-f31b-431f-aa71-15891f1de533.38d77cdc-990b-469e-bd61-4c4d1b14c972.description=<pre>Generates a random number.\n\nInputs\:\nmax - The maximum number that can be returned.\nmin - The minimum number that can be returned.\n\nResponses\:\nsuccess - The operation completed Successfully.\nfailure - Something went wrong.\n\nReturns\:\nA random number between max and min (inclusive)</pre>
 ]]></descriptionCdata>
   <annotation></annotation>
   <name>test</name>
@@ -26,11 +25,26 @@
       <matchRules/>
     </opResponse>
   </possibleResponses>
-  <availableResultExpressions/>
-  <resultExpression id="9c9014c8-3aa0-4dff-8771-6a7f81cd4fd6">
+  <availableResultExpressions>
+    <expression id="9e3eb875-8be0-43af-b26f-7e7cefaf56e7">
+      <annotation></annotation>
+      <name>flowoutput</name>
+      <fieldName>FailureMessage</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters/>
+    </expression>
+    <expression id="16f81346-3304-4297-bfda-3b85e28369d2">
+      <annotation></annotation>
+      <name>ttt</name>
+      <fieldName>returnResult</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters/>
+    </expression>
+  </availableResultExpressions>
+  <resultExpression id="192b582c-6648-4c8c-b00e-0af3f3a3fa04">
     <annotation></annotation>
-    <name>FailureMessage</name>
-    <fieldName>FailureMessage</fieldName>
+    <name>customname</name>
+    <fieldName>customname</fieldName>
     <sourceType>RAWRESULT</sourceType>
     <filters/>
   </resultExpression>
@@ -95,35 +109,6 @@
         </staticBinding>
       </bindings>
       <transitions>
-        <transition id="6b72e8c2-e557-4537-898e-9bafccb2d966">
-          <annotation></annotation>
-          <name>success</name>
-          <command>NEXT</command>
-          <linkMode>false</linkMode>
-          <responseSymbol>success</responseSymbol>
-          <shouldHandoff>false</shouldHandoff>
-          <transitionValue>0.0</transitionValue>
-          <destination>
-            <refId>8a04efd2-17c7-4c20-89b1-69bc4b9adca9</refId>
-          </destination>
-          <source>
-            <refId>38d77cdc-990b-469e-bd61-4c4d1b14c972</refId>
-          </source>
-          <positions>
-            <point>
-              <x>202.0</x>
-              <y>303.0</y>
-            </point>
-            <point>
-              <x>531.0</x>
-              <y>293.0</y>
-            </point>
-          </positions>
-          <labelPosition>
-            <x>333.0</x>
-            <y>0.0</y>
-          </labelPosition>
-        </transition>
         <transition id="0167d7c1-bbd9-40c1-824b-4bbe8e1ffa1f">
           <annotation></annotation>
           <name>failure</name>
@@ -153,65 +138,7 @@
             <y>0.0</y>
           </labelPosition>
         </transition>
-      </transitions>
-      <properties/>
-      <opRef>
-        <refId>2c22355a-9c26-4a9e-893c-01a35e4bb0e3</refId>
-      </opRef>
-      <assignments/>
-      <throttleSize>0</throttleSize>
-    </step>
-    <step id="8a04efd2-17c7-4c20-89b1-69bc4b9adca9">
-      <annotation>3c97d3dd-f31b-431f-aa71-15891f1de533.8a04efd2-17c7-4c20-89b1-69bc4b9adca9.description</annotation>
-      <name>Generate Random Number</name>
-      <bounds>
-        <x>481.0</x>
-        <y>259.0</y>
-      </bounds>
-      <layer>-1</layer>
-      <hideInbound>false</hideInbound>
-      <addResultToRunContext>false</addResultToRunContext>
-      <isCriticalStep>false</isCriticalStep>
-      <isNonBlocking>false</isNonBlocking>
-      <isParallelStep>false</isParallelStep>
-      <isSingleResponse>false</isSingleResponse>
-      <recordInHistory>false</recordInHistory>
-      <recordRawOutput>true</recordRawOutput>
-      <recordPrimaryOutput>true</recordPrimaryOutput>
-      <checkPointStep>true</checkPointStep>
-      <historyCheckPointStep>true</historyCheckPointStep>
-      <scriptResultStep>false</scriptResultStep>
-      <userPrompt></userPrompt>
-      <bindings>
-        <staticBinding id="5808ccf6-fc89-4bfc-ab43-ac47a189a4e4">
-          <annotation></annotation>
-          <assignFromContext>false</assignFromContext>
-          <assignToContext>false</assignToContext>
-          <inputType>STRING</inputType>
-          <isList>false</isList>
-          <required>true</required>
-          <isPersisted>true</isPersisted>
-          <inputSymbol>min</inputSymbol>
-          <listDelimiter>,</listDelimiter>
-          <value>2</value>
-          <record>false</record>
-        </staticBinding>
-        <staticBinding id="7e1897e6-348f-42ec-b93a-c9ebbe48bb37">
-          <annotation></annotation>
-          <assignFromContext>false</assignFromContext>
-          <assignToContext>false</assignToContext>
-          <inputType>STRING</inputType>
-          <isList>false</isList>
-          <required>true</required>
-          <isPersisted>true</isPersisted>
-          <inputSymbol>max</inputSymbol>
-          <listDelimiter>,</listDelimiter>
-          <value>22</value>
-          <record>false</record>
-        </staticBinding>
-      </bindings>
-      <transitions>
-        <transition id="03654754-8cc8-44fa-90cb-aa120adfc8a7">
+        <transition id="40d42018-6646-49e6-968c-232c048bed73">
           <annotation></annotation>
           <name>success</name>
           <command>NEXT</command>
@@ -220,48 +147,19 @@
           <shouldHandoff>false</shouldHandoff>
           <transitionValue>0.0</transitionValue>
           <destination>
-            <refId>8659e07b-6827-4d50-befc-ed630b871e7c</refId>
+            <refId>0508e5b6-01ef-43c1-8417-d88001c495fa</refId>
           </destination>
           <source>
-            <refId>8a04efd2-17c7-4c20-89b1-69bc4b9adca9</refId>
+            <refId>38d77cdc-990b-469e-bd61-4c4d1b14c972</refId>
           </source>
           <positions>
             <point>
-              <x>531.0</x>
-              <y>293.0</y>
+              <x>202.0</x>
+              <y>303.0</y>
             </point>
             <point>
-              <x>686.0</x>
-              <y>314.0</y>
-            </point>
-          </positions>
-          <labelPosition>
-            <x>333.0</x>
-            <y>0.0</y>
-          </labelPosition>
-        </transition>
-        <transition id="49c2ff09-4073-46dc-9287-933ff6661417">
-          <annotation></annotation>
-          <name>failure</name>
-          <command>NEXT</command>
-          <linkMode>false</linkMode>
-          <responseSymbol>failure</responseSymbol>
-          <shouldHandoff>false</shouldHandoff>
-          <transitionValue>0.0</transitionValue>
-          <destination>
-            <refId>c878cc68-af57-4e8f-8044-2ce20e8e14a6</refId>
-          </destination>
-          <source>
-            <refId>8a04efd2-17c7-4c20-89b1-69bc4b9adca9</refId>
-          </source>
-          <positions>
-            <point>
-              <x>531.0</x>
-              <y>293.0</y>
-            </point>
-            <point>
-              <x>650.0</x>
-              <y>222.0</y>
+              <x>545.0</x>
+              <y>164.0</y>
             </point>
           </positions>
           <labelPosition>
@@ -272,9 +170,66 @@
       </transitions>
       <properties/>
       <opRef>
-        <refId>06fe8531-868b-4e79-aa7a-13a5e30a66ec</refId>
+        <refId>2c22355a-9c26-4a9e-893c-01a35e4bb0e3</refId>
       </opRef>
-      <assignments/>
+      <assignments>
+        <flowVariableAssignment id="7e571d64-b9ed-4162-8dc3-a4b35ca9bd82">
+          <annotation></annotation>
+          <name>assignment</name>
+          <action>OVERWRITE</action>
+          <assignmentTargetType>FLOW_OUTPUT_FIELD</assignmentTargetType>
+          <contextKey>returnResult</contextKey>
+          <expression id="d2fb3352-77bc-4573-aa10-9ef55d7b84ca">
+            <annotation></annotation>
+            <name>Result Field: returnCode</name>
+            <fieldName>returnCode</fieldName>
+            <sourceType>RAWRESULT</sourceType>
+            <filters/>
+          </expression>
+        </flowVariableAssignment>
+        <flowVariableAssignment id="fba9791c-8274-4fd5-a314-9e003fbcec86">
+          <annotation></annotation>
+          <name>assignment</name>
+          <action>OVERWRITE</action>
+          <assignmentTargetType>FLOW_VARIABLE</assignmentTargetType>
+          <contextKey>returnResult</contextKey>
+          <expression id="95f5dda0-8ac2-4c38-a32c-7e9a1668d17e">
+            <annotation></annotation>
+            <name>Result Field: returnResult</name>
+            <fieldName>returnResult</fieldName>
+            <sourceType>RAWRESULT</sourceType>
+            <filters/>
+          </expression>
+        </flowVariableAssignment>
+        <flowVariableAssignment id="508ba1bb-8b43-4f9d-b555-df2c4fd2cfab">
+          <annotation></annotation>
+          <name>assignment</name>
+          <action>OVERWRITE</action>
+          <assignmentTargetType>FLOW_VARIABLE</assignmentTargetType>
+          <contextKey>returnResult</contextKey>
+          <expression id="9e1c4550-11dd-422c-a7ee-1a0b31f246ad">
+            <annotation></annotation>
+            <name>Result Field: exception</name>
+            <fieldName>exception</fieldName>
+            <sourceType>RAWRESULT</sourceType>
+            <filters/>
+          </expression>
+        </flowVariableAssignment>
+        <flowVariableAssignment id="8cd19193-c881-433e-b1bd-1cbc483113c8">
+          <annotation></annotation>
+          <name>assignment</name>
+          <action>OVERWRITE</action>
+          <assignmentTargetType>FLOW_OUTPUT_FIELD</assignmentTargetType>
+          <contextKey>customname</contextKey>
+          <expression id="2c77ed3d-eca2-4203-8859-a66f65815c9a">
+            <annotation></annotation>
+            <name>Input: min</name>
+            <fieldName>min</fieldName>
+            <sourceType>INPUT</sourceType>
+            <filters/>
+          </expression>
+        </flowVariableAssignment>
+      </assignments>
       <throttleSize>0</throttleSize>
     </step>
     <returnStep id="8659e07b-6827-4d50-befc-ed630b871e7c">
@@ -365,12 +320,12 @@
       <returnStepType>ERROR</returnStepType>
       <assignments/>
     </returnStep>
-    <step id="c878cc68-af57-4e8f-8044-2ce20e8e14a6">
-      <annotation>3c97d3dd-f31b-431f-aa71-15891f1de533.c878cc68-af57-4e8f-8044-2ce20e8e14a6.description</annotation>
-      <name>SSH Shell Logon</name>
+    <step id="0508e5b6-01ef-43c1-8417-d88001c495fa">
+      <annotation>3c97d3dd-f31b-431f-aa71-15891f1de533.0508e5b6-01ef-43c1-8417-d88001c495fa.description</annotation>
+      <name>Generate Random Number</name>
       <bounds>
-        <x>484.0</x>
-        <y>128.0</y>
+        <x>495.0</x>
+        <y>130.0</y>
       </bounds>
       <layer>-1</layer>
       <hideInbound>false</hideInbound>
@@ -387,7 +342,7 @@
       <scriptResultStep>false</scriptResultStep>
       <userPrompt></userPrompt>
       <bindings>
-        <userInputBinding id="f7db2aee-3cc0-4729-9080-01cf0e9eebbf">
+        <userInputBinding id="ae052d07-932c-4cea-a56e-eae309fc57fc">
           <annotation></annotation>
           <assignFromContext>false</assignFromContext>
           <assignToContext>false</assignToContext>
@@ -395,27 +350,14 @@
           <isList>false</isList>
           <required>true</required>
           <isPersisted>true</isPersisted>
-          <inputSymbol>host</inputSymbol>
+          <inputSymbol>min</inputSymbol>
           <listDelimiter>,</listDelimiter>
           <record>false</record>
           <prompt></prompt>
           <isMultiSelect>false</isMultiSelect>
           <sourceDelimiter>|</sourceDelimiter>
         </userInputBinding>
-        <staticBinding id="af4cfeaf-9042-4449-aae0-2ca34c659b03">
-          <annotation></annotation>
-          <assignFromContext>false</assignFromContext>
-          <assignToContext>false</assignToContext>
-          <inputType>STRING</inputType>
-          <isList>false</isList>
-          <required>false</required>
-          <isPersisted>true</isPersisted>
-          <inputSymbol>port</inputSymbol>
-          <listDelimiter>,</listDelimiter>
-          <value>22</value>
-          <record>false</record>
-        </staticBinding>
-        <userInputBinding id="86afd390-b30a-4ebd-b418-387bfc30f7e5">
+        <userInputBinding id="7cf69173-0f76-4aa3-a270-99ad12f84438">
           <annotation></annotation>
           <assignFromContext>false</assignFromContext>
           <assignToContext>false</assignToContext>
@@ -423,151 +365,16 @@
           <isList>false</isList>
           <required>true</required>
           <isPersisted>true</isPersisted>
-          <inputSymbol>username</inputSymbol>
+          <inputSymbol>max</inputSymbol>
           <listDelimiter>,</listDelimiter>
           <record>false</record>
           <prompt></prompt>
           <isMultiSelect>false</isMultiSelect>
           <sourceDelimiter>|</sourceDelimiter>
         </userInputBinding>
-        <staticBinding id="9054213a-aa4b-4027-bf55-b7f4d0c40843">
-          <annotation></annotation>
-          <assignFromContext>false</assignFromContext>
-          <assignToContext>false</assignToContext>
-          <inputType>ENCRYPTED</inputType>
-          <isList>false</isList>
-          <required>false</required>
-          <isPersisted>true</isPersisted>
-          <inputSymbol>password</inputSymbol>
-          <listDelimiter>,</listDelimiter>
-          <record>false</record>
-        </staticBinding>
-        <staticBinding id="3e207f76-e78c-48be-803c-fc5bc422d23e">
-          <annotation></annotation>
-          <assignFromContext>false</assignFromContext>
-          <assignToContext>false</assignToContext>
-          <inputType>STRING</inputType>
-          <isList>false</isList>
-          <required>false</required>
-          <isPersisted>true</isPersisted>
-          <inputSymbol>proxyHost</inputSymbol>
-          <listDelimiter>,</listDelimiter>
-          <record>false</record>
-        </staticBinding>
-        <staticBinding id="8f5fcb38-fd9b-40be-afad-bee10dfc89be">
-          <annotation></annotation>
-          <assignFromContext>false</assignFromContext>
-          <assignToContext>false</assignToContext>
-          <inputType>STRING</inputType>
-          <isList>false</isList>
-          <required>false</required>
-          <isPersisted>true</isPersisted>
-          <inputSymbol>proxyPort</inputSymbol>
-          <listDelimiter>,</listDelimiter>
-          <record>false</record>
-        </staticBinding>
-        <staticBinding id="6c817862-2923-402a-b5a9-cd6018e3e5e3">
-          <annotation></annotation>
-          <assignFromContext>false</assignFromContext>
-          <assignToContext>false</assignToContext>
-          <inputType>STRING</inputType>
-          <isList>false</isList>
-          <required>false</required>
-          <isPersisted>true</isPersisted>
-          <inputSymbol>proxyUsername</inputSymbol>
-          <listDelimiter>,</listDelimiter>
-          <record>false</record>
-        </staticBinding>
-        <staticBinding id="1921de92-0d1d-4fec-b5cc-eb2056f6bb1b">
-          <annotation></annotation>
-          <assignFromContext>false</assignFromContext>
-          <assignToContext>false</assignToContext>
-          <inputType>ENCRYPTED</inputType>
-          <isList>false</isList>
-          <required>false</required>
-          <isPersisted>true</isPersisted>
-          <inputSymbol>proxyPassword</inputSymbol>
-          <listDelimiter>,</listDelimiter>
-          <record>false</record>
-        </staticBinding>
-        <staticBinding id="f4561837-8fcb-4e53-94ac-8f857edb9fe2">
-          <annotation></annotation>
-          <assignFromContext>false</assignFromContext>
-          <assignToContext>false</assignToContext>
-          <inputType>STRING</inputType>
-          <isList>false</isList>
-          <required>false</required>
-          <isPersisted>true</isPersisted>
-          <inputSymbol>privateKeyFile</inputSymbol>
-          <listDelimiter>,</listDelimiter>
-          <record>false</record>
-        </staticBinding>
-        <staticBinding id="c18a7aa0-a32a-44ff-adbe-0b4b66fc0287">
-          <annotation></annotation>
-          <assignFromContext>false</assignFromContext>
-          <assignToContext>false</assignToContext>
-          <inputType>ENCRYPTED</inputType>
-          <isList>false</isList>
-          <required>false</required>
-          <isPersisted>true</isPersisted>
-          <inputSymbol>privateKeyData</inputSymbol>
-          <listDelimiter>,</listDelimiter>
-          <record>false</record>
-        </staticBinding>
-        <staticBinding id="d63e19f0-aa21-461e-90fb-24ccc4608de2">
-          <annotation></annotation>
-          <assignFromContext>false</assignFromContext>
-          <assignToContext>false</assignToContext>
-          <inputType>STRING</inputType>
-          <isList>false</isList>
-          <required>false</required>
-          <isPersisted>true</isPersisted>
-          <inputSymbol>knownHostsPolicy</inputSymbol>
-          <listDelimiter>,</listDelimiter>
-          <value>strict</value>
-          <record>false</record>
-        </staticBinding>
-        <staticBinding id="0b38878a-f0ba-47ae-9e37-b7c3273d482a">
-          <annotation></annotation>
-          <assignFromContext>false</assignFromContext>
-          <assignToContext>false</assignToContext>
-          <inputType>STRING</inputType>
-          <isList>false</isList>
-          <required>false</required>
-          <isPersisted>true</isPersisted>
-          <inputSymbol>allowedCiphers</inputSymbol>
-          <listDelimiter>,</listDelimiter>
-          <record>false</record>
-        </staticBinding>
-        <staticBinding id="795b331e-06be-4395-a214-5123c29da9c4">
-          <annotation></annotation>
-          <assignFromContext>false</assignFromContext>
-          <assignToContext>false</assignToContext>
-          <inputType>STRING</inputType>
-          <isList>false</isList>
-          <required>false</required>
-          <isPersisted>true</isPersisted>
-          <inputSymbol>connectTimeout</inputSymbol>
-          <listDelimiter>,</listDelimiter>
-          <value>10000</value>
-          <record>false</record>
-        </staticBinding>
-        <staticBinding id="5aaf509f-b248-4587-8ed5-03ed252fa9eb">
-          <annotation></annotation>
-          <assignFromContext>false</assignFromContext>
-          <assignToContext>false</assignToContext>
-          <inputType>STRING</inputType>
-          <isList>false</isList>
-          <required>false</required>
-          <isPersisted>true</isPersisted>
-          <inputSymbol>useGlobalContext</inputSymbol>
-          <listDelimiter>,</listDelimiter>
-          <value>false</value>
-          <record>false</record>
-        </staticBinding>
       </bindings>
       <transitions>
-        <transition id="62039d41-5806-496e-b04c-7fb1bf7cba31">
+        <transition id="36190234-7a0f-43dd-8195-87a957244712">
           <annotation></annotation>
           <name>success</name>
           <command>NEXT</command>
@@ -579,12 +386,12 @@
             <refId>8659e07b-6827-4d50-befc-ed630b871e7c</refId>
           </destination>
           <source>
-            <refId>c878cc68-af57-4e8f-8044-2ce20e8e14a6</refId>
+            <refId>0508e5b6-01ef-43c1-8417-d88001c495fa</refId>
           </source>
           <positions>
             <point>
-              <x>650.0</x>
-              <y>222.0</y>
+              <x>545.0</x>
+              <y>164.0</y>
             </point>
             <point>
               <x>686.0</x>
@@ -596,7 +403,7 @@
             <y>0.0</y>
           </labelPosition>
         </transition>
-        <transition id="c9ab417e-cec5-4c42-817c-6fe56518d20c">
+        <transition id="a7486208-864d-466f-96b4-cf6445167133">
           <annotation></annotation>
           <name>failure</name>
           <command>NEXT</command>
@@ -608,12 +415,12 @@
             <refId>bb5b2f9c-12b2-48b7-9e92-7c7f15e26bb1</refId>
           </destination>
           <source>
-            <refId>c878cc68-af57-4e8f-8044-2ce20e8e14a6</refId>
+            <refId>0508e5b6-01ef-43c1-8417-d88001c495fa</refId>
           </source>
           <positions>
             <point>
-              <x>650.0</x>
-              <y>222.0</y>
+              <x>545.0</x>
+              <y>164.0</y>
             </point>
             <point>
               <x>397.0</x>
@@ -628,19 +435,19 @@
       </transitions>
       <properties/>
       <opRef>
-        <refId>0bbbd376-2438-4a77-a717-14e3d79c54c1</refId>
+        <refId>06fe8531-868b-4e79-aa7a-13a5e30a66ec</refId>
       </opRef>
       <assignments>
-        <flowVariableAssignment id="6d08d1f2-17dc-4494-9cb2-40a3a4fadd5c">
+        <flowVariableAssignment id="9c4f4bdd-cf81-4906-b939-c081268d155d">
           <annotation></annotation>
           <name>assignment</name>
           <action>OVERWRITE</action>
           <assignmentTargetType>FLOW_VARIABLE</assignmentTargetType>
-          <contextKey>returnCode</contextKey>
-          <expression id="c4052151-e5bb-4736-964a-37cccb0ec9fb">
+          <contextKey>FailureMessage</contextKey>
+          <expression id="289b9b60-6681-4999-b248-c0be032121b0">
             <annotation></annotation>
-            <name>Result Field: returnCode</name>
-            <fieldName>returnCode</fieldName>
+            <name>Result Field: FailureMessage</name>
+            <fieldName>FailureMessage</fieldName>
             <sourceType>RAWRESULT</sourceType>
             <filters/>
           </expression>
