@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="5476c324-a28d-4aec-b12c-992663281c16">
+  <descriptionCdata><![CDATA[5476c324-a28d-4aec-b12c-992663281c16.description=Generates a file with a unique name.\n\nInputs\:\n    prefix - A prefix for the file name.\n    suffix - A suffix for the filename, if nothing is specified, .tmp will be used. If the suffix contains "." character then all the letter after will be considered as extension of the new created file.\n    directory - A directory to hold the temp file.\n\nResults\:\n    returnResult - This is the primary output. The path to the temp file.\n\nResponses\:\n    success - The temp file was created.\n    failure - The temp file could not be created.\n\nNotes\: \n1. Please check File System->Cross Platform properties for more information regarding the use of network share paths with this operation.
+]]></descriptionCdata>
+  <annotation>5476c324-a28d-4aec-b12c-992663281c16.description</annotation>
+  <name>FS Create Temp File</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="06dd1b31-cc75-4e5b-ae76-e7c0f5322021">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>directory</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="33cbfa0b-792b-48c9-933b-61f8485379f6">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>suffix</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="7255a130-ce7a-4d50-9763-dd8ef28170be">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>prefix</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="ea8cd806-d92c-45d4-8cbb-7337806aef1c">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="a44ebea6-7e2b-4a2f-9c59-ee8f657b68ed">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="2d3f238e-a3f7-45a0-b0e9-f883a334c1ad">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="83af5692-cd26-49f1-92e7-237b27e7a773">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="916f67c0-6790-47ea-9b3f-b5b9837c4b22">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="575657a0-4ed7-4f9a-954e-b57af9414672">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>-1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="204a5b92-023e-4d3f-9ffe-c0ae08554a00">
+    <annotation></annotation>
+    <name></name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="08a0a21d-ef07-4dab-99a7-67c2c415adb4">
+    <baseIcon>document_text.png</baseIcon>
+    <basePath>Operating System/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="08823478-f5a1-4540-a11d-f44902249aeb">
+        <baseIcon>wrench.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-fs-legacy-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>com.iconclude.content.actions.filesystem.FSCreateTempFile</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

@@ -1,0 +1,972 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow id="4a8655be-d088-4ffa-a015-f959ead68950">
+  <descriptionCdata><![CDATA[4a8655be-d088-4ffa-a015-f959ead68950.1059da3c-46a8-4a71-99f3-1e9cdc230354.description=\n\n<pre>\nOS Detector Connects to a specified host, and determines what operating system the host is running.\n\nIt is important to note that the NRAS will try to impersonate the username/password provided rather then login to the remote\nmachine using that username/password.  If both the NRAS server and the server being rebooted are in the same domain then it\nwill work.  If, however, the NRAS server and the server to be restarted are in different domains then you must specify a local\naccount/password on the NRAS server which matches a local account on the target server.  If username/passwords match then\nWindows uses "shadow" authentication to perform the operation.  The other option is to deploy another NRAS in the same domain\nas the target server and use this NRAS instead.\n\nInput Parameters\:\nhost - hostname to connect to.\nusername - username to use when connecting.\npassword - password to use when connecting.\n\nResponses\:\nfailure - System could not determine remote hosts operating system.\nlinux - Remote host is running linux.\nsolaris - Remote host is running solaris.\nunknown unix - Remote host appears to be unix based, but is an unknown variant.\nwindows xp - Remote host is a windows xp system.\nwindows 2003 server - Remote host is a windows 2003 server.\nwindows 2003 enterprise - remote host is running windows 2003 enterprise edition.\nwindows 2000 - remote host is running windows 2000.\nunknown windows - Remote host is running an unknown version of windows.\n\nExtra Results\:\n\t\tosName - the completely returned string of the OS name.\n\t\tversion - the operating systems version.\n\t\thostName - The host name the remote computer reports for itself.\n\nThe following results give more refined results about what version of windows is detected.\nIf a unix is being run, the following results are always set to 'false'\n\t\tenterprise - 'true' if the operating system is an enterprise edition\n\t\tserver - 'true' if the operating system is a server edition\n\t\tprofessional - 'true' if the operating system is a professional edition.\n\t\tstandard - 'true' if the operating system is a standard edition.\n\n\nreturns the output of a uname -a for unix based hosts, and the results of osName and version WMI queries for a windows host.\n\n\n\n</pre>\n
+4a8655be-d088-4ffa-a015-f959ead68950.1872d6cf-bfc4-45e9-b800-72bcd5fa2d8b.transition.description=The OS is Windows XP
+4a8655be-d088-4ffa-a015-f959ead68950.19dbc034-0e41-4a7f-89f0-f0be56aac49c.prompt=Enter a value for host
+4a8655be-d088-4ffa-a015-f959ead68950.20be5d52-e51e-4727-8d36-c842151bd156.transition.description=The OS is Windows 2003
+4a8655be-d088-4ffa-a015-f959ead68950.2d4ba026-3c81-4d49-91a4-7d908106ae9e.transition.description=This flow works only on Windows.
+4a8655be-d088-4ffa-a015-f959ead68950.5a58b6fd-f033-467c-955e-9cee41264757.description=<pre>\nChecks for any filesystem errors.\nDoes not work in Windows 2000, Windows NT 4.0, and Windows Me/98/95.\n\ninputs\:\ndiagnostic so far - used to chain diagnostics together, and get one report. The output of previous diagnostics, or blank.\nfreespace threshold - minimum acceptable % freespace as a decimal.\nhost - host to check.\nuser - username to login to host with.\npassword - password for user.\n\nResponses\:\nsuccess - Diagnostic successful.\nfailure - something went wrong.\n</pre>    
+4a8655be-d088-4ffa-a015-f959ead68950.5fffdaf8-69cb-43a8-a6da-528e86b5b636.transition.description=This flow works only on Windows.
+4a8655be-d088-4ffa-a015-f959ead68950.6a6fe33e-afb3-4c2f-9de6-7246a839c199.prompt=Enter a value for password
+4a8655be-d088-4ffa-a015-f959ead68950.8c5509c4-47ca-4186-8f60-5a7a26b946e1.prompt=Enter a value for password
+4a8655be-d088-4ffa-a015-f959ead68950.947c20ff-16b4-4451-bd02-42d35f20ef40.prompt=Enter a value for username
+4a8655be-d088-4ffa-a015-f959ead68950.a7558f07-e507-4e8b-a33c-93a6ba8f958e.transition.description=Failed to detect the OS version for an unknown reason.
+4a8655be-d088-4ffa-a015-f959ead68950.b178dc75-f4f6-49ec-9ab5-cce237c6dce1.prompt=Enter a value for host
+4a8655be-d088-4ffa-a015-f959ead68950.c4f66519-d53c-4513-a8f9-c0bb15e80ab6.transition.description=This flow works only on Windows.
+4a8655be-d088-4ffa-a015-f959ead68950.c8e446bb-fabb-4ce3-9787-dfe0fc375a62.transition.description=The OS is Windows and older than Windows 2000.
+4a8655be-d088-4ffa-a015-f959ead68950.dbadfc95-9ebe-4dc5-83e1-6cc4ad0affc3.prompt=Enter a value for user
+4a8655be-d088-4ffa-a015-f959ead68950.description=<pre>\nChecks for any filesystem errors.\n\ninputs\:\ndiagnostic so far - used to chain diagnostics together, and get one report. The output of previous diagnostics, or blank.\nfreespace threshold - minimum acceptable % freespace as a decimal.\nhost - host to check.\nuser - username to login to host with.\npassword - password for user.\n\nResponses\:\nsuccess - Diagnostic successful.\nfailure - something went wrong.\n</pre>    
+4a8655be-d088-4ffa-a015-f959ead68950.df7167a8-c178-4ec6-b515-37df56a7ad9c.description=<pre>\nChecks for any filesystem errors.\nWorks on W2K and earlier versions.\n\ninputs\:\ndiagnostic so far - used to chain diagnostics together, and get one report. The output of previous diagnostics, or blank.\nfreespace threshold - minimum acceptable % freespace as a decimal.\nhost - host to check.\nuser - username to login to host with.\npassword - password for user.\n\nResponses\:\nsuccess - Diagnostic successful.\nfailure - something went wrong.\n</pre>    
+4a8655be-d088-4ffa-a015-f959ead68950.e36ee48c-38df-48f6-8968-c598b5fd1589.prompt=Enter a value for user
+4a8655be-d088-4ffa-a015-f959ead68950.efcfaa77-af4c-4012-a58d-652e0738b9f8.transition.description=The OS is Windows 2000.
+4a8655be-d088-4ffa-a015-f959ead68950.f1afec26-a4c6-4395-97db-822fa7349d6a.prompt=Enter a value for host
+4a8655be-d088-4ffa-a015-f959ead68950.f2027434-5146-4b68-9fa6-4f9580a368c2.prompt=Enter a value for password
+]]></descriptionCdata>
+  <annotation>4a8655be-d088-4ffa-a015-f959ead68950.description</annotation>
+  <name>Filesystem Diagnostic 2</name>
+  <categories>
+    <category>
+      <refId>52a35ef3-32cc-4523-ae68-45de1dd8efdb</refId>
+      <refName>Windows OS</refName>
+    </category>
+  </categories>
+  <inputs>
+    <userInputBinding id="d90e0a3d-0566-4be1-a245-e5b150886a5f">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>diagnostic so far</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="90835e64-d0fd-4225-90d0-befab617f677">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>freespace threshold</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>.1</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="fdd94673-e26c-4c5d-997c-41829f211547">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>host</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="03373592-2bd5-44ac-94a8-2c6eae11cc58">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>user</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="bee93a54-5ae7-4e36-b5c1-c1a0b47b9ced">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>false</isPersisted>
+      <inputSymbol>password</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="ed29105d-fa6c-482a-98a1-04dc0521e659">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>false</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="181eaab4-c6a0-4ab0-807e-27e57055ddbd">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="6d27a4a4-400e-479a-a1f8-e9e4a83160e2">
+    <annotation></annotation>
+    <name></name>
+    <fieldName>Value</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="155e487b-dd8a-42fa-9731-8136277a1c27">
+    <baseIcon>harddisk.png</baseIcon>
+    <basePath>Operating System/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="f0667daf-d1f3-49b4-9653-5b4c7ff3e376">
+        <baseIcon>diagnose.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <callouts/>
+  <checkPointFlow>true</checkPointFlow>
+  <compatibleRuntimeContext>true</compatibleRuntimeContext>
+  <historyCheckPointFlow>true</historyCheckPointFlow>
+  <steps>
+    <step id="1059da3c-46a8-4a71-99f3-1e9cdc230354">
+      <annotation>4a8655be-d088-4ffa-a015-f959ead68950.1059da3c-46a8-4a71-99f3-1e9cdc230354.description</annotation>
+      <name>Operating System Detector</name>
+      <bounds>
+        <x>0.0</x>
+        <y>0.0</y>
+      </bounds>
+      <layer>2</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <bindings>
+        <userInputBinding id="b178dc75-f4f6-49ec-9ab5-cce237c6dce1">
+          <annotation></annotation>
+          <fromContextKey>host</fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>host</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <record>false</record>
+          <prompt>4a8655be-d088-4ffa-a015-f959ead68950.b178dc75-f4f6-49ec-9ab5-cce237c6dce1.prompt</prompt>
+          <isMultiSelect>false</isMultiSelect>
+          <sourceDelimiter>|</sourceDelimiter>
+        </userInputBinding>
+        <userInputBinding id="947c20ff-16b4-4451-bd02-42d35f20ef40">
+          <annotation></annotation>
+          <fromContextKey>user</fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>username</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <record>false</record>
+          <prompt>4a8655be-d088-4ffa-a015-f959ead68950.947c20ff-16b4-4451-bd02-42d35f20ef40.prompt</prompt>
+          <isMultiSelect>false</isMultiSelect>
+          <sourceDelimiter>|</sourceDelimiter>
+        </userInputBinding>
+        <userInputBinding id="8c5509c4-47ca-4186-8f60-5a7a26b946e1">
+          <annotation></annotation>
+          <fromContextKey>password</fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>ENCRYPTED</inputType>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>false</isPersisted>
+          <inputSymbol>password</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <record>false</record>
+          <prompt>4a8655be-d088-4ffa-a015-f959ead68950.8c5509c4-47ca-4186-8f60-5a7a26b946e1.prompt</prompt>
+          <isMultiSelect>false</isMultiSelect>
+          <sourceDelimiter>|</sourceDelimiter>
+        </userInputBinding>
+      </bindings>
+      <transitions>
+        <transition id="a7558f07-e507-4e8b-a33c-93a6ba8f958e">
+          <annotation>4a8655be-d088-4ffa-a015-f959ead68950.a7558f07-e507-4e8b-a33c-93a6ba8f958e.transition.description</annotation>
+          <name>failure</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>failure</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>454015eb-2369-4697-9121-f9717f6ab35a</refId>
+          </destination>
+          <source>
+            <refId>1059da3c-46a8-4a71-99f3-1e9cdc230354</refId>
+          </source>
+          <positions>
+            <point>
+              <x>48.24390243902439</x>
+              <y>66.0</y>
+            </point>
+            <point>
+              <x>48.29126213592233</x>
+              <y>236.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>623.5306024224577</x>
+            <y>-0.7265673688328871</y>
+          </labelPosition>
+        </transition>
+        <transition id="c4f66519-d53c-4513-a8f9-c0bb15e80ab6">
+          <annotation>4a8655be-d088-4ffa-a015-f959ead68950.c4f66519-d53c-4513-a8f9-c0bb15e80ab6.transition.description</annotation>
+          <name>linux</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>linux</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>454015eb-2369-4697-9121-f9717f6ab35a</refId>
+          </destination>
+          <source>
+            <refId>1059da3c-46a8-4a71-99f3-1e9cdc230354</refId>
+          </source>
+          <positions>
+            <point>
+              <x>102.82142857142857</x>
+              <y>76.0</y>
+            </point>
+            <point>
+              <x>54.28378378378378</x>
+              <y>336.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>458.11285448162226</x>
+            <y>0.5958283369212856</y>
+          </labelPosition>
+        </transition>
+        <transition id="5fffdaf8-69cb-43a8-a6da-528e86b5b636">
+          <annotation>4a8655be-d088-4ffa-a015-f959ead68950.5fffdaf8-69cb-43a8-a6da-528e86b5b636.transition.description</annotation>
+          <name>solaris</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>solaris</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>454015eb-2369-4697-9121-f9717f6ab35a</refId>
+          </destination>
+          <source>
+            <refId>1059da3c-46a8-4a71-99f3-1e9cdc230354</refId>
+          </source>
+          <positions>
+            <point>
+              <x>48.24390243902439</x>
+              <y>66.0</y>
+            </point>
+            <point>
+              <x>48.29126213592233</x>
+              <y>236.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>535.2953151527877</x>
+            <y>-0.7307461654558378</y>
+          </labelPosition>
+        </transition>
+        <transition id="2d4ba026-3c81-4d49-91a4-7d908106ae9e">
+          <annotation>4a8655be-d088-4ffa-a015-f959ead68950.2d4ba026-3c81-4d49-91a4-7d908106ae9e.transition.description</annotation>
+          <name>unknown unix</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>unknown unix</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>454015eb-2369-4697-9121-f9717f6ab35a</refId>
+          </destination>
+          <source>
+            <refId>1059da3c-46a8-4a71-99f3-1e9cdc230354</refId>
+          </source>
+          <positions>
+            <point>
+              <x>155.62237762237763</x>
+              <y>126.0</y>
+            </point>
+            <point>
+              <x>62.87804878048781</x>
+              <y>336.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>394.7136672316691</x>
+            <y>2.202676875770318</y>
+          </labelPosition>
+        </transition>
+        <transition id="20be5d52-e51e-4727-8d36-c842151bd156">
+          <annotation>4a8655be-d088-4ffa-a015-f959ead68950.20be5d52-e51e-4727-8d36-c842151bd156.transition.description</annotation>
+          <name>windows 2003</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>windows 2003</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>5a58b6fd-f033-467c-955e-9cee41264757</refId>
+          </destination>
+          <source>
+            <refId>1059da3c-46a8-4a71-99f3-1e9cdc230354</refId>
+          </source>
+          <positions>
+            <point>
+              <x>152.35897435897436</x>
+              <y>86.0</y>
+            </point>
+            <point>
+              <x>230.5806451612903</x>
+              <y>236.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>512.1569659570335</x>
+            <y>-1.7810848468629463</y>
+          </labelPosition>
+        </transition>
+        <transition id="1872d6cf-bfc4-45e9-b800-72bcd5fa2d8b">
+          <annotation>4a8655be-d088-4ffa-a015-f959ead68950.1872d6cf-bfc4-45e9-b800-72bcd5fa2d8b.transition.description</annotation>
+          <name>windows xp</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>windows xp</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>5a58b6fd-f033-467c-955e-9cee41264757</refId>
+          </destination>
+          <source>
+            <refId>1059da3c-46a8-4a71-99f3-1e9cdc230354</refId>
+          </source>
+          <positions>
+            <point>
+              <x>71.85826771653544</x>
+              <y>66.0</y>
+            </point>
+            <point>
+              <x>219.16504854368932</x>
+              <y>236.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>599.7429895001783</x>
+            <y>1.593755614975565</y>
+          </labelPosition>
+        </transition>
+        <transition id="efcfaa77-af4c-4012-a58d-652e0738b9f8">
+          <annotation>4a8655be-d088-4ffa-a015-f959ead68950.efcfaa77-af4c-4012-a58d-652e0738b9f8.transition.description</annotation>
+          <name>windows 2000</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>windows 2000</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>df7167a8-c178-4ec6-b515-37df56a7ad9c</refId>
+          </destination>
+          <source>
+            <refId>1059da3c-46a8-4a71-99f3-1e9cdc230354</refId>
+          </source>
+          <positions>
+            <point>
+              <x>79.0</x>
+              <y>40.0</y>
+            </point>
+            <point>
+              <x>209.0</x>
+              <y>38.829787234042556</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>500.0979640486003</x>
+            <y>-1.4148362964700465</y>
+          </labelPosition>
+        </transition>
+        <transition id="c8e446bb-fabb-4ce3-9787-dfe0fc375a62">
+          <annotation>4a8655be-d088-4ffa-a015-f959ead68950.c8e446bb-fabb-4ce3-9787-dfe0fc375a62.transition.description</annotation>
+          <name>unknown windows</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>unknown windows</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>5a58b6fd-f033-467c-955e-9cee41264757</refId>
+          </destination>
+          <source>
+            <refId>1059da3c-46a8-4a71-99f3-1e9cdc230354</refId>
+          </source>
+          <positions>
+            <point>
+              <x>71.85826771653544</x>
+              <y>66.0</y>
+            </point>
+            <point>
+              <x>219.16504854368932</x>
+              <y>236.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>430.1985308831514</x>
+            <y>-6.312388165680345</y>
+          </labelPosition>
+        </transition>
+      </transitions>
+      <properties/>
+      <opRef>
+        <refId>b286c893-dcfb-4f23-b5c9-c8c9d3256ef5</refId>
+      </opRef>
+      <assignments/>
+      <throttleSize>0</throttleSize>
+    </step>
+    <returnStep id="d26444d1-d271-461a-a463-19277c2de45b">
+      <annotation></annotation>
+      <name>Resolved : success</name>
+      <bounds>
+        <x>190.0</x>
+        <y>370.0</y>
+      </bounds>
+      <layer>17</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <bindings/>
+      <transitions>
+        <transition id="c5d6d2c8-7603-4b26-b9d8-a1526121145d">
+          <annotation></annotation>
+          <name>return</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>success</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>d26444d1-d271-461a-a463-19277c2de45b</refId>
+          </destination>
+          <source>
+            <refId>d26444d1-d271-461a-a463-19277c2de45b</refId>
+          </source>
+          <positions/>
+        </transition>
+      </transitions>
+      <properties/>
+      <returnStepType>RESOLVED</returnStepType>
+      <assignments/>
+    </returnStep>
+    <returnStep id="4799039a-db06-4038-891a-e083d5291715">
+      <annotation></annotation>
+      <name>Error : failure</name>
+      <bounds>
+        <x>360.0</x>
+        <y>230.0</y>
+      </bounds>
+      <layer>15</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <bindings/>
+      <transitions>
+        <transition id="d7136b5f-ea0f-470f-b5be-6218e7765959">
+          <annotation></annotation>
+          <name>return</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>failure</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>4799039a-db06-4038-891a-e083d5291715</refId>
+          </destination>
+          <source>
+            <refId>4799039a-db06-4038-891a-e083d5291715</refId>
+          </source>
+          <positions/>
+        </transition>
+      </transitions>
+      <properties/>
+      <returnStepType>ERROR</returnStepType>
+      <assignments/>
+    </returnStep>
+    <returnStep id="bf22e0d1-e953-408d-a846-9224b5655847">
+      <annotation></annotation>
+      <name>Resolved : success</name>
+      <bounds>
+        <x>360.0</x>
+        <y>0.0</y>
+      </bounds>
+      <layer>1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <bindings/>
+      <transitions>
+        <transition id="87c5bc6b-6851-42c2-a230-bb0f02f2f300">
+          <annotation></annotation>
+          <name>return</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>success</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>bf22e0d1-e953-408d-a846-9224b5655847</refId>
+          </destination>
+          <source>
+            <refId>bf22e0d1-e953-408d-a846-9224b5655847</refId>
+          </source>
+          <positions/>
+        </transition>
+      </transitions>
+      <properties/>
+      <returnStepType>RESOLVED</returnStepType>
+      <assignments/>
+    </returnStep>
+    <step id="df7167a8-c178-4ec6-b515-37df56a7ad9c">
+      <annotation>4a8655be-d088-4ffa-a015-f959ead68950.df7167a8-c178-4ec6-b515-37df56a7ad9c.description</annotation>
+      <name>Filesystem Diagnostic W2K and Before</name>
+      <bounds>
+        <x>190.0</x>
+        <y>0.0</y>
+      </bounds>
+      <layer>12</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <bindings>
+        <staticBinding id="1c6f54ef-f124-453e-b935-fff66a334915">
+          <annotation></annotation>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>diagnostic so far</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="b7c6b472-8844-4aba-b3f8-8b02ee923620">
+          <annotation></annotation>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>freespace threshold</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value>.1</value>
+          <record>false</record>
+        </staticBinding>
+        <userInputBinding id="19dbc034-0e41-4a7f-89f0-f0be56aac49c">
+          <annotation></annotation>
+          <fromContextKey>host</fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>host</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <record>false</record>
+          <prompt>4a8655be-d088-4ffa-a015-f959ead68950.19dbc034-0e41-4a7f-89f0-f0be56aac49c.prompt</prompt>
+          <isMultiSelect>false</isMultiSelect>
+          <sourceDelimiter>|</sourceDelimiter>
+        </userInputBinding>
+        <userInputBinding id="dbadfc95-9ebe-4dc5-83e1-6cc4ad0affc3">
+          <annotation></annotation>
+          <fromContextKey>user</fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>user</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <record>false</record>
+          <prompt>4a8655be-d088-4ffa-a015-f959ead68950.dbadfc95-9ebe-4dc5-83e1-6cc4ad0affc3.prompt</prompt>
+          <isMultiSelect>false</isMultiSelect>
+          <sourceDelimiter>|</sourceDelimiter>
+        </userInputBinding>
+        <userInputBinding id="f2027434-5146-4b68-9fa6-4f9580a368c2">
+          <annotation></annotation>
+          <fromContextKey>password</fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>ENCRYPTED</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>false</isPersisted>
+          <inputSymbol>password</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <record>false</record>
+          <prompt>4a8655be-d088-4ffa-a015-f959ead68950.f2027434-5146-4b68-9fa6-4f9580a368c2.prompt</prompt>
+          <isMultiSelect>false</isMultiSelect>
+          <sourceDelimiter>|</sourceDelimiter>
+        </userInputBinding>
+      </bindings>
+      <transitions>
+        <transition id="5aa34162-e659-4488-9de2-5ed7e02e9021">
+          <annotation></annotation>
+          <name>success</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>success</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>bf22e0d1-e953-408d-a846-9224b5655847</refId>
+          </destination>
+          <source>
+            <refId>df7167a8-c178-4ec6-b515-37df56a7ad9c</refId>
+          </source>
+          <positions>
+            <point>
+              <x>269.0</x>
+              <y>45.993872367352196</y>
+            </point>
+            <point>
+              <x>410.0</x>
+              <y>50.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>333.0</x>
+            <y>0.0</y>
+          </labelPosition>
+        </transition>
+        <transition id="d8b88f33-4d36-40eb-bba8-4bc60f5dfe57">
+          <annotation></annotation>
+          <name>failure</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>failure</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>4799039a-db06-4038-891a-e083d5291715</refId>
+          </destination>
+          <source>
+            <refId>df7167a8-c178-4ec6-b515-37df56a7ad9c</refId>
+          </source>
+          <positions>
+            <point>
+              <x>209.0</x>
+              <y>33.93121350394073</y>
+            </point>
+            <point>
+              <x>410.0</x>
+              <y>281.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>333.0</x>
+            <y>0.0</y>
+          </labelPosition>
+        </transition>
+      </transitions>
+      <properties/>
+      <opRef>
+        <refId>d16194db-191e-42a5-a78c-728b254440aa</refId>
+      </opRef>
+      <assignments/>
+      <throttleSize>0</throttleSize>
+    </step>
+    <step id="5a58b6fd-f033-467c-955e-9cee41264757">
+      <annotation>4a8655be-d088-4ffa-a015-f959ead68950.5a58b6fd-f033-467c-955e-9cee41264757.description</annotation>
+      <name>Filesystem Diagnostic After W2K</name>
+      <bounds>
+        <x>190.0</x>
+        <y>230.0</y>
+      </bounds>
+      <layer>7</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <bindings>
+        <staticBinding id="4b7e69aa-5a39-4bd9-bc8f-53c08e11218f">
+          <annotation></annotation>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>diagnostic so far</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="9b9697ef-9e88-4193-a450-3d4decf3ab52">
+          <annotation></annotation>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>freespace threshold</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value>.1</value>
+          <record>false</record>
+        </staticBinding>
+        <userInputBinding id="f1afec26-a4c6-4395-97db-822fa7349d6a">
+          <annotation></annotation>
+          <fromContextKey>host</fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>host</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <record>false</record>
+          <prompt>4a8655be-d088-4ffa-a015-f959ead68950.f1afec26-a4c6-4395-97db-822fa7349d6a.prompt</prompt>
+          <isMultiSelect>false</isMultiSelect>
+          <sourceDelimiter>|</sourceDelimiter>
+        </userInputBinding>
+        <userInputBinding id="e36ee48c-38df-48f6-8968-c598b5fd1589">
+          <annotation></annotation>
+          <fromContextKey>user</fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>user</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <record>false</record>
+          <prompt>4a8655be-d088-4ffa-a015-f959ead68950.e36ee48c-38df-48f6-8968-c598b5fd1589.prompt</prompt>
+          <isMultiSelect>false</isMultiSelect>
+          <sourceDelimiter>|</sourceDelimiter>
+        </userInputBinding>
+        <userInputBinding id="6a6fe33e-afb3-4c2f-9de6-7246a839c199">
+          <annotation></annotation>
+          <fromContextKey>password</fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>ENCRYPTED</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>password</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <record>false</record>
+          <prompt>4a8655be-d088-4ffa-a015-f959ead68950.6a6fe33e-afb3-4c2f-9de6-7246a839c199.prompt</prompt>
+          <isMultiSelect>false</isMultiSelect>
+          <sourceDelimiter>|</sourceDelimiter>
+        </userInputBinding>
+      </bindings>
+      <transitions>
+        <transition id="ec08421b-75a3-4501-a6ae-693590b2123e">
+          <annotation></annotation>
+          <name>failure</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>failure</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>454015eb-2369-4697-9121-f9717f6ab35a</refId>
+          </destination>
+          <source>
+            <refId>5a58b6fd-f033-467c-955e-9cee41264757</refId>
+          </source>
+          <positions>
+            <point>
+              <x>219.0</x>
+              <y>353.93121350394074</y>
+            </point>
+            <point>
+              <x>50.0</x>
+              <y>380.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>333.0</x>
+            <y>0.0</y>
+          </labelPosition>
+        </transition>
+        <transition id="588a9e91-e073-4dd3-92e8-4c4158e62635">
+          <annotation></annotation>
+          <name>success</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>success</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>d26444d1-d271-461a-a463-19277c2de45b</refId>
+          </destination>
+          <source>
+            <refId>5a58b6fd-f033-467c-955e-9cee41264757</refId>
+          </source>
+          <positions>
+            <point>
+              <x>279.0</x>
+              <y>275.9938723673522</y>
+            </point>
+            <point>
+              <x>250.0</x>
+              <y>420.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>333.0</x>
+            <y>0.0</y>
+          </labelPosition>
+        </transition>
+      </transitions>
+      <properties/>
+      <opRef>
+        <refId>bc214a9e-298e-447a-a558-b76573293e38</refId>
+      </opRef>
+      <assignments/>
+      <throttleSize>0</throttleSize>
+    </step>
+    <returnStep id="454015eb-2369-4697-9121-f9717f6ab35a">
+      <annotation></annotation>
+      <name>Error : failure</name>
+      <bounds>
+        <x>0.0</x>
+        <y>230.0</y>
+      </bounds>
+      <layer>0</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <bindings/>
+      <transitions>
+        <transition id="59e2e0d6-f49f-4de0-8468-c0a671051621">
+          <annotation></annotation>
+          <name>return</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>failure</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>454015eb-2369-4697-9121-f9717f6ab35a</refId>
+          </destination>
+          <source>
+            <refId>454015eb-2369-4697-9121-f9717f6ab35a</refId>
+          </source>
+          <positions/>
+        </transition>
+      </transitions>
+      <properties/>
+      <returnStepType>ERROR</returnStepType>
+      <assignments/>
+    </returnStep>
+  </steps>
+  <startSteps>1059da3c-46a8-4a71-99f3-1e9cdc230354</startSteps>
+</flow>

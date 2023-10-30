@@ -1,0 +1,766 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow id="cc52bb5b-ba4b-4948-b34b-20933ae1b2e1">
+  <descriptionCdata><![CDATA[cc52bb5b-ba4b-4948-b34b-20933ae1b2e1.5498a047-1cba-45c2-a770-9edbd8079f7c.description=<pre>\nRuns a query against WMI and returns all the properties in XML format.\n\nNOTE\: use WMIQueryFormat on the returned XML to convert to some other format.\n\nInputs\:\nhost - host name or ip address\nnameSpace - namespace to run query against (e.x. root\\cimv2)\nquery - the query to execute (e.x. select * from win32_service)\nuser - user to login as\npassword - password for user\n\nResponses\:\nsuccess - the query returned successfully\nfailure - unable to execute query\n</pre>
+cc52bb5b-ba4b-4948-b34b-20933ae1b2e1.description=<pre> Retrieves assorted information about processes that are running on a specified host.\nWMI query does not work in Windows 2000.\n\nInputs\:\n    host - the host to query.\n    username - the username for host.\n    password - the password for username.\n\nExtra Results\:\n    fullTable - A table containing all gathered data. Rows are | delimited, columns are , delimited.\n    fullHeaders - A , delimited list of headers for fullTable.\n    numericalTable - A table containing all numerical data, and the display names of the processes. Rows are | delimited, columns are , delimited.\n    numericalHeaders - A , delimited list containing the headers of numericalTable.\n\nResponses\:\n    success - The operation completed as stated in the description.\n    failure - The operation completed unsuccessfully.\n\nNotes\:\n \nPrerequisites\:\n1. Please make sure that the following services are running on any Windows WMI target host\: \n    1.1 Server\n    1.2 Remote Registry\n\n2. In order to run Get Process Counters flow against a target host with Windows Server 2008 R2 and Windows 7 operating systems you must execute the following steps\: \n    2.1. Launch 'regedit.exe' as 'Administrator'.\n    2.2. Find the following registry key\: 'HKEY_CLASSES_ROOT\\CLSID\\76A64158-CB41-11d1-8B02-00600806D9B6' corresponding to the WBEM Scripting Locator.\n    2.3. Right click and select 'Permissions'.\n    2.4. Click the 'Advanced' button.\n    2.5. Select the tab labeled 'Owner'.\n    2.6. Change the owner to 'Administrator'.\n    2.7. Click the 'Ok' button.\n    2.8. Now highlight the 'Administrators' group and grant Full Control.\n    2.9. Click 'Ok'.\n</pre>
+cc52bb5b-ba4b-4948-b34b-20933ae1b2e1.e8464b3f-5976-4138-8853-ac2d66058b08.prompt=HostName\:
+]]></descriptionCdata>
+  <annotation>cc52bb5b-ba4b-4948-b34b-20933ae1b2e1.description</annotation>
+  <name>Get Process Counters</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="42dce6b6-db85-4f79-aaef-6602dfaf92cf">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>host</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="665f2415-0e8a-4a4b-bec7-ca4065da454e">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>username</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="d28b8893-3d78-41b4-b28f-fbd4be77c8a9">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>password</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="e98886d1-8a69-4ef2-ae4b-6a15212db7a9">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>false</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="ae5ad03c-010d-46a6-839c-0e556aa2fede">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="3006c601-1b16-44e4-aeb0-0612978f738d">
+    <annotation>Result created from deprecated 9.x feature</annotation>
+    <name>FailureMessage</name>
+    <fieldName>Automatically Created Result</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="3513af48-8100-4350-a42c-7c15b2eba1cf">
+    <baseIcon>flow.png</baseIcon>
+    <basePath>System</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <callouts/>
+  <checkPointFlow>true</checkPointFlow>
+  <compatibleRuntimeContext>true</compatibleRuntimeContext>
+  <historyCheckPointFlow>true</historyCheckPointFlow>
+  <steps>
+    <step id="5498a047-1cba-45c2-a770-9edbd8079f7c">
+      <annotation>cc52bb5b-ba4b-4948-b34b-20933ae1b2e1.5498a047-1cba-45c2-a770-9edbd8079f7c.description</annotation>
+      <name>WMIQuery</name>
+      <bounds>
+        <x>0.0</x>
+        <y>0.0</y>
+      </bounds>
+      <layer>1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>true</scriptResultStep>
+      <resultContextKey></resultContextKey>
+      <userPrompt></userPrompt>
+      <bindings>
+        <userInputBinding id="e8464b3f-5976-4138-8853-ac2d66058b08">
+          <annotation></annotation>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>host</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <record>false</record>
+          <prompt>cc52bb5b-ba4b-4948-b34b-20933ae1b2e1.e8464b3f-5976-4138-8853-ac2d66058b08.prompt</prompt>
+          <isMultiSelect>false</isMultiSelect>
+          <sourceDelimiter>|</sourceDelimiter>
+        </userInputBinding>
+        <staticBinding id="b102a130-6299-4d2a-883c-79ce2e81bcd0">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>username</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="bc6b22ca-fd95-4b71-8339-37471d619f46">
+          <annotation></annotation>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>ENCRYPTED</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>password</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="4523f396-874e-4953-9b5c-d7d2b8ea4afe">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>namespace</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value>root\cimv2</value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="f95f1091-770b-434a-a41a-e698c6e03b23">
+          <annotation></annotation>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>query</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value>Select * from Win32_PerfFormattedData_PerfProc_Process</value>
+          <record>false</record>
+        </staticBinding>
+      </bindings>
+      <transitions>
+        <transition id="6893f94b-4bf0-4e0d-b0ac-b7af8406af4b">
+          <annotation></annotation>
+          <name>failure</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>failure</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>c2bd05d4-d705-473e-83da-66f6f9e4df73</refId>
+          </destination>
+          <source>
+            <refId>5498a047-1cba-45c2-a770-9edbd8079f7c</refId>
+          </source>
+          <positions>
+            <point>
+              <x>120.0</x>
+              <y>127.0</y>
+            </point>
+            <point>
+              <x>120.0</x>
+              <y>217.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>522.2222222222222</x>
+            <y>21.0</y>
+          </labelPosition>
+        </transition>
+        <transition id="2d211ed3-ad72-49cb-930a-861b98982bac">
+          <annotation></annotation>
+          <name>success</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>success</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>3471e2af-a5db-49d3-92f6-0a9ebc9edc1a</refId>
+          </destination>
+          <source>
+            <refId>5498a047-1cba-45c2-a770-9edbd8079f7c</refId>
+          </source>
+          <positions>
+            <point>
+              <x>141.0</x>
+              <y>110.28571428571429</y>
+            </point>
+            <point>
+              <x>360.0</x>
+              <y>270.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>333.0</x>
+            <y>0.0</y>
+          </labelPosition>
+        </transition>
+      </transitions>
+      <properties/>
+      <opRef>
+        <refId>0a31237b-3407-4908-a4cd-cf7e06b3c736</refId>
+      </opRef>
+      <assignments>
+        <flowVariableAssignment id="9b500767-0136-43fc-ae87-f391ada49e1d">
+          <annotation></annotation>
+          <name>assignment</name>
+          <action>OVERWRITE</action>
+          <assignmentTargetType>FLOW_OUTPUT_FIELD</assignmentTargetType>
+          <contextKey>fullTable</contextKey>
+          <expression id="e69df15b-92b6-486a-b3ee-3cca245a0eb1">
+            <annotation></annotation>
+            <name>Result Field: returnResult</name>
+            <fieldName>returnResult</fieldName>
+            <sourceType>RAWRESULT</sourceType>
+            <filters>
+              <replaceAllFilter id="60ac7ae1-7021-44f7-af16-d235a5dcd4ac">
+                <annotation></annotation>
+                <name>Replace All</name>
+                <ignoreCase>false</ignoreCase>
+                <searchString>|</searchString>
+                <replaceString>_</replaceString>
+                <replaceType>ALL</replaceType>
+              </replaceAllFilter>
+              <replaceAllFilter id="f0e3b59b-2d74-4607-8d10-ae5077f27e7a">
+                <annotation></annotation>
+                <name>Replace All</name>
+                <ignoreCase>false</ignoreCase>
+                <searchString>&lt;Value /&gt;</searchString>
+                <replaceString>&lt;Value&gt;&lt;/Value&gt;</replaceString>
+                <replaceType>ALL</replaceType>
+              </replaceAllFilter>
+              <replaceAllFilter id="cf5df6db-883b-4125-ad64-2dcd92a25f67">
+                <annotation></annotation>
+                <name>Replace All</name>
+                <ignoreCase>false</ignoreCase>
+                <searchString>&lt;/result&gt;</searchString>
+                <replaceString>|</replaceString>
+                <replaceType>ALL</replaceType>
+              </replaceAllFilter>
+              <regexFilter id="dab7f09c-ec93-4601-9dc8-ab9bc7097571">
+                <annotation></annotation>
+                <name>RegularExpression</name>
+                <expression>(&lt;Value&gt;.*?&lt;/Value&gt;)|(\|)</expression>
+                <ignoreCase>false</ignoreCase>
+                <regType>JAVA</regType>
+                <entireString>false</entireString>
+                <multiLine>true</multiLine>
+              </regexFilter>
+              <replaceAllFilter id="74d3f57b-b9bf-4a5b-bd46-a7f1beaf241a">
+                <annotation></annotation>
+                <name>Replace All</name>
+                <ignoreCase>false</ignoreCase>
+                <searchString>&lt;Value&gt;</searchString>
+                <replaceType>ALL</replaceType>
+              </replaceAllFilter>
+              <replaceAllFilter id="c8f7996a-058a-47ab-b035-f588a2303734">
+                <annotation></annotation>
+                <name>Replace All</name>
+                <ignoreCase>false</ignoreCase>
+                <searchString>&lt;/Value&gt;</searchString>
+                <replaceType>ALL</replaceType>
+              </replaceAllFilter>
+              <replaceAllFilter id="9bd92345-9d6f-4c25-afdb-60a2d0565956">
+                <annotation></annotation>
+                <name>Replace All</name>
+                <ignoreCase>false</ignoreCase>
+                <searchString>
+|
+</searchString>
+                <replaceString>|</replaceString>
+                <replaceType>ALL</replaceType>
+              </replaceAllFilter>
+              <replaceAllFilter id="44533a05-0b75-4774-9e40-e19c498d9954">
+                <annotation></annotation>
+                <name>Replace All</name>
+                <ignoreCase>false</ignoreCase>
+                <searchString>
+</searchString>
+                <replaceString>,</replaceString>
+                <replaceType>ALL</replaceType>
+              </replaceAllFilter>
+              <regexFilter id="81781e7d-3e0f-4378-ab91-564c42a9e0fb">
+                <annotation></annotation>
+                <name>RegularExpression</name>
+                <expression>.*[^,|]</expression>
+                <ignoreCase>false</ignoreCase>
+                <regType>JAVA</regType>
+                <entireString>true</entireString>
+                <multiLine>false</multiLine>
+              </regexFilter>
+            </filters>
+          </expression>
+        </flowVariableAssignment>
+        <flowVariableAssignment id="3e539963-4acb-49f0-9801-cf820136c317">
+          <annotation></annotation>
+          <name>assignment</name>
+          <action>OVERWRITE</action>
+          <assignmentTargetType>FLOW_OUTPUT_FIELD</assignmentTargetType>
+          <contextKey>numericalHeaders</contextKey>
+          <expression id="b7a2d9ce-975b-48af-a41a-2c2474c2ad2b">
+            <annotation></annotation>
+            <name>Result Field: returnResult</name>
+            <fieldName>returnResult</fieldName>
+            <sourceType>RAWRESULT</sourceType>
+            <filters>
+              <stripTrailingFilter id="25a91715-88c1-45d4-9333-34b3d295c85f">
+                <annotation></annotation>
+                <name>Strip</name>
+                <strip>&lt;/result&gt;</strip>
+                <type>ALL_CHARACTERS_AFTER_AND_INCLUDING</type>
+              </stripTrailingFilter>
+              <replaceAllFilter id="3f8c841e-a1c3-43af-82ea-84474d75ac72">
+                <annotation></annotation>
+                <name>Replace All</name>
+                <ignoreCase>false</ignoreCase>
+                <searchString>|</searchString>
+                <replaceString>_</replaceString>
+                <replaceType>ALL</replaceType>
+              </replaceAllFilter>
+              <replaceAllFilter id="cf4e8b05-aaa1-4b81-8d69-b5b27da57345">
+                <annotation></annotation>
+                <name>Replace All</name>
+                <ignoreCase>false</ignoreCase>
+                <searchString>&lt;Value /&gt;</searchString>
+                <replaceString>&lt;Value&gt;0&lt;/Value&gt;</replaceString>
+                <replaceType>ALL</replaceType>
+              </replaceAllFilter>
+              <regexFilter id="d7147ac1-a89f-4511-aa6b-75afa794fb99">
+                <annotation></annotation>
+                <name>RegularExpression</name>
+                <expression>(&lt;Name&gt;.*&lt;/Name&gt;)|(&lt;Value&gt;.*&lt;/Value&gt;)|(&lt;Type&gt;.*&lt;/Type&gt;)|(&lt;property&gt;)</expression>
+                <ignoreCase>false</ignoreCase>
+                <regType>JAVA</regType>
+                <entireString>false</entireString>
+                <multiLine>true</multiLine>
+              </regexFilter>
+              <replaceAllFilter id="27a10fe8-c0fa-46fc-8938-05b59ce353cf">
+                <annotation></annotation>
+                <name>Replace All</name>
+                <ignoreCase>false</ignoreCase>
+                <searchString>
+</searchString>
+                <replaceType>ALL</replaceType>
+              </replaceAllFilter>
+              <replaceAllFilter id="6ccc857d-3903-41c8-aac0-1efd2082dccc">
+                <annotation></annotation>
+                <name>Replace All</name>
+                <ignoreCase>false</ignoreCase>
+                <searchString>&lt;property&gt;</searchString>
+                <replaceString>
+</replaceString>
+                <replaceType>ALL</replaceType>
+              </replaceAllFilter>
+              <regexFilter id="ef9b1e61-4e5f-4861-9d87-80246c16f9a1">
+                <annotation></annotation>
+                <name>RegularExpression</name>
+                <expression>(&lt;Name&gt;.*&lt;/Name&gt;&lt;Type&gt;((UInt16)|(UInt32)|(UInt64)|(UInt8)|(real64)|(real32)|(real16)|(SInt8)|(SInt16)|(SInt32)|(SInt64))&lt;/Type&gt;&lt;Value&gt;.*&lt;/Value&gt;)|(&lt;Name&gt;Caption&lt;/Name&gt;.*)</expression>
+                <ignoreCase>false</ignoreCase>
+                <regType>JAVA</regType>
+                <entireString>false</entireString>
+                <multiLine>true</multiLine>
+              </regexFilter>
+              <regexFilter id="43c8a7f8-c510-4282-8cb0-07367a5dc456">
+                <annotation></annotation>
+                <name>RegularExpression</name>
+                <expression>&lt;Name&gt;.*&lt;/Name&gt;</expression>
+                <ignoreCase>false</ignoreCase>
+                <regType>JAVA</regType>
+                <entireString>false</entireString>
+                <multiLine>true</multiLine>
+              </regexFilter>
+              <replaceAllFilter id="dd3d7d6d-af32-4cbf-b8da-d209342f3676">
+                <annotation></annotation>
+                <name>Replace All</name>
+                <ignoreCase>false</ignoreCase>
+                <searchString>&lt;Name&gt;</searchString>
+                <replaceType>ALL</replaceType>
+              </replaceAllFilter>
+              <replaceAllFilter id="dfdbb6d3-8c82-43e1-8f50-e3e42beb0434">
+                <annotation></annotation>
+                <name>Replace All</name>
+                <ignoreCase>false</ignoreCase>
+                <searchString>&lt;/Name&gt;</searchString>
+                <replaceType>ALL</replaceType>
+              </replaceAllFilter>
+              <replaceAllFilter id="dec7881a-d72c-4197-afaf-b894c69a99be">
+                <annotation></annotation>
+                <name>Replace All</name>
+                <ignoreCase>false</ignoreCase>
+                <searchString>
+</searchString>
+                <replaceString>,</replaceString>
+                <replaceType>ALL</replaceType>
+              </replaceAllFilter>
+            </filters>
+          </expression>
+        </flowVariableAssignment>
+        <flowVariableAssignment id="ca826eb4-682b-4da1-becc-17ca4e1334d1">
+          <annotation>Automatically created during conversion</annotation>
+          <name>assignment</name>
+          <action>OVERWRITE</action>
+          <assignmentTargetType>FLOW_OUTPUT_FIELD</assignmentTargetType>
+          <contextKey>Automatically Created Result</contextKey>
+          <expression id="0b38ce8e-5845-412a-9b90-babbaf55d38a">
+            <annotation>Automatically created during conversion</annotation>
+            <name>Result Field: Result</name>
+            <fieldName>Result</fieldName>
+            <sourceType>RAWRESULT</sourceType>
+            <filters/>
+          </expression>
+        </flowVariableAssignment>
+        <flowVariableAssignment id="add940bf-7828-4196-93f0-04b06ac97c92">
+          <annotation></annotation>
+          <name>assignment</name>
+          <action>OVERWRITE</action>
+          <assignmentTargetType>FLOW_OUTPUT_FIELD</assignmentTargetType>
+          <contextKey>fullHeaders</contextKey>
+          <expression id="4e83b949-2184-4229-b8ea-187378187ea5">
+            <annotation></annotation>
+            <name>Result Field: returnResult</name>
+            <fieldName>returnResult</fieldName>
+            <sourceType>RAWRESULT</sourceType>
+            <filters>
+              <stripTrailingFilter id="3bd0a2c6-9807-4568-90f5-8e5825f444da">
+                <annotation></annotation>
+                <name>Strip</name>
+                <strip>&lt;/result&gt;</strip>
+                <type>ALL_CHARACTERS_AFTER_AND_INCLUDING</type>
+              </stripTrailingFilter>
+              <replaceAllFilter id="98e7c18f-0224-4eeb-a117-93f4102641d9">
+                <annotation></annotation>
+                <name>Replace All</name>
+                <ignoreCase>false</ignoreCase>
+                <searchString>|</searchString>
+                <replaceString>_</replaceString>
+                <replaceType>ALL</replaceType>
+              </replaceAllFilter>
+              <replaceAllFilter id="a09ac439-996d-4b92-a675-917072863c34">
+                <annotation></annotation>
+                <name>Replace All</name>
+                <ignoreCase>false</ignoreCase>
+                <searchString>&lt;Value /&gt;</searchString>
+                <replaceString>&lt;Value&gt;&lt;/Value&gt;</replaceString>
+                <replaceType>ALL</replaceType>
+              </replaceAllFilter>
+              <regexFilter id="50785cf8-e5d2-4a8e-a8a6-a9448cb9422e">
+                <annotation></annotation>
+                <name>RegularExpression</name>
+                <expression>(&lt;Name&gt;.*?&lt;/Name&gt;)</expression>
+                <ignoreCase>false</ignoreCase>
+                <regType>JAVA</regType>
+                <entireString>false</entireString>
+                <multiLine>true</multiLine>
+              </regexFilter>
+              <replaceAllFilter id="5fb1394c-6165-45f4-b45c-4f552c71470f">
+                <annotation></annotation>
+                <name>Replace All</name>
+                <ignoreCase>false</ignoreCase>
+                <searchString>&lt;Name&gt;</searchString>
+                <replaceType>ALL</replaceType>
+              </replaceAllFilter>
+              <replaceAllFilter id="7ac1de52-862a-42fa-b5a8-526a630889da">
+                <annotation></annotation>
+                <name>Replace All</name>
+                <ignoreCase>false</ignoreCase>
+                <searchString>&lt;/Name&gt;</searchString>
+                <replaceType>ALL</replaceType>
+              </replaceAllFilter>
+              <replaceAllFilter id="cb0d3b49-8707-4727-b137-556d0a5f9d04">
+                <annotation></annotation>
+                <name>Replace All</name>
+                <ignoreCase>false</ignoreCase>
+                <searchString>
+</searchString>
+                <replaceString>,</replaceString>
+                <replaceType>ALL</replaceType>
+              </replaceAllFilter>
+              <regexFilter id="79662b73-04bf-47a3-8fb6-1c16a2326cfc">
+                <annotation></annotation>
+                <name>RegularExpression</name>
+                <expression>.*[^,]</expression>
+                <ignoreCase>false</ignoreCase>
+                <regType>JAVA</regType>
+                <entireString>true</entireString>
+                <multiLine>false</multiLine>
+              </regexFilter>
+            </filters>
+          </expression>
+        </flowVariableAssignment>
+        <flowVariableAssignment id="a9291831-bd84-43dd-a8cb-7b9425612d73">
+          <annotation></annotation>
+          <name>assignment</name>
+          <action>OVERWRITE</action>
+          <assignmentTargetType>FLOW_OUTPUT_FIELD</assignmentTargetType>
+          <contextKey>numericalTable</contextKey>
+          <expression id="cc0239ea-5912-4fc2-8c43-84a4b4667728">
+            <annotation></annotation>
+            <name>Result Field: returnResult</name>
+            <fieldName>returnResult</fieldName>
+            <sourceType>RAWRESULT</sourceType>
+            <filters>
+              <replaceAllFilter id="093166e4-74b9-47a1-adcb-c88a21fd725f">
+                <annotation></annotation>
+                <name>Replace All</name>
+                <ignoreCase>false</ignoreCase>
+                <searchString>|</searchString>
+                <replaceString>_</replaceString>
+                <replaceType>ALL</replaceType>
+              </replaceAllFilter>
+              <replaceAllFilter id="216d8b99-891d-46ca-9a1f-16308f21147f">
+                <annotation></annotation>
+                <name>Replace All</name>
+                <ignoreCase>false</ignoreCase>
+                <searchString>&lt;Value /&gt;</searchString>
+                <replaceString>&lt;Value&gt;0&lt;/Value&gt;</replaceString>
+                <replaceType>ALL</replaceType>
+              </replaceAllFilter>
+              <regexFilter id="2132491d-412c-449b-aa6d-0c587c20859a">
+                <annotation></annotation>
+                <name>RegularExpression</name>
+                <expression>(&lt;Name&gt;.*&lt;/Name&gt;)|(&lt;Value&gt;.*&lt;/Value&gt;)|(&lt;Type&gt;.*&lt;/Type&gt;)|(&lt;property&gt;)|(&lt;/result&gt;)</expression>
+                <ignoreCase>false</ignoreCase>
+                <regType>JAVA</regType>
+                <entireString>false</entireString>
+                <multiLine>true</multiLine>
+              </regexFilter>
+              <replaceAllFilter id="9bc07cb8-8063-4b6c-bc6b-0b7bdf4cbbb7">
+                <annotation></annotation>
+                <name>Replace All</name>
+                <ignoreCase>false</ignoreCase>
+                <searchString>
+</searchString>
+                <replaceType>ALL</replaceType>
+              </replaceAllFilter>
+              <replaceAllFilter id="be8b1133-2db5-49d5-bc2b-a92733f0aa48">
+                <annotation></annotation>
+                <name>Replace All</name>
+                <ignoreCase>false</ignoreCase>
+                <searchString>&lt;property&gt;</searchString>
+                <replaceString>
+</replaceString>
+                <replaceType>ALL</replaceType>
+              </replaceAllFilter>
+              <replaceAllFilter id="a27ec754-4292-4d65-b54c-888a38958d81">
+                <annotation></annotation>
+                <name>Replace All</name>
+                <ignoreCase>false</ignoreCase>
+                <searchString>&lt;/result&gt;</searchString>
+                <replaceString>
+|
+</replaceString>
+                <replaceType>ALL</replaceType>
+              </replaceAllFilter>
+              <regexFilter id="cd1a8134-8f5e-423a-9533-9f478ae54d5d">
+                <annotation></annotation>
+                <name>RegularExpression</name>
+                <expression>(&lt;Name&gt;.*&lt;/Name&gt;&lt;Type&gt;((UInt16)|(UInt32)|(UInt64)|(UInt8)|(real64)|(real32)|(real16)|(SInt8)|(SInt16)|(SInt32)|(SInt64))&lt;/Type&gt;&lt;Value&gt;.*&lt;/Value&gt;)|(&lt;Name&gt;Caption&lt;/Name&gt;.*)|(\|)</expression>
+                <ignoreCase>true</ignoreCase>
+                <regType>JAVA</regType>
+                <entireString>false</entireString>
+                <multiLine>true</multiLine>
+              </regexFilter>
+              <regexFilter id="35cacfaa-cf6f-4448-9266-9e62e8b156d6">
+                <annotation></annotation>
+                <name>RegularExpression</name>
+                <expression>(&lt;Value&gt;.*&lt;/Value&gt;)|(\|)</expression>
+                <ignoreCase>false</ignoreCase>
+                <regType>JAVA</regType>
+                <entireString>false</entireString>
+                <multiLine>true</multiLine>
+              </regexFilter>
+              <replaceAllFilter id="61eaa932-aed5-4d13-9270-8840f5d93e6b">
+                <annotation></annotation>
+                <name>Replace All</name>
+                <ignoreCase>false</ignoreCase>
+                <searchString>
+</searchString>
+                <replaceType>ALL</replaceType>
+              </replaceAllFilter>
+              <replaceAllFilter id="a9121cbc-ab4e-4880-a4d0-738cf4b3500c">
+                <annotation></annotation>
+                <name>Replace All</name>
+                <ignoreCase>false</ignoreCase>
+                <searchString>&lt;/Value&gt;&lt;Value&gt;</searchString>
+                <replaceString>,</replaceString>
+                <replaceType>ALL</replaceType>
+              </replaceAllFilter>
+              <replaceAllFilter id="c3ee93bd-d1ea-4356-a248-91c75c01025f">
+                <annotation></annotation>
+                <name>Replace All</name>
+                <ignoreCase>false</ignoreCase>
+                <searchString>&lt;Value&gt;</searchString>
+                <replaceType>ALL</replaceType>
+              </replaceAllFilter>
+              <replaceAllFilter id="1e2b27f9-12b1-43b7-8704-ef335d9d2286">
+                <annotation></annotation>
+                <name>Replace All</name>
+                <ignoreCase>false</ignoreCase>
+                <searchString>&lt;/Value&gt;</searchString>
+                <replaceType>ALL</replaceType>
+              </replaceAllFilter>
+              <regexFilter id="77a52454-e012-4b3e-b74a-dc40cbca5e1f">
+                <annotation></annotation>
+                <name>RegularExpression</name>
+                <expression>[^,|].*[^,|]</expression>
+                <ignoreCase>false</ignoreCase>
+                <regType>JAVA</regType>
+                <entireString>true</entireString>
+                <multiLine>false</multiLine>
+              </regexFilter>
+              <replaceAllFilter id="87346309-a02b-4746-8b86-305461a4438c">
+                <annotation></annotation>
+                <name>Replace All</name>
+                <ignoreCase>false</ignoreCase>
+                <searchString>|</searchString>
+                <replaceString>
+</replaceString>
+                <replaceType>ALL</replaceType>
+              </replaceAllFilter>
+            </filters>
+          </expression>
+        </flowVariableAssignment>
+      </assignments>
+      <throttleSize>0</throttleSize>
+    </step>
+    <returnStep id="c2bd05d4-d705-473e-83da-66f6f9e4df73">
+      <annotation></annotation>
+      <name>Error : failure</name>
+      <bounds>
+        <x>0.0</x>
+        <y>144.0</y>
+      </bounds>
+      <layer>2</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <bindings/>
+      <transitions>
+        <transition id="41447443-ae80-4070-9f01-5613f1544600">
+          <annotation></annotation>
+          <name>return</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>failure</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>c2bd05d4-d705-473e-83da-66f6f9e4df73</refId>
+          </destination>
+          <source>
+            <refId>c2bd05d4-d705-473e-83da-66f6f9e4df73</refId>
+          </source>
+          <positions/>
+        </transition>
+      </transitions>
+      <properties/>
+      <returnStepType>ERROR</returnStepType>
+      <assignments/>
+    </returnStep>
+    <returnStep id="3471e2af-a5db-49d3-92f6-0a9ebc9edc1a">
+      <annotation></annotation>
+      <name>Resolved : success</name>
+      <bounds>
+        <x>145.0</x>
+        <y>0.0</y>
+      </bounds>
+      <layer>0</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <bindings/>
+      <transitions>
+        <transition id="c1b7547c-5eff-4d1d-a702-ea58d61e0dfd">
+          <annotation></annotation>
+          <name>return</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>success</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>3471e2af-a5db-49d3-92f6-0a9ebc9edc1a</refId>
+          </destination>
+          <source>
+            <refId>3471e2af-a5db-49d3-92f6-0a9ebc9edc1a</refId>
+          </source>
+          <positions/>
+        </transition>
+      </transitions>
+      <properties/>
+      <returnStepType>RESOLVED</returnStepType>
+      <assignments/>
+    </returnStep>
+  </steps>
+  <startSteps>5498a047-1cba-45c2-a770-9edbd8079f7c</startSteps>
+</flow>

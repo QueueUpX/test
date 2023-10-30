@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="ee92cc4f-adcf-4bce-9241-215d0f40172c">
+  <descriptionCdata><![CDATA[ee92cc4f-adcf-4bce-9241-215d0f40172c.description=<pre>Service to retrieve JVM memory usage info (only 1.6 JVMs and 1.5 JVMs). \n\nInput Operators\: \nNone\n\nResponses\:\nsuccess - statistics retrieved successfully\nnon 1.6 jvm - jvm is not version 1.6\nfailure - general failure occurred\n\nExtra Results\:\nheapUsed - contains the amount of memory used (in bytes) in the heap\nheapCommitted - amount of memory in bytes that is committed for the Java virtual machine to use\nheapInit - amount of memory in bytes that the Java virtual machine initially requests from the operating system for memory management\nheapMax - Returns the maximum amount of memory in bytes that can be used for memory management\nnonHeapUsed - contains the amount of memory used (in bytes)\nnonHeapCommitted - amount of memory in bytes that is committed for the Java virtual machine to use\nnonHeapInit - amount of memory in bytes that the Java virtual machine initially requests from the operating system for memory management\nnonHeapMax - Returns the maximum amount of memory in bytes that can be used for memory management\n</pre>
+]]></descriptionCdata>
+  <annotation>ee92cc4f-adcf-4bce-9241-215d0f40172c.description</annotation>
+  <name>JVM Memory Usage Statistics</name>
+  <categories/>
+  <inputs/>
+  <scriptlet id="1382b974-2ff3-4edb-a9b0-f33e36503103">
+    <annotation></annotation>
+    <name>Operation JVM Memory Usage Statistics (85f00bf6-d517-48cc-a2ab-ba63cbe28cda)</name>
+    <script>
+        	scriptletContext.put(&quot;heapUsed&quot;, scriptletRawResult[&apos;heapUsed&apos;]);
+        	scriptletContext.put(&quot;heapCommitted&quot;, scriptletRawResult[&apos;heapCommitted&apos;]);
+        	scriptletContext.put(&quot;heapInit&quot;, scriptletRawResult[&apos;heapInit&apos;]);
+        	scriptletContext.put(&quot;heapMax&quot;, scriptletRawResult[&apos;heapMax&apos;]);
+        	scriptletContext.put(&quot;nonHeapUsed&quot;, scriptletRawResult[&apos;nonHeapUsed&apos;]);
+        	scriptletContext.put(&quot;nonHeapCommitted&quot;, scriptletRawResult[&apos;nonHeapCommitted&apos;]);
+        	scriptletContext.put(&quot;nonHeapInit&quot;, scriptletRawResult[&apos;nonHeapInit&apos;]);
+        	scriptletContext.put(&quot;nonHeapMax&quot;, scriptletRawResult[&apos;nonHeapMax&apos;]);
+        </script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="f61418c7-15fb-4b2f-8177-5900d27fdf15">
+      <annotation></annotation>
+      <name>non 1.6 jvm</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules>
+        <expression id="91dc816d-fe83-4e55-9b2f-ca306b0822d5">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="b5e36cdc-c171-414b-bbfa-e5fc3229e278">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>6</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="466a7f42-041b-421e-b822-0c4435d315b5">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="2d84851b-5bd4-4f6b-85b1-cdd552a4a0e7">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="631c041f-ce33-4a39-b0ab-a27c4a9e14e9">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>-1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="8cfb876e-a5a2-4943-b2bb-31d87ad494bb">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="8c52df3a-db45-4bb6-86e3-ed22074cfb32">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="73b3c307-94f7-4ffb-a457-a8e7d0594474">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="41ea991b-e116-4b76-8413-1e9ef45c5138">
+    <annotation></annotation>
+    <name></name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="e2f2d016-5052-41f1-b635-2f615d7d9699">
+    <baseIcon>memory.png</baseIcon>
+    <basePath>Operating System/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="98467c96-ae4e-4775-8c20-40a340dad950">
+        <baseIcon>view.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-base-legacy-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>com.iconclude.content.actions.jvm.JVMMemoryUsageStatistics</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

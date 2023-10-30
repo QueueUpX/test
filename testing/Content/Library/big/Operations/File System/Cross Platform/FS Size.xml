@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="ac866128-f756-4ccc-9ac5-568a34ebe3d6">
+  <descriptionCdata><![CDATA[ac866128-f756-4ccc-9ac5-568a34ebe3d6.description=Checks the size of a file .\n\nInput Parameters\:\n    source - file to check size of\n    threshold - the file size to compare to (in bytes)\n\nResponses\:\n    less than - file is smaller than the threshold\n    greater than - file is larger than the threshold\n    equal - file's size is the same as the threshold.\n    failure - File's size could not be determined...\n\nExtra Results\:\n    size - the file's size in bytes.\n\nNotes\: \n1. Please check File System->Cross Platform properties for more information regarding the use of network share paths with this operation.
+]]></descriptionCdata>
+  <annotation>ac866128-f756-4ccc-9ac5-568a34ebe3d6.description</annotation>
+  <name>FS Size</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="fbb2e260-e46c-482f-96a3-19cdb8714d09">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>source</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="7142df30-54b6-4435-9ebc-c8efc1a22f28">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>threshold</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <scriptlet id="ddbfaa27-c918-4cb8-af63-ecc48a3a90e9">
+    <annotation></annotation>
+    <name>Operation FS Size (4cc8f6c6-e628-4f18-95fc-3a00a01491f5)</name>
+    <script>scriptletContext.put(&quot;size&quot;, scriptletRawResult[&apos;size&apos;]);
+scriptletResult = scriptletRawResult[&apos;size&apos;];</script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="109bede1-e246-427d-b22c-59bfe412fc9e">
+      <annotation></annotation>
+      <name>less than</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules>
+        <expression id="4f1ad0dc-d661-4844-9e39-fd037a9b9bf9">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="7237d758-e6bb-490c-9689-00a180a5922b">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>13</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="9ce08b16-f3e2-4a06-a89b-0e3a570fbcb7">
+      <annotation></annotation>
+      <name>equal</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules>
+        <expression id="42ed30b8-fe8f-45a9-aef5-8b83ccaa8420">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="1874b426-de48-4607-95e8-8d60e7a46771">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>14</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="388137af-5882-4a60-986f-4a606a8c8d5b">
+      <annotation></annotation>
+      <name>greater than</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules>
+        <expression id="441a77f5-da2f-492b-8e1e-59693c620da1">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="9e8fa720-9359-4626-a433-20ba34dd20d8">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>12</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="a5244b10-890b-4abd-b3b8-e33d77b9f7be">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="c6b0b5bf-bee5-4e79-90c3-a6d474022b47">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="0040c587-eb0a-4853-bde4-17ac31921ca0">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>-1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="f59bc8bb-08a0-44ea-822b-a911ae2020e5">
+    <annotation></annotation>
+    <name></name>
+    <fieldName>returnCode</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="9c929a5c-d8a7-4255-9c3f-58ca0c44daa2">
+    <baseIcon>document_text.png</baseIcon>
+    <basePath>Operating System/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="6b2004aa-5cc3-4adb-b5c6-c05c48504d21">
+        <baseIcon>view.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-fs-legacy-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>com.iconclude.content.actions.filesystem.FSSize</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

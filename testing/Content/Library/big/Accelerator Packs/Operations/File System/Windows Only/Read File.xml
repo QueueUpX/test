@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="9df411be-4b6a-4e2e-bfd0-254f020148da">
+  <descriptionCdata><![CDATA[9df411be-4b6a-4e2e-bfd0-254f020148da.11d3e97d-6e6d-43af-9f4d-30a497d037af.prompt=Alternate Credentials - UserName\:
+9df411be-4b6a-4e2e-bfd0-254f020148da.25294c61-d19d-4a09-8fa0-27b011f6d1f1.prompt=Filter String\:
+9df411be-4b6a-4e2e-bfd0-254f020148da.61482b0a-1747-47b9-b8f4-8ed9f10a0ebf.prompt=Reset to the beginning of file after reading
+9df411be-4b6a-4e2e-bfd0-254f020148da.6dfe9079-2786-4d3b-9879-16e04bfcbb1a.prompt=Alternate Credentials - Password\:
+9df411be-4b6a-4e2e-bfd0-254f020148da.c7e0313f-8835-4e0c-87a5-55bc28c6d980.prompt=Should results be stored in session
+9df411be-4b6a-4e2e-bfd0-254f020148da.description=<pre> \nThis operation reads the content of a file. The operation can be used to read the entire file content in one step or to iterate the file line by line.\n\nInputs\:\n    source - The full path and filename of the file to be read. A UNC path can be supported as the source file path.\n    filter -  Regular expression filter to be applied to each line (leave blank for no filter). If this filter is not blank, all rows that contain the filter string will be returned. If no match is found, no lines will be returned.\n    store - Whether to store results in the session for retrieval. If "store" is set to true, then all matching lines are pushed into the Session and then subsequent calls to the operation results in the next line being returned.  If set to "false", the file will be iterated and in any iteration the number of remaining lines that matched the "filter" will be returned.\nValid values \: true, false\n    delimiter - If specified, the entire content of the file  will be read, the specified value will be used as a delimiter between the rows and  the resulting content will be returned. If left blank, the next row will be returned for each subsequent call. \n    user - Username to use for thread impersonation on the RAS host when reading.\n    password - Password for the user.\n    eofReset -  If set to true, after the No More response has been returned once, the operation will restart reading the file from the beginning on the next call.\nValid values\: true, false\n    characterSet - The character set of the file to read from. For invalid or empty input value the default encoding will be used. \nValid values\: UTF-8, UTF-16 and UTF-32 \nDefault value\: UTF-8\n\nResponses\:\n    more lines - More lines are available to be read in the session.\n    no more lines - No lines are available for reading in the session.\n    failure - If something went wrong. \n\nResults\:\n    returnCode - This is the primary output. It is 0 if the operation completed successfully  (or if more rows are available when iterate is set to true), 1 if no more items (if iterate is set to true) and -1 in case of failure. \n    COUNT- The number of lines that matched the filter, or if no filter specified, the total lines read (if iterate is false, or delimiter is not null). Otherwise, it returns the number of lines remaining in the session. This result is only returned in line-by-line mode.\n    returnResult - Each row by turn (if iterate is true and delimiter is blank) or all rows separated by the delimiter (if iterate is true and delimiter is not blank).\n    exception - An exception message if the operation fails.\n\nNote\:\n1. If you are using UTF-8 special characters(for example japanese characters), please ensure that your file is encoded in UTF-8 and not in ANSI wich is the default file encoding in windows when you are creating a new file.\n2. The "filter" and "eofReset" fields are taken into consideration only if iterate is set to true. Otherwise, they have no impact on the result.\n3. If i"store" is set to "true" and "delimiter" is not null, the entire file may or may not still be fully read at once, depending on size. \n4. If "store" is set to "true", then all matching lines are pushed into the Session and then, subsequent calls to the operation, result in the next line being returned.\n\nExamples\:\n    The following examples are used to illustrate the behavior of the operation for three specific use cases. For these examples, the operation will use as the input source a file called "example.txt", with the absolute path "C\:\\Program Files\\example.txt" and the following content\:\n        "line1\n         line2\n         line3\n         line4"\n1. This is a valid inputs example for reading the content of a file, when the "store" input field is set to "true" and the "delimiter" input field is not left blank\:\n        source\: C\:\\Program Files\\example.txt\n        filter\:\n        store\: true\n        delimiter\: ,\n        eofReset\: false\n        characterSet\: UTF-8\n    In this case, the "returnResult" output field of the operation will have the following value\: line1,line2,line3,line4\n2. This is a valid inputs example for reading the content of a file, when the "store" input field is set to "true" and the "delimiter" input field is left blank\:\n        source\: C\:\\Program Files\\example.txt\n        filter\:\n        store\: true\n        delimiter\:\n        eofReset\: false\n        characterSet\: UTF-8\n    In this case, the file will be iterated row by row in four subsequent calls. At each call, the "returnResult" output field of the operation will contain the value of one line from the file, in the same order as they are found in the source file (i.e. line1, line2, lin3, line4). \n3. This is a valid inputs example for reading the content of a file, when the "store" input field is set to "false" and the "delimiter" input field is left blank\:       \n        source\: C\:\\Program Files\\example.txt\n        filter\:\n        iterate\: false\n        delimiter\:\n        eofReset\: false\n        characterSet\: UTF-8\n    In this case, all matching lines will be iterated and the "returnResult" field will contain, at each iteration, the number of lines remaining to be iterated (i.e\: 4, 3, 2, 1).\n\n</pre>
+9df411be-4b6a-4e2e-bfd0-254f020148da.f2775883-b48a-4f36-804e-ff22ab01ca9c.prompt=FileName\:
+]]></descriptionCdata>
+  <annotation>9df411be-4b6a-4e2e-bfd0-254f020148da.description</annotation>
+  <name>Read File</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="f2775883-b48a-4f36-804e-ff22ab01ca9c">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>source</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>9df411be-4b6a-4e2e-bfd0-254f020148da.f2775883-b48a-4f36-804e-ff22ab01ca9c.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="25294c61-d19d-4a09-8fa0-27b011f6d1f1">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>filter</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>9df411be-4b6a-4e2e-bfd0-254f020148da.25294c61-d19d-4a09-8fa0-27b011f6d1f1.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="c7e0313f-8835-4e0c-87a5-55bc28c6d980">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>store</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>9df411be-4b6a-4e2e-bfd0-254f020148da.c7e0313f-8835-4e0c-87a5-55bc28c6d980.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <link>
+        <refId>362bc113-e130-45d5-be90-832d5de87730</refId>
+        <refName>Boolean</refName>
+      </link>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="11d3e97d-6e6d-43af-9f4d-30a497d037af">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>user</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>9df411be-4b6a-4e2e-bfd0-254f020148da.11d3e97d-6e6d-43af-9f4d-30a497d037af.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="6dfe9079-2786-4d3b-9879-16e04bfcbb1a">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>password</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>9df411be-4b6a-4e2e-bfd0-254f020148da.6dfe9079-2786-4d3b-9879-16e04bfcbb1a.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="64fceac3-76f0-40d0-9ab3-7a441cc20b2a">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>delimiter</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>
+</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="61482b0a-1747-47b9-b8f4-8ed9f10a0ebf">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>eofReset</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>9df411be-4b6a-4e2e-bfd0-254f020148da.61482b0a-1747-47b9-b8f4-8ed9f10a0ebf.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <link>
+        <refId>362bc113-e130-45d5-be90-832d5de87730</refId>
+        <refName>Boolean</refName>
+      </link>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="6561e087-0365-4d78-b630-da63c63183ce">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>characterSet</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <scriptlet id="2dd95419-2330-43bf-b80a-62e9e7fa2a0c">
+    <annotation></annotation>
+    <name>Operation Read File (f09173f6-bfb0-4d5b-8475-6c859e538bca)</name>
+    <script>scriptletContext.put(&quot;COUNT&quot;, scriptletRawResult[&apos;COUNT&apos;]);</script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="29520c95-fd5d-43c5-9175-1168de1b5ae6">
+      <annotation></annotation>
+      <name>no more lines</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules>
+        <expression id="349fa7c1-408b-4432-97b8-63c579d6693f">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="98ad3a16-fb79-48c1-8244-dbeb2771a58b">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>30</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="26924b20-32f2-4284-9100-c976e9caff88">
+      <annotation></annotation>
+      <name>more lines</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="a52a691d-d18d-4132-8386-6cd2b931fc70">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="b213377a-b20e-465e-b466-f3f2af14d781">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="c06dc413-1800-454e-a942-51f0db1fb471">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="aa3c4d1b-5eae-46c4-a74c-71fd300a845f">
+          <annotation></annotation>
+          <name>returnResult</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="bbd17664-f90d-44fe-8403-8b5754522dfa">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions>
+    <expression id="ad259762-18b8-45d8-90d5-63c84bdf8dda">
+      <annotation></annotation>
+      <name>returnResult</name>
+      <fieldName>returnResult</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <scriptletFilter id="5cff1e03-7453-4e03-8978-8ea1d8d00745">
+          <annotation></annotation>
+          <name>Scriptlet</name>
+          <scriptlet id="e2c6db53-a25f-4e44-94e5-8f05ece986f0">
+            <annotation></annotation>
+            <name>default</name>
+            <script>if(typeof scriptletInput !== &quot;undefined&quot;) {
+    var returnResult = scriptletInput;
+    scriptletResult = returnResult.replace(/(\r\n|\n|\r)/gm,&quot;&quot;);
+} else {
+    scriptletResult = &quot;&quot;
+}</script>
+            <type>RHINO</type>
+          </scriptlet>
+        </scriptletFilter>
+      </filters>
+    </expression>
+  </availableResultExpressions>
+  <resultExpression id="3ac92dc9-ac97-4cc5-88d3-8f048e670756">
+    <annotation></annotation>
+    <name></name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters>
+      <scriptletFilter id="6018a034-dc5c-4c69-9818-d2d555b1239d">
+        <annotation></annotation>
+        <name>Scriptlet</name>
+        <scriptlet id="f0713daf-e038-4974-bd75-4872f529ebc4">
+          <annotation></annotation>
+          <name>default</name>
+          <script>if(typeof scriptletInput !== &quot;undefined&quot;) {
+    var returnResult = scriptletInput;
+    scriptletResult = returnResult.replace(/(\r\n|\n|\r)/gm,&quot;&quot;);
+} else {
+    scriptletResult = &quot;&quot;
+}</script>
+          <type>RHINO</type>
+        </scriptlet>
+      </scriptletFilter>
+    </filters>
+  </resultExpression>
+  <iconSpec id="4ef9bf07-7e9a-453b-9ac8-ba4875a48888">
+    <baseIcon>document_text.png</baseIcon>
+    <basePath>Operating System/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="66c62a17-d9e8-42b8-bea4-f1e6e0f76282">
+        <baseIcon>read2.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-dotnet-web-actions-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>dotNETWebActions_FileSystem.ReadFile</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideNRAS}</overrideGroupAlias>
+</operation>

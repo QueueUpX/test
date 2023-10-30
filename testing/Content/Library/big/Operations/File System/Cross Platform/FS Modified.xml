@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="301e3d9c-d921-418e-950d-6d63e13f8898">
+  <descriptionCdata><![CDATA[301e3d9c-d921-418e-950d-6d63e13f8898.description=Checks the date when a file was last modified.\n\nInput Parameters\:\n   source - file to check modification date of\n   threshold - the date to compare to. For example\: "July 13, 2006 10\:04\:08 AM" in English date format ( other country specific date formats are also recognized ).\n   localeLang - The locale language used to format the result date . For example,  en or ja. This input is optional. \n   localeCountry - The locale country used to format the result date. For example, US or JP. This field is input is optional.\n\nResponses\:\n   less than - file is older than the threshold\n   greater than - file is more recent than the threshold\n   equal - file is the same as the threshold.\n   failure - the operation failed.\n\nExtra Results\:\n   date - the date when the file was last modified. The date will be formatted using the values provided in the localeLang and localeCountry inputs. If values are not provided in both inputs or the locale values are invalid , the date will be returned in the "MM/dd/yyyy hh\:mm\:ss a" format (For example\:"05/19/2014 06\:29\:51 PM"). For example "2014/05/13 18\:15\:08" if the localeLang and localeCountry correspond to the Japanese locale .\n\nNotes\: \n1. Please check File System->Cross Platform properties for more information regarding the use of network share paths with this operation.
+]]></descriptionCdata>
+  <annotation>301e3d9c-d921-418e-950d-6d63e13f8898.description</annotation>
+  <name>FS Modified</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="ccbb23aa-7c6d-4ae8-a19d-e74002883478">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>threshold</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="296f4f01-2d21-448f-9361-cb011841a9c9">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>source</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="d5e05b00-a45b-4d63-a2e5-348f8ec02475">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>localeLang</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="b70ae6fb-87a5-44c1-a0ff-572dc42be6ab">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>localeCountry</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <scriptlet id="4065a40d-7491-4449-a304-1aab70b862e4">
+    <annotation></annotation>
+    <name>Operation FS Modified (071ce55c-73ff-4435-800a-fb48c6fb98bc)</name>
+    <script>scriptletContext.put(&quot;date&quot;, scriptletRawResult[&apos;date&apos;]);</script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="6178870f-9497-416b-a06b-52c2bf181e73">
+      <annotation></annotation>
+      <name>less than</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules>
+        <expression id="e318cd52-9a3d-4749-915a-3216513ed1ba">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="0a76a0a8-d687-4f5b-8595-f180f5a67176">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>13</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="32680cd1-e762-44b0-af08-d8541fcabda5">
+      <annotation></annotation>
+      <name>equal</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules>
+        <expression id="ededb57b-7c87-407d-8001-0fdbbe381321">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="55fcb52c-7a67-4dd7-8625-a9793b0d7f86">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>14</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="fbdbe037-2372-4270-8e98-3efd652f2e8f">
+      <annotation></annotation>
+      <name>greater than</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules>
+        <expression id="fa8a7191-7878-4fae-b534-d12b58da1fde">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="6a155c8d-f783-4564-9f41-6cf3e8beb4b2">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>12</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="06044597-eb0a-42ce-828c-8f15d1bb7b67">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="9a5f1a2b-3967-4899-b850-f3e83788395f">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="69b0b61a-bb11-4d6f-a5fa-a5d4cf7d9958">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>-1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="fe5eaf04-091d-4f56-9187-7418c697812e">
+    <annotation></annotation>
+    <name></name>
+    <fieldName>returnCode</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="f669ac84-1097-494f-8bc9-1f46edf50d78">
+    <baseIcon>document_text.png</baseIcon>
+    <basePath>Operating System/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="6087fbc7-dcde-4ca8-b7d7-026918d93f32">
+        <baseIcon>view.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-fs-legacy-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>com.iconclude.content.actions.filesystem.FSModified</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow id="9f8ecdd7-b7de-41d5-9630-9e1cd78085ca">
+  <descriptionCdata><![CDATA[9f8ecdd7-b7de-41d5-9630-9e1cd78085ca.0b13e238-363b-449b-a566-ac6adc52e453.description=${host} could not be resolved to an ip address.
+9f8ecdd7-b7de-41d5-9630-9e1cd78085ca.0b13e238-363b-449b-a566-ac6adc52e453.prompt=${host} could not be resolved to an ip address.
+9f8ecdd7-b7de-41d5-9630-9e1cd78085ca.49ab6056-a6e7-47d6-9472-6cf0750a46df.description=<pre>Runs a TraceRoute command. \n\nInput Parameters\:\ntargetHost - target host to ping\nmaxHops - the maximum number of hops to search for the target\ntimeout - the timeout in milliseconds\n\nResponses\:\nsuccess - the command was executed successfully\nfailure - the command could not be executed\n\nReturns\:\naddress - the IP address of the target host\nhops - list of hosts that the packets have traversed en route to the destination\ntimes - the round trip times from the host to the hop (latency). 3 packets are sent to each hop along the route\nreturnResult - the raw output of the command\nreturnCode - return code from the executed command\nerror - the STDERR of the command\n</pre>
+9f8ecdd7-b7de-41d5-9630-9e1cd78085ca.description=<pre>\nDemonstrates how to run a tracert from the Web Services machine to the requested host.\n\nInput Parameters\:\nhost - hostname or IP address of the target host\nmaxHops - maximum amount of hops between Web Services machine and target host\n\nResponses\:\nsuccess - ran tracert\nfailure - could not resolve hostname to a valid IP address\n\nExtra Results\:\noutput - raw output from tracert command\nnumhops - number of hops completed\nhops - comma separated list of hosts\nping times - A semicolon separated list of comma separated lists of pings to each hop.</pre>
+9f8ecdd7-b7de-41d5-9630-9e1cd78085ca.e87b00a6-39e6-406c-bb27-f18e23457833.prompt=${host} was resolved to ${address} and pinged.\n\nPath to ${host} was ${path}.
+]]></descriptionCdata>
+  <annotation>9f8ecdd7-b7de-41d5-9630-9e1cd78085ca.description</annotation>
+  <name>Windows RAS Traceroute Sample</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="e108fd12-0951-4c49-8c2b-3c65d99d6d3e">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>host</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="7f761ab5-fca0-4c98-8119-32e4d53d52b7">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>maxHops</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="c905756d-69fe-4f5f-b2fc-00eb01f9e4dd">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>false</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="e0f1ca82-5193-48ce-abac-b678e749a21c">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="9ee1a31b-6346-456a-b1c3-9445382f985d">
+    <annotation></annotation>
+    <name>FailureMessage</name>
+    <fieldName>FailureMessage</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="fcfb6086-b5f9-4535-a46a-25ceddb84f13">
+    <baseIcon>flow.png</baseIcon>
+    <basePath>System</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <callouts/>
+  <checkPointFlow>true</checkPointFlow>
+  <compatibleRuntimeContext>true</compatibleRuntimeContext>
+  <historyCheckPointFlow>true</historyCheckPointFlow>
+  <steps>
+    <step id="49ab6056-a6e7-47d6-9472-6cf0750a46df">
+      <annotation>9f8ecdd7-b7de-41d5-9630-9e1cd78085ca.49ab6056-a6e7-47d6-9472-6cf0750a46df.description</annotation>
+      <name>Traceroute</name>
+      <bounds>
+        <x>-14.0</x>
+        <y>0.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <bindings>
+        <staticBinding id="f7d11e38-7e78-45e4-9740-168967280cea">
+          <annotation></annotation>
+          <toContextKey>host</toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>targetHost</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value>www.google.com</value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="6a7285cf-c8a9-468e-a2d7-66b25d7d2b18">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>maxHops</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value>5</value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="0aaa35bb-2b08-4a2e-b5d8-2b0ae4a7e395">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>timeout</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+      </bindings>
+      <transitions>
+        <transition id="f581b8f3-c613-4e3e-9301-b6691e4e1ee0">
+          <annotation></annotation>
+          <name>host not found</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>failure</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>0b13e238-363b-449b-a566-ac6adc52e453</refId>
+          </destination>
+          <source>
+            <refId>49ab6056-a6e7-47d6-9472-6cf0750a46df</refId>
+          </source>
+          <positions>
+            <point>
+              <x>122.0</x>
+              <y>175.0</y>
+            </point>
+            <point>
+              <x>140.0</x>
+              <y>0.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>495.2450738725648</x>
+            <y>1.0908172424838565</y>
+          </labelPosition>
+        </transition>
+        <transition id="38111e15-bbd6-4b8a-b492-fdc21dc2bb87">
+          <annotation></annotation>
+          <name>success</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>success</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>e87b00a6-39e6-406c-bb27-f18e23457833</refId>
+          </destination>
+          <source>
+            <refId>49ab6056-a6e7-47d6-9472-6cf0750a46df</refId>
+          </source>
+          <positions>
+            <point>
+              <x>122.0</x>
+              <y>175.0</y>
+            </point>
+            <point>
+              <x>0.0</x>
+              <y>110.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>494.9465137631984</x>
+            <y>0.38083117555898494</y>
+          </labelPosition>
+        </transition>
+      </transitions>
+      <properties/>
+      <opRef>
+        <refId>c4fa2f75-3ce2-44c9-842c-bb63b3d8e36c</refId>
+      </opRef>
+      <assignments>
+        <flowVariableAssignment id="9558466d-263f-4236-bf00-d318019d000a">
+          <annotation></annotation>
+          <name>assignment</name>
+          <action>OVERWRITE</action>
+          <assignmentTargetType>FLOW_VARIABLE</assignmentTargetType>
+          <contextKey>path</contextKey>
+          <expression id="d278ab2f-db71-4046-92c7-39703a2016e6">
+            <annotation></annotation>
+            <name>Result Field: hops</name>
+            <fieldName>hops</fieldName>
+            <sourceType>RAWRESULT</sourceType>
+            <filters/>
+          </expression>
+        </flowVariableAssignment>
+        <flowVariableAssignment id="383d0cac-7baf-4007-ba5e-c11b1c3b511e">
+          <annotation></annotation>
+          <name>assignment</name>
+          <action>OVERWRITE</action>
+          <assignmentTargetType>FLOW_VARIABLE</assignmentTargetType>
+          <contextKey>address</contextKey>
+          <expression id="b2f68ea3-6919-4d60-8f85-1f39c1883165">
+            <annotation></annotation>
+            <name>Result Field: address</name>
+            <fieldName>address</fieldName>
+            <sourceType>RAWRESULT</sourceType>
+            <filters/>
+          </expression>
+        </flowVariableAssignment>
+      </assignments>
+      <throttleSize>0</throttleSize>
+    </step>
+    <returnStep id="e87b00a6-39e6-406c-bb27-f18e23457833">
+      <annotation></annotation>
+      <name>Resolved : success</name>
+      <bounds>
+        <x>0.0</x>
+        <y>159.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>true</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt>9f8ecdd7-b7de-41d5-9630-9e1cd78085ca.e87b00a6-39e6-406c-bb27-f18e23457833.prompt</userPrompt>
+      <scriptlet id="e32ab0db-0cbc-4fff-836a-d758f6bb6385">
+        <annotation></annotation>
+        <name>Step Resolved : success in Flow Windows RAS Traceroute Sample (ed5728d1-356e-4b2d-a923-3fca86969554)</name>
+        <type>RHINO</type>
+      </scriptlet>
+      <bindings/>
+      <transitions>
+        <transition id="8915e248-43d9-4d4d-8962-93f905fcb9f6">
+          <annotation></annotation>
+          <name>return</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>success</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>e87b00a6-39e6-406c-bb27-f18e23457833</refId>
+          </destination>
+          <source>
+            <refId>e87b00a6-39e6-406c-bb27-f18e23457833</refId>
+          </source>
+          <positions/>
+        </transition>
+      </transitions>
+      <properties>
+        <entry>
+          <key>Prompt Title</key>
+          <modelValue id="38f03c31-9009-4332-be28-ca28ef3a4d71">
+            <doubleValue>0.0</doubleValue>
+            <stringValue>Ping Results</stringValue>
+            <encrypted>false</encrypted>
+            <type>9</type>
+          </modelValue>
+        </entry>
+      </properties>
+      <returnStepType>RESOLVED</returnStepType>
+      <assignments/>
+    </returnStep>
+    <returnStep id="0b13e238-363b-449b-a566-ac6adc52e453">
+      <annotation>9f8ecdd7-b7de-41d5-9630-9e1cd78085ca.0b13e238-363b-449b-a566-ac6adc52e453.description</annotation>
+      <name>Error : failure</name>
+      <bounds>
+        <x>165.0</x>
+        <y>0.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>true</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt>9f8ecdd7-b7de-41d5-9630-9e1cd78085ca.0b13e238-363b-449b-a566-ac6adc52e453.prompt</userPrompt>
+      <scriptlet id="d67afe68-4ac6-41aa-98b1-40a256e36d8b">
+        <annotation></annotation>
+        <name>Step Error : failure in Flow Windows RAS Traceroute Sample (1b4c24e6-5714-4043-805b-dab432770b73)</name>
+        <type>RHINO</type>
+      </scriptlet>
+      <bindings/>
+      <transitions>
+        <transition id="7b68ec5b-c633-47e4-856f-47b1c7102a0a">
+          <annotation></annotation>
+          <name>return</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>failure</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>0b13e238-363b-449b-a566-ac6adc52e453</refId>
+          </destination>
+          <source>
+            <refId>0b13e238-363b-449b-a566-ac6adc52e453</refId>
+          </source>
+          <positions/>
+        </transition>
+      </transitions>
+      <properties>
+        <entry>
+          <key>Prompt Title</key>
+          <modelValue id="a264ca87-3420-407f-bc3c-24341e9618ff">
+            <doubleValue>0.0</doubleValue>
+            <stringValue>Host not found</stringValue>
+            <encrypted>false</encrypted>
+            <type>9</type>
+          </modelValue>
+        </entry>
+      </properties>
+      <returnStepType>ERROR</returnStepType>
+      <assignments/>
+    </returnStep>
+  </steps>
+  <startSteps>49ab6056-a6e7-47d6-9472-6cf0750a46df</startSteps>
+</flow>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="b0b6e0a5-f66a-46ec-ba4a-1545e4caa3ee">
+  <descriptionCdata><![CDATA[b0b6e0a5-f66a-46ec-ba4a-1545e4caa3ee.description=<pre>Uses WMI for getting the job ID, user name, and total pages for each print job on a computer.\n\nInputs\:\nhost - The host to connect to WMI on.\nusername - Username to use for WMI impersonation on the host for this operation (can be left blank).\npassword - Password of the user.\n\nReturns\:\nA table containing all the status information for all the print jobs.\n\nResults\:\nreturnResult - A table containing the statuses of all the current jobs.\n\nResponses\:\nsuccess - All the statuses for the jobs were retrieved successfully.\nfailure - Something went wrong.</pre> 
+]]></descriptionCdata>
+  <annotation>b0b6e0a5-f66a-46ec-ba4a-1545e4caa3ee.description</annotation>
+  <name>Print Jobs Status</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="279e861f-53c7-4a99-aead-43074aecaa92">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>host</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="c765bc54-dd28-4e13-8c20-8d716455be2e">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>username</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="eee1d7d6-7e31-44f1-ac8e-a9b9b201612c">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>false</isPersisted>
+      <inputSymbol>password</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="d2af319d-b31c-43b6-af10-fa2ee61c9d6d">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="8d559975-d143-4b7d-81a0-577635bb6ede">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="6f3b651d-ae07-4a72-bf7f-764543e4750b">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="00960bcb-5e69-45a9-be27-d0156498af0b">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="634a156d-6816-493c-8dbd-e47be3650b9f">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="9bc30199-381e-4278-8169-dd2110f9b9b8">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="e42e530e-4584-4017-89f9-0ebee3d6ae9b">
+    <annotation></annotation>
+    <name>returnCode</name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="90258aab-5990-4c1d-83ae-47294592549a">
+    <baseIcon>printer.png</baseIcon>
+    <basePath>/Networking/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="118d36a4-26fa-469d-8255-f19a9c5aeb99">
+        <baseIcon>diagnose.png</baseIcon>
+        <basePath>/Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-dotnet-web-actions-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>dotNETWebActions_Windows.WMIPrintJobsStatus</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideNRAS}</overrideGroupAlias>
+</operation>

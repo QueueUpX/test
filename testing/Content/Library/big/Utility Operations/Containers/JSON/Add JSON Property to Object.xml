@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="2214477f-cf05-4203-b9f8-ae4ececea62d">
+  <descriptionCdata><![CDATA[2214477f-cf05-4203-b9f8-ae4ececea62d.description=Inserts a new name/value property into a JSON object, where the value is a valid JSON string. If the <newPropertyValue> input is not a valid string representation of a JSON object, the operation fails.\nThe 'Add Property to Object' operation can be used to add a property with a simple string value. \n\nInputs\:\n    jsonObject - String representation of a JSON object. Objects in JSON are a collection of name value pairs, separated by a colon and surrounded with curly brackets {}. The name must be a string value, and the value can be a single string or any valid JSON object or array.\nExamples\: {"one"\:1, "two"\:2}, {"one"\:{"a"\:"a","B"\:"B"}, "two"\:"two", "three"\:[1,2,3.4]}\n    newPropertyName - The name of the new property to add to the JSON object. \nExamples\: property1, some_property, another property\n    newPropertyValue - The value for the new property. This must be a valid JSON representation of a JavaScript object.\nExamples\: 1, {"A"\:"A"}, [1,2,3,4]\n\nResults\:\n    Result - The JSON array with the inserted element.\n\nResponses\:\n    success - The operation completed as stated in the description.\n    failure - The operation completed unsuccessfully. See the message in <returnResult> for details.\n\nExamples\: \n1)\n    Inputs\:\n        jsonObject\: {}\n        newPropertyName\: test\n        newPropertyValue\: [1,2,3]\n     Result\:\n         { "test"\:[1,2,3]}\n2)\n    Inputs\:\n        jsonObject\: {}\n        newPropertyName\: test\n        newPropertyValue\: {"a"\:"b"}\n     Result\:\n         { "test"\:{"a"\:"b"}}\n3)\n    Inputs\:\n        jsonObject\: {}\n        newPropertyName\: test\n        newPropertyValue\: 1\n     Result\:\n         { "test"\:1}
+]]></descriptionCdata>
+  <annotation>2214477f-cf05-4203-b9f8-ae4ececea62d.description</annotation>
+  <name>Add JSON Property to Object</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="c5d249d5-1f7d-42d8-b0ae-645099338f0b">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>jsonObject</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="93930b81-d591-4c85-90db-a12183faae97">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>newPropertyName</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="af52f11d-7df9-4d36-9e36-8aa59917d34e">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>newPropertyValue</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="cf5ecee9-9aa1-414d-a7e3-b37c8e91f4ab">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="d2942263-6387-4aae-bbf3-e6232bf4bf48">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="ee128b36-efbe-4b7f-b751-71154ee67685">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="6b837297-58d1-49eb-aa96-86b7c4551e8a">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="460e0a0c-3d63-4fd3-96de-0fd37119c679">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="656fc3fe-4f9d-409c-a6ec-23a6b7f04b3b">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>-1</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="7823e4b5-b3bd-45d8-a52a-eac4d37cef08">
+    <annotation></annotation>
+    <name>returnResult</name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="40d293f9-bdec-4f57-986f-d530656f47cd">
+    <baseIcon>text_msg.png</baseIcon>
+    <basePath>/E-mail/</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>score-actions-base-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>Add JSON Property to Object</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

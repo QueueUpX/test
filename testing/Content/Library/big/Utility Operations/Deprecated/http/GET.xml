@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="e7e2ec42-851d-499f-b3f0-a6d0bd459f0d">
+  <descriptionCdata><![CDATA[e7e2ec42-851d-499f-b3f0-a6d0bd459f0d.description=The GET method means retrieve whatever information (in the form of an entity) is identified by the Request-URI.
+]]></descriptionCdata>
+  <annotation>e7e2ec42-851d-499f-b3f0-a6d0bd459f0d.description</annotation>
+  <name>GET</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="8cb1179e-0015-4451-9599-248e3476ea7d">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>requestUrl</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="cff4e812-4107-4977-9426-93a2fb4d180c">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Body</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="2f193eb7-52f0-48be-a71b-c658e149020d">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Url</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${requestUrl}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="66ca1949-f9a0-46d0-a5b7-f94018a59696">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Method</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>GET</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="91397bab-84d0-4d86-b5da-7303dc6b1d3e">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Protocol</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>HTTP/1.1</value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <scriptlet id="7e0ed0ff-3786-44f6-92b0-e73b8ef5e50b">
+    <annotation></annotation>
+    <name>Operation GET (2a3e3d5e-84b2-4868-9ffc-580d0b6d10ce)</name>
+    <script>scriptletResponse = &quot;FAILED_TO_CONNECT&quot;;
+scriptletResult = scriptletRawResult[&apos;document&apos;];
+code = parseInt(scriptletRawResult[&apos;code&apos;]); 
+if ((code &gt; 99) &amp;&amp; (code &lt; 200)) {
+  scriptletResponse = &quot;INFORMATIONAL&quot;;
+}
+else if ((code &gt; 199) &amp;&amp; (code &lt; 300)) {
+  scriptletResponse = &quot;SUCCESS&quot;;
+}
+else if ((code &gt; 299) &amp;&amp; (code &lt; 400)) {
+  scriptletResponse = &quot;REDIRECTION&quot;;
+}
+else if ((code &gt; 399) &amp;&amp; (code &lt; 500)) {
+  scriptletResponse = &quot;CLIENT_ERROR&quot;;
+}
+else if ((code &gt; 499) &amp;&amp; (code &lt; 600)) {
+  scriptletResponse = &quot;SERVER_ERROR&quot;;
+}</script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="c0bf9d48-5ec3-4da6-946b-bcc1ea7ffe5d">
+      <annotation></annotation>
+      <name>INFORMATIONAL</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="78489b43-f71f-4cee-b275-a0b4bf9fb6cb">
+      <annotation></annotation>
+      <name>SUCCESS</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="6c0f302c-eea6-4fb1-9baf-d99134baa9f7">
+      <annotation></annotation>
+      <name>REDIRECTION</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="a3b2e804-6af8-45df-99cf-0bcf21be3439">
+      <annotation></annotation>
+      <name>CLIENT_ERROR</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="5eddb73d-cf73-402a-b3e3-ca7098427335">
+      <annotation></annotation>
+      <name>SERVER_ERROR</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="0f4e6347-b6fb-4f07-88ce-c68c1b496276">
+      <annotation></annotation>
+      <name>FAILED_TO_CONNECT</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="d2c7037f-dcdf-480e-b2d1-35fcf2df3007">
+    <annotation></annotation>
+    <name>code</name>
+    <fieldName>code</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="78bb078b-1140-41be-bda6-e84df0d0a82b">
+    <baseIcon>http.png</baseIcon>
+    <basePath>System</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-base-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>httpOp</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

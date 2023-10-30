@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="1594418a-aa21-4b49-941b-4c652f3c23a9">
+  <descriptionCdata><![CDATA[1594418a-aa21-4b49-941b-4c652f3c23a9.description=Iterates through a selection list. If the list changes while running, the updates will be appended to the list.\n\n<pre>\nInputs\:\nlist - The selection list to iterate through.\n\nReturns\:\nThe current element of the list, if the response is has more\n\nResponses\:\nhas more - Another value was in the list, and has been returned.\nhas no more - The iterator has gone fully through the list. This response will only be returned once per iteration through the list, a subsequent call to the Iterator will restart the Iteration through the list.\nfailure - failed to process the list.\n\nNote\: Where the iterator is in the list is tracked by each step's unique id. Therefore you can iterate on the same list from multiple steps simultaneously.\n\nWARNING\: Any step that will use the results of this Iterator operation will, by default, attempt to assign that step's inputs from a flow variable. If this is left checked, then the first element of the iterator will be used for every cycle of iteration..\n</pre>
+]]></descriptionCdata>
+  <annotation>1594418a-aa21-4b49-941b-4c652f3c23a9.description</annotation>
+  <name>Selection List Iterate</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="7c368009-dead-4d7b-b84c-4d2649930131">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>list</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="aef50a4f-6f99-49df-b0d5-d6682667aa4a">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>separator</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>|</value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="4652363e-8d51-4659-a743-c0cb2bd33703">
+      <annotation></annotation>
+      <name>has more</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="ec89f145-bce6-4e15-874c-574b566425dc">
+          <annotation></annotation>
+          <name>result</name>
+          <fieldName>result</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="db6d08ba-7acf-4a03-9fa7-25a5a73d6fb8">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>has more</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="9c1e7ee9-f378-41e5-9003-ea144591c1a5">
+      <annotation></annotation>
+      <name>no more</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="339401d0-d569-4b5e-8e4b-1c35149ec512">
+          <annotation></annotation>
+          <name>result</name>
+          <fieldName>result</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="5b0fd166-5bbe-4083-b78d-85d5b6e40d55">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>no more</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="f3eabc6b-bd3c-4409-897a-d556ea07c7bc">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="8798f03d-1b4a-40be-8b4e-46eb42991c46">
+          <annotation></annotation>
+          <name>result</name>
+          <fieldName>result</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="c6f7fb5d-95c0-4e48-a0e4-bf59ab4ad9a3">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>failure</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="0a326ad1-632f-4b1d-a3d9-4df7a97f567f">
+    <annotation></annotation>
+    <name>result</name>
+    <fieldName>resultString</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="93b6522b-d7a2-49bd-b533-08dea746c2b8">
+    <baseIcon>wrench.png</baseIcon>
+    <basePath>utilities</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="52dfdd57-d490-4052-bd22-fd08462007eb">
+        <baseIcon>iterate.png</baseIcon>
+        <basePath>Annotations</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <opRef>
+    <refId>cd75ca75-e64e-4b1e-9fe9-8dbc76f03865</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

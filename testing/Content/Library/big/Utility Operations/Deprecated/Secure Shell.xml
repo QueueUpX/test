@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="4e8aafea-ef33-4e34-bf2f-e79d3fd073c4">
+  <descriptionCdata><![CDATA[4e8aafea-ef33-4e34-bf2f-e79d3fd073c4.111c2ab2-c902-4b16-91aa-35f8d04051ce.prompt=Enter username
+4e8aafea-ef33-4e34-bf2f-e79d3fd073c4.2c4cbad3-0f50-45f5-bdab-cd3e767e4be7.prompt=Enter password
+4e8aafea-ef33-4e34-bf2f-e79d3fd073c4.description=Runs an SSH command\n\nInput Parameters\:\n   host - hostname or ip address\n   command - the command to execute\n   arguments - the arguments to pass to the command\n   environment - environment variables (not supported by most SSH servers)\n   pty - (true, false) whether to use pseudo-tty\n   username - user name to connect as\n   password - user password, or private key passphrase (see notes below)\n   private key file - file containing private key used for authentication instead of username/password\n   op_timeout - (optional, default 90 seconds) time in milliseconds to wait for the command to complete\n\nResponses\:\n   success - the command was executed successfully\n   failure - the command could not be executed\n\nExtra Results\:\n   Code - the exit code of the command\n   Output String - the STDOUT of the command\n   Error String - the STDERR of the command\n   Failure Message - description of the failure to communicate with the SSH server\n   Timed out - (true, false) the operation timed out\n\nNotes\:\n1. when private key authentication is being used,\n    the value entered for the password is interpreted\n    as a passphrase for the private key file (if any was used).\n 2. if the SSH server supports more than one authentication method,\n    then each method is tried in turn, in the order provided \n    by the server. For instance, the operation may first try \n    to authenticate using private key, then keyboard interactive,\n    then username-password.
+]]></descriptionCdata>
+  <annotation>4e8aafea-ef33-4e34-bf2f-e79d3fd073c4.description</annotation>
+  <name>Secure Shell</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="10b8e1cd-8a23-4fdb-a792-7d0afd7126dc">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>host</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="111c2ab2-c902-4b16-91aa-35f8d04051ce">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>identityUsername</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>4e8aafea-ef33-4e34-bf2f-e79d3fd073c4.111c2ab2-c902-4b16-91aa-35f8d04051ce.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter></sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="2c4cbad3-0f50-45f5-bdab-cd3e767e4be7">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>identityPassword</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>4e8aafea-ef33-4e34-bf2f-e79d3fd073c4.2c4cbad3-0f50-45f5-bdab-cd3e767e4be7.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter></sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="b22633ff-c81c-4d10-8594-6572dafc4e4d">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>command</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="c6615132-c563-4fd5-a5f7-a6290972c5ed">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Environment</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="32224820-2913-4637-8c96-16f9978133f6">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey>identityUsername</fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>User</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="f6936cd1-36f7-4cd9-94ab-87744f17a3bf">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Command</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${command}</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="d234c572-f08a-45e8-b571-73c140ff4d20">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Argument</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="830b1fa8-9412-4ff1-b941-173d963ea70e">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Host</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${host}</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="bdec9f17-ab77-433f-bdcc-028ca588937d">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Private_Key_File</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="6076f908-859f-4cc9-a818-73360e710244">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey>identityPassword</fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Password</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="9d4b84b3-1b87-4725-acea-1b353a3e6328">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Pty</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>false</value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="eb0df79a-7808-467d-86e8-7a3292242fe4">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="e47b5f20-dc54-416b-89f3-2008378c37ed">
+          <annotation></annotation>
+          <name>Code</name>
+          <fieldName>Code</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="de69308b-067b-41c8-8ded-e6984533a21a">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="e7825eac-6a8c-414a-86af-364695014519">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="74714498-b06d-421a-9330-e34253b533e9">
+    <annotation></annotation>
+    <name>Code</name>
+    <fieldName>Code</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="e785469d-08d9-40c5-894f-312dc1ac6678">
+    <baseIcon>ssh.png</baseIcon>
+    <basePath>System</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-base-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>sshOp</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

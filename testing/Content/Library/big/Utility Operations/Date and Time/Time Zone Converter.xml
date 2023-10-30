@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="80d6ce0b-a513-4006-ae8f-95ac02efd84b">
+  <descriptionCdata><![CDATA[80d6ce0b-a513-4006-ae8f-95ac02efd84b.description=<pre>\nConverts a date from one time zone to another. The date should be given in the format of date/time of the RAS, which is dependant on the Java locale. You can use the "Get Current Date and Time" operation to check upon the default date/time format.\n\nInputs\:\ndate - The date to convert. For example, if the locale of the RAS is English, the date should be in the format of "July 13, 2006 10\:04\:08 AM". \ndateTimeZone - The time zone of the input date. For example, "America/Los_Angeles" or "Europe/Paris". If this input is empty, the local time zone will be used.\noutTimeZone - The time zone of the output date. For example, "America/Los_Angeles" or "Europe/Paris". If this input is empty, the local time zone will be used.\noutLocaleLang - The locale language for output string. For example, "en" or "ja".\noutLocaleCountry - The locale country for output string. For example, "US" or "JP". If outLocaleLang is not specified, this input will be ignored.\n\nResponses\:\nsuccess - The date was converted.\nfailure - The date could not be converted.\n\nResult\:\nResult - The date converted to the specified time zone.\n\nNotes\:\n1. Java Time Zone ids must be used for the dateTimeZone and the outTimeZone inputs. Daylight Saving Time is not supported. Please use the "Is Time Zone Id" operation to make sure that the values assigned to these inputs are valid. \n2. If an invalid time zone is passed to the dateTimeZone or to the outTimeZone inputs, then the operation will fail.\n</pre>
+]]></descriptionCdata>
+  <annotation>80d6ce0b-a513-4006-ae8f-95ac02efd84b.description</annotation>
+  <name>Time Zone Converter</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="46c81c42-7831-4f62-aae4-82f065a70b63">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>date</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="aae014a5-ff5a-4181-9b16-c4af9c6b0315">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>dateTimeZone</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="7840dac7-bc66-4b47-bf8d-1d638461c043">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>outTimeZone</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="38ff580c-0f88-4bc5-903a-6b4ed775db72">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>outLocaleLang</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="25447a3a-2c00-46ba-bd1e-a01b52f900fa">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>outLocaleCountry</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <scriptlet id="1aa28e3f-e61f-446d-8357-09198ad8969e">
+    <annotation></annotation>
+    <name>Operation Time Zone Converter (7955d9b8-a184-457d-8450-8e196e943045)</name>
+    <script>scriptletResponse = &quot;failure&quot;;
+try{
+var reader = new java.text.DateFormat.getDateTimeInstance();
+var writer;
+var oLocale; 
+
+if(typeof outLocaleLang != &apos;undefined&apos; &amp;&amp; null != outLocaleLang &amp;&amp; outLocaleLang.length &gt;0)
+{
+	outLocaleLang = outLocaleLang.toLowerCase();
+	if (!isValidLocaleLang(outLocaleLang))
+		throw &quot;Invalid outLocaleLang.&quot;;
+		
+     if(typeof outLocaleCountry != &apos;undefined&apos; &amp;&amp; null != outLocaleCountry &amp;&amp; outLocaleCountry.length &gt;0)
+     {
+		outLocaleCountry = outLocaleCountry.toUpperCase();
+		if (!isValidLocaleCountry(outLocaleCountry))
+			throw &quot;Invalid outLocaleCountry.&quot;;
+		
+          oLocale = new java.util.Locale(outLocaleLang, outLocaleCountry); //for exsample US or JP
+     }
+     else //only has language, no country
+     {
+          oLocale = new java.util.Locale(outLocaleLang);//for example en or ja
+     }
+     writer = new java.text.DateFormat.getDateTimeInstance(java.text.DateFormat.LONG, java.text.DateFormat.LONG, oLocale);
+}
+else //use whatever default is
+{
+	 writer = new java.text.DateFormat.getDateTimeInstance();
+}
+
+var validDateTimeZone = &quot;false&quot;;
+var validOutTimeZone = &quot;false&quot;;
+
+if ( (typeof dateTimeZone == &apos;undefined&apos;) || (null == dateTimeZone) || (dateTimeZone.length == 0) )
+{
+	reader.setTimeZone(java.util.TimeZone.getDefault());
+	validDateTimeZone = &quot;true&quot;;
+	dateTimeZone = &quot;&quot;;
+}
+
+if ( (typeof outTimeZone == &apos;undefined&apos;) || (null == outTimeZone) || (outTimeZone.length == 0) )
+{
+	writer.setTimeZone(java.util.TimeZone.getDefault());
+	validOutTimeZone = &quot;true&quot;;
+	outTimeZone = &quot;&quot;;
+}
+
+if (validDateTimeZone == &quot;false&quot; || validOutTimeZone == &quot;false&quot;)
+{
+    var zoneIds = java.util.TimeZone.getAvailableIDs();
+    
+    for (var i=0; i&lt;zoneIds.length; i++) 
+    {	    
+        if (dateTimeZone.toLowerCase() == zoneIds[i].toLowerCase())
+		{
+		    validDateTimeZone = &quot;true&quot;;
+		    reader.setTimeZone(java.util.TimeZone.getTimeZone(zoneIds[i]));
+		}
+		
+		if (outTimeZone.toLowerCase() == zoneIds[i].toLowerCase())
+		{
+		    validOutTimeZone = &quot;true&quot;;
+		    writer.setTimeZone(java.util.TimeZone.getTimeZone(zoneIds[i]));
+		}
+    }
+    
+    if ( validDateTimeZone == &quot;false&quot; ) 
+        throw &quot;Invalid dateTimeZone.&quot;;
+
+	if ( validOutTimeZone == &quot;false&quot; )
+		throw &quot;Invalid outTimeZone.&quot;;	
+}
+scriptletResult = &quot;&quot;+writer.format(reader.parse(date));	
+scriptletResponse = &quot;success&quot;;
+}
+catch (e){
+scriptletResponse = &quot;failure&quot;;
+scriptletResult = &quot;&quot;+e;
+}
+
+function isValidLocaleLang(value) {
+	var locales = java.util.Locale.getAvailableLocales();
+    for (var i=0; i&lt;locales.length;i++) {
+        if (value == locales[i].getLanguage()) {
+	        return true;
+	   }
+    }
+    return false;
+}
+
+function isValidLocaleCountry(value) {
+	var locales = java.util.Locale.getAvailableLocales();
+    for (var i=0; i&lt;locales.length;i++) {
+        if (value == locales[i].getCountry()) {
+	        return true;
+	   }
+    }
+    return false;
+}</script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="c6937083-36a6-4613-92d6-35effaae069b">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="ca876371-cecd-4e90-be2a-651af9f49a88">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>false</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="d47cd5e2-945c-4130-a780-93598d45cdf8">
+    <annotation></annotation>
+    <name>returnResult</name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="02665699-835b-403e-9c31-1da76a2b39f3">
+    <baseIcon>calendar.png</baseIcon>
+    <basePath>/Others/</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <opRef>
+    <refId>ddd79f22-8b1e-4605-88d5-d912bb2da2b9</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="06d39f46-c693-4cc4-98b3-f5eafffaa240">
+  <descriptionCdata><![CDATA[06d39f46-c693-4cc4-98b3-f5eafffaa240.description=<pre>\nThis operation gets the current CPU used percent and checks to see whether it is above or below a threshold.\n\nInputs\:\n\thost\:           host name to check\n\tusername\:       user name to login into host as\n\tpassword\:       password to use for login\n\tthreshold\:      threshold to check against\n\tqueries\:        number of times to run vmstat to gather the data\n\tfrequency\:      how many seconds to wait between vmstat queries\n\nResponses\:\n\tabove threshold\: If the CPU percent is above the threshold\n\tbelow threshold\: If the CPU percent is less than or equal to threshold\n\thost not found\:  If the host cannot be found\n\tauthentication failure\: If the login fails\n\tfailure\:          Any other error condition\n\nResults and Context\:\n\tThe CPU percent used name is placed into the operation result\n\tThe CPU percent used is placed into the context variable "CPUpercent"\n</pre>\n\t
+]]></descriptionCdata>
+  <annotation>06d39f46-c693-4cc4-98b3-f5eafffaa240.description</annotation>
+  <name>CPU Usage</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="07247616-44cf-411f-8349-fd1a66b0298e">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>host</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="a50574af-8542-43f4-b8e3-ab3f178efe1f">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>username</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="02ceb99a-4dc4-4acf-9536-20f093081519">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>password</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="8003b074-0520-4e2f-a0ed-bf4b4f7ce1a4">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>threshold</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="76b30a19-d45d-4650-a3f8-9310f54043d4">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>frequency</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="a7de3ed5-d345-4c04-ae4f-a14bfe7eed93">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>queries</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="5b4ec0f3-7a63-48dc-9aa7-ef0b5a9394bf">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Environment</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="e79b297c-5800-4298-9169-f0a3a73539fe">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>User</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${username}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="5e0bdee5-4f60-4092-92ea-1cf2783417ff">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Command</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>vmstat ${frequency} ${queries}</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="f1fa7eef-ab3b-4cde-a7f2-29903e902dda">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Argument</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="201a7135-d193-492d-a560-149a09991a8c">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Host</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${host}</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="4197e06e-1b04-4538-a60e-7f1f983b3abb">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Private_Key_File</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="55ae644d-55b7-48fc-ac2c-3135d7c49790">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Password</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>{OBFUSCATED}SqstnSxglAP4D4gm72ILRw==</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="eb65e919-1140-41fe-aa39-559e755a23ad">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Pty</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <scriptlet id="a6ae079f-3870-404c-b8a7-be0b90c032da">
+    <annotation></annotation>
+    <name>Operation CPU Usage (991ed8bc-6253-4e9f-b669-13d7c43285c3)</name>
+    <script>/*
+   This operation runs vmstat every ${frequency} seconds ${queries} times. 
+   The scriptlet takes the CPU idle value from each line and averages it over the
+   total number of queries.
+
+   The average value is placed into the context variable CPUpercent
+   The result of the operation is the current CPUpercent
+
+   At the end we check to see if the percent used is under our Threshold
+
+   Returns:
+	&quot;Below Threshold&quot; if the percent used is under the Threshold
+	&quot;Host Not Found&quot; if we failed to find the host
+	&quot;Authentication Failure&quot; if we found the host but couldn&apos;t log in
+	&quot;Above Threshold&quot; if there is any other error condition
+	&quot;Failed&quot; if there was some other error condition
+*/
+
+// set up defaults
+scriptletResult = &quot;-1&quot;;
+scriptletResponse = &quot;failure&quot;;
+
+// get the command output data
+data = scriptletRawResult[&apos;Output String&apos;];
+
+// get the return code
+code = parseInt(scriptletRawResult[&apos;Code&apos;]);
+
+// verify the command worked
+if (code == 0) {
+
+	// split the data into lines
+	splitdata = data.split(&quot;\n&quot;);
+
+	// set up variables
+	sum = 0;
+	// must turn the queries variable into an integer to maniuplate
+	rows = parseInt(queries);
+	// the first two rows are headers so the the last row is the number of queries + 2
+	end = 2 + rows;
+
+	// add up the % free from each line ignoring the 2 header rows
+	for (i = 2; i &lt; end; i++) {
+		// get the individual row
+		row = splitdata[i];
+		// break into columns
+		idle = row.split(/\s+/);
+		// the idle time is in column 22 for Solaris
+		sum += parseInt(idle[22]);
+	}
+
+	// now convert from % free to % used
+	used = (100 * queries) - sum;
+	// average over the measurements
+	used /= queries;
+	// results must be strings
+	scriptletResult = used.toString();
+
+	// check to see if this is under our threshold
+	if (used &lt;= parseInt(threshold)) {
+		scriptletResponse = &quot;below threshold&quot;;
+	}
+	else {
+		scriptletResponse = &quot;above threshold&quot;;
+	}
+
+	// put the percent used into the context
+	scriptletContext.putGlobal(&quot;CPUpercent&quot;, used.toString());
+}
+else
+{
+	// check for a host not found
+	errorstring = scriptletRawResult[&apos;Error String&apos;];
+	if (errorstring.match(/.*UnknownHost.*/) != null) {
+		scriptletResponse = &quot;host not found&quot;;
+	}
+	// look for an authentication error
+	else if (errorstring.match(/.*Authentication failure.*/) != null) {
+		scriptletResponse = &quot;authentication failure&quot;;
+	}
+	// generic error response
+	else {
+		scriptletResponse = &quot;failure&quot;;
+	}
+}
+
+</script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="2d7fbc4b-57db-401e-942d-1aed8e90f6ac">
+      <annotation></annotation>
+      <name>below threshold</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="eae6f30d-a340-43c2-abe3-aa099b0443ce">
+      <annotation></annotation>
+      <name>above threshold</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="5f1e7fc7-a035-4abe-a924-07fe781535a4">
+      <annotation></annotation>
+      <name>host not found</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="4b4796cc-642a-455a-b521-ef8b51a78186">
+      <annotation></annotation>
+      <name>authentication failure</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="2894cac9-89b8-46a1-be2a-cf4c9c8496b1">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="04190a1d-2835-46f5-9549-f0fbe19256d3">
+    <annotation></annotation>
+    <name>Code</name>
+    <fieldName>Code</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="887ae9a2-978a-4b11-82eb-5e4181583ede">
+    <baseIcon>cpu.png</baseIcon>
+    <basePath>Operating System/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="2a616058-9750-4387-b9db-4e607eed0ebe">
+        <baseIcon>view.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <opRef>
+    <refId>46c0f7ea-a981-4ddc-bcaf-d4faed7af0b6</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

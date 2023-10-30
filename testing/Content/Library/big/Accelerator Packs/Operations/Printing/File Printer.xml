@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="8e9881bc-6a06-430f-a0aa-1db3e5d82a87">
+  <descriptionCdata><![CDATA[8e9881bc-6a06-430f-a0aa-1db3e5d82a87.description=<pre>Prints a given document to the printer. This can print both text and images. The type of file to be printed must be supported by the printer. Also, the RAS must be run under an account for which the printer is accessible. As text files, this operation currently prints only .txt files.\n\nInputs\:\nprinterName - The name of the printer used for printing.\ndocumentName - The full path to the document to be printed.\ncharacterSet - The character encoding of the document to be printed. Default is UTF-8. If the byte order mark (BOM) appears at the start of the document, then the encoding signaled by the BOM will be used instead of the one indicated by the characterSet.\n\nResponses\:\nsuccess - The document was printed.\nfailure - Something went wrong.</pre>
+]]></descriptionCdata>
+  <annotation>8e9881bc-6a06-430f-a0aa-1db3e5d82a87.description</annotation>
+  <name>File Printer</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="aa849129-170e-4ce5-909d-59a634d88ec4">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>printerName</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="0f1b59c2-bc7a-4934-98fb-b6fb9a51f16a">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>documentName</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="ab4138da-b9c7-4aba-8e81-1d692d28ec12">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>characterSet</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="44f691bd-836a-4752-855b-79ff26254b29">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="c44bbf93-56f3-496a-a8f3-bb3299996fb8">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="5ed6327c-34c8-460b-956d-37b056b1b964">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>-1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="5bc5c128-8d81-41c2-852b-70695d6b5373">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="474d538b-1a0e-4a54-bc66-d09a800183da">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="42e10dab-1f8d-4030-af63-865177a1a584">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="242683f3-0cfd-462a-a7aa-a81296a9b7d7">
+    <annotation></annotation>
+    <name>returnCode</name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="2dce2429-9fdc-4449-beab-8df462a7be3d">
+    <baseIcon>printer.png</baseIcon>
+    <basePath>/Networking/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="1dde1291-b688-4570-a98e-7ab8ed4aafff">
+        <baseIcon>copy.png</baseIcon>
+        <basePath>/Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-base-legacy-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>com.iconclude.content.actions.printing.Printer</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

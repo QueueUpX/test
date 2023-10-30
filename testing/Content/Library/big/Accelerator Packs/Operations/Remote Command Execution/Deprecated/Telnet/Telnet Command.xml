@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="b3a3135d-403b-4d28-a969-8611aa52f895">
+  <descriptionCdata><![CDATA[b3a3135d-403b-4d28-a969-8611aa52f895.description=Sends a command to the telnet server. This should be preceded by Send Username and Send password in a telnet sequence.  The last command in the sequence should have ICT_lastInSession set to true to close the session.  This operation is not the preferred way to use telnet, RAS Telnet Shell is.\n\n<pre>\nInputs\:\nCommand - The command to execute on the remote host.\nICT_Host - The host to execute the command on.\nICT_Port - The port telnet is running on.\nICT_Session - A unique name for the telnet session this command is run from.\nICT_WaitMode - How to wait for the response\: ''none'' - do not wait, ''any'' - wait for any response, ''match'' - wait for response to match the regular expression. Defaults to none.\nICT_TermExpr - The expression to match the server's response before sending the command.\nICT_LastInSession - If set to ''true'', this is deemed the last operation in the session. The session is terminated and removed from the context after this operation finishes.\nICT_Charset - The encoding used for the received characters (for instance ''MS932'' for Japanese Windows). Defaults to UTF-8.\n\nResponses\:\nsuccess - Operation succeeded.\nfailure - Operation failed.\n\nReturns - The standard output of the telnet command.\n\nAuthentication Note\:\nSend Username and Send Password should preceded this operation to successfully establish a session.\n</pre>
+]]></descriptionCdata>
+  <annotation>b3a3135d-403b-4d28-a969-8611aa52f895.description</annotation>
+  <name>Telnet Command</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="5d23d787-f43a-4dde-9a35-a84117d5c152">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Command</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="429860b5-d63a-4bb9-b2cb-4a2be13df9bc">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>ICT_Host</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="7d834360-6742-4fbd-b961-f4f8da6ef299">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>ICT_Port</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="d3886a9b-c808-4c46-9f60-682d4607385f">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>ICT_Session</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="9aab3ac5-ae7e-47e1-a973-0502332aa60d">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>ICT_TermExpr</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="d87290d8-b299-44c4-9f2b-6975c287dd77">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>ICT_WaitMode</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>none</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="98ab67a7-14be-4362-bfea-053500427aeb">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>ICT_LastInSession</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="a10b4d63-4ba1-4116-a4a5-ea85f6afcdde">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>ICT_Charset</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="9faf2a11-21f2-4bcd-95da-f4e2a1df4f10">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Environment</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="40caed60-6c98-4baf-a20b-da08dad0c5f5">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Port</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${ICT_Port}</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="1530c181-eefe-4bfd-9892-2a03435228e6">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Argument</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="9f15d4e3-b4c8-4d29-bad9-97a6f0ca8558">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Terminal_Expression</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${ICT_TermExpr}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="0a09b17d-6f86-4f02-be33-0db6b20f9ee7">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Host</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${ICT_Host}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="08819cef-79a6-419a-b9d8-b33c3df89660">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Session_Name</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${ICT_Session}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="99f95ff3-fb66-4a90-8b2b-8f06b96e151d">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Last_In_Session</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${ICT_LastInSession}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="55f0a7cc-abc9-4768-a04d-f2bfb4380b2e">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Character_Set</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${ICT_Charset}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="efeae379-345f-456d-a056-f4f28002129d">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Wait_Response_Mode</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${ICT_WaitMode}</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="3fabe2c5-83a2-4aa5-be8c-d154fc8697b2">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Path</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <scriptlet id="82da2491-8e55-457c-8df4-acf2ec22eb8e">
+    <annotation></annotation>
+    <name>Operation Telnet Command (9912c83e-a611-41a2-ba55-efe58a76d4d7)</name>
+    <script>
+if (scriptletRawResult[&apos;Output String&apos;] != null)
+	scriptletContext.put(&quot;stdOut&quot;, scriptletRawResult[&apos;Output String&apos;]);
+
+if (scriptletRawResult[&apos;Error String&apos;] != null)
+	scriptletContext.put(&quot;stdErr&quot;, scriptletRawResult[&apos;Error String&apos;]);
+</script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="99478256-88fe-48e0-bd99-ecb54b54f7f1">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="633c7063-1928-45c5-a6b3-1e8e7a2fc782">
+          <annotation></annotation>
+          <name>Code</name>
+          <fieldName>Code</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="a1d4a610-1e1e-4497-a0ba-254b46f3f4bb">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="2a2ce5e9-9fd4-4936-9f3c-73c0912a0a33">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="01ca2237-f5ed-4030-bcea-db3aec91e161">
+    <annotation></annotation>
+    <name></name>
+    <fieldName>Code</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="c608f1bb-cfc5-40f2-8c3c-818093689a7b">
+    <baseIcon>telnet.png</baseIcon>
+    <basePath>System</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="50e31cf8-0e47-4a56-be69-5aed40308c83">
+        <baseIcon>remote.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-base-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>telnetOp</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

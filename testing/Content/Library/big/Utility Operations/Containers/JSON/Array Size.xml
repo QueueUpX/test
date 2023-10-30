@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="411e2cb8-abf1-442a-a693-abf31df7957d">
+  <descriptionCdata><![CDATA[411e2cb8-abf1-442a-a693-abf31df7957d.description=Determines the number of elements in the given JavaScript array.  If an element is itself another JavaScript array, it only counts as 1 element; in other\nwords, it will not expand and count embedded arrays.  Null values are also considered to be an element.\n\nInputs\:\n   array -  The JavaScript array whose elements will be counted.  The operation will return a failure if the array is not a JavaScript array; a normal OO list\n                is NOT a JavaScript array.\n\nResponses\:\n   success - The array is a valid JavaScript array, and the Result output will be populated with the count of elements in the array.\n   failure -  The array input does not contain a valid JavaScript array.  The result will contain a message to that effect.  This will occur if the input\n                  array is not a valid JavaScript array.  For example, if presented with a common list value such as a,b,c it will fail because it lacks the\n                  enclosing brackets and the quotes around each string element.  You may wish to use a tool such as http\://www.jsonlint.com/ to help diagnose\n                  problems with JavaScript Object Notation.\n\nResults\:\n   returnResult - The number of elements in the array.  Elements that are themselves arrays only count as a single element.\n\nExamples\:\n    The size of [ "apple", "banana" ] is 2.\n\n    The size of [ "apple", "pencil", [ 0, 3, 5, -199 ] ] is 3.\n\n    The size of [ "apple", null, "banana", null ] is 4.\n\n    The size of [] is 0.\n\nThe description of the enclosing folder describes the JSON format with examples, and the JSON format is described completely at http\://www.json.org.\n
+]]></descriptionCdata>
+  <annotation>411e2cb8-abf1-442a-a693-abf31df7957d.description</annotation>
+  <name>Array Size</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="a193ce5b-357d-4aea-ab35-411f3ada0c71">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>array</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="68d32e39-9457-4742-90c1-f25daed85c69">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="719175d1-ad9a-473e-aec7-7dde134444cc">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="43805223-bf31-4f8b-8fa2-feabee1b1756">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="597ea0a4-440e-49a6-b6ef-e08f6a7d2fa3">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="0a906781-90bf-41c7-a878-5457ab820f32">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="e1be6b04-d56d-4217-bd04-ee5e53412cf8">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>-1</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="71d7b546-57b5-4eca-99fa-a849f7368c2c">
+    <annotation></annotation>
+    <name>returnResult</name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="b49b6e2c-87aa-44ee-bc82-48713e712041">
+    <baseIcon>jar.png</baseIcon>
+    <basePath>/Others/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="8c201b02-0bbe-44ce-8b74-cfbcf7243ee6">
+        <baseIcon>Calculator.png</baseIcon>
+        <basePath>/Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>score-actions-base-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>Array Size</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="589849da-b0a0-4087-abd3-8c75db1a2d9e">
+  <descriptionCdata><![CDATA[589849da-b0a0-4087-abd3-8c75db1a2d9e.8d6667e3-9f6e-4c51-8078-1c100e014c9f.prompt=Delimiter\:
+589849da-b0a0-4087-abd3-8c75db1a2d9e.a1225228-6c9c-4998-ad08-b555e86be1ae.prompt=Cluster name\:
+589849da-b0a0-4087-abd3-8c75db1a2d9e.description=<pre>\nRetrieves information about the nodes that form a cluster.\n\nInputs\:\nhost - The hostname or ip address of the cluster server (e.g. w2k8cluster, 10.51.0.225).\ndelimiter - The delimiter for the results. The default value is ",".\n\nResponses\:\nsuccess - The operation succeeded.\nfailure - Something went wrong.\n\nResult\:\nGeneral information about the cluster nodes. The following information is returned for each node\: name, state, networks that the node belongs to and ip address of the node in each network. Each cluster network that is up will be retrieved, regardless of its role (i.e. private, public, mixed or not enabled).\n\nExtra Results\:\nclusterNodeNames - A list with the names of the nodes separated by the delimiter.\nclusterNodeStates - A list with the states (i.e Up, Down, Paused, Joining, StateUnknown) of the nodes separated by the delimiter.\nclusterNodeAddresses - A list with the IP addresses of the nodes separated by the delimiter. Only the addresses for networks that are up and that provide client systems with access to cluster application services are shown. \n\nNotes\:\n1. Thanks to MS's way of building the COM interface to MS Clustering admin tools, we can't use any impersonation with it.  \nTherefore, to make it work properly you have to run the Windows RAS service as an account with privileges.\n2. Clean install of Windows 2008 (on the RAS machine) does not include by default msclus.dll library. To work around this issue there are 2 alternatives. The first one is to install the failover clustering feature on the machine, which will install the msclus.dll to "%systemroot%\\system32\\msclus.dll". The alternative is to  copy "%systemroot%\\system32\\msclus.dll" from a Windows Server 2003 server to the same location on the Windows 2008 (R2) machine and run "regsvr32 %systemroot%\\system32\\msclus.dll" (if you have a 64-bit Windows 2008 then you have to copy msclus.dll from a 64-bit Windows 2003).\n3. To administer a Windows 2008 cluster you have to install RAS on a Windows 2008 machine. Backward compatibility has been broken by Microsoft, according to http\://msdn.microsoft.com/en-us/library/bb756975.aspx, which means that you cannot call Cluster APIs from a Windows Server 2008 Cluster to a down-level cluster (Windows NT 4.0, Windows 2000, or Windows 2003). Also, you cannot be on a down-level client and remotely call Cluster APIs against a Windows Server 2008 node.\n</pre>
+]]></descriptionCdata>
+  <annotation>589849da-b0a0-4087-abd3-8c75db1a2d9e.description</annotation>
+  <name>Get Cluster Nodes</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="a1225228-6c9c-4998-ad08-b555e86be1ae">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>host</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>589849da-b0a0-4087-abd3-8c75db1a2d9e.a1225228-6c9c-4998-ad08-b555e86be1ae.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="8d6667e3-9f6e-4c51-8078-1c100e014c9f">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>delimiter</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>589849da-b0a0-4087-abd3-8c75db1a2d9e.8d6667e3-9f6e-4c51-8078-1c100e014c9f.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="d888ac92-b0cf-42b0-9b52-f920e09448fe">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="2e9edf0c-fd4f-408b-b241-a27f29afdf74">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="7edc0d16-c793-4774-a6bf-a866f10c8e93">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="7230ac09-ed6b-4fb0-be9f-8ab3c662d920">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="c8014ac1-a679-4723-8960-f53b64b89e15">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="c3b96e2e-bf00-4260-921c-756fa0821914">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="9961be45-9ae7-4915-af4f-bfc050120f76">
+    <annotation></annotation>
+    <name>returnCode</name>
+    <fieldName>returnCode</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="86fe18f0-a54c-4972-9698-664bcc013a71">
+    <baseIcon>node.png</baseIcon>
+    <basePath>/Servers/</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-dotnet-web-actions-mscluster-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>dotNETWebActions_Cluster.GetClusterNodes</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideNRAS}</overrideGroupAlias>
+</operation>

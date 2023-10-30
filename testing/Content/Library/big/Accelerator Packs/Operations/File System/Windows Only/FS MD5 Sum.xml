@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="bd5d9e19-adad-43ee-8235-301a9aff2f88">
+  <descriptionCdata><![CDATA[bd5d9e19-adad-43ee-8235-301a9aff2f88.description=<pre>FSMD5Sum Calculates a file's checksum and compares it to a given checksum.\n\nInputs\:\n    source - The file to rename, including directory.\n    compareTo - The checksum to compare to.\n    user - Username to use for thread impersonation on the RAS host when reading.\n    password - Password for the user.\n\nResults\:\n    returnCode - This is the primary output. It is -1 for failure, 27 if the checksum matched the specified checksum and 0 if checksum did not matched the specified checksum.\n    checksum - The checksum calculated for the file.\n\nResponses\:\n    failure - The checksum calculations failed or the file did not exist.\n    success \: not equal - The checksum was calculated, but did not equal the given checksum.\n    success \: equal - The checksum was the same as the one compared to.\n\n</pre>\n
+]]></descriptionCdata>
+  <annotation>bd5d9e19-adad-43ee-8235-301a9aff2f88.description</annotation>
+  <name>FS MD5 Sum</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="bc0ac637-9fe5-4a32-a8b6-b7fa6cf1ec42">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>compareTo</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="f49e7336-1a84-449f-aa93-d47a18329b9e">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>source</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="596ed5a0-9923-4b9d-8d2b-6a46911bcb58">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>user</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="2d1312c7-9e32-4092-b3db-89d6f4f10b6e">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>password</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="2ef4741c-32df-425a-b0c5-512019ed2d1f">
+      <annotation></annotation>
+      <name>success : equal</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="bbc21c65-47b4-487a-8b2d-9f241b83ff80">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="1208310d-b8e1-443a-9dd1-f88994c1a7e2">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>27</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="64376bda-3b7b-40c8-bb59-f28ddd217fb6">
+      <annotation></annotation>
+      <name>success : not equal</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="539bc993-4308-4e14-8462-8421ce393bf9">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="84bfd69e-efb5-4fbf-aacc-6724c54f4717">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="ca6e3301-d824-41fe-bcaa-eee9939d5614">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="1f87f342-d8e0-41bd-bd38-d79520d88d75">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="c5ef49be-a062-4704-ab16-11ed30c9d1f1">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="3c316a92-7e34-42ec-8ae3-bce68f4a5803">
+    <annotation></annotation>
+    <name>returnCode</name>
+    <fieldName>returnCode</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="54bd246b-9c9c-4fab-800b-3a694c714782">
+    <baseIcon>document_text.png</baseIcon>
+    <basePath>/Operating System/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="46f7819d-1cf3-45a9-98b8-b4924b303b63">
+        <baseIcon>lock.png</baseIcon>
+        <basePath>/Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-dotnet-web-actions-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>dotNETWebActions_FileSystem.NewMD5Sum</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideNRAS}</overrideGroupAlias>
+</operation>

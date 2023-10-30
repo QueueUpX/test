@@ -1,0 +1,761 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="c4a19d0b-fe50-4dcb-8393-13beabb9ed1d">
+  <descriptionCdata><![CDATA[c4a19d0b-fe50-4dcb-8393-13beabb9ed1d.description=<pre>\nThis retrieves network metrics using netstat.  \n\nInputs\:\n\nhost\:  the system to check\nusername\: the user to log into this system as\npassword\: the password to log in with\nname\: name of the network interface to check\n\nResponses\:\n\nsuccess\: the data was obtained\nfailure\: the data could not be obtained\n\nResult\:\n\nThe netstat return code\n\nExtra Results\:\n\ncollisions\: the collision count\nipAddress\: the IP adress \nmacAaddress\: the MAC adress\nreceiveBytes\: number of received bytes\nreceiveDrops\: number of received drops\nreceiveErrors\: number of received errors\nreceiveFrameErrors\: number of received frame errors\nreceiveOverruns\: number of received overruns\nreceivePackets\: number of received packets\ntransmitBytes\: number of transmitted bytes\ntransmitCarrierErrors\: number of transmitted carrier errors\ntransmitDrops\: number of transmitted drops\ntransmitErrors\: number of transmitted errors\ntransmitOverruns\: number of transmitted overruns\ntransmitPackets\: number of transmitted packets\n</pre>
+]]></descriptionCdata>
+  <annotation>c4a19d0b-fe50-4dcb-8393-13beabb9ed1d.description</annotation>
+  <name>Network Metrics</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="5cbf6470-549d-40b2-864b-6bf122dc64b7">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>host</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="f27c6118-b896-418b-9d05-e41eafeb6772">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>username</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="b5b9ac82-408a-44e7-89aa-a972fd3bb3de">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>password</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="743a5311-6d0d-4a1c-aa5f-d0f45e2da98b">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>name</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="ccde6ebb-3839-44f3-a634-8eb793d91a0a">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Environment</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="a7d6eba3-e491-4417-8c03-a3b2492df598">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Command</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>netstat -i ${name} -e</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="9b52df13-6970-4229-97bb-f24160cc0059">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>User</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${username}</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="1ad054e4-cc8b-4532-a9a5-760bd62f10a5">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Argument</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="6fe07df5-a85c-47fa-923c-ebc47dba126f">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Host</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${host}</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="229b1593-89b3-4f27-a261-a188164fa46b">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Private_Key_File</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="956693ec-9dab-40d0-8c87-6426b02f6eff">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Password</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>{OBFUSCATED}SqstnSxglAP4D4gm72ILRw==</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="0eb1cb83-8c9d-4336-a0a6-73e873f0bcde">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Pty</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>false</value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="4ec0cd10-1430-49bf-b161-88d2939eafb4">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="c1a1ed95-49f7-44b7-b41c-86a3d7433931">
+          <annotation></annotation>
+          <name>Code</name>
+          <fieldName>Error String</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="bca1c1eb-b100-4f2c-bda5-05b0ba63cb88">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text></text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+        <expression id="29d38bc2-c3cb-4bd2-ac2a-af3451079d5f">
+          <annotation></annotation>
+          <name>Code</name>
+          <fieldName>Output String</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="62f74eec-be21-47b9-9716-869d1a52b44d">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>encap</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>BEGINS_WITH</matchType>
+          </containsEvaluator>
+          <filters>
+            <replaceAllFilter id="2cfbbedf-0b91-4890-a201-8ec516325181">
+              <annotation></annotation>
+              <name>Replace</name>
+              <ignoreCase>false</ignoreCase>
+              <searchString> </searchString>
+              <replaceType>ALL</replaceType>
+            </replaceAllFilter>
+            <stripTrailingFilter id="e88cf3b9-b171-48d0-892d-efb3b0958f71">
+              <annotation></annotation>
+              <name>Strip</name>
+              <strip>${name}Link</strip>
+              <type>ALL_CHARACTERS_UP_TO_AND_INCLUDING</type>
+            </stripTrailingFilter>
+          </filters>
+        </expression>
+        <expression id="4b60a8f8-20d3-4d8a-b9c7-a43b1ba45edf">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>Code</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="5e267adc-3a22-4803-94ab-17e9a4b8a6f1">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="117ba2ff-08da-4b3e-a10f-04e8d0505bfe">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions>
+    <expression id="1c20c123-506d-4093-9092-fc33ae81c845">
+      <annotation></annotation>
+      <name>transmitPackets</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <selectLineFilter id="d0486b1d-63df-4cd7-844b-b01d01f5a47e">
+          <annotation></annotation>
+          <name>Select Line</name>
+          <text>TX packets</text>
+          <type>FIRST_LINE_CONTAINING</type>
+          <autoSelectLineEnding>false</autoSelectLineEnding>
+          <windowsLineEnding>false</windowsLineEnding>
+          <unixLineEnding>true</unixLineEnding>
+        </selectLineFilter>
+        <stripTrailingFilter id="108edc1c-855c-4396-bbc9-2220905e126a">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>TX packets:</strip>
+          <type>ALL_CHARACTERS_UP_TO_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripTrailingFilter id="da1addc1-77a3-41dd-b534-223c274c3738">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>errors</strip>
+          <type>ALL_CHARACTERS_AFTER_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripWhitespaceFilter id="98781273-640d-4413-94d6-a5cefb69a3fd">
+          <annotation></annotation>
+          <name>Strip Whitespace</name>
+        </stripWhitespaceFilter>
+      </filters>
+    </expression>
+    <expression id="4701ff19-b2d3-4e36-8c32-aeefd6705fff">
+      <annotation></annotation>
+      <name>receiveDrops</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <selectLineFilter id="6ac07cad-0b78-4f85-b200-029eff6c57b5">
+          <annotation></annotation>
+          <name>Select Line</name>
+          <text>RX packets</text>
+          <type>FIRST_LINE_CONTAINING</type>
+          <autoSelectLineEnding>false</autoSelectLineEnding>
+          <windowsLineEnding>false</windowsLineEnding>
+          <unixLineEnding>true</unixLineEnding>
+        </selectLineFilter>
+        <stripTrailingFilter id="8fa1030b-0639-4173-a8e9-c130d6162916">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>dropped:</strip>
+          <type>ALL_CHARACTERS_UP_TO_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripTrailingFilter id="3241db98-f2c7-49a5-85ba-3d22083c623b">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>overruns</strip>
+          <type>ALL_CHARACTERS_AFTER_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripWhitespaceFilter id="7c1dc785-f1a3-461b-8c92-efc630f08c27">
+          <annotation></annotation>
+          <name>Strip Whitespace</name>
+        </stripWhitespaceFilter>
+      </filters>
+    </expression>
+    <expression id="b2382655-be3e-4583-9529-64fcd1a2b5df">
+      <annotation></annotation>
+      <name>collisions</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <regexFilter id="44cdabad-fc4e-4935-92ed-2dddeba17d89">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>collisions:\d+</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>PERL5</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <regexFilter id="9e710b98-8544-4193-8e4b-d8623d8e92b2">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>PERL5</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+      </filters>
+    </expression>
+    <expression id="d94d28b8-b92f-4117-9376-8f1d6d2534d8">
+      <annotation></annotation>
+      <name>receiveErrors</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <selectLineFilter id="e2478082-be9e-4bd2-9617-6cf39024ed16">
+          <annotation></annotation>
+          <name>Select Line</name>
+          <text>RX packets</text>
+          <type>FIRST_LINE_CONTAINING</type>
+          <autoSelectLineEnding>false</autoSelectLineEnding>
+          <windowsLineEnding>false</windowsLineEnding>
+          <unixLineEnding>true</unixLineEnding>
+        </selectLineFilter>
+        <stripTrailingFilter id="b627c448-ee7f-451b-bc3c-3577dd0269bb">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>errors:</strip>
+          <type>ALL_CHARACTERS_UP_TO_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripTrailingFilter id="6505b858-1d3a-48b6-83ed-7407b00ab106">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>dropped</strip>
+          <type>ALL_CHARACTERS_AFTER_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripWhitespaceFilter id="25181ebc-2f7b-47e3-b7c7-f0366219f4f1">
+          <annotation></annotation>
+          <name>Strip Whitespace</name>
+        </stripWhitespaceFilter>
+      </filters>
+    </expression>
+    <expression id="78ee0b08-247d-458f-916f-f96e7e57d501">
+      <annotation></annotation>
+      <name>macAaddress</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <selectLineFilter id="20786c06-2ead-4307-b53d-787a5a80cfc5">
+          <annotation></annotation>
+          <name>Select Line</name>
+          <text>HWaddr</text>
+          <type>FIRST_LINE_CONTAINING</type>
+          <autoSelectLineEnding>false</autoSelectLineEnding>
+          <windowsLineEnding>false</windowsLineEnding>
+          <unixLineEnding>true</unixLineEnding>
+        </selectLineFilter>
+        <stripTrailingFilter id="69e88e09-1c99-41ad-896f-4515509092d3">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>HWaddr</strip>
+          <type>ALL_CHARACTERS_UP_TO_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripWhitespaceFilter id="26448d7a-238a-46ec-96ab-9cddd7256560">
+          <annotation></annotation>
+          <name>Strip Whitespace</name>
+        </stripWhitespaceFilter>
+      </filters>
+    </expression>
+    <expression id="6a2b96f4-9787-4c14-b005-8a429a7bc250">
+      <annotation></annotation>
+      <name>transmitErrors</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <selectLineFilter id="2c93df35-5390-4ca8-a6ae-615fc50f1232">
+          <annotation></annotation>
+          <name>Select Line</name>
+          <text>TX packets</text>
+          <type>FIRST_LINE_CONTAINING</type>
+          <autoSelectLineEnding>false</autoSelectLineEnding>
+          <windowsLineEnding>false</windowsLineEnding>
+          <unixLineEnding>true</unixLineEnding>
+        </selectLineFilter>
+        <stripTrailingFilter id="c5e5b04a-e0a9-47f4-9219-8f1730c990fe">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>errors:</strip>
+          <type>ALL_CHARACTERS_UP_TO_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripTrailingFilter id="866d9662-705f-45ff-b256-a9f7b5154774">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>dropped:</strip>
+          <type>ALL_CHARACTERS_AFTER_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripWhitespaceFilter id="17e0e8e3-a96b-4cbb-8a91-1583f8d3a388">
+          <annotation></annotation>
+          <name>Strip Whitespace</name>
+        </stripWhitespaceFilter>
+      </filters>
+    </expression>
+    <expression id="d5b9aa16-cea8-4253-a502-b3bfb9eaf1c0">
+      <annotation></annotation>
+      <name>ipAddress</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <selectLineFilter id="52df91dc-a399-4b4d-9cf8-3e14c94e8f6f">
+          <annotation></annotation>
+          <name>Select Line</name>
+          <text>inet addr</text>
+          <type>FIRST_LINE_CONTAINING</type>
+          <autoSelectLineEnding>false</autoSelectLineEnding>
+          <windowsLineEnding>false</windowsLineEnding>
+          <unixLineEnding>true</unixLineEnding>
+        </selectLineFilter>
+        <stripTrailingFilter id="d76f98d1-6166-4352-a29c-aec92f7e177c">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>inet addr:</strip>
+          <type>ALL_CHARACTERS_UP_TO_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripTrailingFilter id="6f5562e5-6aeb-4dac-80c6-3b36a7735f20">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>Bcast:</strip>
+          <type>ALL_CHARACTERS_AFTER_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripWhitespaceFilter id="5e9cc116-2470-4fb8-b1ba-5ae1ecdbd8cb">
+          <annotation></annotation>
+          <name>Strip Whitespace</name>
+        </stripWhitespaceFilter>
+      </filters>
+    </expression>
+    <expression id="dbe089f8-6e8b-4e81-a5b8-7dde871911e9">
+      <annotation></annotation>
+      <name>transmitOverruns</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <selectLineFilter id="f6cacaa2-61f2-42c0-bbb8-1e1b488a6915">
+          <annotation></annotation>
+          <name>Select Line</name>
+          <text>TX packets</text>
+          <type>FIRST_LINE_CONTAINING</type>
+          <autoSelectLineEnding>false</autoSelectLineEnding>
+          <windowsLineEnding>false</windowsLineEnding>
+          <unixLineEnding>true</unixLineEnding>
+        </selectLineFilter>
+        <stripTrailingFilter id="74df1383-b77f-4dc6-9299-740ce2e49259">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>overruns:</strip>
+          <type>ALL_CHARACTERS_UP_TO_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripTrailingFilter id="40b3ea33-09e1-4d45-92be-384fbc49ccb8">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>carrier</strip>
+          <type>ALL_CHARACTERS_AFTER_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripWhitespaceFilter id="cc0d7c08-1cff-4a64-8d70-624c47c257fa">
+          <annotation></annotation>
+          <name>Strip Whitespace</name>
+        </stripWhitespaceFilter>
+      </filters>
+    </expression>
+    <expression id="65c0471d-4cae-477c-ba5a-e44ed0424aa1">
+      <annotation></annotation>
+      <name>receiveFrameErrors</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <selectLineFilter id="1d273b9c-c883-48bf-aa6c-fcdc09649906">
+          <annotation></annotation>
+          <name>Select Line</name>
+          <text>RX packets</text>
+          <type>FIRST_LINE_CONTAINING</type>
+          <autoSelectLineEnding>false</autoSelectLineEnding>
+          <windowsLineEnding>false</windowsLineEnding>
+          <unixLineEnding>true</unixLineEnding>
+        </selectLineFilter>
+        <stripTrailingFilter id="e00cbff2-c359-4cb5-9732-20e00c1c37b6">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>frame:</strip>
+          <type>ALL_CHARACTERS_UP_TO_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripWhitespaceFilter id="7570a5d0-dc00-4e1a-b3ab-8f4a1c469692">
+          <annotation></annotation>
+          <name>Strip Whitespace</name>
+        </stripWhitespaceFilter>
+      </filters>
+    </expression>
+    <expression id="ccb87065-ffcc-4a95-b089-c2e361ae7953">
+      <annotation></annotation>
+      <name>transmitDrops</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <selectLineFilter id="26bfabac-243a-432b-b79b-72da8df3dd54">
+          <annotation></annotation>
+          <name>Select Line</name>
+          <text>TX packets</text>
+          <type>FIRST_LINE_CONTAINING</type>
+          <autoSelectLineEnding>false</autoSelectLineEnding>
+          <windowsLineEnding>false</windowsLineEnding>
+          <unixLineEnding>true</unixLineEnding>
+        </selectLineFilter>
+        <stripTrailingFilter id="85782dc8-14ab-40b5-b775-9f56fa93c21f">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>dropped:</strip>
+          <type>ALL_CHARACTERS_UP_TO_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripTrailingFilter id="085edf2e-4226-43e2-ac52-b304c56ad64e">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>overruns</strip>
+          <type>ALL_CHARACTERS_AFTER_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripWhitespaceFilter id="2347682c-00d7-439f-b03e-ddc6d2d59ce7">
+          <annotation></annotation>
+          <name>Strip Whitespace</name>
+        </stripWhitespaceFilter>
+      </filters>
+    </expression>
+    <expression id="83e9cc36-1301-4c0e-9efc-fed21af37f70">
+      <annotation></annotation>
+      <name>receiveBytes</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <regexFilter id="e5edba3d-4cce-4189-8758-0cc4c9dbc4f7">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>RX bytes:\d+</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>PERL5</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <regexFilter id="36e560a2-760c-48c1-ac0e-d10248bb5db5">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>PERL5</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+      </filters>
+    </expression>
+    <expression id="9e2bdabe-3019-4310-b03a-d0bb89e7030f">
+      <annotation></annotation>
+      <name>transmitBytes</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <regexFilter id="4612d185-b4b1-4b51-a9f6-0e61b32fcf16">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>TX bytes:\d+</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>PERL5</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <regexFilter id="d741a672-e891-4866-978f-60bfc438deb7">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>PERL5</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+      </filters>
+    </expression>
+    <expression id="d7982b10-3e62-4993-a671-afa3f4b7f7f0">
+      <annotation></annotation>
+      <name>transmitCarrierErrors</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <selectLineFilter id="1a395c36-1f3a-48bf-a5a3-9fe03b3571eb">
+          <annotation></annotation>
+          <name>Select Line</name>
+          <text>TX packets</text>
+          <type>FIRST_LINE_CONTAINING</type>
+          <autoSelectLineEnding>false</autoSelectLineEnding>
+          <windowsLineEnding>false</windowsLineEnding>
+          <unixLineEnding>true</unixLineEnding>
+        </selectLineFilter>
+        <stripTrailingFilter id="e42a82eb-6a04-415d-aeba-d862bb7c5300">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>carrier:</strip>
+          <type>ALL_CHARACTERS_UP_TO_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripWhitespaceFilter id="763af749-64c0-4563-a3a3-6235621daf7a">
+          <annotation></annotation>
+          <name>Strip Whitespace</name>
+        </stripWhitespaceFilter>
+      </filters>
+    </expression>
+    <expression id="99de8201-1754-483b-9e59-3f08760474a0">
+      <annotation></annotation>
+      <name>receivePackets</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <selectLineFilter id="efb3c941-a1e1-48b3-8894-9c0a4e3ff178">
+          <annotation></annotation>
+          <name>Select Line</name>
+          <text>RX packets</text>
+          <type>FIRST_LINE_CONTAINING</type>
+          <autoSelectLineEnding>false</autoSelectLineEnding>
+          <windowsLineEnding>false</windowsLineEnding>
+          <unixLineEnding>true</unixLineEnding>
+        </selectLineFilter>
+        <stripTrailingFilter id="75c31edb-2911-43e2-9c15-5d0325d28237">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>RX packets:</strip>
+          <type>ALL_CHARACTERS_UP_TO_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripTrailingFilter id="49d41a79-988a-4f8b-9a76-dc49b285679f">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>errors</strip>
+          <type>ALL_CHARACTERS_AFTER_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripWhitespaceFilter id="a3f4a085-50a0-4a27-a0ac-dab78ffab5db">
+          <annotation></annotation>
+          <name>Strip Whitespace</name>
+        </stripWhitespaceFilter>
+      </filters>
+    </expression>
+    <expression id="26a3e245-2b76-418c-a5f7-9dd8cef51b7f">
+      <annotation></annotation>
+      <name>receiveOverruns</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <selectLineFilter id="9d183693-8ef3-44a2-a336-e964ec690b31">
+          <annotation></annotation>
+          <name>Select Line</name>
+          <text>RX packets</text>
+          <type>FIRST_LINE_CONTAINING</type>
+          <autoSelectLineEnding>false</autoSelectLineEnding>
+          <windowsLineEnding>false</windowsLineEnding>
+          <unixLineEnding>true</unixLineEnding>
+        </selectLineFilter>
+        <stripTrailingFilter id="b8f45140-7f7a-4a6f-b5b3-d2819fe6d917">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>overruns:</strip>
+          <type>ALL_CHARACTERS_UP_TO_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripTrailingFilter id="674b3291-210f-4e4a-a63e-2296f6ab5595">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>frame:</strip>
+          <type>ALL_CHARACTERS_AFTER_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripWhitespaceFilter id="4df8ba60-4c4f-4e53-9366-365a4aaf2edb">
+          <annotation></annotation>
+          <name>Strip Whitespace</name>
+        </stripWhitespaceFilter>
+      </filters>
+    </expression>
+  </availableResultExpressions>
+  <resultExpression id="b7b4ba4b-420d-493b-9817-34adeb4b6066">
+    <annotation></annotation>
+    <name></name>
+    <fieldName>Output String</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="769fbae5-ec7f-4819-bb48-ae44764046ec">
+    <baseIcon>document_plain.png</baseIcon>
+    <basePath>Others/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="03443d79-66ca-4e41-bbbc-78ae9faff3c5">
+        <baseIcon>client_network.png</baseIcon>
+        <basePath>Networking/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <opRef>
+    <refId>46c0f7ea-a981-4ddc-bcaf-d4faed7af0b6</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="4d854990-2766-485e-85be-3cf2da4ed838">
+  <descriptionCdata><![CDATA[4d854990-2766-485e-85be-3cf2da4ed838.description=\nChecks to see if all elements of one list are contained in another. used for checking if all processes in a given list are running.\n\ninputs\:\nlist - processes that are running, the output of Get Process List\nnecessary - processes that should be running.\n\nreturns\:\nA human readable message about what processes are running.\n\nResponses\:\nall running - All required processes are running.\none or more missing - one or more required processes are not running.\n      
+]]></descriptionCdata>
+  <annotation>4d854990-2766-485e-85be-3cf2da4ed838.description</annotation>
+  <name>Check Process Output</name>
+  <categories/>
+  <inputs>
+    <staticBinding id="c704115d-d2e1-47cc-bf1f-2a091c6c2513">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>list</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>unassigned</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="ab40b6ff-c8c5-499e-ab2f-bb3107a941cc">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>necessary</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>unassigned</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="ee4330f9-dadf-4b3d-b473-0c8d8c71878f">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Field_1</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${list}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="94da76d6-4a0e-4f6b-b2c6-e28f90801ac1">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Field_2</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${in2}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="230c42d1-9499-4e7b-9d60-714e07bc3ee4">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Field_3</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${in3}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="436f790c-4d4d-44cb-85d9-9c1f94348595">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Field_4</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${in4}</value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <scriptlet id="626e9fed-8baa-47e2-852c-dd9ef78acdb3">
+    <annotation></annotation>
+    <name>Operation Check Process Output (7604058f-5f2d-428f-ab28-7a82ba3956d8)</name>
+    <script>// set up defaults
+scriptletResponse = &quot;all running&quot;;
+scriptletResult = &quot;&quot;;
+
+// assume list is delimited by comma, pipe, space or newline
+processes = necessary.split(/,|\||\s|\n/);
+for (i = 0; i &lt; 10000; i++) {
+
+   if (processes[i] == null) break;
+
+   if (list.match(processes[i]) == null) {
+      // we have a missing process
+      scriptletResponse = &quot;one or more missing&quot;;
+      scriptletResult += processes[i] + &quot; is missing\n&quot;;
+   }
+ }
+
+</script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="a556a4c9-53b9-4b9b-9a01-e3ec9ebd4e56">
+      <annotation></annotation>
+      <name>all running</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="629158db-1708-4871-b7d6-6044814edc51">
+      <annotation></annotation>
+      <name>one or more missing</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="49be0021-5106-4340-80f9-27cf86877345">
+    <annotation></annotation>
+    <name>Field 1</name>
+    <fieldName>Field_1</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="decf3d14-5559-4b34-80e7-ebc9b03ccac5">
+    <baseIcon>thread.png</baseIcon>
+    <basePath>Others/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="9c545ef2-0c63-4713-bf4c-1a58469c159e">
+        <baseIcon>send.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <opRef>
+    <refId>ddd79f22-8b1e-4605-88d5-d912bb2da2b9</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

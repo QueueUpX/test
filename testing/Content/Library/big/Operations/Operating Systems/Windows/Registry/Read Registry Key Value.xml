@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="cedf701f-1888-49a6-a83d-9c669086b3b9">
+  <descriptionCdata><![CDATA[cedf701f-1888-49a6-a83d-9c669086b3b9.description=<pre>\nReads a value from a registry key.\n\nInputs\:\nhost - Hostname or ip address.\nkey - The key to read from. For Example\: HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Browser\nvalueName - Tthe name of the value in the key to read.\nusername - Username to use for WMI impersonation on the host for this operation (can be left blank).\npassword - Password of the user.\n\nResponses\:\nsuccess - Value read.\nfailure - Something went wrong.\n\nReturns\:\nThe raw XML response. Note, the format of this changes depending on the type of the key.\n\nExtra Results\:\ntype - The type of the registry key.\nvalue - the value of the registry key. If the type is REG_BINARY or REG_MULTI_SZ it will return a newline delimited list containing the elements of the array stored in the registry.\n\nNOTE\: Some environment variables may be filled in by the registry api when reading keys. Be careful when modifying.\n</pre>\n
+]]></descriptionCdata>
+  <annotation>cedf701f-1888-49a6-a83d-9c669086b3b9.description</annotation>
+  <name>Read Registry Key Value</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="e63d2180-fac8-46d6-84b2-6f63c63976eb">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>host</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="4cd9d540-ac65-45a7-a58c-80d0b43ffe1a">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>username</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="9ceaf022-4541-4ac4-8de9-b03974d64a8e">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>password</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="ab06eb1d-d428-456d-8c74-c82548137206">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>key</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="eef9f63b-b74f-44e3-82ef-5e58264432ec">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>valueName</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="2677e7e2-9a25-435b-8767-ae29e8cc8fe7">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="2b0abd61-2bfa-4bd0-8c7e-df5e35452304">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="b987b1fd-e6a1-4be4-a67c-cde2a03be68d">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="bfa96f4f-c7a2-487b-97c8-72ed67fb8813">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="c0673205-a5d7-4d22-9f27-8b94a644486d">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="6a612bd0-7858-46eb-aa7e-eca62b1d3169">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="8598712e-eb24-4dc4-8341-aefb71416dc2">
+    <annotation></annotation>
+    <name>returnCode</name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="59690402-da10-4e14-bc10-65b16f075342">
+    <baseIcon>text.png</baseIcon>
+    <basePath>Operating System/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="af0fb6d3-7d40-4e57-b9bd-f08150b4073d">
+        <baseIcon>view.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-dotnet-web-actions-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>dotNETWebActions_Registry.ReadRegistryKeyValue</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideNRAS}</overrideGroupAlias>
+</operation>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="8327617a-6d1a-4724-9923-73d5f3f0fd56">
+  <descriptionCdata><![CDATA[8327617a-6d1a-4724-9923-73d5f3f0fd56.0f1a18f5-01e4-4904-908e-6adce3f92edc.prompt=Username\:
+8327617a-6d1a-4724-9923-73d5f3f0fd56.6bdeb2af-b339-415f-a908-a49ae29255b2.prompt=Script\:
+8327617a-6d1a-4724-9923-73d5f3f0fd56.cc141765-6b46-4e17-961a-25724d22ac3d.prompt=Password\:
+8327617a-6d1a-4724-9923-73d5f3f0fd56.description=<pre>Runs a Microsoft PowerShell Script locally on a RAS.\n\nInputs\:\nscript - PowerShell script text.\nusername - Username to use for thread impersonation on the RAS host for this operation (can be left blank). The user to execute the PowerShell script as.\npassword - Password of the user.\n\nResponses\:\nsuccess - The command ran successfully.\nfailure - The command failed to run.\n\nResult\:\nThe return code of the operation.\n\nExtra Results\:\nreturnResult\t- The result of the script execution.\n</pre>
+]]></descriptionCdata>
+  <annotation>8327617a-6d1a-4724-9923-73d5f3f0fd56.description</annotation>
+  <name>PowerShell Script (1)</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="6bdeb2af-b339-415f-a908-a49ae29255b2">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>script</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>8327617a-6d1a-4724-9923-73d5f3f0fd56.6bdeb2af-b339-415f-a908-a49ae29255b2.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="0f1a18f5-01e4-4904-908e-6adce3f92edc">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>username</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>8327617a-6d1a-4724-9923-73d5f3f0fd56.0f1a18f5-01e4-4904-908e-6adce3f92edc.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="cc141765-6b46-4e17-961a-25724d22ac3d">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>password</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>8327617a-6d1a-4724-9923-73d5f3f0fd56.cc141765-6b46-4e17-961a-25724d22ac3d.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="6b782e27-0ecb-4e8c-8ca8-8270d5e8a9dd">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="56d99e39-8c75-47b4-bd74-666b2314b2bb">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="62366040-2a41-4e52-a5c9-93196b074d8b">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="b14023a7-f76f-466e-aa01-babdf1d6921e">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="72bed616-4d21-4af9-ab12-1b32b3bc7f7d">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="560c3526-c7bb-4715-b350-0f0327857b81">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="b2daed4a-551a-44b7-a1e5-646817515315">
+    <annotation></annotation>
+    <name>returnCode</name>
+    <fieldName>returnCode</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="45fc9ec1-a8fe-4ca1-8711-29dbaaec50cf">
+    <baseIcon>PowerShell.png</baseIcon>
+    <basePath>/Operating System/</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-dotnet-web-actions-powershell-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>dotNETWebActions_PowerShell.PSRunScript</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideNRAS}</overrideGroupAlias>
+</operation>

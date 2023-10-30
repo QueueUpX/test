@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="55e40c3d-e50c-42b7-a7e1-f35fad55d687">
+  <descriptionCdata><![CDATA[55e40c3d-e50c-42b7-a7e1-f35fad55d687.description=<pre>\nConverts a netmask to/from x.x.x.x format to the bit-width format (also called CIDR). So for example this operation will convert to/from 255.255.255.0 and 24 for ipv4 or FFFF\:FFFF\:FFFF\:FFFF\:0000\:0000\:0000\:0000 and 64 for ipv6.\n\nInputs\:\nmask \t- The netmask in either format. Format will be determined automatically.\nipVersion \t- The internet protocol version, takes one of the following values\: "ipv4" or "ipv6". If input is empty or not defined the operation will run with the default value("ipv4"). \n\nResponses\:\nsuccess \t- The operation completed successfully.\nfailure \t- Something went wrong.\n\nResults\:\nmask \t- The netmask in x.x.x.x format.\nwidth \t- The bit width of the netmask.\n</pre>
+]]></descriptionCdata>
+  <annotation>55e40c3d-e50c-42b7-a7e1-f35fad55d687.description</annotation>
+  <name>Convert Netmask</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="62629896-0148-44ca-9134-ca94194feb2f">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>mask</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="2e75302f-e8f4-45c3-860f-2a472bb72780">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>ipVersion</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="0658aaac-52c1-4dc6-84fd-f51ea31fa135">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="0de9ffe1-ec11-4d50-b0d5-1c92cd3bbc15">
+          <annotation></annotation>
+          <name>response</name>
+          <fieldName>response</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="f04be8e8-eb8d-4339-add1-45e4f2ff629e">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>success</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="b62fd4f9-8fab-4a95-bb58-2bdc900d8365">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="63de023d-0f93-4417-868a-3bacf9bae995">
+          <annotation></annotation>
+          <name>response</name>
+          <fieldName>response</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="a179b1d5-8082-4c37-bcd2-3fbc0b33ef43">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>failure</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="061fcf1c-12f0-4633-bb4a-9ee4f3ba3a73">
+    <annotation></annotation>
+    <name>mask</name>
+    <fieldName>FailureMessage</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="e220e990-12f3-42e6-87f9-22c3de0f5945">
+    <baseIcon>calculator.png</baseIcon>
+    <basePath>Others</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-base-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>convertNetmask</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="371d4582-54fd-4551-8c67-5571194db72e">
+  <descriptionCdata><![CDATA[371d4582-54fd-4551-8c67-5571194db72e.description=<pre>Gets a list of files and folders that reside in a directory.\n\nInputs\:\nsource - The directory to get the children of.\ndelimiter - A delimiter to put in between each child of this directory.\n\nReturns\:\nThe list of paths to each child of this directory.\n\nExtra Results\:\ncount - The total number of children of this directory.\n\nResponses\:\nsuccess - children retrieved.\nfailure - operation failed.\n</pre>
+]]></descriptionCdata>
+  <annotation>371d4582-54fd-4551-8c67-5571194db72e.description</annotation>
+  <name>FS Get Children</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="8caa4c8c-22dd-48ce-bdb6-acf955d8f07b">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>source</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="3b7a744b-c2e1-4a4b-970c-3e9ddea81f9b">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>delimiter</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <scriptlet id="83c76bd7-9409-4df0-b692-bfd8e74e229d">
+    <annotation></annotation>
+    <name>Operation FS Get Children (fc8a33f6-4dcf-4674-8eff-d9053f88f4e8)</name>
+    <script>scriptletContext.put(&quot;count&quot;, scriptletRawResult[&apos;count&apos;]);
+scriptletResult = scriptletRawResult[&apos;returnResult&apos;];</script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="922c9b19-2689-4c03-9f1a-89b90b394ac0">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="c2aa8ff0-4151-4ce5-ae4d-cf0fba693d4b">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="4d015d3f-1f7c-49e6-9dac-c9535c1f2e61">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="48c0b051-8247-4f3b-8f85-177f0fed30a5">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="c724192a-451e-421a-a1e5-6bac27c70b0f">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="5a4c64cc-9285-47ae-a7da-104faf4f6656">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>-1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="9e73ec9f-6355-4680-9fa8-5d44546a5dd2">
+    <annotation></annotation>
+    <name>exception</name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="1074401e-e22c-4851-beb6-6c690d28dd46">
+    <baseIcon>folder.png</baseIcon>
+    <basePath>Operating System/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="3bed62e7-2403-4716-9ae9-bcf4ad9eebec">
+        <baseIcon>view.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-fs-legacy-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>com.iconclude.content.actions.filesystem.FSGetChildren</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

@@ -1,0 +1,636 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="6646a873-88cb-4eb0-a75d-5a11fe06dc05">
+  <descriptionCdata><![CDATA[6646a873-88cb-4eb0-a75d-5a11fe06dc05.description=<pre>This retrieves disk metrics using iostat and display extended statistics.\n\nInputs\:\n\nhost\:  the system to check\nusername\: the user to log into this system as\npassword\: the password to log in with\ndevice\: disk name (Device) to check\n\nResponses\:\n\nsuccess\: the data was obtained\nfailure\: the data could not be obtained\n\nResult\:\n\nThe return code of the iostat command\n\nExtra Results\:\n\naverageKBReadPerSec - Average data read per second in KB\naverageKBWrittenPerSec - Average data written per second in KB\naverageReadsPerSec - The average number of read requests that were issued to the device per second \naverageServiceTime - The average service time ( in milliseconds ) for I/O request that were issued to the device\naverageServiceTimeInWaitQueue - The average time spent by the request in queue\naverageUtilization - The average number of Kilobytes utilized by the service\naverageWritesPerSec - The average number of write requests that were issued to the device per second \ncurrentKBReadPerSec - Current data read per second in KB\ncurrentKBWrittenPerSec - Current data written per second in KB\ncurrentReadsPerSec - Current number of read requests that were issued to the device per second \ncurrentServiceTime - Current service time ( in milliseconds ) for I/O request that were issued to the device\ncurrentServiceTimeInWaitQueue - Current time spent by the request in queue\ncurrentUtilization - Current number of Kilobytes utilized by the service\ncurrentWritePerSec - Current number of write requests that were issued to the device per second \n\nNotice\:\nThis operation requires the sysstat package to be installed on the Linux machine.\n</pre>
+]]></descriptionCdata>
+  <annotation>6646a873-88cb-4eb0-a75d-5a11fe06dc05.description</annotation>
+  <name>Disk Metrics</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="b6552ef5-4326-45ca-aadf-1b39412b90db">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>host</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="778a4609-7176-46cb-90c4-1ee900ad7bc1">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>username</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="fb0c9085-3159-4f94-9f4b-a8410c44d56a">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>password</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="4cdc3c7a-831c-4309-8318-deacdaa3bb62">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>device</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="1676325e-525d-4d85-919c-ecee14db3ed4">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Environment</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="754a79c3-15c6-4f1a-887e-c89067f2b7ad">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Command</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>iostat -x 2 2 ${device}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="34a710a3-68ab-464c-a50c-a83f9b753b2b">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>User</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${username}</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="321dd8c7-cbe3-44ec-8dce-7af643a3669a">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Argument</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="ad5f7db5-5067-452b-ad00-ac83359d08d5">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Host</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${host}</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="29f19b2f-1244-48c6-8fda-03d82d6cdca7">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Private_Key_File</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="f5ccaf3a-c39e-4550-85dd-7570b40bfafc">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Password</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>{OBFUSCATED}SqstnSxglAP4D4gm72ILRw==</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="b70127e1-f97a-438b-ba48-82e1f30d32d0">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Pty</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>false</value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="58e21359-4028-4d0c-908c-237c729b8dcc">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="7ca5d5d3-8bdd-474c-8619-b382af287b00">
+          <annotation></annotation>
+          <name>Code</name>
+          <fieldName>Output String</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <scriptletEvaluator id="312dac03-ceb4-4a0d-af55-51647faaad27">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <scriptlet id="2be3f544-c317-4157-8565-289963e25688">
+              <annotation></annotation>
+              <name>EvaluatorScriptlet</name>
+              <script>if(scriptletInput.length &gt;0) {
+	matchRanges.setMatches(true);
+}
+
+matchRanges.addRange(0,scriptletInput.length);</script>
+              <type>RHINO</type>
+            </scriptlet>
+          </scriptletEvaluator>
+          <filters>
+            <tableFilter id="e5fd8745-f410-4dc3-bf26-7962bd403e8b">
+              <annotation></annotation>
+              <name>Table</name>
+              <ascending>false</ascending>
+              <columnDelimiter>WHITESPACE</columnDelimiter>
+              <firstRowHeader>false</firstRowHeader>
+              <lineDelimintor>NEWLINE</lineDelimintor>
+              <selectCol>7</selectCol>
+              <selectHeight>1</selectHeight>
+              <selectRow>6</selectRow>
+              <selectWidth>1</selectWidth>
+              <sortColumn>-1</sortColumn>
+              <stripFirstRow>false</stripFirstRow>
+            </tableFilter>
+          </filters>
+        </expression>
+        <expression id="fe7600fd-f456-4aad-9b42-8e15abc368f7">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>Code</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="4602b2e0-bcf4-4135-acf0-1d240d335988">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="1085fd4d-fcd9-4127-80db-655d720298c0">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions>
+    <expression id="f452ea54-b43b-412f-a83e-512feac591c0">
+      <annotation></annotation>
+      <name>averageKBReadPerSec</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <tableFilter id="23d3e0e9-059b-4f33-bb92-382f015b5f5c">
+          <annotation></annotation>
+          <name>Table</name>
+          <ascending>false</ascending>
+          <columnDelimiter>WHITESPACE</columnDelimiter>
+          <firstRowHeader>false</firstRowHeader>
+          <lineDelimintor>NEWLINE</lineDelimintor>
+          <selectCol>7</selectCol>
+          <selectHeight>1</selectHeight>
+          <selectRow>6</selectRow>
+          <selectWidth>1</selectWidth>
+          <sortColumn>-1</sortColumn>
+          <stripFirstRow>false</stripFirstRow>
+        </tableFilter>
+      </filters>
+    </expression>
+    <expression id="e1ec26af-a840-47c2-902f-e1ccb08c1849">
+      <annotation></annotation>
+      <name>currentServiceTimeInWaitQueue</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <tableFilter id="a3cd6b4d-2833-4aa4-80cd-2ac01c7a817a">
+          <annotation></annotation>
+          <name>Table</name>
+          <ascending>false</ascending>
+          <columnDelimiter>WHITESPACE</columnDelimiter>
+          <firstRowHeader>false</firstRowHeader>
+          <lineDelimintor>NEWLINE</lineDelimintor>
+          <selectCol>9</selectCol>
+          <selectHeight>1</selectHeight>
+          <selectRow>6</selectRow>
+          <selectWidth>2</selectWidth>
+          <sortColumn>-1</sortColumn>
+          <stripFirstRow>false</stripFirstRow>
+        </tableFilter>
+        <scriptletFilter id="5195b7fc-8cee-4f44-b19c-ac61a9e75b10">
+          <annotation></annotation>
+          <name>Scriptlet</name>
+          <scriptlet id="ea25fffe-234e-4396-b9d9-bc040b3a90d2">
+            <annotation></annotation>
+            <name>default</name>
+            <script>values = scriptletInput.split(/\s+/);
+total = java.lang.Double.parseDouble(values[0]);
+service = java.lang.Double.parseDouble(values[1]);
+diff = (total - service) * 100 / 100;
+scriptletResult = diff.toString();</script>
+            <type>RHINO</type>
+          </scriptlet>
+        </scriptletFilter>
+      </filters>
+    </expression>
+    <expression id="b4a824dc-6f7b-4859-b0fe-9114274fa881">
+      <annotation></annotation>
+      <name>currentWritePerSec</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <tableFilter id="7b945af2-c4f6-4283-99d2-0ae16babd5eb">
+          <annotation></annotation>
+          <name>Table</name>
+          <ascending>false</ascending>
+          <columnDelimiter>WHITESPACE</columnDelimiter>
+          <firstRowHeader>false</firstRowHeader>
+          <lineDelimintor>NEWLINE</lineDelimintor>
+          <selectCol>4</selectCol>
+          <selectHeight>1</selectHeight>
+          <selectRow>6</selectRow>
+          <selectWidth>1</selectWidth>
+          <sortColumn>-1</sortColumn>
+          <stripFirstRow>false</stripFirstRow>
+        </tableFilter>
+      </filters>
+    </expression>
+    <expression id="b51aa5c7-1bab-4108-811c-d126bd0238b7">
+      <annotation></annotation>
+      <name>currentServiceTime</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <tableFilter id="ecaceff6-005d-4f8e-afc8-36ca23442b55">
+          <annotation></annotation>
+          <name>Table</name>
+          <ascending>false</ascending>
+          <columnDelimiter>WHITESPACE</columnDelimiter>
+          <firstRowHeader>false</firstRowHeader>
+          <lineDelimintor>NEWLINE</lineDelimintor>
+          <selectCol>12</selectCol>
+          <selectHeight>1</selectHeight>
+          <selectRow>6</selectRow>
+          <selectWidth>1</selectWidth>
+          <sortColumn>-1</sortColumn>
+          <stripFirstRow>false</stripFirstRow>
+        </tableFilter>
+      </filters>
+    </expression>
+    <expression id="10c6f4e0-ff12-4b43-bba6-0c340372938f">
+      <annotation></annotation>
+      <name>averageWritesPerSec</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <tableFilter id="8d351038-ff29-41fe-8a55-0ece39e80a2c">
+          <annotation></annotation>
+          <name>Table</name>
+          <ascending>false</ascending>
+          <columnDelimiter>WHITESPACE</columnDelimiter>
+          <firstRowHeader>false</firstRowHeader>
+          <lineDelimintor>NEWLINE</lineDelimintor>
+          <selectCol>4</selectCol>
+          <selectHeight>1</selectHeight>
+          <selectRow>6</selectRow>
+          <selectWidth>1</selectWidth>
+          <sortColumn>-1</sortColumn>
+          <stripFirstRow>false</stripFirstRow>
+        </tableFilter>
+      </filters>
+    </expression>
+    <expression id="2da92a5c-b6ee-4538-859e-1f79789f1560">
+      <annotation></annotation>
+      <name>currentReadsPerSec</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <tableFilter id="7a7fedab-9eda-4ea1-8b40-ab72a013f14c">
+          <annotation></annotation>
+          <name>Table</name>
+          <ascending>false</ascending>
+          <columnDelimiter>WHITESPACE</columnDelimiter>
+          <firstRowHeader>false</firstRowHeader>
+          <lineDelimintor>NEWLINE</lineDelimintor>
+          <selectCol>3</selectCol>
+          <selectHeight>1</selectHeight>
+          <selectRow>6</selectRow>
+          <selectWidth>1</selectWidth>
+          <sortColumn>-1</sortColumn>
+          <stripFirstRow>false</stripFirstRow>
+        </tableFilter>
+      </filters>
+    </expression>
+    <expression id="bc9a10af-626f-4ca0-87bb-50a3926e26be">
+      <annotation></annotation>
+      <name>averageServiceTime</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <tableFilter id="09f8296e-b4e7-4274-adc2-7e475e800b91">
+          <annotation></annotation>
+          <name>Table</name>
+          <ascending>false</ascending>
+          <columnDelimiter>WHITESPACE</columnDelimiter>
+          <firstRowHeader>false</firstRowHeader>
+          <lineDelimintor>NEWLINE</lineDelimintor>
+          <selectCol>12</selectCol>
+          <selectHeight>1</selectHeight>
+          <selectRow>6</selectRow>
+          <selectWidth>1</selectWidth>
+          <sortColumn>-1</sortColumn>
+          <stripFirstRow>false</stripFirstRow>
+        </tableFilter>
+      </filters>
+    </expression>
+    <expression id="b9897c8b-7d8a-4151-9c03-a636f0779db7">
+      <annotation></annotation>
+      <name>currentKBReadPerSec</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <tableFilter id="81531e4c-bc4b-452f-9574-2f3ee83ca12c">
+          <annotation></annotation>
+          <name>Table</name>
+          <ascending>false</ascending>
+          <columnDelimiter>WHITESPACE</columnDelimiter>
+          <firstRowHeader>false</firstRowHeader>
+          <lineDelimintor>NEWLINE</lineDelimintor>
+          <selectCol>7</selectCol>
+          <selectHeight>1</selectHeight>
+          <selectRow>6</selectRow>
+          <selectWidth>1</selectWidth>
+          <sortColumn>-1</sortColumn>
+          <stripFirstRow>false</stripFirstRow>
+        </tableFilter>
+      </filters>
+    </expression>
+    <expression id="7be4a133-7b03-4910-865f-128a97ffc071">
+      <annotation></annotation>
+      <name>averageKBWrittenPerSec</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <tableFilter id="a800130a-d726-4f4a-9d9c-ef9bbfc3c615">
+          <annotation></annotation>
+          <name>Table</name>
+          <ascending>false</ascending>
+          <columnDelimiter>WHITESPACE</columnDelimiter>
+          <firstRowHeader>false</firstRowHeader>
+          <lineDelimintor>NEWLINE</lineDelimintor>
+          <selectCol>8</selectCol>
+          <selectHeight>1</selectHeight>
+          <selectRow>6</selectRow>
+          <selectWidth>1</selectWidth>
+          <sortColumn>-1</sortColumn>
+          <stripFirstRow>false</stripFirstRow>
+        </tableFilter>
+      </filters>
+    </expression>
+    <expression id="daf62e66-be75-4da3-954e-54d3e1542c45">
+      <annotation></annotation>
+      <name>currentUtilization</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <tableFilter id="2f5ffd55-1b0b-4b1e-9761-cd7330c6236b">
+          <annotation></annotation>
+          <name>Table</name>
+          <ascending>false</ascending>
+          <columnDelimiter>WHITESPACE</columnDelimiter>
+          <firstRowHeader>false</firstRowHeader>
+          <lineDelimintor>NEWLINE</lineDelimintor>
+          <selectCol>13</selectCol>
+          <selectHeight>1</selectHeight>
+          <selectRow>6</selectRow>
+          <selectWidth>1</selectWidth>
+          <sortColumn>-1</sortColumn>
+          <stripFirstRow>false</stripFirstRow>
+        </tableFilter>
+      </filters>
+    </expression>
+    <expression id="1559b4ea-1dc2-4142-aaf9-5beee25f5f88">
+      <annotation></annotation>
+      <name>averageUtilization</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <tableFilter id="ea26a52d-cd50-4757-b5bb-0bc60c04911e">
+          <annotation></annotation>
+          <name>Table</name>
+          <ascending>false</ascending>
+          <columnDelimiter>WHITESPACE</columnDelimiter>
+          <firstRowHeader>false</firstRowHeader>
+          <lineDelimintor>NEWLINE</lineDelimintor>
+          <selectCol>13</selectCol>
+          <selectHeight>1</selectHeight>
+          <selectRow>6</selectRow>
+          <selectWidth>1</selectWidth>
+          <sortColumn>-1</sortColumn>
+          <stripFirstRow>false</stripFirstRow>
+        </tableFilter>
+      </filters>
+    </expression>
+    <expression id="913fce89-7c8a-4258-9cb6-d36ec848813f">
+      <annotation></annotation>
+      <name>averageReadsPerSec</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <tableFilter id="1f4adfb3-ec15-44bc-b53c-f1b5e48dfd2a">
+          <annotation></annotation>
+          <name>Table</name>
+          <ascending>false</ascending>
+          <columnDelimiter>WHITESPACE</columnDelimiter>
+          <firstRowHeader>false</firstRowHeader>
+          <lineDelimintor>NEWLINE</lineDelimintor>
+          <selectCol>3</selectCol>
+          <selectHeight>1</selectHeight>
+          <selectRow>6</selectRow>
+          <selectWidth>1</selectWidth>
+          <sortColumn>-1</sortColumn>
+          <stripFirstRow>false</stripFirstRow>
+        </tableFilter>
+      </filters>
+    </expression>
+    <expression id="201c76d8-5c54-4e45-aff6-5687ed00e1f2">
+      <annotation></annotation>
+      <name>averageServiceTimeInWaitQueue</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <tableFilter id="72c2d4e8-09b3-491d-9f2f-ee576da38c4d">
+          <annotation></annotation>
+          <name>Table</name>
+          <ascending>false</ascending>
+          <columnDelimiter>WHITESPACE</columnDelimiter>
+          <firstRowHeader>false</firstRowHeader>
+          <lineDelimintor>NEWLINE</lineDelimintor>
+          <selectCol>9</selectCol>
+          <selectHeight>1</selectHeight>
+          <selectRow>6</selectRow>
+          <selectWidth>2</selectWidth>
+          <sortColumn>-1</sortColumn>
+          <stripFirstRow>false</stripFirstRow>
+        </tableFilter>
+        <scriptletFilter id="4579b9fd-7cf6-44c7-b25c-867f9aea9767">
+          <annotation></annotation>
+          <name>Scriptlet</name>
+          <scriptlet id="dc87fddb-5759-4399-8c7c-f1f100640fd7">
+            <annotation></annotation>
+            <name>default</name>
+            <script>values = scriptletInput.split(/\s+/);
+total = java.lang.Double.parseDouble(values[0]);
+service = java.lang.Double.parseDouble(values[1]);
+diff = (total - service) * 100 / 100;
+scriptletResult = diff.toString();</script>
+            <type>RHINO</type>
+          </scriptlet>
+        </scriptletFilter>
+      </filters>
+    </expression>
+    <expression id="e7bf5a4b-98a7-44c4-a5bc-28101396ce54">
+      <annotation></annotation>
+      <name>currentKBWrittenPerSec</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <tableFilter id="e768f035-5c3b-4cf8-bc98-540ed69e45d4">
+          <annotation></annotation>
+          <name>Table</name>
+          <ascending>false</ascending>
+          <columnDelimiter>WHITESPACE</columnDelimiter>
+          <firstRowHeader>false</firstRowHeader>
+          <lineDelimintor>NEWLINE</lineDelimintor>
+          <selectCol>8</selectCol>
+          <selectHeight>1</selectHeight>
+          <selectRow>6</selectRow>
+          <selectWidth>1</selectWidth>
+          <sortColumn>-1</sortColumn>
+          <stripFirstRow>false</stripFirstRow>
+        </tableFilter>
+      </filters>
+    </expression>
+  </availableResultExpressions>
+  <resultExpression id="bde94247-8796-4aad-875c-0c2cafc05879">
+    <annotation></annotation>
+    <name></name>
+    <fieldName>Code</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="f45bdf49-2bf0-47b7-8d1e-2e14b5941732">
+    <baseIcon>document_plain.png</baseIcon>
+    <basePath>Others/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="9008b5a6-780e-4fe8-951a-805858d8a586">
+        <baseIcon>harddisk.png</baseIcon>
+        <basePath>Operating System/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <opRef>
+    <refId>46c0f7ea-a981-4ddc-bcaf-d4faed7af0b6</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

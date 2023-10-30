@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="4426bdbb-01b3-4b9c-a655-e8f0e47be65c">
+  <descriptionCdata><![CDATA[4426bdbb-01b3-4b9c-a655-e8f0e47be65c.description=<pre>The operation is uset to close a SSH Shell session created by SSH Shell Logon. Must be in the same flow run context as the SSH Shell Logon operations that created the sessionId.\n\nInputs\:\n    sessionId - Identifier of the ssh shell session to close.\n\nResults\:\n    returnResult - This is the primary output. It is empty if the operation successfully completes, or it contains an error message otherwise.\n\nResponses\:\n    success - The ssh shell session was closed successfully.\n    failure - Something went wrong.  could not close the ssh shell session.\n    noaction - The ssh shell session could not be found.\n\n</pre>
+]]></descriptionCdata>
+  <annotation>4426bdbb-01b3-4b9c-a655-e8f0e47be65c.description</annotation>
+  <name>SSH Shell Logoff</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="f5cf7439-0281-4178-9d34-ab4a133f9c51">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>sessionId</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="0a5c9ef3-43a0-4a64-b52e-b30dd800db62">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="389a8250-10a2-4728-8123-9a5b444d92c0">
+          <annotation></annotation>
+          <name>Code</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="fbf30e74-f517-475f-b60a-b831f7313d51">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="112f802a-1dc1-4566-9ef8-b6151d09208e">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="43e242ae-ed37-4d8a-b9a3-06f83873f6ba">
+          <annotation></annotation>
+          <name>returnResult</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="08401c03-41ab-4688-b47d-b15078c52537">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>-1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="e69f7d47-437f-45aa-b2d7-09f19f4aff89">
+      <annotation></annotation>
+      <name>noaction</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules>
+        <expression id="2e8c1547-ede7-4371-b0de-6e9c8df369df">
+          <annotation></annotation>
+          <name>returnResult</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="6d29f38b-980c-4d33-8597-df989b65f140">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="85e25a6d-c54d-427c-adf3-dab89ab503b8">
+    <annotation></annotation>
+    <name>FailureMessage</name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="701747fb-3b29-4732-a8a4-25839e2e4447">
+    <baseIcon>workstation_network.png</baseIcon>
+    <basePath>/Others/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="e9b50b99-ff53-4a0d-9581-4c67d7526a7b">
+        <baseIcon>delete2.png</baseIcon>
+        <basePath>/Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-base-legacy-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>com.iconclude.content.actions.ssh.SSHShellLogoff</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

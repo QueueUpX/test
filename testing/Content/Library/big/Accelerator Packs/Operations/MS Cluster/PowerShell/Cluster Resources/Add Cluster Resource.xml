@@ -1,0 +1,698 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow id="39ba8ea6-daf0-430d-9a53-2627dc927337">
+  <descriptionCdata><![CDATA[39ba8ea6-daf0-430d-9a53-2627dc927337.09168152-a903-482e-8646-3873c9892396.description=<pre>Adds a flow variable into the local context (available to itself and child flows only)\n\nInput Parameters\:\nkeyName - the name of the flow variable to use\nmyValue - the value to assign the flow variable\n\nResponses\:\nsuccess - assigned the flow variable\n\nScriptlet Example\:\n[$scriptletContext putGlobal\: $keyName, $myValue];</pre>
+39ba8ea6-daf0-430d-9a53-2627dc927337.0b9f19a3-1bdf-4bc0-968f-7c34beef34fc.prompt=Columns delimiter\:
+39ba8ea6-daf0-430d-9a53-2627dc927337.30d1f1c3-dee1-4639-ad65-fed5e31c10db.prompt=Rows delimiter\:
+39ba8ea6-daf0-430d-9a53-2627dc927337.4f107aad-58f9-4ff4-a15f-906428d091ec.prompt=Password\:
+39ba8ea6-daf0-430d-9a53-2627dc927337.67e4a150-c61a-40d4-b843-05f0ef698c71.prompt=Host\:
+39ba8ea6-daf0-430d-9a53-2627dc927337.68854843-0ec9-4372-ab6b-65fc8281e738.prompt=Username\:
+39ba8ea6-daf0-430d-9a53-2627dc927337.6b5b0d7a-4c75-4751-84bf-63809ab7f207.prompt=Name\:
+39ba8ea6-daf0-430d-9a53-2627dc927337.9f021470-c1c4-476e-96a0-91a42841467c.prompt=Resource type\:
+39ba8ea6-daf0-430d-9a53-2627dc927337.a36e4fe7-e771-4997-9aaa-4b3479d65150.prompt=Delimiter\:
+39ba8ea6-daf0-430d-9a53-2627dc927337.c2d5300a-ff4b-499d-aa9b-26ae08b19fe8.prompt=Authentication type\:
+39ba8ea6-daf0-430d-9a53-2627dc927337.c8aa5844-450c-44a6-8343-949aae99a02e.prompt=Group\:
+39ba8ea6-daf0-430d-9a53-2627dc927337.description=<pre>\nRuns the "Add-ClusterResource" Failover Cluster Cmdlet using Windows PowerShell in Windows Server 2008 R2, to add a resource to a resource group in a failover cluster.\n\nInputs\:\nhost \t  - The hostname or ip address of the cluster server.\nusername \t  - The username to use when connecting to the server (i.e. domain\\username).\npassword \t  - The password to use when connecting to the server.\nname \t  - The name of the cluster resource to create.\nresourceType - The name of the cluster resource type for the new cluster resource.\ngroup \t  - The name of the cluster group where the new resource is added.\ncluster \t  - The name of the cluster to run this cmdlet on. \nauthType\t  - Specifies the mechanism that is used to authenticate the user's credentials. The supported values are\: "Basic", "CredSSP", "Default", "Kerberos", "Negotiate", "NegotiateWithImplicitCredential". The default value is "CredSSP".\ndelimiter \t  - The delimiter used to separate each property name from the property value in the output table. The default value is "\:".\ncolDelimiter \t  - The delimiter used to separate columns in the output table. The default value is ",".\nrowDelimiter \t  - The delimiter used to separate rows in the output table. The default value is newline.\n\nResponses\:\nsuccess \t  - The "Add-ClusterResource" cmdlet was executed successfully.\nfailure \t  - Something went wrong.\n\nReturns\:\nreturnResult \t  - A table containing a row for each PSObject that the cmdlet emits. The table's columns represent the properties of these PSObjects, in the propertyName\:propertyValue format.\nwarnings \t  - A list of warnings that the cmdlet emits. If the cmdlet was executed without warnings, then this result will be an empty string.\n\nNote\:\n1. Installation of Powershell 2.0 with winrm 2.0 on your client is required. The kit can be downloaded from here\: http\://support.microsoft.com/kb/968930.\n2. Before using this operation, please make sure you have enabled PowerShell remoting, by using the Enable-PSRemoting cmdlet.\n3. In workgroup environments, enabling classic mode authentication for network logons may be needed. This can be performed by opening the "Local Security Policy" from Control Panel and selecting "Administrative Tools". Navigate to "Local Policies" -> "Security Options", double click on "Network Access\: Sharing and Security Model for local accounts" and set it to classic.\n4. Also, please modify the WSMan trusted hosts setting, by adding the IP addresses of all remoting clients to the list of trusted hosts. This can be done using one of the following commands\:\n        4.1. Set-item wsman\:localhost\\client\\trustedhosts -value * (adds all computers as trusted hosts)\n        4.2. Set-item wsman\:localhost\\client\\trustedhosts -value Computer (only adds Computer to the trusted hosts)\n        4.3. Set-item wsman\:localhost\\client\\trustedhosts -value *.domain.com (adds all computers in the specified domain)\n        4.4. Set-item wsman\:localhost\\client\\trustedhosts -value 10.10.10.1 (adds the remote computer with the IP address 10.10.10.1 to the trusted hosts list)\n5. Please read the folder's description for information on how to enable CredSSP authentication.\n</pre>
+39ba8ea6-daf0-430d-9a53-2627dc927337.e0e3031a-669b-4a08-a8b4-2c2f63540080.description=<pre>\nRuns Failover Cluster Cmdlets using Windows PowerShell in Windows Server 2008 R2. The complete syntax and descriptions of all failover cluster-specific cmdlets that can be used with this operation can be found at http\://technet.microsoft.com/en-us/library/ee461009.aspx.\n\nInputs\:\nhost \t- The hostname or ip address of the cluster server.\nusername \t- The username to use when connecting to the server (i.e. domain\\username).\npassword \t- The password to use when connecting to the server.\ncmdlets \t- The PowerShell cmdlets to execute (i.e. Get-ClusterResource -Name "Cluster Name" | Get-ClusterParameter).\nauthType\t- Specifies the mechanism that is used to authenticate the user's credentials. The supported values are\: "Basic", "CredSSP", "Default", "Kerberos", "Negotiate", "NegotiateWithImplicitCredential". The default value is "CredSSP".\ndelimiter \t- The delimiter used to separate each property name from the property value in the output table. The default value is "\:".\ncolDelimiter \t- The delimiter used to separate columns in the output table. The default value is ",".\nrowDelimiter \t- The delimiter used to separate rows in the output table. The default value is newline.\n\nResponses\:\nsuccess \t- The cmdlets were executed successfully.\nfailure \t- Something went wrong.\n\nReturns\:\nreturnResult \t- A table containing a row for each PSObject that the cmdlets emit. The table's columns represent the properties of these PSObjects, in the propertyName\:propertyValue format.\nwarnings \t- A list of warnings that the cmdlets emit. If the cmdlets were executed without warnings, then this result will be an empty string.\n\nNote\:\n1. Installation of Powershell 2.0 with winrm 2.0 on your client is required. The kit can be downloaded from here\: http\://support.microsoft.com/kb/968930.\n2. Before using this operation, please make sure you have enabled PowerShell remoting, by using the Enable-PSRemoting cmdlet.\n3. In workgroup environments, enabling classic mode authentication for network logons may be needed. This can be performed by opening the "Local Security Policy" from Control Panel and selecting "Administrative Tools". Navigate to "Local Policies" -> "Security Options", double click on "Network Access\: Sharing and Security Model for local accounts" and set it to classic.\n4. Also, please modify the WSMan trusted hosts setting, by adding the IP addresses of all remoting clients to the list of trusted hosts. This can be done using one of the following commands\:\n        4.1. Set-item wsman\:localhost\\client\\trustedhosts -value * (adds all computers as trusted hosts)\n        4.2. Set-item wsman\:localhost\\client\\trustedhosts -value Computer (only adds Computer to the trusted hosts)\n        4.3. Set-item wsman\:localhost\\client\\trustedhosts -value *.domain.com (adds all computers in the specified domain)\n        4.4. Set-item wsman\:localhost\\client\\trustedhosts -value 10.10.10.1 (adds the remote computer with the IP address 10.10.10.1 to the trusted hosts list)\n5. Please read the folder's description for information on how to enable CredSSP authentication.\n</pre>
+39ba8ea6-daf0-430d-9a53-2627dc927337.ff921022-ae6f-46b2-8694-32bb6107890c.prompt=Cluster\:
+]]></descriptionCdata>
+  <annotation>39ba8ea6-daf0-430d-9a53-2627dc927337.description</annotation>
+  <name>Add Cluster Resource</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="67e4a150-c61a-40d4-b843-05f0ef698c71">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>host</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>39ba8ea6-daf0-430d-9a53-2627dc927337.67e4a150-c61a-40d4-b843-05f0ef698c71.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="68854843-0ec9-4372-ab6b-65fc8281e738">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>username</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>39ba8ea6-daf0-430d-9a53-2627dc927337.68854843-0ec9-4372-ab6b-65fc8281e738.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="4f107aad-58f9-4ff4-a15f-906428d091ec">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>password</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>39ba8ea6-daf0-430d-9a53-2627dc927337.4f107aad-58f9-4ff4-a15f-906428d091ec.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="6b5b0d7a-4c75-4751-84bf-63809ab7f207">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>name</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>39ba8ea6-daf0-430d-9a53-2627dc927337.6b5b0d7a-4c75-4751-84bf-63809ab7f207.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="9f021470-c1c4-476e-96a0-91a42841467c">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>resourceType</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>39ba8ea6-daf0-430d-9a53-2627dc927337.9f021470-c1c4-476e-96a0-91a42841467c.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="c8aa5844-450c-44a6-8343-949aae99a02e">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>group</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>39ba8ea6-daf0-430d-9a53-2627dc927337.c8aa5844-450c-44a6-8343-949aae99a02e.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="ff921022-ae6f-46b2-8694-32bb6107890c">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>cluster</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>39ba8ea6-daf0-430d-9a53-2627dc927337.ff921022-ae6f-46b2-8694-32bb6107890c.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="c2d5300a-ff4b-499d-aa9b-26ae08b19fe8">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>authType</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>39ba8ea6-daf0-430d-9a53-2627dc927337.c2d5300a-ff4b-499d-aa9b-26ae08b19fe8.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="a36e4fe7-e771-4997-9aaa-4b3479d65150">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>delimiter</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>39ba8ea6-daf0-430d-9a53-2627dc927337.a36e4fe7-e771-4997-9aaa-4b3479d65150.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="0b9f19a3-1bdf-4bc0-968f-7c34beef34fc">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>colDelimiter</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>39ba8ea6-daf0-430d-9a53-2627dc927337.0b9f19a3-1bdf-4bc0-968f-7c34beef34fc.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="30d1f1c3-dee1-4639-ad65-fed5e31c10db">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>rowDelimiter</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>39ba8ea6-daf0-430d-9a53-2627dc927337.30d1f1c3-dee1-4639-ad65-fed5e31c10db.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="9274753b-2318-4a84-8c50-072aed862003">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="05308cc1-e4ba-43ac-b651-fa5d28663db6">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>false</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="f680153b-7fb8-48c8-84aa-5ca625b68ee8">
+    <annotation></annotation>
+    <name>FailureMessage</name>
+    <fieldName>FailureMessage</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="a7eaa3a7-ad0b-4a46-80e3-92146f6eebe7">
+    <baseIcon>application_green.png</baseIcon>
+    <basePath>/Application/</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <callouts/>
+  <checkPointFlow>true</checkPointFlow>
+  <compatibleRuntimeContext>false</compatibleRuntimeContext>
+  <historyCheckPointFlow>true</historyCheckPointFlow>
+  <steps>
+    <step id="09168152-a903-482e-8646-3873c9892396">
+      <annotation>39ba8ea6-daf0-430d-9a53-2627dc927337.09168152-a903-482e-8646-3873c9892396.description</annotation>
+      <name>Set Flow Variable</name>
+      <bounds>
+        <x>0.0</x>
+        <y>0.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <scriptlet id="fc3ad07d-9e71-4b18-9440-eddc24e8b89c">
+        <annotation></annotation>
+        <name>Step Set Flow Variable in Flow Add Cluster Resource (fdc60569-25e3-4624-b882-9d43eaab9582)</name>
+        <script>var cmdlet = &quot;Add-ClusterResource&quot;;
+
+var name = scriptletContext.get(&quot;name&quot;);
+var resourceType = scriptletContext.get(&quot;resourceType&quot;);
+var group = scriptletContext.get(&quot;group&quot;);
+var cluster = scriptletContext.get(&quot;cluster&quot;);
+
+if ( (name != &quot;&quot;) &amp;&amp; (typeof(name) != &apos;undefined&apos;) )
+    cmdlet += &quot; -Name \&quot;&quot; + name + &quot;\&quot;&quot;;
+    
+if ( (resourceType != &quot;&quot;) &amp;&amp; (typeof(resourceType) != &apos;undefined&apos;) )
+    cmdlet += &quot; -ResourceType \&quot;&quot; + resourceType + &quot;\&quot;&quot;;
+
+if ( (group != &quot;&quot;) &amp;&amp; (typeof(group) != &apos;undefined&apos;) )
+    cmdlet += &quot; -Group \&quot;&quot; + group + &quot;\&quot;&quot;;
+    
+if ( (cluster != &quot;&quot;) &amp;&amp; (typeof(cluster) != &apos;undefined&apos;) )
+    cmdlet += &quot; -Cluster \&quot;&quot; + cluster + &quot;\&quot;&quot;;
+
+scriptletContext.put(&quot;cmdlets&quot;,cmdlet);</script>
+        <type>RHINO</type>
+      </scriptlet>
+      <bindings>
+        <staticBinding id="7bb820d9-e851-406b-967a-df2ae7542b90">
+          <annotation></annotation>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>keyName</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value>cmdlets</value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="bbd1ee27-393d-43d1-b616-bd21a879b799">
+          <annotation></annotation>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>myValue</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="38288030-058e-40e5-89c8-bf6fda1e3a6e">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <recordKey></recordKey>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>Field_2</inputSymbol>
+          <listDelimiter></listDelimiter>
+          <value>${myValue}</value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="8e868f92-db6f-4017-9378-015664b3bb73">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <recordKey></recordKey>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>Field_1</inputSymbol>
+          <listDelimiter></listDelimiter>
+          <value>${keyName}</value>
+          <record>false</record>
+        </staticBinding>
+      </bindings>
+      <transitions>
+        <transition id="70d47db2-9822-44a8-bc95-4b3b1216dd08">
+          <annotation></annotation>
+          <name>success</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>success</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>e0e3031a-669b-4a08-a8b4-2c2f63540080</refId>
+          </destination>
+          <source>
+            <refId>09168152-a903-482e-8646-3873c9892396</refId>
+          </source>
+          <positions>
+            <point>
+              <x>50.0</x>
+              <y>34.0</y>
+            </point>
+            <point>
+              <x>50.0</x>
+              <y>156.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>539.5073918277359</x>
+            <y>-1.5575636827461838</y>
+          </labelPosition>
+        </transition>
+      </transitions>
+      <properties/>
+      <opRef>
+        <refId>f3112e9d-ed88-47bf-be86-2f99e8541a33</refId>
+      </opRef>
+      <assignments/>
+      <throttleSize>0</throttleSize>
+    </step>
+    <returnStep id="2404d683-a8c9-42b0-a7f4-2d00ca6f2f24">
+      <annotation></annotation>
+      <name>Error : failure</name>
+      <bounds>
+        <x>161.0</x>
+        <y>136.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <bindings/>
+      <transitions>
+        <transition id="2dcbc7fb-de11-45ec-924c-f0dc74ee7a3b">
+          <annotation></annotation>
+          <name>return</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>failure</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>2404d683-a8c9-42b0-a7f4-2d00ca6f2f24</refId>
+          </destination>
+          <source>
+            <refId>2404d683-a8c9-42b0-a7f4-2d00ca6f2f24</refId>
+          </source>
+          <positions/>
+        </transition>
+      </transitions>
+      <properties/>
+      <returnStepType>ERROR</returnStepType>
+      <assignments/>
+    </returnStep>
+    <step id="e0e3031a-669b-4a08-a8b4-2c2f63540080">
+      <annotation>39ba8ea6-daf0-430d-9a53-2627dc927337.e0e3031a-669b-4a08-a8b4-2c2f63540080.description</annotation>
+      <name>Run Failover Cluster Cmdlets</name>
+      <bounds>
+        <x>0.0</x>
+        <y>136.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <bindings>
+        <staticBinding id="512d9ead-ab01-4d33-bf0c-391e4f997b13">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>host</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="b49d8bdc-13f0-4d8d-9ed5-378872ceb00c">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>username</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="58659ca6-ed67-4bb6-9a61-a704ede0bf22">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>ENCRYPTED</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>password</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="004bb6ef-06cb-4612-aff8-c38bd7cede54">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>cmdlets</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="605ee609-9ec9-4e2e-bde8-22630f107f73">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>authType</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="391d4518-6901-49be-acd0-d3b4e04fab9d">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>delimiter</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="a709c16a-0662-43b3-9ffa-1b4ecc52bc8f">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>colDelimiter</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="5a3cca7b-54c7-418b-82c0-9bae3e93133d">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>rowDelimiter</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+      </bindings>
+      <transitions>
+        <transition id="6f68a971-cce6-4cb1-900f-9369c633b864">
+          <annotation></annotation>
+          <name>success</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>success</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>a5dcec7c-8af4-4313-ba48-a71857b5f028</refId>
+          </destination>
+          <source>
+            <refId>e0e3031a-669b-4a08-a8b4-2c2f63540080</refId>
+          </source>
+          <positions>
+            <point>
+              <x>50.0</x>
+              <y>156.0</y>
+            </point>
+            <point>
+              <x>211.0</x>
+              <y>34.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>453.4766112309754</x>
+            <y>0.8898046610400386</y>
+          </labelPosition>
+        </transition>
+        <transition id="45426f96-928c-455e-ae5c-1e1709af8de9">
+          <annotation></annotation>
+          <name>failure</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>failure</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>2404d683-a8c9-42b0-a7f4-2d00ca6f2f24</refId>
+          </destination>
+          <source>
+            <refId>e0e3031a-669b-4a08-a8b4-2c2f63540080</refId>
+          </source>
+          <positions>
+            <point>
+              <x>50.0</x>
+              <y>156.0</y>
+            </point>
+            <point>
+              <x>212.0</x>
+              <y>167.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>445.2884369177462</x>
+            <y>-1.650109683221429</y>
+          </labelPosition>
+        </transition>
+      </transitions>
+      <properties/>
+      <opRef>
+        <refId>b2f14e98-45ba-4972-9899-8783bf46b127</refId>
+      </opRef>
+      <assignments>
+        <flowVariableAssignment id="8360a0b8-f1b4-46a3-bb6c-e921daa332aa">
+          <annotation></annotation>
+          <name>assignment</name>
+          <action>OVERWRITE</action>
+          <assignmentTargetType>FLOW_OUTPUT_FIELD</assignmentTargetType>
+          <contextKey>warnings</contextKey>
+          <expression id="240b90ee-6654-48d3-854d-ac4dff42f54e">
+            <annotation></annotation>
+            <name>Result Field: warnings</name>
+            <fieldName>warnings</fieldName>
+            <sourceType>RAWRESULT</sourceType>
+            <filters/>
+          </expression>
+        </flowVariableAssignment>
+        <flowVariableAssignment id="6fc376dc-8220-447c-962e-7f55a71bbf1d">
+          <annotation></annotation>
+          <name>assignment</name>
+          <action>OVERWRITE</action>
+          <assignmentTargetType>FLOW_OUTPUT_FIELD</assignmentTargetType>
+          <contextKey>returnResult</contextKey>
+          <expression id="a060a2bd-04a2-4bb3-86ec-3e475174cccc">
+            <annotation></annotation>
+            <name>Result Field: returnResult</name>
+            <fieldName>returnResult</fieldName>
+            <sourceType>RAWRESULT</sourceType>
+            <filters/>
+          </expression>
+        </flowVariableAssignment>
+      </assignments>
+      <throttleSize>0</throttleSize>
+    </step>
+    <returnStep id="a5dcec7c-8af4-4313-ba48-a71857b5f028">
+      <annotation></annotation>
+      <name>Resolved : success</name>
+      <bounds>
+        <x>161.0</x>
+        <y>0.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <bindings/>
+      <transitions>
+        <transition id="786b5039-67f6-443c-b327-4f614b751ca4">
+          <annotation></annotation>
+          <name>return</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>success</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>a5dcec7c-8af4-4313-ba48-a71857b5f028</refId>
+          </destination>
+          <source>
+            <refId>a5dcec7c-8af4-4313-ba48-a71857b5f028</refId>
+          </source>
+          <positions/>
+        </transition>
+      </transitions>
+      <properties/>
+      <returnStepType>RESOLVED</returnStepType>
+      <assignments/>
+    </returnStep>
+  </steps>
+  <startSteps>09168152-a903-482e-8646-3873c9892396</startSteps>
+</flow>

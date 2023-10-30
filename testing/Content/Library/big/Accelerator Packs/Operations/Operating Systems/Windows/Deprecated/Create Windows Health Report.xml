@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="9174c5e6-e71e-4ed9-b641-eaa148364742">
+  <descriptionCdata><![CDATA[9174c5e6-e71e-4ed9-b641-eaa148364742.description=<pre>This is a very specialized op used by the windows health check. It should not be used elsewhere.\n\nResponses\:\nsuccess - this is always the response.</pre>
+]]></descriptionCdata>
+  <annotation>9174c5e6-e71e-4ed9-b641-eaa148364742.description</annotation>
+  <name>Create Windows Health Report</name>
+  <categories/>
+  <inputs>
+    <staticBinding id="9f133f26-3743-4485-accd-10a214314f2e">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Field_1</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${in1}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="17fa5355-6d4f-4f0d-a121-522aafdf49b6">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Field_2</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${in2}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="bb72892c-ac9f-4a93-b93e-f17cb7f2d6ba">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Field_3</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${in3}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="37abb514-9deb-4b04-91d4-21a82066da5a">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Field_4</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${in4}</value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <scriptlet id="20041d27-5360-4ad3-8a18-153d7dabcf6e">
+    <annotation></annotation>
+    <name>Operation Create Windows Health Report (e1308758-4454-4d05-b0a0-77cfde85e44b)</name>
+    <script>// get all the data that we acquired
+hostname = scriptletContext.get(&quot;host&quot;);
+var crlf = &quot; \r\n&quot;;
+
+warning = &quot;&quot;;
+header = &quot;Server Health Report for server &quot; + hostname + &quot;:&quot;+crlf;
+report = &quot;\nSystem Check Information:&quot;+crlf+crlf;
+
+// run through all the data we gathered and add it to the report
+checkPing();
+checkUptime();
+showOSInfo();
+showLogInfo();
+showProcInfo();
+showMemInfo();
+checkProcessList();
+showFSData();
+showIOStatInfo();
+showNICInfo();
+
+// did we have any warnings?
+warnstring = &quot;&quot;;
+if (warning != &quot;&quot;) warnstring = &quot;Warning conditions:&quot;+crlf;
+
+// format the final output information
+scriptletResult = header + warnstring + warning + report;
+
+// functions for checking all data
+
+// -----------------------------------------------------------------------------------
+//  checkPing ()   - check the data returned from Ping
+// -----------------------------------------------------------------------------------
+function checkPing() {
+
+   pingOutput = scriptletContext.get(&quot;output&quot;);
+
+   if (pingOutput != null) {
+      // get the max latency
+      pingLatency = -1;
+      max = pingOutput.match(/Maximum = \d*/);
+      if (max != null &amp;&amp; max[0] != null)   {
+         pingLatency = max[0].match(/\d+/);
+      }
+      if (pingLatency == -1) {
+         report += &quot;Unable to obtain ping data.&quot;+crlf;
+         warning += &quot;Unable to obtain ping data.&quot;+crlf;
+      } 
+      else {
+         report += &quot;Maximum latency pinging &quot; + hostname + &quot; was &quot; + pingLatency + &quot; ms.&quot;+crlf;
+         if (pingLatency &gt; 200) warning += &quot;Ping took longer then 200ms&quot;+crlf;
+      }
+
+      // check the packet loss
+      loss = pingOutput.match(/(\d*)(% loss)/);
+      if (loss != null) {
+         pct = parseInt(loss[1]);
+         report += &quot;Packet loss was &quot; + pct + &quot; %&quot;+crlf;
+         if (pct != 0) { 
+            warning += &quot;Ping had &quot; + pct + &quot;% packet loss.&quot;+crlf;
+         }
+      }
+      else {
+         report += &quot;Unable to determine packet loss.&quot;+crlf;
+         warning += &quot;Unable to determine packet loss.&quot;+crlf;     
+      }
+   }
+   else {
+      report += &quot;Unable to ping server.&quot;+crlf;
+      warning += &quot;Unable to ping server.&quot;+crlf;
+   }
+}
+
+// -----------------------------------------------------------------------------------
+//  checkUptime ()   - check the data returned from uptime
+// -----------------------------------------------------------------------------------
+
+function checkUptime() {
+
+   uptime = scriptletContext.get(&quot;ic_uptime&quot;);
+
+   // add uptime info
+   if (uptime != null) {
+	uptime = uptime.split(&quot;\n&quot;)[1];
+report += &quot;Uptime: &quot;+uptime+&quot; seconds.&quot;+crlf;
+var uptime_trimmed=uptime;
+
+      mins = parseInt(uptime_trimmed)/60;
+      hrs = mins /60;
+      days = hrs / 24;
+      hours = hrs % 24;
+      minutes = mins % 60;
+      report += &quot;System has been up for &quot;;
+      if (days &gt; 0) report += java.lang.Math.floor(days).toString() + &quot; day&quot;;
+      if (days &gt; 1) report += &quot;s&quot;;
+      if (hours &gt; 0) report += &quot;, &quot; + java.lang.Math.floor(hours).toString() + &quot; hour&quot;;
+      if (hours &gt; 1) report += &quot;s&quot;;
+      report += &quot; &quot; + minutes.toString() + &quot; minute&quot;;
+      if (minutes != 1) report += &quot;s&quot;;
+      report += &quot;.&quot;+crlf;
+      if (mins &lt;= 15) warning += &quot;System was rebooted in the last 15 minutes.&quot;+crlf;
+   }
+   else {
+      report += &quot;Unable to obtain uptime.&quot;+crlf;
+      warning += &quot;Unable to obtain uptime.&quot;+crlf;
+   }
+}
+
+// -----------------------------------------------------------------------------------
+//  showOSInfo ()   - process the data about the OS and patch levels
+// -----------------------------------------------------------------------------------
+
+function showOSInfo() {
+
+   OS = scriptletContext.get(&quot;ic_OS&quot;);
+   patchList = scriptletContext.get(&quot;ic_patchlist&quot;);
+   report += &quot;\nOperating System information:&quot;+crlf;
+
+   // add the OS info
+   if (OS != null) {
+      report += &quot;Operating System &quot; + OS + &quot;.&quot;+crlf;
+   }
+   else {
+      report += &quot;Unable to obtain OS.&quot;+crlf;
+      warning += &quot;Unable to obtain OS.&quot;+crlf;
+   }
+
+   // add patch information
+   if (patchList != null) {
+      report += &quot;\nInstalled patches:&quot;+crlf + patchList + crlf+crlf;
+   } 
+   /*else {
+      report += &quot;Unable to obtain patch and software list.&quot;+crlf;
+      warning += &quot;Unable to obtain patch and software list.&quot;+crlf;
+   }*/
+}
+
+// -----------------------------------------------------------------------------------
+//  showLogInfo ()   - show recent log data if there is any
+// -----------------------------------------------------------------------------------
+
+
+function showLogInfo() {
+
+   var logMessages = scriptletContext.get(&quot;ic_logMessages&quot;);
+
+   // any recent log messages?
+   if (logMessages != null) {
+         report += &quot;Log messages in the last 15 minutes:&quot;+crlf;
+         warning += &quot;New log messages in the last 15 minutes.&quot;+crlf;
+
+         // get the log messages
+         messages = scriptletContext.get(&quot;ic_logMessages&quot;) +crlf;
+         report += messages;
+    }
+    else {
+         //TODO: report += &quot;No new log messages in the last 15 minutes.&quot;+crlf;
+    }
+}
+
+// -----------------------------------------------------------------------------------
+//  showProcInfo ()   - show key processor information
+// -----------------------------------------------------------------------------------
+
+function showProcInfo() {
+
+   procCount = scriptletContext.get(&quot;ic_numProcs&quot;);
+   procStatus = scriptletContext.get(&quot;ic_online&quot;);
+   load = scriptletContext.get(&quot;ic_load&quot;);
+   blockedThreads = scriptletContext.get(&quot;ic_blockedThreads&quot;);
+
+   // Add a heading
+   report += crlf+&quot;Processor Information:&quot;+crlf;
+
+   // add processor information
+   if (procCount != null) {
+      num = parseInt(procCount);
+      if (num != 1) {
+         report += &quot;System has &quot; + procCount + &quot; processors.&quot;+crlf;
+      }
+      else {
+         report += &quot;System has 1 processor.&quot;+crlf;
+      }
+   }
+   else {
+      report += &quot;Unable to get processor count.&quot;+crlf;
+      warning += &quot;Unable to get processor count.&quot;+crlf;
+   }
+   if (procStatus != null) {
+	var loads = load.split(&quot;,&quot;);
+	var statuses = procStatus.split(&quot;,&quot;);
+	report += &quot;processor: \tStatus: \tload:&quot;+crlf;
+	for (count = 0; count &lt; num;count++){
+		report += count+1+&quot;\t\t&quot;;
+		report += statuses[count]+&quot;\t\t&quot;;
+		report += loads[count]+&quot;%&quot;+crlf;
+	}
+   } 
+   else {
+      report += &quot;Unable to obtain processor status.&quot;+crlf;
+      warning += &quot;Unable to obtain processor status.&quot;+crlf;
+   }
+
+
+   // check blocked threads
+   if (blockedThreads != null) {
+      threads = parseInt(blockedThreads);
+      if (threads == 0) {
+         report += &quot;No blocked threads found. &quot;+crlf;
+      }
+      else if (threads &lt; 70) {
+         report += &quot;Some blocked threads detected. &quot;+crlf;
+         warning += &quot;Some blocked threads detected. &quot;+crlf;
+      } 
+      else {
+         report += &quot;Many blocked threads (&quot;+threads+&quot;) detected.  System may be CPU bound.&quot;+crlf;
+         warning += &quot;Many blocked threads (&quot;+threads+&quot;) detected.  System may be CPU bound.&quot;+crlf;
+      }
+   }
+}
+
+// -----------------------------------------------------------------------------------
+//  showMemInfo ()   - show key memory info
+// -----------------------------------------------------------------------------------
+
+
+function showMemInfo() {
+
+   freeMemory = scriptletContext.get(&quot;ic_freeMemory&quot;);
+
+if (freeMemory != null)
+	freeMemory = freeMemory.split(&quot;\n&quot;)[1];
+   if (freeMemory != null) {
+      report += &quot;System has &quot; + freeMemory + &quot; kilobytes of free memory. &quot;+crlf;
+      if (freeMemory &lt; 100000) warning += &quot;System has less then 100MB of free memory. &quot;+crlf;
+   }
+   else {
+      report += &quot;Unable to obtain memory statistics. &quot;+crlf;
+      warning += &quot;Unable to obtain memory statistics. &quot;+crlf;
+   }
+}
+
+// -----------------------------------------------------------------------------------
+//  checkProcessList ()   - verify key processes are running
+// -----------------------------------------------------------------------------------
+
+
+function checkProcessList() {
+
+   //verify that key processes are running
+   necessary = processList = &quot;&quot;;
+   processList += scriptletContext.get(&quot;ic_processList&quot;);
+   necessary += scriptletContext.get(&quot;ic_vital&quot;);
+   output = &quot;&quot;;
+
+   // assume list is delimited by comma, pipe, space or newline
+   processes = necessary.split(/[,\\\|\n\r]/);
+   proc_output = &quot;&quot;;
+   for (i = 0; i &lt; 10000; i++) {
+      if (processes[i] == null) break;
+      if (processList.match(processes[i]) == null) {
+	if (processes[i] != null &amp;&amp; processes[i] != &quot;null&quot;)
+	         proc_output += processes[i] + &quot; is not running. &quot;+crlf;
+      }
+    }
+
+   // are any processes missing?
+   if (proc_output == &quot;&quot;) {
+      report += &quot;All vital processes are running. &quot;+crlf+crlf;
+   } 
+   else {
+      report += proc_output;
+      warning += proc_output;
+   }
+}
+
+// -----------------------------------------------------------------------------------
+//  showFSData ()   - show File System data
+// -----------------------------------------------------------------------------------
+
+function showFSData() {
+
+   fileList = scriptletContext.get(&quot;ic_filesystem&quot;);
+
+   if (fileList != null) {
+      // data is formatted in two columns: % mountname
+      // the first row is a header
+      // to split data from context it must be turned back into a native Javascript string
+      // to do this we initialize a blank string and then append the variable
+      fileData = &quot;&quot;;
+     // fileData += fileList;
+      fileList = &quot;&quot;+fileList;
+      filedata = &quot;&quot;;
+      for (count = 0; count &lt; fileList.length; count++){
+	var lastchar =fileData[fileData.length-1]
+	if (fileList[count] != &apos;\n&apos; &amp;&amp; fileList[count] != &apos;\r&apos;)
+		fileData += fileList[count];
+	else if (lastchar != &apos;\n&apos; &amp;&amp; lastchar != &apos;r&apos; &amp;&amp; lastchar != &apos;,&apos;)
+		fileData += &apos;,&apos;;
+      }
+      lines = fileData.split(&quot;,&quot;);
+      for (i = 3; i+2 &lt; lines.length; i += 3) {
+         if (lines[i] != null &amp;&amp; lines[i + 1] != null &amp;&amp; lines[i + 2] != null){
+		var left = parseInt(lines[i]);
+		var name = lines[i+1];
+	 	var total = parseInt(lines[i+2]);
+	if (total &gt; 0){
+		var percentage = new java.lang.Integer(100 * (left/total)).intValue();
+           	 diskreport = &quot;File System &quot; + name + &quot; has &quot; + percentage + &quot;% freespace left.&quot;+crlf;
+            if (percentage &lt;= 10) {
+               report += &quot;WARNING: &quot;;
+               warning += diskreport;
+            }
+            report += diskreport;
+}
+	}
+      }
+   }
+}
+// -----------------------------------------------------------------------------------
+//  showIOStatInfo ()   - show key disk info from iostat
+// -----------------------------------------------------------------------------------
+
+function showIOStatInfo() {
+
+   iostat = scriptletContext.get(&quot;ic_iostat&quot;);
+
+   // deal with the iostat information
+   // this assume we are getting extended IO stat information and looks for anomolies
+   // there should be two readings, the first is the average since boot,
+   // the second one is the current 
+
+   output = &quot;\r\nDevice IO checks:&quot;+crlf;
+   var combined = &quot;&quot;;
+if (iostat!= null){
+   var split = iostat.split(&quot;\n\r, &quot;);
+
+   for (count = 0; count &lt; split.length;count++)
+	if (split[count] != null)
+		combined += split[count]+&quot;,&quot;;
+}
+
+   if (combined != &quot;,&quot;){
+   output = &quot;\r\nThe following devices had status&apos;s that were not &apos;ok&apos;:&quot;+crlf;
+   output += combined;
+}
+else
+	output += &quot;All devices appear to be functioning normally.&quot;;
+   report += output;
+}
+
+function showNICInfo()
+{
+   data = &quot;&quot;;
+   data += scriptletContext.get(&quot;ic_nicinfo&quot;);
+   report += data;
+
+   // check each line and see if we need to add a warning
+   lines = data.split(/\n/);
+   for (i = 0; i &lt; 100; i++) {
+      if (lines[i] == null) break;
+      if (lines[i] == &quot;&quot;) continue;
+      if (lines[i].match(&quot;No errors&quot;) != null) continue;
+      warning += lines[i] + crlf;
+   }
+}</script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="0fb664c1-13f4-47c6-a8b1-b468cb75624a">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="3038f172-b2ca-4735-a7cd-80e778ad0c27">
+    <annotation></annotation>
+    <name>Field 1</name>
+    <fieldName>Field_1</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="157ca3ca-7f46-481d-b273-259810ff2eae">
+    <baseIcon>document.png</baseIcon>
+    <basePath>Others/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="2ace2505-3fe0-417e-912c-9006f88c2730">
+        <baseIcon>edit.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <opRef>
+    <refId>ddd79f22-8b1e-4605-88d5-d912bb2da2b9</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="a106e3b9-56f8-4b82-9537-4a1f3ddeac02">
+  <descriptionCdata><![CDATA[a106e3b9-56f8-4b82-9537-4a1f3ddeac02.39faf78f-3459-49f7-bc22-334d41093e64.prompt=HostName\:
+a106e3b9-56f8-4b82-9537-4a1f3ddeac02.bb0c9ee9-c326-4c37-8879-37ab0ce49db8.prompt=Port\:
+a106e3b9-56f8-4b82-9537-4a1f3ddeac02.description=<pre>\nTries to make a connection to the request port.\n\nInput Parameters\:\n    host - hostname or IP address of the target host.\n    port - port to connect to.\n    portType - the type of port (TCP or UDP).\n    timeout - The timeout in seconds for tcp connection and for udp response.\n\nResponses\:\n    port opened - a successful connection was made.\n    port closed - unable to make a connection.\n    host not found - could not resolve hostname to a valid IP address.\n\nExtra Results\:\n    addresses - list of addresses returned from DNS.\n    aliases - list of aliases returned from DNS.\n    addresspinged - actual IP address pinged.\n</pre>
+]]></descriptionCdata>
+  <annotation>a106e3b9-56f8-4b82-9537-4a1f3ddeac02.description</annotation>
+  <name>Port Ping</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="39faf78f-3459-49f7-bc22-334d41093e64">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>host</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>a106e3b9-56f8-4b82-9537-4a1f3ddeac02.39faf78f-3459-49f7-bc22-334d41093e64.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="bb0c9ee9-c326-4c37-8879-37ab0ce49db8">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>port</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>a106e3b9-56f8-4b82-9537-4a1f3ddeac02.bb0c9ee9-c326-4c37-8879-37ab0ce49db8.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="3ea5c79b-9325-4f2a-9e7b-0538229296d7">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>portType</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="9d35a1fe-5cf2-49c3-bda7-577fc983dfdc">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>timeout</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <scriptlet id="226d3ac3-3735-4e85-ad6e-bc302db9fd38">
+    <annotation></annotation>
+    <name>Operation Port Ping (3ac5396f-5d62-44a0-b0bb-e378899a1b87)</name>
+    <script>
+        	scriptletContext.put(&quot;addresses&quot;, scriptletRawResult[&apos;addresses&apos;]);
+        	scriptletContext.put(&quot;aliases&quot;, scriptletRawResult[&apos;aliases&apos;]);
+        	scriptletContext.put(&quot;addresspinged&quot;, scriptletRawResult[&apos;addresspinged&apos;]);
+        </script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="6116cb77-e900-4081-8cd9-ccf067afd9b6">
+      <annotation></annotation>
+      <name>port open</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="346c6191-96bc-44fb-9fa6-d55bddafe44e">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="01dbe32e-77c8-4838-9bbc-ac8f3d3478d1">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="4df2c05f-7e0a-4e88-8829-bd1cbeabe6a7">
+      <annotation></annotation>
+      <name>port closed</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="d9d94535-de67-49fc-b232-a51a9e791c1d">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="f48e3b20-2e53-45ee-93cf-4bd5bdf26b8f">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="377191a4-599b-473b-8693-191d25e235f2">
+      <annotation></annotation>
+      <name>host not found</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules>
+        <expression id="60f19212-5577-41e1-afa7-2b1d18553555">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="d736e3c5-a582-42e0-9558-5c4a12d0f1eb">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>10</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="60aa693f-4997-4b2a-a83e-a61236e9f7ae">
+    <annotation></annotation>
+    <name></name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="8dc40925-e167-4ae2-98bd-01607422c7a7">
+    <baseIcon>client_network.png</baseIcon>
+    <basePath>Networking/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="3f07a04c-3c71-4272-9382-e6b74dac4d9d">
+        <baseIcon>view.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-dotnet-web-actions-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>dotNETWebActions_Network.PortPing</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideNRAS}</overrideGroupAlias>
+</operation>

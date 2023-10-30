@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="57d267be-1f4b-4284-afb3-96860c5778e7">
+  <descriptionCdata><![CDATA[57d267be-1f4b-4284-afb3-96860c5778e7.description=<pre>This gets the date and time of the last log message. This only works when run against log files created by syslog. These log files are typically found in the /var/log directory.\n\n\nInputs\:\n\nhost\:  the system to check\nusername\: the user to log into this system as\npassword\: the password to log in with\nfilename\: name of the log file to check\n\nResponses\:\n\nsuccess\: the data was obtained\nfailure\: the data could not be obtained\n\nResult\:\n\nA string that has the date and time of the last message. Typical format is Mon DD HH\:MM\:SS  (i.e. Sep 29 13\:58\:32)\n\nExtra Results\:\n\nmessage\: the text of the last log message\n</pre>\n\n
+]]></descriptionCdata>
+  <annotation>57d267be-1f4b-4284-afb3-96860c5778e7.description</annotation>
+  <name>Get Last Log Time and Message</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="41d21eda-4b27-4fad-b26b-76b6f750b0b3">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>host</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="adf4ee73-ad7e-466c-94e0-91f73ca3974a">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>username</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="d3fe7ddc-c399-46bf-a97e-bc5be5056d92">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>password</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="098957f6-1c41-41c1-93a3-6aa15eed41b7">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>filename</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="1f6327c1-df03-4bd9-a143-73be3aa84a80">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Environment</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="385dc38d-c911-4194-83cd-0379062a6f36">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Command</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>tail -1 ${filename}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="f4437ae9-2d33-4793-9814-50dae48ceab2">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>User</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${username}</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="49c43382-6f10-4b3b-95d5-d922bb5d14e8">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Argument</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="7344650f-c99c-43ae-a415-c57818d00899">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Host</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${host}</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="4c7d6983-f084-4740-97b8-65785b835e3c">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Private_Key_File</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="313afa98-539b-4f59-b933-6be0d2044c82">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Password</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>{OBFUSCATED}SqstnSxglAP4D4gm72ILRw==</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="3849a3e9-92da-434a-afea-7a0cdb5b1f31">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Pty</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>false</value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="b08963e5-f4a5-4209-858b-b058c8adf32e">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="4ed3dd16-30a7-457d-b6c8-37b56363f57d">
+          <annotation></annotation>
+          <name>Code</name>
+          <fieldName>Result</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="9e20d0d2-b70c-43cb-927b-ad75193e6283">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>true</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters>
+            <regexFilter id="cdaaaa7e-c698-4114-8778-7402abe29f66">
+              <annotation></annotation>
+              <name>RegularExpression</name>
+              <expression>^.+\s\d+\s\d+:\d+:\d+</expression>
+              <ignoreCase>false</ignoreCase>
+              <regType>JAVA</regType>
+              <entireString>true</entireString>
+              <multiLine>false</multiLine>
+            </regexFilter>
+            <scriptletFilter id="c0150e70-6d51-4ca8-bfbd-bc2bce58be53">
+              <annotation></annotation>
+              <name>Scriptlet</name>
+              <scriptlet id="7bd10635-7bf7-4977-8d0e-47d410082644">
+                <annotation></annotation>
+                <name>default</name>
+                <script>if (scriptletInput.split(&quot; &quot;).length &gt;= 3)
+	scriptletResult=&quot;true&quot;;
+else
+	scriptletResult=scriptletInput;</script>
+                <type>RHINO</type>
+              </scriptlet>
+            </scriptletFilter>
+          </filters>
+        </expression>
+        <expression id="b5568a6c-fa36-413c-b007-3bffbf9e48d9">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>Code</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="a76464dd-afff-4c6c-afaf-875ae65ea9ca">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="66743845-f5c0-4e28-96c2-4f790664a00f">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions>
+    <expression id="3c40d81e-e848-4829-a8fe-8416c563b369">
+      <annotation></annotation>
+      <name>message</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <selectRangeFilter id="1bf95c34-31b8-46db-9b72-ed63fb6771b4">
+          <annotation></annotation>
+          <name>Select Range</name>
+          <start>16</start>
+          <length>1000</length>
+        </selectRangeFilter>
+      </filters>
+    </expression>
+  </availableResultExpressions>
+  <resultExpression id="b01b6390-6999-422a-84f5-38622717d072">
+    <annotation></annotation>
+    <name></name>
+    <fieldName>Output String</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters>
+      <selectRangeFilter id="1a0c0cac-ac14-42a1-adf2-1a9a9feab8d3">
+        <annotation></annotation>
+        <name>Config Item</name>
+        <start>0</start>
+        <length>15</length>
+      </selectRangeFilter>
+    </filters>
+  </resultExpression>
+  <iconSpec id="48d07aa8-7e7a-40ca-b21d-055d010b47d3">
+    <baseIcon>stopwatch.png</baseIcon>
+    <basePath>Utilities/</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <opRef>
+    <refId>46c0f7ea-a981-4ddc-bcaf-d4faed7af0b6</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

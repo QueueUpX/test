@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="a868d2ba-9497-4739-9069-9796d490903c">
+  <descriptionCdata><![CDATA[a868d2ba-9497-4739-9069-9796d490903c.description=Moves a file or a folder to a new location.\n\nInputs\:\n    source - The path for the file or folder that will be moved.\n    destination - The location where the file or folder will be moved.\n    overwrite - If set to "false" the operation will fail if "destination" exists.\nValid values\: true, false\nDefault value\: false\n\nResponses\:\n    success - The file was successfully moved.\n    failure - The move failed.\n\nNotes\:\n1. If the "destination" and "source" inputs point to folders the source folder will be moved in the destination folder.\n2. If the "destination" input points to a folder that contains a folder with the same name as the folder from "source" input and the destination folder is not empty it will not be overwritten even if the "overwrite" input is set to true. In this case the folder could be deleted using the "FS Delete" operation.\n3. On Windows OS the file path is case insensitive so paths that are different only by letter's case are treated as being the same.\n4. Please check File System->Cross Platform properties for more information regarding the use of network share paths with this operation.
+]]></descriptionCdata>
+  <annotation>a868d2ba-9497-4739-9069-9796d490903c.description</annotation>
+  <name>FS Move</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="db2cad08-5bcb-4136-a697-9ddaf9372d9b">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>destination</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="cf8c469f-fa56-44f1-87e8-67ec89b4c1c1">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>source</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="a1dbfa68-bfc8-4f43-9ccf-fa7c9c28bc4b">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>overwrite</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="d743a16f-0de3-4036-abfc-b45f5f2df9ed">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="7fa7316d-6fe6-4203-99b1-d26c0393fc5d">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="e7f8db12-764e-4907-81a6-00b892cba5af">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="9ee828ad-deef-403a-8412-4cf6ca94f7b9">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="4a3051e9-f23d-48eb-aa53-04180a47786e">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="3bc285ce-c698-4fdd-9ef4-24575d32e6f9">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>-1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="b7fd8eab-b926-4752-940d-a459de29f1db">
+    <annotation></annotation>
+    <name></name>
+    <fieldName>returnCode</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="6250d1c5-b54b-455f-b086-d4f740f1dfa1">
+    <baseIcon>document_text.png</baseIcon>
+    <basePath>Operating System/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="981d7ce0-5c0a-4b2e-b730-0f7642109667">
+        <baseIcon>cut.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-fs-legacy-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>com.iconclude.content.actions.filesystem.FSMove</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

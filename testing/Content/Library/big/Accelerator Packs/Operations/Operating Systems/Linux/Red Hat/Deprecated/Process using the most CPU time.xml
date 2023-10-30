@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="fade6e6d-7a7a-4ba6-8226-a70e6d46c880">
+  <descriptionCdata><![CDATA[fade6e6d-7a7a-4ba6-8226-a70e6d46c880.description=<pre>\nThis determines which process on a machine has used the most CPU time\n\nInputs\:\n\thost\:           host name to check\n\tusername\:       user name to login into host as\n\tpassword\:       password to use for login\n\nResponses\:\n\tsuccess\:          If the operation worked\n\thost not found\:  If the host cannot be found\n\tauthentication failure\: If the login fails\n\tfailure\:          Any other error condition\n\nResults and Context\:\n\tThe process name is placed into the operation result\n\tThe process name is placed into the context variable "largestProcess"\n\tThe PID is placed into the context variable "PID"\n\tThe number of seconds used is placed into "maxSeconds"\n</pre>
+]]></descriptionCdata>
+  <annotation>fade6e6d-7a7a-4ba6-8226-a70e6d46c880.description</annotation>
+  <name>Process using the most CPU time</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="2c6fe206-580c-4be5-af04-acc1fc7c1197">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>host</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="7fb095fa-9f12-48f8-8f0f-14233d3df6bf">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>username</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="4a858e17-a717-4680-900f-f95dd5546ab4">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>password</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="99b59a2a-c81f-4298-aa36-39f948ff3613">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Environment</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="0ba00417-3c6d-4ff0-8a51-1d446bfe1463">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>User</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${username}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="8290035d-982f-40fc-bc7e-55af242e20af">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Command</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>ps -edal</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="91d0c0a1-970e-4ca9-aef4-97d60d54d187">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Argument</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="53ba9b60-58ef-4f50-8041-ebf81adcdad3">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Host</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${host}</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="bb6a92eb-a79f-4a3e-8c19-bd3a8ece8b8c">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Private_Key_File</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="3f518fe7-2d4d-4933-985a-615d78656d17">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Password</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>{OBFUSCATED}SqstnSxglAP4D4gm72ILRw==</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="880c533c-b172-4c58-ac69-93677dfd0d0f">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Pty</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <scriptlet id="4d595756-40e0-48d0-82e0-ea88955b7446">
+    <annotation></annotation>
+    <name>Operation Process using the most CPU time (8089d41c-c90f-4186-8368-8c77ea7e78cd)</name>
+    <script>/*
+   This operation runs ps to get the amount of overall CPU time used by each process
+   The scriptlet reads the total CPU time from each row and finds the one with highest 
+   amount of time used.  Note that this could also be accomplished by piping the output 
+   of the ps command through sort and then selecting the top row (ignoring headers).  
+   However we&apos;ll do it manually here to illustrate the technique.
+
+   The process that used the most time is placed into the context variable largestProcess
+   The amount of CPU time it has used is placed into the context variable maxSeconds
+   The pid of the process is placed into the context variable PID
+
+   Returns:
+	&quot;Passed&quot; if the operation worked
+	&quot;Host Not Found&quot; if we failed to find the host
+	&quot;Authentication Failure&quot; if we found the host but couldn&apos;t log in
+	&quot;Failed&quot; if there is any other error condition
+*/
+
+// set up defaults
+scriptletResult = &quot;-1&quot;;
+scriptletResponse = &quot;failure&quot;;
+
+// get the command output data
+data = scriptletRawResult[&apos;Output String&apos;];
+
+// get the return code
+code = parseInt(scriptletRawResult[&apos;Code&apos;]);
+
+maxSeconds = 0;
+
+// make sure the command executed correctly
+if (code == 0) {
+
+	// split the data into lines
+	splitdata = data.split(/\n/);
+
+	// add up the % free from each line ignoring the header
+	for (i = 1; ; i++) {
+		// get the individual row
+		row = splitdata[i];
+		// if there is no data we are done
+		if (row == null) break;
+
+		// find the hh:mm:ss column using a regular expression
+		cpuUsed = row.match(/(.*\s+)(\d+:\d+:\d+)(.*)/);
+
+		// cut into hours, minutes, seconds
+		if (cpuUsed != null) {
+			time = cpuUsed[2].split(/:/);
+			hours = parseInt(time[0]);
+			minutes = parseInt(time[1]);
+			seconds = parseInt(time[2]);
+			// convert from hh:mm:ss into total seconds
+			totalSeconds = seconds + (60 * minutes) + (3600 * hours);
+			// is this the largest so far?
+			if (totalSeconds &gt; maxSeconds) {
+				maxSeconds = totalSeconds;
+				// split the row into columns
+				findProcess = row.split(/\s+/);
+				// get the process name
+				largestProcess = findProcess[13];
+				// get the PID
+				largestProcessPID = findProcess[3]
+			}
+		}
+	} 
+
+	// finalize the return variables
+	scriptletResponse = &quot;success&quot;;
+	scriptletResult = largestProcess;
+	
+	// place the process name, PID and amount of CPU used into the context
+	scriptletContext.putGlobal(&quot;largestProcess&quot;, largestProcess);
+	scriptletContext.putGlobal(&quot;PID&quot;, largestProcessPID);
+	scriptletContext.putGlobal(&quot;maxSeconds&quot;, maxSeconds);
+}
+else
+{
+	// check for a host not found
+	errorstring = scriptletRawResult[&apos;Error String&apos;];
+	if (errorstring.match(/.*UnknownHost.*/) != null) {
+		scriptletResponse = &quot;host not found&quot;;
+	}
+	// look for an authentication error
+	else if (errorstring.match(/.*Authentication failure.*/) != null) {
+		scriptletResponse = &quot;authentication failure&quot;;
+	}
+	// generic error response
+	else {
+		scriptletResponse = &quot;failure&quot;;
+	}
+}
+
+</script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="bf9f2db5-03e4-4f7e-8280-784f47635ea7">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="e6fac473-a920-4f6e-b6f7-9d57ed5d3a2a">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="b6d8221e-5318-4df5-b558-4473dd7fceb3">
+      <annotation></annotation>
+      <name>host not found</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="1a17a3d9-6a09-44d1-b1e4-b32a930cd10d">
+      <annotation></annotation>
+      <name>authentication failure</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="d3bb43a7-bd15-4cee-8681-7fc882a5762e">
+    <annotation></annotation>
+    <name>Code</name>
+    <fieldName>Code</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="d330ab56-a676-439b-ad2b-ab56ccc9c173">
+    <baseIcon>cpu.png</baseIcon>
+    <basePath>Operating System/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="2d35e9c8-f7fb-4b60-a1b2-4ddbd6af2778">
+        <baseIcon>view.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <opRef>
+    <refId>46c0f7ea-a981-4ddc-bcaf-d4faed7af0b6</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

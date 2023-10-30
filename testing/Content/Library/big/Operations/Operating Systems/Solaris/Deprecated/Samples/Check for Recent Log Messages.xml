@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow id="be1f8108-81aa-44c3-8674-1f3ca6bc6777">
+  <descriptionCdata><![CDATA[be1f8108-81aa-44c3-8674-1f3ca6bc6777.4c1626f7-c05e-4c17-9eaa-46b0211723ab.transition.description=Last log message was ${minutes} minutes ago
+be1f8108-81aa-44c3-8674-1f3ca6bc6777.90aed3c9-0751-4e51-93c5-36102ea149d5.prompt=Enter username
+be1f8108-81aa-44c3-8674-1f3ca6bc6777.b26c62a5-b5f7-4d53-b5c1-5f03e4e95f84.prompt=It has been ${minutes} minutes since the last log message
+be1f8108-81aa-44c3-8674-1f3ca6bc6777.b96bd624-92c2-4666-9425-bb69dd073361.prompt=Enter password
+be1f8108-81aa-44c3-8674-1f3ca6bc6777.d39c2547-1526-4a56-bdec-f4e81ca6c332.prompt=Enter password
+be1f8108-81aa-44c3-8674-1f3ca6bc6777.description=This checks to see when the last message was written to a log file and displays how many minutes since that occurred.\n\nInputs\:\nhostname - The host to get query.\nidentity - the username and password to use when authenticating with hostname.\nlogfile - the log file to query.\n\nResponses\:\nsuccess - last log message time retrieved.\nfailure - unable to retrieve time of last log message.
+be1f8108-81aa-44c3-8674-1f3ca6bc6777.f527b336-212f-4d02-8278-11608c49e162.prompt=Enter username
+]]></descriptionCdata>
+  <annotation>be1f8108-81aa-44c3-8674-1f3ca6bc6777.description</annotation>
+  <name>Check for Recent Log Messages</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="518c0c6b-b153-4a3b-828b-5518b3fba21a">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>hostname</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="90aed3c9-0751-4e51-93c5-36102ea149d5">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>identityUsername</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>be1f8108-81aa-44c3-8674-1f3ca6bc6777.90aed3c9-0751-4e51-93c5-36102ea149d5.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter></sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="b96bd624-92c2-4666-9425-bb69dd073361">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>identityPassword</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>be1f8108-81aa-44c3-8674-1f3ca6bc6777.b96bd624-92c2-4666-9425-bb69dd073361.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter></sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="eb4019f1-3fb8-4046-be5f-f055b4875b29">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>logfile</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>/usr/adm/messages</value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="b7fe4ac9-db91-489b-ba11-fb5e2b54d1bf">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="aa0b2560-e759-49fb-ba8b-785a03c80254">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>false</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="07869696-84ac-4d1f-8230-d5fbab90add9">
+    <annotation></annotation>
+    <name></name>
+    <fieldName>Value</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="a8c53c2b-89ba-4e3f-843f-c17b8cfe63de">
+    <baseIcon>flow.png</baseIcon>
+    <basePath>System</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <callouts/>
+  <checkPointFlow>true</checkPointFlow>
+  <compatibleRuntimeContext>true</compatibleRuntimeContext>
+  <historyCheckPointFlow>true</historyCheckPointFlow>
+  <steps>
+    <step id="dc19352d-76fd-4dbd-9126-35ffb58b1f1c">
+      <annotation></annotation>
+      <name>Minutes Since Last Log Message</name>
+      <bounds>
+        <x>0.0</x>
+        <y>0.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>true</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <resultContextKey>minutes</resultContextKey>
+      <userPrompt></userPrompt>
+      <bindings>
+        <staticBinding id="ac93d1fc-5539-43e4-9243-6548fe9ee9c4">
+          <annotation></annotation>
+          <toContextKey>ic_hostname</toContextKey>
+          <fromContextKey>ic_hostname</fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>hostname</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value> </value>
+          <record>false</record>
+        </staticBinding>
+        <userInputBinding id="f527b336-212f-4d02-8278-11608c49e162">
+          <annotation></annotation>
+          <toContextKey>ic_identityUsername</toContextKey>
+          <fromContextKey>ic_identityUsername</fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>ENCRYPTED</inputType>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>identityUsername</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <record>false</record>
+          <prompt>be1f8108-81aa-44c3-8674-1f3ca6bc6777.f527b336-212f-4d02-8278-11608c49e162.prompt</prompt>
+          <isMultiSelect>false</isMultiSelect>
+          <sourceDelimiter></sourceDelimiter>
+        </userInputBinding>
+        <userInputBinding id="d39c2547-1526-4a56-bdec-f4e81ca6c332">
+          <annotation></annotation>
+          <toContextKey>ic_identityPassword</toContextKey>
+          <fromContextKey>ic_identityPassword</fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>ENCRYPTED</inputType>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>identityPassword</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <record>false</record>
+          <prompt>be1f8108-81aa-44c3-8674-1f3ca6bc6777.d39c2547-1526-4a56-bdec-f4e81ca6c332.prompt</prompt>
+          <isMultiSelect>false</isMultiSelect>
+          <sourceDelimiter></sourceDelimiter>
+        </userInputBinding>
+        <staticBinding id="2bdb2fb6-b229-4f67-8148-55335fa6e443">
+          <annotation></annotation>
+          <toContextKey>ic_logfilename</toContextKey>
+          <fromContextKey>ic_logfilename</fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>filename</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value>/usr/adm/messages</value>
+          <record>false</record>
+        </staticBinding>
+      </bindings>
+      <transitions>
+        <transition id="4c1626f7-c05e-4c17-9eaa-46b0211723ab">
+          <annotation>be1f8108-81aa-44c3-8674-1f3ca6bc6777.4c1626f7-c05e-4c17-9eaa-46b0211723ab.transition.description</annotation>
+          <name>success</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>success</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>b26c62a5-b5f7-4d53-b5c1-5f03e4e95f84</refId>
+          </destination>
+          <source>
+            <refId>dc19352d-76fd-4dbd-9126-35ffb58b1f1c</refId>
+          </source>
+          <positions>
+            <point>
+              <x>121.0</x>
+              <y>37.130434782608695</y>
+            </point>
+            <point>
+              <x>291.0</x>
+              <y>37.13043478260869</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>482.3529411764706</x>
+            <y>-8.130434782608692</y>
+          </labelPosition>
+        </transition>
+        <transition id="26e98059-b111-457c-8c21-59bd3bd56d39">
+          <annotation></annotation>
+          <name>failure</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>failure</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>a067709a-8ac8-4dbe-ac37-0c34a6cb2ee3</refId>
+          </destination>
+          <source>
+            <refId>dc19352d-76fd-4dbd-9126-35ffb58b1f1c</refId>
+          </source>
+          <positions>
+            <point>
+              <x>90.0</x>
+              <y>65.0</y>
+            </point>
+            <point>
+              <x>90.0</x>
+              <y>265.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>560.0</x>
+            <y>15.0</y>
+          </labelPosition>
+        </transition>
+      </transitions>
+      <properties/>
+      <opRef>
+        <refId>c4b0227e-267e-468f-b840-defe6a2b51f9</refId>
+      </opRef>
+      <assignments>
+        <flowVariableAssignment id="de02b125-2f57-4e25-9685-b1b709167daf">
+          <annotation>Automatically created during conversion</annotation>
+          <name>assignment</name>
+          <action>OVERWRITE</action>
+          <assignmentTargetType>FLOW_VARIABLE</assignmentTargetType>
+          <contextKey>minutes</contextKey>
+          <expression id="823f9103-1c02-49e9-90cd-aa39d6078c4e">
+            <annotation>Automatically created during conversion</annotation>
+            <name>Result Field: Result</name>
+            <fieldName>Result</fieldName>
+            <sourceType>RAWRESULT</sourceType>
+            <filters/>
+          </expression>
+        </flowVariableAssignment>
+      </assignments>
+      <throttleSize>0</throttleSize>
+    </step>
+    <returnStep id="a067709a-8ac8-4dbe-ac37-0c34a6cb2ee3">
+      <annotation></annotation>
+      <name>Error : failure</name>
+      <bounds>
+        <x>0.0</x>
+        <y>150.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <bindings/>
+      <transitions>
+        <transition id="41d20a7c-7b8b-4cb8-86c7-80e862248fb2">
+          <annotation></annotation>
+          <name>return</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>failure</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>a067709a-8ac8-4dbe-ac37-0c34a6cb2ee3</refId>
+          </destination>
+          <source>
+            <refId>a067709a-8ac8-4dbe-ac37-0c34a6cb2ee3</refId>
+          </source>
+          <positions/>
+        </transition>
+      </transitions>
+      <properties/>
+      <returnStepType>ERROR</returnStepType>
+      <assignments/>
+    </returnStep>
+    <step id="b26c62a5-b5f7-4d53-b5c1-5f03e4e95f84">
+      <annotation></annotation>
+      <name>Display time since last message</name>
+      <bounds>
+        <x>230.0</x>
+        <y>0.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt>be1f8108-81aa-44c3-8674-1f3ca6bc6777.b26c62a5-b5f7-4d53-b5c1-5f03e4e95f84.prompt</userPrompt>
+      <bindings/>
+      <transitions>
+        <transition id="c1c0e778-2a15-46ce-a59f-71403735c0b5">
+          <annotation></annotation>
+          <name>Done</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>Done</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>c8cf8725-1626-42ee-8670-f1766c7da04c</refId>
+          </destination>
+          <source>
+            <refId>b26c62a5-b5f7-4d53-b5c1-5f03e4e95f84</refId>
+          </source>
+          <positions>
+            <point>
+              <x>320.0</x>
+              <y>65.0</y>
+            </point>
+            <point>
+              <x>320.0</x>
+              <y>265.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>525.0</x>
+            <y>-18.0</y>
+          </labelPosition>
+        </transition>
+      </transitions>
+      <properties>
+        <entry>
+          <key>Prompt Title</key>
+          <modelValue id="7dd58200-262e-43a7-ae52-327da222bd25">
+            <doubleValue>0.0</doubleValue>
+            <stringValue>Time since last message</stringValue>
+            <encrypted>false</encrypted>
+            <type>9</type>
+          </modelValue>
+        </entry>
+        <entry>
+          <key>Prompt Width</key>
+          <modelValue id="f08e3e47-fdfd-47d3-ab89-0af3280cf748">
+            <doubleValue>0.0</doubleValue>
+            <encrypted>false</encrypted>
+            <type>5</type>
+          </modelValue>
+        </entry>
+        <entry>
+          <key>Prompt Height</key>
+          <modelValue id="371089c4-c745-4fbd-a9ed-7b3435836a69">
+            <doubleValue>0.0</doubleValue>
+            <encrypted>false</encrypted>
+            <type>5</type>
+          </modelValue>
+        </entry>
+      </properties>
+      <opRef>
+        <refId>8ab18c7f-96b3-46cc-a5d9-3abccdf58700</refId>
+      </opRef>
+      <assignments/>
+      <throttleSize>0</throttleSize>
+    </step>
+    <returnStep id="c8cf8725-1626-42ee-8670-f1766c7da04c">
+      <annotation></annotation>
+      <name>Resolved : success</name>
+      <bounds>
+        <x>230.0</x>
+        <y>150.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <scriptlet id="173a615f-eb5e-4dc9-bb22-1d1979c2f400">
+        <annotation></annotation>
+        <name>Step Resolved : success in Flow Check for Recent Log Messages (b20b12ce-21f0-4ad7-a300-beedc58b9734)</name>
+        <type>RHINO</type>
+      </scriptlet>
+      <bindings/>
+      <transitions>
+        <transition id="390c22c3-d1b5-4f33-94a2-5fe8b188fe56">
+          <annotation></annotation>
+          <name>return</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>success</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>c8cf8725-1626-42ee-8670-f1766c7da04c</refId>
+          </destination>
+          <source>
+            <refId>c8cf8725-1626-42ee-8670-f1766c7da04c</refId>
+          </source>
+          <positions/>
+        </transition>
+      </transitions>
+      <properties/>
+      <returnStepType>RESOLVED</returnStepType>
+      <assignments/>
+    </returnStep>
+  </steps>
+  <startSteps>dc19352d-76fd-4dbd-9126-35ffb58b1f1c</startSteps>
+</flow>

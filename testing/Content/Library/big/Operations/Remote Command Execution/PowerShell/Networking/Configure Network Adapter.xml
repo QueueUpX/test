@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="df088308-e991-430b-a73c-3bceaa2d74b3">
+  <descriptionCdata><![CDATA[df088308-e991-430b-a73c-3bceaa2d74b3.description=<pre>Configures  the network adapter using a powershell script. For IPv6 settings it uses the Powershell 3 NETTCPIP module.\n\nInputs\:\n    interfaceIndex - The interface index. You can find this number  for ipv6 interfaces by running 'netsh interface ipv6 show interfaces' (from cmd) or 'get-netadapter'(from powershell 3). For ipv4 interfaces on systems previous to Windows Server 2012 you may run 'netsh interface ipv4 show interfaces'(from cmd) or 'Get-WmiObject -Class Win32_NetworkAdapterConfiguration|ft -property Description,IPAddress,InterfaceIndex'(from powershell). Either this input or 'interfaceAlias' must be provided.\n    interfaceAlias - The interface name. If interfaceIndex is empty it will be computed using this input. If interfaceIndex is not empty this input will be ignored.\nExamples\: Ethernet, Local Area Connection\n    ipVersion - specify if your settings are for IPv4 or IPv6. For IPv6 the NETTCPIP module from Powershell 3 for Windows 8 / Server 2012 will be used. For IPv4 the Win32_NetworkAdapterConfiguration class will be used and this works on Windows versions starting with Server 2003.\nValues\: 4, 6\nDefault\: 4\n    enableDhcp - If true DHCP will be enabled and previously set dns servers will be removed. If false DHCP will be disabled for IPv6. For IPv4 you also need to specify the 'ip' and prefix length.\nValues\: true, false, [empty]\nDefault\:[empty]\n    ip - The ip literal. For ipVersion\=6 all IPv6 ips will be removed from the specified adapter from both the ActiveStore or the PersistentStore. For IPv4 you also need to specify subnetPrefixMask.\nExamples\: 169.254.41.138, fe80\:\:2\n    subnetPrefixMask - The subnet prefix length in CIDR format.\nExamples\: 24, 64\n    gateway - The default gateway ip.\n    dns - A comma separated list of IPs representing DNS servers. All the other dns servers set up for the specified address family will be removed.\nExample\: 8.8.8.8,8.8.4.4\n    host - The hostname or ip address of the PowerShell host. This input is mutual exclusive with the hidden inputs URI and shellURI.\nDefault value\: localhost\n    username - The username to use when connecting to the server.\nValue format\: username@domain or domain\\username.\n    password - The password to use when connecting to the server.\n    script - The script that actually sets the network adapter. Will be executed on the PowerShell host. \n\nResponses\:\n    Success - The Powershell script or cmdlet was executed successfully.\n    Failure - Something went wrong.\n\nReturns\:\n    returnCode - This is the primary output. A code used to determine the operation response, specifying whether the operation is successful or not.\n    returnResult - The result of the script execution formatted as table or string depending on the returnTable input value as described above.\n    script - The actual PowerShell script that was run. This result might be useful when piping is enabled or you want to know exactly the script that was sent to be run on the PowerShell host. Please note that the operation adds "Out-String" command to the end of your script if returnTable input  is set to false. \n    objectsCount - The number of the PowerShell objects resulted from script execution (e.g. Get-Service will return the number of services found on the target host). This input is relevant only when returnTable is set to true. Otherwise, the value of this result will always be one, because the script returns a string message.\n    warnings - A list of warnings that the cmdlets emit. If the cmdlets were executed without warnings, then this result will be an empty string.\n    runspaceID - The runspace ID of the PowerShell runspace created during the execution of the operation.\n\nNotes\:\n    1. This operation is a soft copy of the "PowerShell Script" operation (linked in the 'Advanced' tab).\n- The host, username, password and script inputs are generic inputs defined by the linked hard copy. \n- All the returns are generic returns specified by "PowerShell Script" operation. You may add these inputs \n- You may add these inputs (described in the linked hard copy)\: URI, shellURI, authType, configurationName, connectionTimeout, scriptTimeout, useSSL, skipCACheck, skipCNCheck, port, keepSessionAlive, enablePiping, runspaceID, modules, snapins, cmdlet , returnTable, delimiter, colDelimiter, rowDelimiter, newline.\n    2. Remotely setting the adapter you are connected to and on the same addressFamily (ipv6/ ipv4) you are connected to will result in disconnecting the powershell session. (i.e. you connect to host\=169.254.173.123 and set the default 'Ethernet' ipv4 interface to  ip\=169.254.173.124) The adapter will be set according to the specified inputs but the response will be 'failure' and the 'exception' output will contain the string 'System.Management.Automation.Remoting.PSRemotingTransportException\: Processing data from remote server failed with the following error message\: The WinRM client cannot complete the operation within the time specified. Check if the machine name is valid and is reachable over the network and firewall exception for Windows Remote Management service is enabled.' \n</pre>
+]]></descriptionCdata>
+  <annotation>df088308-e991-430b-a73c-3bceaa2d74b3.description</annotation>
+  <name>Configure Network Adapter</name>
+  <categories/>
+  <inputs>
+    <staticBinding id="27d56137-01ab-404f-88d7-96232097e745">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>host</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="6031cb7d-9df0-4cc9-afdd-a240bed1a5c9">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>username</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="78907adc-d690-498a-97c0-799c3b55ae24">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>password</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="56b909e1-ed35-48f1-bfd6-2f1a49e6d557">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>script</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>function New-CidrToBin ($cidr){
+	if($cidr -le 32){
+	[Int[]]$array = (1..32)
+	for($i=0;$i -lt $array.length;$i++){
+	if($array[$i] -gt $cidr){$array[$i]=&quot;0&quot;}else{$array[$i]=&quot;1&quot;}
+	}
+	$cidr =$array -join &quot;&quot;
+	}
+	return $cidr
+}
+
+function New-IPv4fromBin($addressInBin){
+	[string[]]$addressInInt32 = @()
+	$addressInBin = $addressInBin.ToCharArray()
+	for ($i = 0;$i -lt $addressInBin.length;$i++) {
+		$partAddressInBin += $addressInBin[$i] 
+		if(($i+1)%8 -eq 0){
+			$partAddressInBin = $partAddressInBin -join &quot;&quot;
+			$addressInInt32 += [Convert]::ToInt32($partAddressInBin -join &quot;&quot;,2)
+			$partAddressInBin = &quot;&quot;
+		}
+	}
+	$addressInInt32 = $addressInInt32 -join &quot;.&quot;
+	return $addressInInt32
+}
+
+function evalRTN($rtn, $msg) {
+	switch ($rtn.returnvalue){ 
+		0  { $msg; }
+		64 { Throw &quot;Method not supported on this platform &quot;; }
+		65 { Throw &quot;Unknown failure &quot;; }
+		66 { Throw &quot;Invalid Subnet Mask&quot;; }
+		68 { Throw &quot;Invalid Input Parameter &quot;; }
+		70 { Throw &quot;Invalid IP&quot;; }
+		71 { Throw &quot;Invalid gateway IP address&quot;; }
+		73 { Throw &quot;Invalid domain name&quot;; }
+		74 { Throw &quot;Invalid host name&quot;; }
+		81 { Throw &quot;Unable to configure DHCP service&quot;; }
+		82 { Throw &quot;Unable to renew DHCP lease&quot;; }
+		83 { Throw &quot;Unable to release DHCP lease&quot;; }
+		84 { Throw &quot;IP not enabled on adapter&quot;; }
+		91 { Throw &quot;Access denied&quot;; }
+		96 { Throw &quot;Unable to contact DNS server&quot;; }
+		100 { Throw &quot;DHCP is not enabled on adapter&quot;; }
+		DEFAULT { Throw &quot;An Error occurred: $($rtn.returnvalue)&quot;; }
+	}
+};
+$ConfirmPreference=&apos;none&apos;;
+
+$myInterfaceIndex=&apos;${interfaceIndex}&apos;;
+$myInterfaceAlias=&apos;${interfaceAlias}&apos;;
+$myIPVersion=&apos;${ipVersion}&apos;;
+$myEnableDhcp=&apos;${enableDhcp}&apos;;
+$myIPAddress=&apos;${ip}&apos;;
+$myDefaultGateway=&apos;${gateway}&apos;;
+$myDNSString=&apos;${dns}&apos;;
+$myDNS=$myDNSString.split(&quot;,&quot;);
+$myPrefixLength=&apos;${subnetPrefixMask}&apos;;
+
+$emptyIPAddress = [string]::IsNullOrEmpty($myIPAddress);
+$emptyGateway = [string]::IsNullOrEmpty($myDefaultGateway);
+$emptyPrefixLength = [string]::IsNullOrEmpty($myPrefixLength);
+$emptyDNS = [string]::IsNullOrEmpty($myDNS);
+$emptyInterfaceIndex = [string]::IsNullOrEmpty($myInterfaceIndex);
+$emptyInterfaceAlias = [string]::IsNullOrEmpty($myInterfaceAlias);
+$emptyEnableDhcp = [string]::IsNullOrEmpty($myEnableDhcp);
+
+if ($emptyIPAddress -and $emptyGateway -and $emptyDNS -and $emptyEnableDhcp) {
+	Throw &quot;the ip, gateway, dns and enableDhcp inputs cannot all be empty&quot;;
+}
+$argumentSilentlyContinue = @{ErrorAction = &apos;SilentlyContinue&apos;};
+$argumentAddressFamily = @{};
+if (-Not [string]::IsNullOrEmpty($myIPVersion)) {
+	$argumentAddressFamily.AddressFamily = &quot;IPv$myIPVersion&quot;;
+} else {
+	$argumentAddressFamily.AddressFamily = &apos;IPv4&apos;;
+};
+$argumentDefaultGateway = @{};
+if (-Not $emptyGateway) {$argumentDefaultGateway.DefaultGateway = $myDefaultGateway};	
+$argumentPrefixLength = @{};
+if (-Not $emptyPrefixLength) {$argumentPrefixLength.PrefixLength = [int]::Parse($myPrefixLength)};	
+if (-Not [string]::IsNullOrEmpty($myEnableDhcp)) {
+	if ($myEnableDhcp -ieq &apos;true&apos;) {
+		$myDHCP=&apos;Enabled&apos;;
+	}
+	if ($myEnableDhcp -ieq &apos;false&apos;) {
+		$myDHCP=&apos;Disabled&apos;;
+	}
+}
+if ($emptyInterfaceIndex -and $emptyInterfaceAlias) {
+	Throw &quot;interfaceIndex and interfaceAlias cannot both be empty&quot;;
+}
+if (($argumentAddressFamily.AddressFamily -ieq &apos;IPv4&apos;) -and ($myEnableDhcp -ieq &apos;true&apos;) -and (-Not $emptyIPAddress)) {
+	Throw &quot;for IPv4 you cannot enable DHCP and set a static IP at the same time&quot;;
+}
+
+if ($argumentAddressFamily.AddressFamily -ieq &apos;IPv4&apos;) {
+	if ($emptyInterfaceIndex) {
+		$myInterfaceIndex=(Get-WmiObject -Class Win32_NetworkAdapter |where {$_.NetConnectionID -eq $myInterfaceAlias}).InterfaceIndex;
+	}
+    $objWmi = Get-WmiObject -Class Win32_NetworkAdapterConfiguration|where {$_.InterfaceIndex -eq $myInterfaceIndex}
+	if ($objWmi -eq $null){
+		Throw &quot;Could not find network adapter&quot;;
+	}
+	if (-not $emptyIPAddress){
+		if (-not $emptyPrefixLength){
+			$mask = New-IPv4fromBin(New-CidrToBin($myPrefixLength));
+			$ipResult = $objWmi.enablestatic($myIPAddress,&quot;$mask&quot;);
+			evalRTN $ipResult &quot;ip set to $myIPAddress with mask $mask&quot;;
+		} else{
+			Throw &quot;If an IP is specified the Subnet Mask should be specified also&quot;;
+		}
+	}
+	if (-not $emptyGateway) {
+		$metric = 1;
+		$gatewayResult = $objWmi.setgateways($myDefaultGateway, $metric)
+		evalRTN $gatewayResult &quot;gateway set to $myDefaultGateway with metric $metric&quot;;
+	}
+	if (-not $emptyDNS) {
+	    $dnsResult = $objWmi.setdnsserversearchorder($myDNS);
+		evalRTN $dnsResult &quot;dns set to $myDNSString&quot;;
+	}
+	if ($myEnableDhcp -ieq &apos;true&apos;) {
+		$dnsResult = $objWmi.setdnsserversearchorder();
+		evalRTN $dnsResult &quot;removed dns servers&quot;;
+		$dhcpResult = $objWmi.enableDHCP();
+		evalRTN $dhcpResult &quot;enabled DHCP&quot;;
+	}
+}
+
+if ($argumentAddressFamily.AddressFamily -ieq &apos;IPv6&apos;) {
+	if ([string]::IsNullOrEmpty($myInterfaceIndex)) {
+		$myInterfaceIndex=(Get-NetIPInterface -InterfaceAlias $myInterfaceAlias @argumentAddressFamily).InterfaceIndex;
+	}
+	if ($myDHCP -ieq &apos;Disabled&apos;) {
+		Set-NetIPInterface -InterfaceIndex $myInterfaceIndex -Dhcp $myDHCP @argumentAddressFamily;
+		if ($?) {Write-Output &quot;disabled DHCP&quot;;}
+	}
+	Remove-NetIPAddress -InterfaceIndex $myInterfaceIndex -PolicyStore ActiveStore @argumentAddressFamily @argumentSilentlyContinue -Confirm:$false;
+	if ($?) {Write-Output &quot;removed ActiveStore IPAddresses&quot;;}
+	Remove-NetIPAddress -InterfaceIndex $myInterfaceIndex -PolicyStore PersistentStore @argumentAddressFamily @argumentSilentlyContinue -Confirm:$false;
+	if ($?) {Write-Output &quot;removed PersistentStore IPAddresses&quot;;}
+	if (-Not $emptyGateway -or $myDHCP -ieq &apos;Enabled&apos;) {
+		Remove-NetRoute -InterfaceIndex $myInterfaceIndex -PolicyStore ActiveStore @argumentAddressFamily @argumentSilentlyContinue -Confirm:$false;
+		if ($?) {Write-Output &quot;removed ActiveStore NetRouts&quot;;}
+		Remove-NetRoute -InterfaceIndex $myInterfaceIndex -PolicyStore PersistentStore @argumentAddressFamily @argumentSilentlyContinue -Confirm:$false;
+		if ($?) {Write-Output &quot;removed PersistentStore NetRouts&quot;;}
+	}
+	if (-not $emptyIPAddress) {
+		New-NetIPAddress -InterfaceIndex $myInterfaceIndex -IPAddress $myIPAddress @argumentPrefixLength -SkipAsSource $False @argumentDefaultGateway -Type Unicast @argumentAddressFamily;
+		if ($?) {Write-Output &quot;ip set to $myIPAddress&quot;;}
+	}
+	if (-not $emptyDNS) {
+		Set-DnsClientServerAddress -InterfaceIndex $myInterfaceIndex -ServerAddresses $myDNS;
+		if ($?) {Write-Output &quot;dns set to $myDNS&quot;;}
+	}
+	if ($myDHCP -ieq &apos;Enabled&apos;) {
+		Set-DnsClientServerAddress -InterfaceIndex $myInterfaceIndex -ResetServerAddresses @argumentSilentlyContinue
+		if ($?) {Write-Output &quot;removed dns servers&quot;;}
+		Set-NetIPInterface -InterfaceIndex $myInterfaceIndex -Dhcp $myDHCP @argumentAddressFamily;
+		if ($?) {Write-Output &quot;enabled DHCP&quot;;}
+		#uncomment following to restart adapter
+		#Get-NetAdapter -InterfaceIndex $myInterfaceIndex|Restart-NetAdapter
+	}
+}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="7782e743-db47-41be-a873-57a9cad39dd1">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>interfaceIndex</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="407f45ac-6cff-4a30-af6e-f36fa8f968a6">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>interfaceAlias</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="b0c118fa-b822-46b2-89d1-8bbf1ce9ef3f">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>ipVersion</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="c859a841-e382-4368-b982-25a7260986bd">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>enableDhcp</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="de4dca1e-1713-4055-a9de-a336ef5ccf2d">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>ip</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="c7a615cb-f87b-47db-96dc-a5e8afd16f4f">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>subnetPrefixMask</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="840dec11-3cef-4ebb-bdd8-d30627e68e20">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>gateway</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="cf0acbbf-f1a1-4564-95f2-a7e3fe37be48">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>dns</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="e3f7cd2a-ebee-491d-bc71-5bfc490110b4">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="f977eedd-8d53-431e-a9d0-b451cf9cecbc">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="60be135e-d906-42b5-b6ae-ec23982c0827">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="d685accb-9898-4825-975a-55b6a03cfc63">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="a7f78d81-9290-4f76-9be7-b551ad695d2c">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="ca51f277-e2e3-44b5-b860-6affe65a750a">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="d7b20fe2-3845-4080-baa8-fe7fb7c96988">
+    <annotation></annotation>
+    <name>returnResult</name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="757a86c0-e635-49f6-9627-e694fe5f6ba5">
+    <baseIcon>PowerShell.png</baseIcon>
+    <basePath>/Operating System/</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <opRef>
+    <refId>f0b2afd2-5733-47e4-80ba-7f2387cc66d5</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideNRAS}</overrideGroupAlias>
+</operation>

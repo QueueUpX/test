@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="faf86687-fda4-4f22-bffd-bef395447bb4">
+  <descriptionCdata><![CDATA[faf86687-fda4-4f22-bffd-bef395447bb4.description=<pre>\nThis operation takes a reference to a XML file and runs the specified XPath query against the XML read from the file. It returns the results in a delimited list. \nThe World Wide Web Consortium (W3C) organization provides the XPath specification (http\://www.w3.org).\n\nInputs\:\n    filename - Absolute path of the XML file to be opened on the RAS.\nExample\: c\:\\directory\\file.xml (Windows RAS)\n/directory/file.xml (Non-Windows RAS)\n    xpathQuery - The XPath query to be run. See the examples in Notes section below.\n    delimiter - The delimiter used to separate values in the returnResult list. \nDefault value\: ','.\n    parsingFeatures - The list of XML parsing features separated by new line (CRLF). The feature name - value must be separated by empty space. Setting specific features this field could be used to avoid XML security issues like "XML Entity Expansion injection" and "XML External Entity injection". To avoid aforementioned security issues we strongly recommend to set this input to the following values\: \nhttp\://apache.org/xml/features/disallow-doctype-decl true \nhttp\://xml.org/sax/features/external-general-entities false \nhttp\://xml.org/sax/features/external-parameter-entities false \nWhen the "http\://apache.org/xml/features/disallow-doctype-decl" feature is set to "true" the parser will throw a FATAL ERROR if the incoming document contains a DOCTYPE declaration.  \nWhen the "http\://xml.org/sax/features/external-general-entities" feature is set to "false" the parser will not include external general entities. \nWhen the "http\://xml.org/sax/features/external-parameter-entities" feature is set to "false" the parser will not include external parameter entities or the external DTD subset. \nIf any of the validations fails, the operation will fail with an error message describing the problem. \nDefault value\:\nhttp\://apache.org/xml/features/disallow-doctype-decl true\nhttp\://xml.org/sax/features/external-general-entities false\nhttp\://xml.org/sax/features/external-parameter-entities false\n\nResults\:\n   returnResult - This is the primary output. It contains the results in a form of a delimited list. If multiple XPaths are defined, the delimiter is added between each value. There is no final delimiter.\n\nResponses\:\n    success - The operation completed as stated in the description.\n    failure - The operation completed unsuccessfully.\n\nNotes\:\n1. The XPath query can be specified as a single query. For example\:\n/employees/employee[@id\="3"]/*[name()\="name" or name()\="jobDescription" or name()\="salary" or name()\="managerId"]/text()\n\nThis returns results in the format "<employee>, <jobDescription>, <salary>, <managerId>". For example\:\nGoofy,tester,$50,1\n\n2. If more than one XPath query needs to be specified, populate xpathQuery using the XPath concat function. For example\:\nconcat(/employees/employee[@id\="2"]/name/text(),',',/employees/employee[@id\="2"]/jobDescription/text(),',',/employees/employee[@id\="2"]/managerId/text(),',',/employees/employee[@id\="2"]/salary/text())\n\nThis returns results in the format "<employee>, <jobDescription>, <managerId>, <salary>". For example\:\nDonald Duck,Lead Coder,1,$50\n\nThe examples above use the following xml file located on the RAS containing the content below\:\n<?xml version\="1.0" encoding\="UTF-8"?>\n<employees>\n  <employee id\="1">\n    <name>Mickey Mouse</name>\n    <jobDescription>Chief</jobDescription>\n    <salary>$100</salary>\n    <managerId/>\n  </employee>\n  <employee id\="2">\n    <name>Donald Duck</name>\n    <jobDescription>Lead Coder</jobDescription>\n    <salary>$50</salary>\n    <managerId>1</managerId>\n  </employee>\n  <employee id\="3">\n    <name>Goofy</name>\n    <jobDescription>tester</jobDescription>\n    <salary>$50</salary>\n    <managerId>1</managerId>\n  </employee>\n  <employee id\="4">\n    <name>Pluto</name>\n    <jobDescription>Coder - grade 1</jobDescription>\n    <salary>$25</salary>\n    <managerId>2</managerId>\n  </employee>\n</employees>\n\n</pre>
+]]></descriptionCdata>
+  <annotation>faf86687-fda4-4f22-bffd-bef395447bb4.description</annotation>
+  <name>XPath Query from File</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="4e6ddd5e-eef5-47a6-ac1b-192f61ea73e3">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>filename</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="85a4e5eb-ac8a-4398-9b68-4b464428e9d6">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>xpathQuery</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="670c18fd-e2a5-4df9-98fe-7726ea21b8ca">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>delimiter</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="f25689ed-61a0-4399-8d79-7e0e003eee9d">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>parsingFeatures</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>http://apache.org/xml/features/disallow-doctype-decl true
+http://xml.org/sax/features/external-general-entities false
+http://xml.org/sax/features/external-parameter-entities false</value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="fc428130-e131-4206-9574-8f6b43b66cd7">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="e34d7e50-5837-468b-8c93-f5f576eafe96">
+          <annotation></annotation>
+          <name>returnResult</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="44cb689e-de27-428e-85af-1d91c5d66ff4">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="ef312cec-a62f-4468-86cf-cc0ec9b5c5f0">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="181af0b9-11d8-4dc8-bab9-0c85c9712b75">
+          <annotation></annotation>
+          <name>returnResult</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="4732c50e-6866-4c44-a925-4c179418f1cc">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="d622ef9f-5e7c-4622-83b2-df00ca0492a3">
+    <annotation></annotation>
+    <name></name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="54fc6486-3716-4e58-a36f-1a5fc2db8ad4">
+    <baseIcon>document_xml.png</baseIcon>
+    <basePath>Databases/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="8f1f4cda-49aa-474e-97b6-60c160352656">
+        <baseIcon>check.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-base-legacy-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>com.iconclude.content.actions.xml.XPathQuery</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

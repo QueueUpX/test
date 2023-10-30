@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="ddafb406-a0a7-470d-b057-90ae2afde80a">
+  <descriptionCdata><![CDATA[ddafb406-a0a7-470d-b057-90ae2afde80a.1db67a76-f837-4f94-a851-1e8f79ced4b0.prompt=Give the password for connecting to the host of the source file\:
+ddafb406-a0a7-470d-b057-90ae2afde80a.418eda26-cdc6-4a9f-89c5-032b224970cd.prompt=Give the protocol used to copy from the source file\:
+ddafb406-a0a7-470d-b057-90ae2afde80a.5fa4110b-7442-4ad1-b186-c2f353d06286.prompt=Give the username for connecting to the host of the source file\:
+ddafb406-a0a7-470d-b057-90ae2afde80a.6435e3b5-512f-419d-bf0f-8b041535ddfd.prompt=Give the username for connecting to the host of the destination file\:
+ddafb406-a0a7-470d-b057-90ae2afde80a.68e9188a-b6f9-44ec-a929-02aaa2ba9481.prompt=Give the host of the source file\:
+ddafb406-a0a7-470d-b057-90ae2afde80a.726713f4-3bd1-4c18-8c29-8d0a746ca31b.prompt=Give the password for connecting to the host of the destination file\:
+ddafb406-a0a7-470d-b057-90ae2afde80a.855a6f13-0e31-488e-a69c-29b6fc744a6b.prompt=Give the host of the destination file\:
+ddafb406-a0a7-470d-b057-90ae2afde80a.86a76bda-aeda-4add-bd2b-3bb46847f322.prompt=Give the absolute path to the source file\:
+ddafb406-a0a7-470d-b057-90ae2afde80a.8c1ce789-8abe-432e-9c40-4762cc263e84.prompt=Source host private key file (absolute path)\:
+ddafb406-a0a7-470d-b057-90ae2afde80a.af1ec0f5-6815-4d90-b80c-3f7bb748af90.prompt=Destination host private key file (absolute path)\:
+ddafb406-a0a7-470d-b057-90ae2afde80a.c3400f17-72eb-416b-b058-1060284134cf.prompt=Give the port number for connecting to the source port\:
+ddafb406-a0a7-470d-b057-90ae2afde80a.ccc826b5-5497-4ce1-a177-07c01a76f4d3.prompt=Give the file type (only for FTP)\:
+ddafb406-a0a7-470d-b057-90ae2afde80a.cfcc4ebe-c692-4b73-af85-0143ac226662.prompt=Give the protocol used to copy to the destination file\:
+ddafb406-a0a7-470d-b057-90ae2afde80a.db703172-74a3-4d32-a39e-23256e819c7f.prompt=Give the absolute path to the destination file\:
+ddafb406-a0a7-470d-b057-90ae2afde80a.description=This operation copies files between two remote machines using different protocols (local, SCP, FTP, SFTP or SMB).\n\nInputs\:\n    sourceHost - The host of the source file.\n    sourcePort - The port for connecting to the source host.\n    sourceUsername - The username for connecting to the host of the source file.\n    sourcePassword - The password for connecting to the host of the source file.\n    sourcePrivateKeyFile - Absolute path of the private key file for public/private key authentication on the source host.\n    sourcePath - The absolute path to the source file. In case of FTP or SFTP protocol please use a relativ path to FTP/SFTP server root directory.\n    sourceProtocol - The protocol used to copy from the source file. \nValid values\: local, SCP, FTP, SFTP or SMB.\n    sourceCharacterSet - The name of the control encoding to use with source host for FTP and SFTP protocols. \nExamples\: UTF-8, EUC-JP, SJIS.  \nDefault\: for FTP, the default is ISO-8859-1 (Latin1). For SFTP, it is UTF-8.\n    destinationHost - The host of the destination file.\n    destinationPort - The port for connecting to the destination host.\n    destinationUsername - The username for connecting to the host of the destination file.\n    destinationPassword - The password for connecting to the host of the destination file.\n    destinationPrivateKeyFile - Absolute path of the private key file for public/private key authentication on the destination host.\n    destinationPath - The absolute path to the destination file.\nWhen using SMB v2, SMB v3 the destination path should start with the samba shared folder.\nExample\: sambaSharedFolder\\folder1\\folder2\\file.\n    destinationProtocol - The protocol used to copy to the destination file.\nValid values\: local, SCP, FTP, SFTP or SMB.\n    destinationCharacterSet - The name of the control encoding to use with destination host for FTP and SFTP protocols. \nExamples\: UTF-8, EUC-JP, SJIS.   \nDefault\: for FTP, the default is ISO-8859-1 (Latin1). For SFTP, it is UTF-8.\n    fileType - The type of the file being copied if using FTP. This input must be empty if FTP protocol is not used.\nValid values\: binary, ascii.\nDefault value\: binary\n    passive - If true, passive connection mode will be enabled if using FTP.\nValid values\: true, false.\nDefault value\: false\n\nResults\:\n    returnResult - This is the primary output and contains the "Copy completed successfully" message if operation successfully completes, or an exception message otherwise.\n    returnCode - It is 0 if operation successfully completes, -1 otherwise.\n    exception - It contains an exception message if something went wrong.\n\nResponses\:\n    success - The file was copied successfully.\n    failure - The file could not be copied.\n\nNotes\:  \n    This operation will try to transfer the files using SMB v2/v3 and in case it fails it will try using SMB v1.\n  \nExamples\:\n1. The following is a valid inputs example for copying a file from a Windows machine to a  Linux machine\:\n        sourceHost\: server1.example.com\n        sourcePort\: 22\n        sourceUsername\: username1\n        sourcePasword\: password1\n        sourcePath\: C\:\\Program Files\\example.txt\n        sourceProtocol\: scp\n        destinationHost\: server2.example.com\n        destinationPort\: 22\n        destinationUsername\: username2\n        destinationPassword\: password2\n        destinationPath\: /root/example.txt\n        destinationProtocol\: scp\n2. The following is a valid inputs example for copying a file from a Linux machine to a Windows machine\:\n        sourceHost\: server2.example.com\n        sourcePort\: 22\n        sourceUsername\: username2\n        sourcePasword\: password2\n        sourcePath\: /root/example.txt\n        sourceProtocol\: scp\n        destinationHost\: server1.example.com\n        destinationPort\: 22\n        destinationUsername\: username1\n        destinationPassword\: password1\n        destinationPath\: C\:\\Program Files\\example.txt\n        destinationProtocol\: scp\n3. The following is a valid inputs example for copying a file from a Linux machine to a Windows machine without prerequisites\:\n        sourceHost\: server2.example.com\n        sourcePort\: 22\n        sourceUsername\: username2\n        sourcePasword\: password2\n        sourcePath\: /root/example.txt\n        sourceProtocol\: scp\n        destinationHost\: server1.example.com\n        destinationUsername\: username1\n        destinationPassword\: password1\n        destinationPath\: C\:\\Program Files\\example.txt\n        destinationProtocol\: smb\n4. The following is a valid inputs example for copying a file using SMB v2 or SMB v3\:\n        sourceHost\: server2.example.com\n        sourcePort\: 22\n        sourceUsername\: username2\n        sourcePasword\: password2\n        sourcePath\: /root/example.txt\n        sourceProtocol\: scp\n        destinationHost\: server1.example.com\n        destinationUsername\: username1\n        destinationPassword\: password1\n        destinationPath\: sambaSharedFolder\\example.txt\n
+ddafb406-a0a7-470d-b057-90ae2afde80a.f9801cb8-924c-466c-a1a3-ba994011eccc.prompt=Give the port number for connecting to the destination port\:
+]]></descriptionCdata>
+  <annotation>ddafb406-a0a7-470d-b057-90ae2afde80a.description</annotation>
+  <name>Remote Copy</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="68e9188a-b6f9-44ec-a929-02aaa2ba9481">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>sourceHost</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>ddafb406-a0a7-470d-b057-90ae2afde80a.68e9188a-b6f9-44ec-a929-02aaa2ba9481.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="c3400f17-72eb-416b-b058-1060284134cf">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>sourcePort</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>ddafb406-a0a7-470d-b057-90ae2afde80a.c3400f17-72eb-416b-b058-1060284134cf.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="5fa4110b-7442-4ad1-b186-c2f353d06286">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>sourceUsername</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>ddafb406-a0a7-470d-b057-90ae2afde80a.5fa4110b-7442-4ad1-b186-c2f353d06286.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="1db67a76-f837-4f94-a851-1e8f79ced4b0">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>sourcePassword</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>ddafb406-a0a7-470d-b057-90ae2afde80a.1db67a76-f837-4f94-a851-1e8f79ced4b0.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="8c1ce789-8abe-432e-9c40-4762cc263e84">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>sourcePrivateKeyFile</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>ddafb406-a0a7-470d-b057-90ae2afde80a.8c1ce789-8abe-432e-9c40-4762cc263e84.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="86a76bda-aeda-4add-bd2b-3bb46847f322">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>sourcePath</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>ddafb406-a0a7-470d-b057-90ae2afde80a.86a76bda-aeda-4add-bd2b-3bb46847f322.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="418eda26-cdc6-4a9f-89c5-032b224970cd">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>sourceProtocol</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>ddafb406-a0a7-470d-b057-90ae2afde80a.418eda26-cdc6-4a9f-89c5-032b224970cd.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="00826ec0-b3fd-4403-86de-2990e40e41c5">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>sourceCharacterSet</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="855a6f13-0e31-488e-a69c-29b6fc744a6b">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>destinationHost</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>ddafb406-a0a7-470d-b057-90ae2afde80a.855a6f13-0e31-488e-a69c-29b6fc744a6b.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="f9801cb8-924c-466c-a1a3-ba994011eccc">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>destinationPort</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>ddafb406-a0a7-470d-b057-90ae2afde80a.f9801cb8-924c-466c-a1a3-ba994011eccc.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="6435e3b5-512f-419d-bf0f-8b041535ddfd">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>destinationUsername</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>ddafb406-a0a7-470d-b057-90ae2afde80a.6435e3b5-512f-419d-bf0f-8b041535ddfd.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="726713f4-3bd1-4c18-8c29-8d0a746ca31b">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>destinationPassword</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>ddafb406-a0a7-470d-b057-90ae2afde80a.726713f4-3bd1-4c18-8c29-8d0a746ca31b.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="af1ec0f5-6815-4d90-b80c-3f7bb748af90">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>destinationPrivateKeyFile</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>ddafb406-a0a7-470d-b057-90ae2afde80a.af1ec0f5-6815-4d90-b80c-3f7bb748af90.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="db703172-74a3-4d32-a39e-23256e819c7f">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>destinationPath</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>ddafb406-a0a7-470d-b057-90ae2afde80a.db703172-74a3-4d32-a39e-23256e819c7f.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="cfcc4ebe-c692-4b73-af85-0143ac226662">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>destinationProtocol</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>ddafb406-a0a7-470d-b057-90ae2afde80a.cfcc4ebe-c692-4b73-af85-0143ac226662.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="bfcf6638-4dcb-47a9-a527-4301856cbfc1">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>destinationCharacterSet</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="ccc826b5-5497-4ce1-a177-07c01a76f4d3">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>fileType</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>ddafb406-a0a7-470d-b057-90ae2afde80a.ccc826b5-5497-4ce1-a177-07c01a76f4d3.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="d7f79b35-a4da-4bc3-a3d0-e423402cdf1d">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>passive</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <link>
+        <refId>b568592b-f419-4446-a34f-6f8ee6a767d7</refId>
+        <refName>Boolean Optional</refName>
+      </link>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="c8885d92-a5fd-470a-b60f-f00d0018313a">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="4dc23d28-1623-446b-803e-4b88d04becad">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="f7a59b14-1e5c-4076-9761-a7deb0955588">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="5e1347a5-445e-465d-b0e1-0ac518e42219">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="206b349a-5101-4527-8ecd-6c69423e0b52">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="4053daf4-21f1-4054-9aa9-c8be12867ab9">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>-1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="f46897f5-3734-4f5a-acc4-4012caca86ab">
+    <annotation></annotation>
+    <name>returnCode</name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="a4bc61a7-019e-4658-8d3c-baeb024fe351">
+    <baseIcon>unix_linux_process.png</baseIcon>
+    <basePath>/Operating System/</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-base-legacy-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>com.iconclude.content.actions.Remote.RemoteCopyAction</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

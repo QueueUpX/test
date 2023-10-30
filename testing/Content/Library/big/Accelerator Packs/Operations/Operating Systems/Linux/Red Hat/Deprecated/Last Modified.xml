@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="1e60ac62-2d64-424b-aca0-e22a292387ba">
+  <descriptionCdata><![CDATA[1e60ac62-2d64-424b-aca0-e22a292387ba.description=<pre>\nThis operation checks a file to see if it was modified more recently than the threshold that is specified.\n\nInputs\:\n\thost\:           host name to check\n\tusername\:       user name to login into host as\n\tpassword\:       password to use for login\n\tthreshold\:      length of time to check against (in minutes)\n\tdir\:            directory to check\n\tfile\:           filename to check\n\nResponses\:\n\trecently modified\:    If the file was modified recently\n\tnot recently modified\: If the file was not modified recently\n\thost not found\:\t      If the host cannot be found\n\tauthentication failed\: If the login fails\n\tfailure\:\t\t      Any other error condition\n\tfile not found\:\tThe specified file could not be found.\n\nResults and Context\:\n\tThe minutes since last modify is placed into the operation result\n\tThe minutes since last modify is placed into the context variable "minutesSinceChange"\n</pre>\n
+]]></descriptionCdata>
+  <annotation>1e60ac62-2d64-424b-aca0-e22a292387ba.description</annotation>
+  <name>Last Modified</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="bf270777-c0ac-49e8-a3a0-b32acb662416">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>host</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="ab655191-90b8-46ce-8674-345c7f22ac40">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>username</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="71beb098-98bc-4a80-b7e1-47063f64ed46">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>password</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="d19d077e-5a10-42a4-b8d8-f09cd4e48182">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>dir</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="27992de5-c1b0-48c2-83a5-c64e973535bd">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>file</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="778f35ba-eef1-4fcb-a413-0ab5987b44b9">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>threshold</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="807ba58c-4340-428b-aa73-29402741cb68">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Environment</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="b324be70-f792-4f1b-9418-868e9b7e8651">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>User</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${username}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="c7e73a47-70fc-481e-8181-e2bd161c7e05">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Command</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>perl -e &apos;my $file = &quot;${dir}/${file}&quot;; die &quot;file does not exist&quot; unless -e $file; print (time - (stat &quot;${dir}/${file}&quot;)[9]) + &quot;\n&quot;;&apos;</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="056fa4fc-451d-4839-a595-9be6f19bfe22">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Argument</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="ec6916bd-8042-45de-859f-353e226bd4e5">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Host</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${host}</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="d8dee502-8ec3-48b6-be8f-ba47833770a3">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Private_Key_File</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="029516f4-4f33-4587-b168-447988a38340">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Password</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>{OBFUSCATED}SqstnSxglAP4D4gm72ILRw==</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="8e870122-2cfe-40a2-b036-54a40d3a61de">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Pty</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>false</value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <scriptlet id="400e78fd-e552-4ffd-9686-0913a97373a5">
+    <annotation></annotation>
+    <name>Operation Last Modified (a86caea4-5c1f-4951-b686-d87cfe2b6b83)</name>
+    <script>// set up defaults
+scriptletResult = &quot;-1&quot;;
+scriptletResponse = &quot;failure&quot;;
+
+// get the command output data
+data = scriptletRawResult[&apos;Output String&apos;];
+
+// get the return code
+code = parseInt(scriptletRawResult[&apos;Code&apos;]);
+
+// make sure the command executed correctly
+if (code == 0) {
+	try{
+		data /=60
+		if (data &lt; threshold)
+			scriptletResponse = &quot;recently modified&quot;;
+		else
+			scriptletResponse = &quot;not recently modified&quot;;
+		data = data.toString();
+		scriptletResult = data;
+		scriptletContext.putGlobal(&quot;minutesSinceChange&quot;,data);
+		
+	}
+	catch (e){
+		scriptletResponse = &quot;failure&quot;;
+		scriptletResult = &quot;-1&quot;;
+		//scriptletRawResult[&apos;Error String&apos;] = e;
+		scriptletResult = &quot;exception: &quot;+ e;
+	}
+}
+else{
+errorstring = scriptletRawResult[&apos;Error String&apos;];
+if (errorstring.match(/.*UnknownHost.*/) != null) {
+		scriptletResponse = &quot;host not found&quot;;
+}
+// look for an authentication error
+else if (errorstring.match(/.*Authentication failure.*/) != null) {
+	scriptletResponse = &quot;authentication failed&quot;;
+}
+else if (scriptletRawResult[&apos;Error String&apos;].match(/.*file does not exist*./) != null) {
+	scriptletResponse = &quot;file not found&quot;;
+}
+// generic error response
+else {
+	scriptletResponse = &quot;failure&quot;;
+}
+}</script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="8ca707c8-4d6f-4285-a238-0b2917227fe3">
+      <annotation></annotation>
+      <name>not recently modified</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="70c56b09-860a-4735-8ccc-38fe4a1f7ba2">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>false</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="4ad50ea5-e7d9-4b87-aae6-a006e2a76337">
+      <annotation></annotation>
+      <name>authentication failed</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="19dd913a-c7b6-4ff4-af81-76ecdd0c8048">
+      <annotation></annotation>
+      <name>host not found</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="728bab17-c55b-445a-88a6-f4f755fc29fd">
+      <annotation></annotation>
+      <name>file not found</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="f8a56d2f-b84c-4f73-97ba-1e75cfce154b">
+      <annotation></annotation>
+      <name>recently modified</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="1672ded7-2a55-4195-9049-71a43f71557c">
+    <annotation></annotation>
+    <name>Code</name>
+    <fieldName>Code</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="eaffe447-0574-47e0-9257-3f3e426ac2da">
+    <baseIcon>document_text.png</baseIcon>
+    <basePath>Operating System/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="da63826d-97fa-4a5a-b3e0-8b601ab5044e">
+        <baseIcon>view.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <opRef>
+    <refId>46c0f7ea-a981-4ddc-bcaf-d4faed7af0b6</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

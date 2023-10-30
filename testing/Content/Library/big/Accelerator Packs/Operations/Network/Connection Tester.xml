@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="1516a881-bc5a-4c70-b19f-8865e26c14cb">
+  <descriptionCdata><![CDATA[1516a881-bc5a-4c70-b19f-8865e26c14cb.description=<pre>\nThis operator determines whether or not a given ping and packet loss are below a set of specified thresholds.\n\nInputs\:\npercentLoss - The measured % loss.\nlossThreshold - The maximum % loss that is acceptable.\naverageLatency - The milliseconds of latency measured.\nlatencyThreshold - The maximum milliseconds of latency that is acceptable.\n\nResponses\:\nconnection passed - both percentLoss and averageLatency were below thresholds.\nno response - There was 100% packet loss.\npacket loss too high - percentLoss was greater than lossThreshold.\naverage latency too high - averageLatency was greater than latencyThreshold.\n</pre>
+]]></descriptionCdata>
+  <annotation>1516a881-bc5a-4c70-b19f-8865e26c14cb.description</annotation>
+  <name>Connection Tester</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="ad5fd566-4a0b-4782-92e6-745ac1521216">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>percentLoss</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="4c35ceb9-c3c3-4ab8-810b-c487c4e98153">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>lossThreshold</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="18ba7def-2fc0-4588-8033-9af8710d509f">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>latencyThreshold</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="0465d233-0de7-403e-8a79-808864942a0e">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>averageLatency</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <scriptlet id="270607cb-a388-484f-8559-d93629fd8642">
+    <annotation></annotation>
+    <name>Operation Connection Tester (6ba051f4-4aae-4875-b684-ef70a304c05c)</name>
+    <script>try{
+if (java.lang.Integer.parseInt(percentLoss) &gt;= 100)
+	scriptletResponse = &quot;no response&quot;;
+else if (java.lang.Integer.parseInt(percentLoss) &gt; java.lang.Integer.parseInt(lossThreshold))
+	scriptletResponse = &quot;packet loss too high&quot;; 
+else if (java.lang.Integer.parseInt(averageLatency) &gt; java.lang.Integer.parseInt(latencyThreshold))
+	scriptletResponse = &quot;average latency too high&quot;;
+else
+	scriptletResponse = &quot;connection passed&quot;;
+}
+catch (e){
+	scriptletResponse = &quot;no response&quot;;
+}
+scripletResult=&quot;&quot;;</script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="faa73d35-c655-46e1-9c5f-4a283ccdcfd0">
+      <annotation></annotation>
+      <name>connection passed</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="83e07490-cbee-4ad7-a733-d782c401c46e">
+      <annotation></annotation>
+      <name>no response</name>
+      <isDefault>false</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="55146ad2-f81a-498b-864a-1adfd4f0e8ef">
+      <annotation></annotation>
+      <name>packet loss too high</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="22d5b4c6-aa55-4b18-ae81-63f08ad4614e">
+      <annotation></annotation>
+      <name>average latency too high</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="94849e1e-13d3-4c44-84a8-d2ce829030dc">
+    <annotation></annotation>
+    <name>returnResult</name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="3fcb730c-0ae2-478b-a227-70b35719b8ac">
+    <baseIcon>client_network.png</baseIcon>
+    <basePath>Networking/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="cefc3deb-4ef0-40f7-b08c-50e3673cb6c6">
+        <baseIcon>diagnose.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <opRef>
+    <refId>ddd79f22-8b1e-4605-88d5-d912bb2da2b9</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

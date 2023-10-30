@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="f897b264-ba0c-4cc9-9bf8-216e9a1f284b">
+  <descriptionCdata><![CDATA[f897b264-ba0c-4cc9-9bf8-216e9a1f284b.2681f5d7-e39a-4ccb-99f1-846248ac3f33.prompt=Alternate Credentials - UserName\:
+f897b264-ba0c-4cc9-9bf8-216e9a1f284b.3802d631-7635-4107-a5c0-8bc81aeedbb3.prompt=Alternate Credentials - Password\:
+f897b264-ba0c-4cc9-9bf8-216e9a1f284b.a465df0a-be30-4b4d-9670-3189df36b264.prompt=HostName\:
+f897b264-ba0c-4cc9-9bf8-216e9a1f284b.description=<pre>\nRetrieves the requested Windows Performance Counter Value.  Takes 5 samples in 1 second intervals and returns the average.\n\nInput Parameters\:\nhost - Hostname or ip address of the target machine.\nobject - The counter object (ex. Processor).\ncounter - The counter's name (ex. % Processor Time).\ninstance - The instance of the counter (if applicable) (ex. _Total).\nuser - Username to use for thread impersonation on the RAS host for this operation (can be left blank).\npassword - Password of the user.\n\nResponses\:\nsuccess - Retrieved the counter successfully.\nfailure - Failed to retrieve the counter.\n\nExtra Results\:\nVALUE - The actual value captured.\n\nNotes\:\nThis operation checks the value of a performance counter that must be running on the target windows host prior to flow execution\:\nPerformance Object\: memory\nPerformance Counter\: % commited bytes in use\nThis performance counter can be enabled using PerfMon.exe on the target host.\n</pre>
+]]></descriptionCdata>
+  <annotation>f897b264-ba0c-4cc9-9bf8-216e9a1f284b.description</annotation>
+  <name>Get Percent Memory Committed</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="a465df0a-be30-4b4d-9670-3189df36b264">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>host</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>f897b264-ba0c-4cc9-9bf8-216e9a1f284b.a465df0a-be30-4b4d-9670-3189df36b264.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="386cfa53-ba75-4b67-b170-42cf9cd14ffb">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>object</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>memory</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="e5e2b03e-1a2f-402f-a700-3d47da1df663">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>counter</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>% committed bytes in use</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="c086d488-af3c-48bd-a121-95a3f2d559e8">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>instance</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="2681f5d7-e39a-4ccb-99f1-846248ac3f33">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>user</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>f897b264-ba0c-4cc9-9bf8-216e9a1f284b.2681f5d7-e39a-4ccb-99f1-846248ac3f33.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="3802d631-7635-4107-a5c0-8bc81aeedbb3">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>password</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>f897b264-ba0c-4cc9-9bf8-216e9a1f284b.3802d631-7635-4107-a5c0-8bc81aeedbb3.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <scriptlet id="9ed0037f-664f-4c14-8ee0-9e64e6bbfb10">
+    <annotation></annotation>
+    <name>Operation Get Percent Memory Committed (aa11a8aa-b1a6-4bd9-87b5-59c47b923f5d)</name>
+    <script>
+        	scriptletContext.put(&quot;VALUE&quot;, scriptletRawResult[&apos;VALUE&apos;]);
+        </script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="5a66dcb3-a8e0-4110-b54a-0aae6821933d">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="d1ee820f-6750-4388-a7e9-70149de939e5">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="43cd7852-6ea5-4efd-aacf-f090335694f2">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="5c435ed2-12c6-48ae-836a-5d44ca01f742">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="b2932aa2-d705-4bac-9539-78ea1b85a061">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="b15b276d-c611-4f2b-97ad-0ef29dac44c2">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="bad22fae-3c28-4093-b65e-296b87fc8d56">
+    <annotation></annotation>
+    <name></name>
+    <fieldName>VALUE</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="fb4a94e1-c834-424e-afc4-7cd1486c2202">
+    <baseIcon>document_pulse.png</baseIcon>
+    <basePath>Operating System/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="dd97e292-6ccb-4a2b-a13d-cdc25e679a75">
+        <baseIcon>memory.png</baseIcon>
+        <basePath>Operating System/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <opRef>
+    <refId>c8b71c18-002d-4776-805e-cc873ef0b38e</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideNRAS}</overrideGroupAlias>
+</operation>

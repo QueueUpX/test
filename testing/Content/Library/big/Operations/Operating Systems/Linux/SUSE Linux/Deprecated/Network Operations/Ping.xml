@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="dd7cc815-5cb5-4ca7-a2e8-e818a8581cb9">
+  <descriptionCdata><![CDATA[dd7cc815-5cb5-4ca7-a2e8-e818a8581cb9.499a9adf-9e98-445a-aff0-ca963e5479fe.prompt=Password\:
+dd7cc815-5cb5-4ca7-a2e8-e818a8581cb9.ca475718-6c2f-462b-be3b-343019aa8ee2.prompt=HostName\:
+dd7cc815-5cb5-4ca7-a2e8-e818a8581cb9.description=<pre>Pings a host from a SUSE linux system.\n\nNOTE\: This operation should not be used in a stand-alone manner. It should instead be run throw the /Library/Operations/network/Remote ping subflow.\n\nInputs\:\nhost - the host to perform the ping from.\npty - (true, false) whether to use pty (may mangle stdout and stderr if set to true)\nusername - username to connect as\npassword - password\nprivateKeyFile - The absolute path to the private key file for remote host.\ncommand - DO NOT CHANGE\ntarget - the host to ping.\npackets - the number of packets to send to target.\npacketSize - the size of packets to send to target.\n\nReturns\:\nthe raw output of the ping command.\n\nExtra Results\:\naddress - actual IP address pinged\n% Packet Loss - The percentage of packets that ping replies were received for.\naverage latency - The average ping response time in milliseconds.\nmax latency - The maximum response time of all the pings (in milliseconds).\nmin latency - the minimum number of milliseconds it took to receive a ping response.\nstddev latency - standard deviation from the result\n\nResponses\:\nsuccess - ping completed successfully.\ndiagnosed - target did not respond to ping.\nfailure - target could not be pinged.\n</pre>
+dd7cc815-5cb5-4ca7-a2e8-e818a8581cb9.f5816b3b-c6f3-46a3-b3e1-171a7477e6ac.prompt=UserName\:
+]]></descriptionCdata>
+  <annotation>dd7cc815-5cb5-4ca7-a2e8-e818a8581cb9.description</annotation>
+  <name>Ping</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="ca475718-6c2f-462b-be3b-343019aa8ee2">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>host</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>dd7cc815-5cb5-4ca7-a2e8-e818a8581cb9.ca475718-6c2f-462b-be3b-343019aa8ee2.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="a2266a0c-0a37-48b5-a521-dbc805fccb44">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>pty</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>false</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="f5816b3b-c6f3-46a3-b3e1-171a7477e6ac">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>username</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>dd7cc815-5cb5-4ca7-a2e8-e818a8581cb9.f5816b3b-c6f3-46a3-b3e1-171a7477e6ac.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="499a9adf-9e98-445a-aff0-ca963e5479fe">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>password</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>dd7cc815-5cb5-4ca7-a2e8-e818a8581cb9.499a9adf-9e98-445a-aff0-ca963e5479fe.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="ea5b0ae9-74b7-4a42-912d-804f93a63454">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>privateKeyFile</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="a4198a7a-dca4-4972-a4ba-648a86bd11d2">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>target</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="0748cce0-9df7-433c-887b-14a38e35911b">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>packetSize</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>64</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="891e0cda-d954-4f67-a73d-6d2b66c47779">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>packets</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>3</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="e80843dd-e31e-4f01-b7a3-b41892d17f7c">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>command</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>ping ${target} -s ${packetSize} -c ${packets}</value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="89938d71-5722-453a-845e-21207c1627d2">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="15318e4e-b7e3-4c80-ad11-42114184bf41">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="21cf8fae-b8f7-4544-a509-27d988a3a6fb">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="9b3ee57d-e4e4-41bf-ba37-0ee89cbde8de">
+      <annotation></annotation>
+      <name>diagnosed</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>DIAGNOSED</type>
+      <matchRules>
+        <expression id="dab3109c-a9b8-4941-8062-04f716aa82e1">
+          <annotation></annotation>
+          <name>STDOUT</name>
+          <fieldName>STDOUT</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="f9daf70b-e789-453d-af54-8c056383cbcc">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>100% packet loss</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>CONTAINS</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="e53e503a-97cf-4139-8056-dcf833cb1476">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="664f37ea-abec-41cd-a10f-e82ce5766084">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="d29298c2-8690-42b8-8166-b81e76610033">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>-1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions>
+    <expression id="f72fd0f0-b95f-4eaa-ab0d-5eb2bf98a064">
+      <annotation></annotation>
+      <name>% Packet Loss</name>
+      <fieldName>STDOUT</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <regexFilter id="8f5c78cc-82a6-47c6-9eff-2c8743ef6255">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+\.*\d*\s*%\s*packet\s*loss</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <regexFilter id="487cc4e1-72e2-42fe-9fae-7caa186e4359">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+\.*\d*</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+      </filters>
+    </expression>
+    <expression id="5927e03b-b49b-4eef-bd7a-ea9d504214a2">
+      <annotation></annotation>
+      <name>stddev latency</name>
+      <fieldName>STDOUT</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <selectLineFilter id="80ee13d5-36ed-4044-aa2e-5e8478c8a1c0">
+          <annotation></annotation>
+          <name>Select Line</name>
+          <text>rtt</text>
+          <type>FIRST_LINE_STARTING_WITH</type>
+          <autoSelectLineEnding>false</autoSelectLineEnding>
+          <windowsLineEnding>false</windowsLineEnding>
+          <unixLineEnding>true</unixLineEnding>
+        </selectLineFilter>
+        <regexFilter id="2643403a-1d6a-4899-b271-0174d44c087c">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>(\w+/)+\w+\s*=\s*(\d+\.\d+/)+(\d+\.\d+)</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <scriptletFilter id="70036ac2-104e-4150-93c8-69c9184a3f6c">
+          <annotation></annotation>
+          <name>Scriptlet</name>
+          <scriptlet id="5433deb0-4c93-4222-91d2-cae8b75f4591">
+            <annotation></annotation>
+            <name>default</name>
+            <script>scriptletResult=&quot;&quot;;
+var parts = scriptletInput.split(/=/);
+var names = parts[0].split(/\//);
+var vals = parts[1].split(/\//);
+for (count = 0; count &lt; names.length; count++){
+	curr = names[count].replace(/\s$/, &quot;&quot;).replace(/^\s/, &quot;&quot;).toLowerCase();
+	if (curr == &quot;stddev&quot; || curr == &quot;standard deviation&quot; ||  curr == &quot;deviation&quot; || curr==&quot;mdev&quot;){
+		scriptletResult=vals[count];
+	break;
+	}
+}
+</script>
+            <type>RHINO</type>
+          </scriptlet>
+        </scriptletFilter>
+        <regexFilter id="b52dc3fd-03e0-4e3d-a6aa-83bc069bde19">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+(.\d+|)</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+      </filters>
+    </expression>
+    <expression id="820720ee-5e39-4d80-9734-03bc2e6ed7c6">
+      <annotation></annotation>
+      <name>max latency</name>
+      <fieldName>STDOUT</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <selectLineFilter id="d5293fc6-c679-4cfc-a6ed-9dc75965f8e1">
+          <annotation></annotation>
+          <name>Select Line</name>
+          <text>rtt</text>
+          <type>FIRST_LINE_STARTING_WITH</type>
+          <autoSelectLineEnding>false</autoSelectLineEnding>
+          <windowsLineEnding>false</windowsLineEnding>
+          <unixLineEnding>true</unixLineEnding>
+        </selectLineFilter>
+        <regexFilter id="8a4ae7a6-8645-4bd0-a742-070ae9a9e7d9">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>(\w+/)+\w+\s*=\s*(\d+\.\d+/)+(\d+\.\d+)</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <scriptletFilter id="8421061b-8c7d-435e-a90b-c84bc00df89e">
+          <annotation></annotation>
+          <name>Scriptlet</name>
+          <scriptlet id="71ffc2f5-a2cd-43eb-affb-ab6aee96e14a">
+            <annotation></annotation>
+            <name>default</name>
+            <script>scriptletResult=&quot;&quot;;
+var parts = scriptletInput.split(/=/);
+var names = parts[0].split(/\//);
+var vals = parts[1].split(/\//);
+for (count = 0; count &lt; names.length; count++){
+	curr = names[count].replace(/\s$/, &quot;&quot;).replace(/^\s/, &quot;&quot;).toLowerCase();
+	if (curr== &quot;max&quot; || curr == &quot;maximum&quot;){
+		scriptletResult=vals[count];
+	break;
+	}
+}
+</script>
+            <type>RHINO</type>
+          </scriptlet>
+        </scriptletFilter>
+        <regexFilter id="6fa2660f-2bf8-419c-b67e-621b36665dff">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+(.\d+|)</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+      </filters>
+    </expression>
+    <expression id="b36f1c3e-e6a4-42bc-ba10-20943ccaa55c">
+      <annotation></annotation>
+      <name>address</name>
+      <fieldName>STDOUT</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <regexFilter id="37475884-c7cf-463c-95c0-3fdd7eef5545">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+\.\d+\.\d+\.\d+</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+      </filters>
+    </expression>
+    <expression id="8fa99556-b26a-46a5-aca5-581f48bbec4d">
+      <annotation></annotation>
+      <name>average latency</name>
+      <fieldName>STDOUT</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <selectLineFilter id="8c901771-f35c-446e-b817-5c9f14c55222">
+          <annotation></annotation>
+          <name>Select Line</name>
+          <text>rtt</text>
+          <type>FIRST_LINE_STARTING_WITH</type>
+          <autoSelectLineEnding>false</autoSelectLineEnding>
+          <windowsLineEnding>false</windowsLineEnding>
+          <unixLineEnding>true</unixLineEnding>
+        </selectLineFilter>
+        <regexFilter id="09e8d5a3-2851-490c-8c4d-9df860e62dba">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>(\w+/)+\w+\s*=\s*(\d+\.\d+/)+(\d+\.\d+)</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <scriptletFilter id="33b94dcb-d5f5-4f90-a47c-ee8e6c19b955">
+          <annotation></annotation>
+          <name>Scriptlet</name>
+          <scriptlet id="db03159c-c64b-402b-8cc6-c84e03d0253f">
+            <annotation></annotation>
+            <name>default</name>
+            <script>scriptletResult=&quot;&quot;;
+var parts = scriptletInput.split(/=/);
+var names = parts[0].split(/\//);
+var vals = parts[1].split(/\//);
+for (count = 0; count &lt; names.length; count++){
+	curr = names[count].replace(/\s$/, &quot;&quot;).replace(/^\s/, &quot;&quot;).toLowerCase();
+	if (curr == &quot;avg&quot; || curr == &quot;average&quot;){
+		scriptletResult=vals[count];
+	break;
+	}
+}
+</script>
+            <type>RHINO</type>
+          </scriptlet>
+        </scriptletFilter>
+        <regexFilter id="ce7b43c6-f37e-4a6f-ac2a-ed1304ec92ae">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+(.\d+|)</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+      </filters>
+    </expression>
+    <expression id="7ab9be72-ffd8-49b7-baf9-0035453bf095">
+      <annotation></annotation>
+      <name>min latency</name>
+      <fieldName>STDOUT</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <selectLineFilter id="18aa3059-e4ce-427e-b81f-e63fb95c750b">
+          <annotation></annotation>
+          <name>Select Line</name>
+          <text>rtt</text>
+          <type>FIRST_LINE_STARTING_WITH</type>
+          <autoSelectLineEnding>false</autoSelectLineEnding>
+          <windowsLineEnding>false</windowsLineEnding>
+          <unixLineEnding>true</unixLineEnding>
+        </selectLineFilter>
+        <regexFilter id="2c5c641b-412a-4fa7-937b-4cee51744eab">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>(\w+/)+\w+\s*=\s*(\d+\.\d+/)+(\d+\.\d+)</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <scriptletFilter id="a20d436e-4ee8-42df-9142-9da87b99f85d">
+          <annotation></annotation>
+          <name>Scriptlet</name>
+          <scriptlet id="5e1126c4-fa79-4937-b13a-c159a48a77df">
+            <annotation></annotation>
+            <name>default</name>
+            <script>scriptletResult=&quot;&quot;;
+var parts = scriptletInput.split(/=/);
+var names = parts[0].split(/\//);
+var vals = parts[1].split(/\//);
+for (count = 0; count &lt; names.length; count++){
+	curr = names[count].replace(/\s$/, &quot;&quot;).replace(/^\s/, &quot;&quot;).toLowerCase();
+	if (curr == &quot;min&quot; || curr == &quot;minimum&quot;){
+		scriptletResult=vals[count];
+	break;
+	}
+}
+</script>
+            <type>RHINO</type>
+          </scriptlet>
+        </scriptletFilter>
+        <regexFilter id="3b3639ba-04b4-4a54-b741-353b4cfac07a">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+(.\d+|)</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+      </filters>
+    </expression>
+  </availableResultExpressions>
+  <resultExpression id="8a7caa56-1042-4bbd-8ba4-a9e76cb17deb">
+    <annotation></annotation>
+    <name></name>
+    <fieldName>STDOUT</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="995f9b63-1d5d-462f-8035-60821d51f515">
+    <baseIcon>workstation_network.png</baseIcon>
+    <basePath>Others/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="6c5caa4e-7276-4658-a109-57f3749c8a50">
+        <baseIcon>remote.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <opRef>
+    <refId>40581c53-826b-4299-8839-7454f2b1af6c</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

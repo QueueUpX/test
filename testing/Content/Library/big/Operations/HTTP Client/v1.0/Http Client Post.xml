@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="117f1e59-6852-49df-8558-7235e3ddf8b7">
+  <descriptionCdata><![CDATA[117f1e59-6852-49df-8558-7235e3ddf8b7.description=<pre>\nService to perform HTTP POST using the Java HTTP Client.\n\nInputs\:\n    url - The URL to POST to.\n    characterSet -  The character encoding to be used for the HTTP POST request and response.\nDefault value\: UTF-8\n    username - The user name used for URL authentication. For NTLM authentication, the required format is 'domain\\user'.\n    password - The password used for URL authentication.\n    authType - The type of authentication used by this operation when trying to execute the request on the target server.\nValid values\: basic, form, springForm, digest, ntlm, kerberos, anonymous (no authentication).\nDefault value\: anonymous - authentication not used when executing the request.\n    kerberosConfFile - The  path to the Kerberos configuration file. If this input is empty, the "kdc" (Key Distribution Center) and "realm" get their values from the full domain name obtained from the web server URL.\n    inputNameList - The list containing the names of inputs to use for the post operation.\n    inputValueList - The list containing the values of inputs to use for the operation MUST be the same length as the list of names.\n    proxy - The proxy server used to access the web site.\n    proxyPort - The proxy server port.\nDefault value\: 8080\n    proxyUsername - The proxy server user name.\n    proxyPassword - The proxy server password associated with the "proxyUsername" input value.\n    userAgent - The value to use if the 'USER_AGENT' HTTP header has to be overwritten.\n    useCookies - Specifies whether to enable cookie tracking or not. Cookies are stored between consecutive calls. If you specify a non-Boolean value, the default value is used.\nValid values\: true, false\nDefault value\: true\n    timeout - The time to wait for a connection to be established, in  milliseconds. \nValid values\: This input needs a value greater than or equal to zero. A "timeout" value of '0' represents an infinite timeout.\nDefault value\: 0\n    socketTimeout - The time to wait for data to be retrieved, in milliseconds. \nValid values\: This input needs a value greater than or equal to zero. A "socketTimeout" value of '0' represents an infinite timeout.\nDefault value\: 0\n    encodeURL - Specifies whether to encode the URL. If you specify a non-Boolean value, the default value is used.\nValid values\: true, false\nDefault value\: false\n    trustAllRoots - Specifies whether to enable weak security over SSL. A SSL certificate is trusted even if no trusted certification authority issued it.\nValid values\: true, false\nDefault value\: true\n    x509HostnameVerifier - Specifies the way the server hostname must match a domain name in the subject's Common Name (CN) or subjectAltName field of the X.509 certificate. The hostname verification system prevents communication with other hosts other than the ones you intended. This is done by checking that the hostname is in the subject alternative name extension of the certificate. This system is designed to ensure that, if an attacker(Man In The Middle) redirects traffic to his machine, the client will not accept the connection. If you set this input to "allow_all", this verification is ignored and you become vulnerable to security attacks. For the value "browser_compatible" the hostname verifier works the same way as Curl and Firefox. The hostname must match either the first CN, or any of the subject-alts. A wildcard can occur in the CN, and in any of the subject-alts. The only difference between "browser_compatible" and "strict" is that a wildcard (such as "*.foo.com") with "browser_compatible" matches all subdomains, including "a.b.foo.com". From the security perspective, to provide protection against possible Man-In-The-Middle attacks, we strongly recommend to use "strict" option.\nDefault value\: allow_all\nValid values\: strict,browser_compatible,allow_all\n    keystore - The location of the KeyStore file - a URL or the local path to it. This input is empty if no HTTPS client authentication is used. The default value will be provided if "trustAllRoots" is "false".\nDefault value\: <OO_Home>/java/lib/security/cacerts\n    keystorePassword - The password associated with the KeyStore file. If "trustAllRoots" is "false" and "keystore" is empty, "keystorePassword" default will be supplied.\nDefault value\: changeit\n    trustKeystore - The location of the TrustStore file - a URL or the local path to it. This input is empty if no HTTPS server authentication is used. The default value will be provided if "trustAllRoots" is "false".\nDefault\: <OO_Home>/java/lib/security/cacerts\n    trustPassword - The password associated with the TrustStore file. If "trustAllRoots" is "false" and "trustKeystore" is empty, "trustPassword" default will be supplied.\nDefault value\: changeit\n    headerNamesList - The list containing the header names to use for the request.\nExample\: Accept,Content-Type\n    headerValuesList - The list containing the header values to use for the request. \nExample\: text/plain,application/x-www-form-urlencoded\n    queryNamesList - The list containing the names of the query parameters to use for the request. \nExample\: parameterName1,parameterName2 \n    queryValuesList - The list containing the values of the query parameters to use for the request. \nExample\: parameterValue1,parameterValue2\n    delimiter - The delimiter used to separates list elements.\nDefault value\: ','\n\nResults\: \t\n    FailureMessage - This is the primary output. The final error message returned to the user.\n    resultText - The raw result of the operation.\n    document - The complete document returned by the Http Client Post operation.\n    URL - The URL to POST to.\n    pageLoadTimeInMS - The time it took the page to load, in milliseconds.\n    responseTimeInMS - The time it took the server to respond, in milliseconds.\n    errorMessage - An informational message that can help determine the cause of error, if an error occurred.\n    httpResult - The description of the HTTP response returned by the web server for the request sent by this operation. This result contains the HTTP response status or GENERAL_ERROR if the HTTP request could not be executed.\nExamples\: SUCCESS, PAGE_NOT_FOUND, UNAUTHORIZED, FORBIDDEN and so on.\n    responseHeaders - The list containing the headers of the response message, separated by "delimiter".\n    status - The HTTP response code.\nExample\: HTTP/1.1 200 OK\n    exception - If an error occurred, the stack trace of the thrown error.\n\nResponses\:\n    INFORMATIONAL - The POST was not fully processed, the server responded with an informational response.\n    REDIRECTION - The specified URL has moved.\n    PAGE_NOT_FOUND - The url specified to POST from could not be found.\n    success - The operation completed as stated in the description.\n    failure - The operation completed unsuccessfully.\n\nNotes\:\n1. You can use KeyTool to import a SSL certificate in a KeyStore. For example, to import a certificate in the Java cacerts KeyStore, run\: keytool -import -file c\:/../<your_cert>.cer -alias <your_alias> -keystore <OO_Home>/java/lib/security/cacerts -keystorepass changeit. If the KeyStore does not exist, the command tries to create a new one containing only your certificate.\n2. You can use KeyTool to create a certificate chain through the following command\: \n   keytool -genkey -dname "cn\=Mark Jones, ou\=JavaSoft, o\=Sun, c\=US" \n      -alias business -keypass kpi135 -keystore C\:\\working\\mykeystore \n      -storepass ab987c -validity 180\nThis creates a certificate chain in a new KeyStore containing only one certificate. It is useful in SSL client authentication because the KeyManager ignores any certificates not included in a certificate chain.\n3. If the value assigned to the "trustAllRoots" input is "false" and "trustKeystore" is empty, the operation tries to use the default trust store, using the password "changeit". \n4. If the authentication type is Kerberos, you might need to add an SPN (Service Principal Name) for the web server's computer account.  In order to do this, you can use ADUC (Active Directory Users and Computers) with enabled 'Advanced Features'. Go to the web server's computer account (example\: CN\=<web_server_name>,CN\=Computers,DC\=domain,DC\=com), open the 'Properties' window and press the 'Attribute Editor' tab. Observe the values of the 'servicePrincipalName' attribute and add your SPN if not present. For example, HTTP/<web_server_FQDN>\:port.\n5. If you need to specify the request header fields, use the "headerNamesList" and "headerValuesList" inputs. The operation also accepts hidden inputs whose names begin with "header_", but this deprecated. You can add multiple headers.  For example, add an input name called "header_Content-Type" with a "text/htm"' value and/or an input name called "header_Content-Length" with a "348" value.  The operation strips off the "header_" prefix from the input name and then creates the "Content-Type" and/or "Content-Length" header with the value you specified. If you specify the same header through both the "headerNamesList" and the "header_" hidden inputs, the used value is the one from the "headerValuesList" list, and not from the hidden input.\n6. If you need to specify query parameters when making the request, use the "queryNamesList" and "queryValuesList" inputs. The operation also accepts including query parameters in the URL. For example, http\://hostname\:80/page.asp?parameterName1\=parameterValue1&parameterName2\=parameterValue2. If you specify the same query parameter both through the "queryNamesList" and the "url" inputs, the used value is the one from the "queryValuesList", not the one included in the "url".\n7. Apache Tomcat is currently the only supported application server when using form-based authentication.\n</pre>
+]]></descriptionCdata>
+  <annotation>117f1e59-6852-49df-8558-7235e3ddf8b7.description</annotation>
+  <name>Http Client Post</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="3bec856c-9a8e-484a-b661-855a5ffc0810">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>url</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="272741e5-4ea8-43b7-b0c5-162bec0a3110">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>characterSet</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <link>
+        <refId>3ad6a21d-fc94-4603-aa1e-c5a63f894549</refId>
+        <refName>Character Sets</refName>
+      </link>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="5cd88630-cf92-4c3d-afc6-afcb834a1ac0">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>username</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="48802098-0f49-4b44-b77e-fb3dbe1596b6">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>password</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="c3035fe1-daf8-46c9-b942-915962bf5894">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>authType</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="067d0657-ba25-481a-8749-f2fcfbb444bf">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>kerberosConfFile</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="42eb5794-2dd1-46ef-83e5-9796c70b0966">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>inputNameList</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="a3867f94-6a3f-4247-a4bc-0719047e7fde">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>inputValueList</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="add5bfc6-4d87-433d-9f19-08ee3c35c31e">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>proxy</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="8d968b13-5174-43e2-85f5-6e2482f2837d">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>proxyPort</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="7dbf21e2-baa2-4ae3-a3fc-81110af85748">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>proxyUsername</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="dcdd6190-6f40-48ff-9ed3-98994916857c">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>proxyPassword</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="5f751195-f36a-4b03-8608-278c674bd2e0">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>userAgent</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="61ffde02-2611-43c5-9bd0-0c20732263cc">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>useCookies</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <link>
+        <refId>362bc113-e130-45d5-be90-832d5de87730</refId>
+        <refName>Boolean</refName>
+      </link>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="9f004c93-87c8-4736-81a4-91e4c19039e1">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>timeout</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="3a647ace-42c0-485c-ad58-5bbe3dadf5aa">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>socketTimeout</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="36b2ecfc-27a8-4749-a8b7-808d9dc9989b">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>encodeURL</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <link>
+        <refId>96a1ed25-cdc9-4ff6-8fba-e9c044c5ca53</refId>
+        <refName>Boolean - False Default</refName>
+      </link>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="14e69e24-649e-4cb7-81ec-f483a58c8323">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>trustAllRoots</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <link>
+        <refId>96a1ed25-cdc9-4ff6-8fba-e9c044c5ca53</refId>
+        <refName>Boolean - False Default</refName>
+      </link>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="95ca1d7d-6542-41c3-85af-e6fe38b8b227">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>x509HostnameVerifier</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>allow_all</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="aee25cb5-143c-40b4-87bd-e6c516c60667">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>keystore</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="c45d8ed5-f5d6-4601-9b93-f162ddf3932c">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>keystorePassword</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="f4d40845-eff7-4671-b71e-4e5a8bb0797a">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>trustKeystore</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="8e2b1de5-a378-486f-b060-db73c7c87787">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>trustPassword</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="f77d799a-63a2-47a6-990e-bd7298aadb9d">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>headerNamesList</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="e526cd0b-2fe5-485d-af06-d973c18ff6a6">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>headerValuesList</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="caa9be33-b538-44a3-9dba-114a973f074f">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>queryNamesList</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="f94cf559-1edd-4594-9478-86d3e417d283">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>queryValuesList</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="9223b313-a664-4c4a-99d9-3cde5897e3d9">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>delimiter</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <scriptlet id="b20fef46-bd09-4211-be9e-e1fac37185f2">
+    <annotation></annotation>
+    <name>Operation Http Client Post (470e6a10-f039-4206-8711-d9449bffaff8)</name>
+    <script>
+if (scriptletRawResult[&apos;document&apos;] != null){
+	scriptletContext.put(&quot;document&quot;, scriptletRawResult[&apos;document&apos;]);
+	scriptletResult = scriptletRawResult[&apos;document&apos;];
+	}
+else
+	scriptletResult = &quot;&quot;;
+if (scriptletRawResult[&apos;PageLoadTimeInMS&apos;] != null)
+	scriptletContext.put(&quot;PageLoadTimeInMS&quot;, scriptletRawResult[&apos;PageLoadTimeInMS&apos;]);
+if (scriptletRawResult[&apos;ResponseTimeInMS&apos;] != null)
+	scriptletContext.put(&quot;ResponseTimeInMS&quot;, scriptletRawResult[&apos;ResponseTimeInMS&apos;]);
+	 </script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="ee345da2-b94e-4a59-8506-27596e4b0db0">
+      <annotation></annotation>
+      <name>INFORMATIONAL</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules>
+        <expression id="7fdc63a1-20ab-40e8-9c05-6be1ef35efec">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="472dffac-1017-43a1-a0e8-3fbaf7c3cb2e">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="df3c0934-703c-4ffc-ace0-b915b9c0c0c4">
+      <annotation></annotation>
+      <name>REDIRECTION</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules>
+        <expression id="4fdd019c-4c4e-4180-b7de-67249d1de68e">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="2d48433c-e83b-419a-99f0-d987d2bfe910">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>2</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="324c735d-f816-42be-baec-355dfb05ea85">
+      <annotation></annotation>
+      <name>PAGE_NOT_FOUND</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules>
+        <expression id="5f2d6906-bc8d-4118-9999-c2d8338ee3ae">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="4af371a9-8ff6-4cc1-999a-3eae25a80e4b">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>-1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="d36b1b80-38aa-4f34-952d-a4ae5d898e10">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="c2d5a44e-c84a-45c5-87e6-58f47e97a68b">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="1f2a44ef-c28e-45a4-9e41-aa1d1d0e57a1">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="cc2c5ff4-5d8a-4e51-8af8-0f0ac7883939">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="9fed02e7-b6cb-47cf-bd22-56f309137e1c">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="a0c785b0-05fe-4e16-94c9-4bcbf9b04cfe">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>-4</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="3a894f2d-8a15-4244-8e37-8834ba2198db">
+    <annotation></annotation>
+    <name>FailureMessage</name>
+    <fieldName>FailureMessage</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="4d2cf91a-4e36-4c7f-b49b-3ee6e9bacd05">
+    <baseIcon>earth.png</baseIcon>
+    <basePath>Networking/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="30e243c8-0ab4-4dde-b9f8-532ee37d6855">
+        <baseIcon>send.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-base-legacy-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>com.iconclude.content.actions.httpclient.HttpClientPost</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

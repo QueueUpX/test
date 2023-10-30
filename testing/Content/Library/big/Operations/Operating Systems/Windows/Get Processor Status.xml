@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="8b1d3667-c707-4ba9-8ab6-524eb0f19017">
+  <descriptionCdata><![CDATA[8b1d3667-c707-4ba9-8ab6-524eb0f19017.18bd1c48-e2c3-41da-b66a-db99dfd700d4.prompt=Please enter a value for host.
+8b1d3667-c707-4ba9-8ab6-524eb0f19017.description=<pre>Gets the status, and load of all processors in the system, and the quantity or processors.\n\nInput Parameters\:\nhost - Computer to query.\nusername - Username to use for WMI impersonation on the host for this operation (can be left blank).\npassword - Password of the user.\n\nResponses\:\nfailure - Failed to get processor info.\noffline processors - 1 or more processor does not have a status of 'ok'.\nsuccess - All processors are online.\n\nExtra Results\:\nic_online - The status of the computer's processors (comma separated).\nic_load - The load of the computer's processors (comma separated).\nic_numProcs\t- The number of processors in the computer.\nic_blockedThreads - The number of threads blocking on the machine.\n</pre>
+]]></descriptionCdata>
+  <annotation>8b1d3667-c707-4ba9-8ab6-524eb0f19017.description</annotation>
+  <name>Get Processor Status</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="18bd1c48-e2c3-41da-b66a-db99dfd700d4">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>host</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>8b1d3667-c707-4ba9-8ab6-524eb0f19017.18bd1c48-e2c3-41da-b66a-db99dfd700d4.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="be6c24c9-c6aa-4be4-af1f-a32c40732dcd">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>password</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>{OBFUSCATED}tFQ2pnWYKQCGLnn/5LPzoA==</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="d5e3c5ce-6ca9-416a-8b77-65432cbeae47">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>username</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <scriptlet id="ecdcef68-f515-4916-af39-a90b6ca64be1">
+    <annotation></annotation>
+    <name>Operation Get Processor Status (e9c3e9db-ef07-4ac2-87e4-beaeac33054e)</name>
+    <script>scriptletContext.put(&quot;ic_online&quot;, scriptletRawResult[&apos;ic_online&apos;]);
+scriptletContext.put(&quot;ic_load&quot;, scriptletRawResult[&apos;ic_load&apos;]);
+scriptletContext.put(&quot;ic_numProcs&quot;, scriptletRawResult[&apos;ic_numProcs&apos;]);
+scriptletContext.put(&quot;ic_blockedThreads&quot;, scriptletRawResult[&apos;ic_blockedThreads&apos;]);</script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="fa7fb04d-81bb-448b-823e-e598e3153dce">
+      <annotation></annotation>
+      <name>offline processors</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules>
+        <expression id="09e9e8fa-7ee4-4b53-b1ba-64da797e906e">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="311f902a-5fb7-48a7-89ea-07306b1afdd8">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>28</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="573a38f1-ff9f-4809-b1cc-8418cf9f8a24">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="8a8ce33b-7406-4d2a-826f-308f2b0b7a49">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="28b881b1-6374-430f-8f8f-0946b43572a5">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="22633373-eccc-4970-b3e2-65fbf27c958a">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="3a20d2b0-e812-4496-bc6f-75e815995ba2">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="12e12faf-2e5f-42f5-94fc-c8c26fca9a27">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="411a6d14-5a11-4d7c-b4e7-59faaead5d80">
+    <annotation></annotation>
+    <name></name>
+    <fieldName>returnCode</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="67f94f10-07b9-42b6-81e1-517611a328f2">
+    <baseIcon>cpu.png</baseIcon>
+    <basePath>Operating System/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="2f939141-04e4-4b85-8bd2-2521c8a665e1">
+        <baseIcon>view.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-dotnet-web-actions-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>dotNETWebActions_Windows.GetProcessorStatus</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideNRAS}</overrideGroupAlias>
+</operation>

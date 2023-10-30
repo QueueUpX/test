@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="cd9ac257-0c39-47ff-a7ff-eaa5bda92e93">
+  <descriptionCdata><![CDATA[cd9ac257-0c39-47ff-a7ff-eaa5bda92e93.description=<pre>\nThis operation pings a server and checks to see if the average latency time is above or below a threshold.\n\nInputs\:\n\thost\:           host name to run ping on\n\tusername\:       user name to login into host as\n\tpassword\:       password to use for login\n\tthreshold\:      threshold to check against (milliseconds)\n\tdestination\:    server name to ping\n\nResponses\:\n\tabove threshold\: If the average latency is above the threshold\n\tbelow threshold\: If the average latency is less than or equal to threshold\n\thost not found\:  If the host cannot be found\n\tauthentication failure\: If the login fails\n\tfailure\:          Any other error condition\n\nResults and Context\:\n\tThe average latency name is placed into the operation result\n\tThe average latency is placed into the context variable "duration"\n</pre>
+]]></descriptionCdata>
+  <annotation>cd9ac257-0c39-47ff-a7ff-eaa5bda92e93.description</annotation>
+  <name>Ping average time</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="25a8cc84-8726-4831-b10a-2f30155b8ca4">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>host</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="1918b284-9fa8-4b69-9ddf-8999e6fd6cd6">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>username</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="f6b22cb2-9827-455c-b32a-9c6fcd18b13b">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>password</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="a72dca8b-87df-4249-a280-8d8e8f96e611">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>destination</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="0a890732-cbe6-4ca5-8eae-ea51dc2a79ea">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>threshold</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="4fcdb7d5-ba68-4e4e-9065-9ddac036a014">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Environment</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="7cecb3d8-8805-430c-8220-c7f35caa0644">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>User</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${username}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="fff84a23-fbf8-4d39-9734-809ac14eb185">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Command</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>/usr/sbin/ping -s ${destination} 64 4</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="d2a58cea-00ea-4496-8294-ca22634ad22f">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Argument</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="c77c6cfe-4c49-463a-aa5e-a7c904b4c838">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Host</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${host}</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="74952c0a-03f9-498b-8b96-654c03f300b4">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Private_Key_File</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="829d41b5-fc7d-4beb-b45e-d6fb2d3773d2">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Password</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>{OBFUSCATED}SqstnSxglAP4D4gm72ILRw==</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="11173964-4ec9-4e88-9547-dedcec2f8b6d">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Pty</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>false</value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <scriptlet id="ede478d3-9a79-42ab-b918-cca05a732fab">
+    <annotation></annotation>
+    <name>Operation Ping average time (038de587-0acf-4b93-bf28-9a67061df125)</name>
+    <script>/*
+   This operation pings the destination server from host
+   The scriptlet takes the average latency time and compares it to a threshold
+
+   The ping duration is placed into the context variable &quot;duration&quot;
+
+   At the end we check to see if the latency is under our Threshold
+
+   Returns:
+	&quot;Below Threshold&quot; if the latency is under or equal to the threshold
+	&quot;Above Threshold&quot; if the latency is above the threshold
+	&quot;Host Not Found&quot; if we failed to find the host
+	&quot;Authentication Failure&quot; if we found the host but couldn&apos;t log in
+	&quot;Failed&quot; if there is any other error condition
+*/
+
+// set up defaults
+scriptletResult = &quot;-1&quot;;
+scriptletResponse = &quot;failure&quot;;
+
+// get the command output data
+data = scriptletRawResult[&apos;Output String&apos;];
+
+// get the return code
+code = parseInt(scriptletRawResult[&apos;Code&apos;]);
+
+// verify the command worked
+if (code == 0) {
+
+   // find the final results line
+   matchdata = data.match(/(round-trip.+=\s+\d+\.\d+\/)(\d+)(\.)(\d+)/);
+
+if (matchdata == null){
+	matchdata = data.match(/(round-trip.+=\s+)(\d+\/)/);
+	seconds = matchdata[2];
+      	// the fourth element is number of milliseconds
+      	milli = 0;
+}
+else{
+      // the second element holds the number of seconds
+      seconds = matchdata[2];
+      // the fourth element is number of milliseconds
+      milli = matchdata[4];
+}
+   if (matchdata == null)
+	scriptletResult = &quot;parse error&quot;;
+   else {
+      // do the same for our threshold
+      thrSeconds = thrMilli = 0;
+      // first make sure we have enough decimal places on threshold
+      if (threshold.match(/\./) != null) threshold += &quot;00&quot;;
+      thrSplit = threshold.match(/(\d*)(\.*)(\d{0,3})/);
+      if (thrSplit != null) {
+         if (thrSplit[1] != &quot;&quot;) thrSeconds = parseInt(thrSplit[1]);
+         if (thrSplit[3] != &quot;&quot;) thrMilli = parseInt(thrSplit[3],10);
+      }
+ 
+      // check to see if this is under our threshold
+      dur = parseInt(seconds) + parseInt(milli,10)/1000;
+      thr = thrSeconds + thrMilli/1000;
+      if (dur &lt;= thr) {
+         scriptletResponse = &quot;below threshold&quot;;
+      }
+      else {
+        scriptletResponse = &quot;above threshold&quot;;
+      }
+
+      // the result is the average duration
+      scriptletResult = dur.toString();
+   }   
+}
+else
+{
+   // check for a host not found
+   errorstring = scriptletRawResult[&apos;Error String&apos;];
+   if (errorstring.match(/.*UnknownHost.*/) != null) {
+      scriptletResponse = &quot;host not found&quot;;
+   }
+   // look for an authentication error
+   else if (errorstring.match(/.*Authentication failure.*/) != null) {
+      scriptletResponse = &quot;authentication failure&quot;;
+   }
+   // generic error response
+   else {
+      scriptletResponse = &quot;failure&quot;;
+   }
+}
+
+</script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="da87b8ac-75d7-4aca-9a52-2b4baae517e8">
+      <annotation></annotation>
+      <name>below threshold</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="92e24241-0635-4d50-83ca-c5f0d7ba685c">
+      <annotation></annotation>
+      <name>above threshold</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="92bfe33c-89f2-40ec-b4e5-0edda4248416">
+      <annotation></annotation>
+      <name>host not found</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="a41fb9ad-3b5f-4507-9761-84e6001f8808">
+      <annotation></annotation>
+      <name>authentication failure</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="cac26af2-09eb-4cd1-ac56-46762a4d9950">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="41f722d4-eb6d-47b5-af7c-38b77f557fb2">
+    <annotation></annotation>
+    <name>Code</name>
+    <fieldName>Code</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="4717c01a-9b32-41bb-b791-518d845fda0f">
+    <baseIcon>client_network.png</baseIcon>
+    <basePath>Networking/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="bfaddf30-90c4-4cef-a7ec-4d7db1477cde">
+        <baseIcon>view.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <opRef>
+    <refId>46c0f7ea-a981-4ddc-bcaf-d4faed7af0b6</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

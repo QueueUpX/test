@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="75c98333-9f29-4050-9112-f0331425edaf">
+  <descriptionCdata><![CDATA[75c98333-9f29-4050-9112-f0331425edaf.50a730ef-3244-45d4-b8e6-6b7746e1e93a.prompt=Max Number of Hops\:
+75c98333-9f29-4050-9112-f0331425edaf.79e8c15e-6056-4959-a683-c515b40c75a0.prompt=HostName\:
+75c98333-9f29-4050-9112-f0331425edaf.description=<pre>Runs a tracert from the Web Services machine to the requested host.\n\nInput Parameters\:\nhost - hostname or IP address of the target host\nmaxHops - maximum amount of hops between Web Services machine and target host\n\nResponses\:\nsuccess - ran tracert\nhost not found - could not resolve hostname to a valid IP address\n\nExtra Results\:\noutput - raw output from tracert command\nnumhops - number of hops completed\nhops - comma separated list of hosts\nping times - A semicolon separated list of comma separated lists of pings to each hop.</pre>
+]]></descriptionCdata>
+  <annotation>75c98333-9f29-4050-9112-f0331425edaf.description</annotation>
+  <name>Windows RAS TraceRoute</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="79e8c15e-6056-4959-a683-c515b40c75a0">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>host</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>75c98333-9f29-4050-9112-f0331425edaf.79e8c15e-6056-4959-a683-c515b40c75a0.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="50a730ef-3244-45d4-b8e6-6b7746e1e93a">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>maxHops</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>75c98333-9f29-4050-9112-f0331425edaf.50a730ef-3244-45d4-b8e6-6b7746e1e93a.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <scriptlet id="05d1f988-c131-488e-94d4-c459e5c6781a">
+    <annotation></annotation>
+    <name>Operation Windows RAS TraceRoute (ba289197-8c4e-4672-a00f-b9f4e12e2b94)</name>
+    <script>
+            scriptletContext.put(&quot;output&quot;, scriptletRawResult[&apos;output&apos;]);
+            scriptletContext.put(&quot;numhops&quot;, scriptletRawResult[&apos;numhops&apos;]);
+            scriptletContext.put(&quot;hops&quot;, scriptletRawResult[&apos;hops&apos;]);
+        </script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="ddcc2191-e40d-4b13-a4a5-ae11264ceefc">
+      <annotation></annotation>
+      <name>host not found</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules>
+        <expression id="b1cdc35b-aa7b-4e4b-b5f5-3c80b51de3e1">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="cf64a8d2-b5ec-47e9-865f-284eee2618e1">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>10</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="1ba4fac7-5041-4d94-9cad-c75034c73ffc">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="1ff113c4-29fc-4e43-adc4-7da80ced3c0b">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="60fe1834-2de6-4ab7-a2c6-f7577cc175ba">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions>
+    <expression id="9b1164f7-375f-4409-b64a-7e1f44a89e67">
+      <annotation></annotation>
+      <name>ping times</name>
+      <fieldName>output</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <regexFilter id="758c6781-145b-4016-912d-55dd5d7b1504">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>&lt;*\d+\sms\s*&lt;*\d+\sms\s*&lt;*\d+\sms</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>false</entireString>
+          <multiLine>true</multiLine>
+        </regexFilter>
+        <replaceAllFilter id="1d66987c-4ca1-4ebb-808f-cf6e70cc3795">
+          <annotation></annotation>
+          <name>Replace All</name>
+          <ignoreCase>false</ignoreCase>
+          <searchString>ms</searchString>
+          <replaceType>ALL</replaceType>
+        </replaceAllFilter>
+        <replaceAllFilter id="f1749949-a0d4-4713-92a0-a0fe3da36d26">
+          <annotation></annotation>
+          <name>Replace All</name>
+          <ignoreCase>false</ignoreCase>
+          <searchString>&lt;</searchString>
+          <replaceString></replaceString>
+          <replaceType>ALL</replaceType>
+        </replaceAllFilter>
+        <replaceAllFilter id="c9bce9e5-805a-4034-bdcb-8cee1089e7dc">
+          <annotation></annotation>
+          <name>Replace All</name>
+          <ignoreCase>false</ignoreCase>
+          <searchString>
+</searchString>
+          <replaceString>;</replaceString>
+          <replaceType>ALL</replaceType>
+        </replaceAllFilter>
+        <replaceAllFilter id="50f3dc96-b059-44f5-b819-912f08bc808f">
+          <annotation></annotation>
+          <name>Replace All</name>
+          <ignoreCase>false</ignoreCase>
+          <searchString>  </searchString>
+          <replaceString> </replaceString>
+          <replaceType>ALL</replaceType>
+        </replaceAllFilter>
+        <replaceAllFilter id="79876a80-10b7-41a5-8e4c-fc722d55dbe8">
+          <annotation></annotation>
+          <name>Replace All</name>
+          <ignoreCase>false</ignoreCase>
+          <searchString>  </searchString>
+          <replaceString>,</replaceString>
+          <replaceType>ALL</replaceType>
+        </replaceAllFilter>
+        <replaceAllFilter id="d221ffc2-e2c2-4361-b462-2d5b2b57bec2">
+          <annotation></annotation>
+          <name>Replace All</name>
+          <ignoreCase>false</ignoreCase>
+          <searchString>,,</searchString>
+          <replaceString>,</replaceString>
+          <replaceType>ALL</replaceType>
+        </replaceAllFilter>
+        <replaceAllFilter id="37da45d5-fd32-41a9-acb8-97e21f59edf9">
+          <annotation></annotation>
+          <name>Replace All</name>
+          <ignoreCase>false</ignoreCase>
+          <searchString> </searchString>
+          <replaceType>ALL</replaceType>
+        </replaceAllFilter>
+      </filters>
+    </expression>
+    <expression id="9a906776-26b7-4f64-816d-8708769a13af">
+      <annotation></annotation>
+      <name>address</name>
+      <fieldName>output</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <regexFilter id="6d4b7364-b9f2-4a16-8ae7-a3ee3e124622">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>Tracing route to \d+\.\d+\.\d+\.\d+</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <regexFilter id="602b14e8-1bdd-47c6-9fcb-a45a67a7ca6c">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\S*$</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+      </filters>
+    </expression>
+  </availableResultExpressions>
+  <resultExpression id="c6e49df4-77b0-4b3c-b63e-5a352fee774f">
+    <annotation></annotation>
+    <name></name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="c6726d66-1b7a-46ea-81d1-1cf9f3ae0d1d">
+    <baseIcon>client_network.png</baseIcon>
+    <basePath>Networking/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="60301f80-c6e9-4b98-ad52-b48cc7526369">
+        <baseIcon>diagnose.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-dotnet-web-actions-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>dotNETWebActions_Network.TraceRoute</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideNRAS}</overrideGroupAlias>
+</operation>

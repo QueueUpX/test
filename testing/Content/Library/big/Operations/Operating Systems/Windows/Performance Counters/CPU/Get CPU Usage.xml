@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="bebf2e4f-7a4f-4f2b-b674-c60aa04c1e6a">
+  <descriptionCdata><![CDATA[bebf2e4f-7a4f-4f2b-b674-c60aa04c1e6a.95df1f4c-4081-4759-bc18-c772c1c4d24d.prompt=Alternate Credentials - UserName\:
+bebf2e4f-7a4f-4f2b-b674-c60aa04c1e6a.d197d5d9-7ba5-49b4-8284-bf6d2095f825.prompt=Alternate Credentials - Password\:
+bebf2e4f-7a4f-4f2b-b674-c60aa04c1e6a.description=<pre>\nRetrieves the requested Windows Performance Counter Value.  Takes 5 samples in 1 second intervals and returns the average.\n\nInput Parameters\:\nhost - Hostname or ip address of the target machine.\nobject - The counter object (ex. Processor).\ncounter - The counter's name (ex. % Processor Time).\ninstance - The instance of the counter (if applicable) (ex. _Total).\nuser - Username to use for thread impersonation on the RAS host for this operation (can be left blank).\npassword - Password of the user.\n\nResponses\:\nsuccess - Retrieved the counter successfully.\nfailure - Failed to retrieve the counter.\n\nExtra Results\:\nVALUE - The actual value captured.\n\nNotes\:\nThis operation checks the value of a performance counter that must be running on the target windows host prior to flow execution\:\nPerformance Object\: Processor\nPerformance Counter\: % Processor Time\nThis performance counter can be enabled using PerfMon.exe on the target host.\n</pre>
+bebf2e4f-7a4f-4f2b-b674-c60aa04c1e6a.e8fce6d8-ae87-421c-8934-ba7be530fe31.prompt=HostName\:
+]]></descriptionCdata>
+  <annotation>bebf2e4f-7a4f-4f2b-b674-c60aa04c1e6a.description</annotation>
+  <name>Get CPU Usage</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="e8fce6d8-ae87-421c-8934-ba7be530fe31">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>host</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>bebf2e4f-7a4f-4f2b-b674-c60aa04c1e6a.e8fce6d8-ae87-421c-8934-ba7be530fe31.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="bce76207-b60e-4e49-94ab-4a6ce0eb51e9">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>object</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>processor</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="bf3e78ce-a9e4-40d1-89bd-e29ef151ce08">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>counter</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>% processor time</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="512206b8-12dc-480a-b8c1-23179c758146">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>instance</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>_total</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="95df1f4c-4081-4759-bc18-c772c1c4d24d">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>user</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>bebf2e4f-7a4f-4f2b-b674-c60aa04c1e6a.95df1f4c-4081-4759-bc18-c772c1c4d24d.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="d197d5d9-7ba5-49b4-8284-bf6d2095f825">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>password</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>bebf2e4f-7a4f-4f2b-b674-c60aa04c1e6a.d197d5d9-7ba5-49b4-8284-bf6d2095f825.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <scriptlet id="c21e0d3f-dc60-4f0d-b9b0-91a563bf6155">
+    <annotation></annotation>
+    <name>Operation Get CPU Usage (798b2b69-c403-4585-8257-2e8c4768ae32)</name>
+    <script>
+        	scriptletContext.put(&quot;VALUE&quot;, scriptletRawResult[&apos;VALUE&apos;]);
+        </script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="505627f1-3853-48fa-af33-f1c9c84a1a88">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="24128085-34f4-45cd-93be-4d8eb6422259">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="2a46784d-3e9e-4a63-ae11-48cab3428b31">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="d1011b25-4c51-4524-b6dd-a85b57913ba7">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="99e6caf0-6737-4376-b682-cf8b1b7c4db9">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="eb801049-abdc-4216-b4db-d1b97482bc74">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="ffa51cb7-c2c1-4d98-94cf-73a869f5a19a">
+    <annotation></annotation>
+    <name></name>
+    <fieldName>VALUE</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="9749b124-dcf9-4d03-87da-f11767b4d028">
+    <baseIcon>document_pulse.png</baseIcon>
+    <basePath>Operating System/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="760f09a1-eda5-4b1f-b826-656186b8547f">
+        <baseIcon>cpu.png</baseIcon>
+        <basePath>Operating System/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <opRef>
+    <refId>c8b71c18-002d-4776-805e-cc873ef0b38e</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideNRAS}</overrideGroupAlias>
+</operation>

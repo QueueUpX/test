@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="b128524c-d4c2-4d3a-9464-5256efd53025">
+  <descriptionCdata><![CDATA[b128524c-d4c2-4d3a-9464-5256efd53025.description=<pre>This is a very specialized op used by the windows health check. It should not be used elsewhere.\n\nResponses\:\nsuccess - this is always the response.</pre>
+]]></descriptionCdata>
+  <annotation>b128524c-d4c2-4d3a-9464-5256efd53025.description</annotation>
+  <name>Create Windows Health Report</name>
+  <categories/>
+  <inputs/>
+  <scriptlet id="3b89ee73-dd02-4ac8-96ad-602f658af080">
+    <annotation></annotation>
+    <name>Operation Create Windows Health Report (451c7b19-456d-485b-881a-035b8e4f98af)</name>
+    <script>// get all the data that we acquired
+hostname = scriptletContext.get(&quot;host&quot;);
+var crlf = &quot; \r\n&quot;;
+
+header = &quot;Server Health Report for server &lt;b&gt;&quot; + hostname + &quot;&lt;/b&gt;:&quot;+crlf;
+warning = &quot;&quot;;
+report = &quot;&quot; + crlf;
+
+// run through all the data we gathered and add it to the report
+reportPing = scriptletContext.get(&quot;reportPing&quot;);
+warningPing = scriptletContext.get(&quot;warningPing&quot;);
+report += reportPing + crlf;
+warning += warningPing + crlf;
+
+reportUptime = scriptletContext.get(&quot;reportUptime&quot;);
+warningUptime = scriptletContext.get(&quot;warningUptime&quot;);
+if ( (reportUptime != null) &amp;&amp; (reportUptime != &apos;undefined&apos;) &amp;&amp; (reportUptime.trim() != &quot;&quot;))
+    report += reportUptime + crlf;    
+if ( (warningUptime != null) &amp;&amp; (warningUptime != &apos;undefined&apos;) &amp;&amp; (warningUptime.trim() != &quot;&quot;))    
+warning += warningUptime + crlf;
+
+reportOS = scriptletContext.get(&quot;reportOS&quot;);
+warningOS = scriptletContext.get(&quot;warningOS&quot;);
+if ( (reportOS != null) &amp;&amp; (reportOS != &apos;undefined&apos;) &amp;&amp; (reportOS.trim() != &quot;&quot;))
+    report += reportOS + crlf;
+if ( (warningOS != null) &amp;&amp; (warningOS != &apos;undefined&apos;) &amp;&amp; (warningOS.trim() != &quot;&quot;))
+    warning += warningOS + crlf;
+
+showProcInfo();
+
+reportMemory = scriptletContext.get(&quot;reportMemory&quot;);
+warningMemory = scriptletContext.get(&quot;warningMemory&quot;);
+if ( (reportMemory != null) &amp;&amp; (reportMemory != &apos;undefined&apos;) &amp;&amp; (reportMemory.trim() != &quot;&quot;))
+    report += reportMemory + crlf;
+if ( (warningMemory != null) &amp;&amp; (warningMemory != &apos;undefined&apos;) &amp;&amp; (warningMemory.trim() != &quot;&quot;))
+    warning += warningMemory + crlf;
+
+reportProcesses = scriptletContext.get(&quot;reportProcesses&quot;);
+warningProcesses = scriptletContext.get(&quot;warningProcesses&quot;);
+if ( (reportProcesses != null) &amp;&amp; (reportProcesses != &apos;undefined&apos;) &amp;&amp; (reportProcesses.trim() != &quot;&quot;))
+    report += reportProcesses + crlf;
+if ( (warningProcesses != null) &amp;&amp; (warningProcesses != &apos;undefined&apos;) &amp;&amp; (warningProcesses.trim() != &quot;&quot;))
+    warning += warningProcesses + crlf;
+
+reportFS = scriptletContext.get(&quot;reportFS&quot;);
+warningFS = scriptletContext.get(&quot;warningFS&quot;);
+if ( (reportFS != null) &amp;&amp; (reportFS != &apos;undefined&apos;) &amp;&amp; (reportFS.trim() != &quot;&quot;))
+    report += reportFS + crlf;
+if ( (warningFS != null) &amp;&amp; (warningFS != &apos;undefined&apos;) &amp;&amp; (warningFS.trim() != &quot;&quot;))
+    warning += warningFS + crlf;
+
+reportIO = scriptletContext.get(&quot;reportIO&quot;);
+warningIO = scriptletContext.get(&quot;warningIO&quot;);
+if ( (reportIO != null) &amp;&amp; (reportIO != &apos;undefined&apos;) &amp;&amp; (reportIO.trim() != &quot;&quot;))
+    report += reportIO + crlf;
+if ( (warningIO != null) &amp;&amp; (warningIO != &apos;undefined&apos;) &amp;&amp; (warningIO.trim() != &quot;&quot;))
+    warning += warningIO + crlf;
+
+reportNIC = scriptletContext.get(&quot;reportNIC&quot;);
+warningNIC = scriptletContext.get(&quot;warningNIC&quot;);
+if ( (reportNIC != null) &amp;&amp; (reportNIC != &apos;undefined&apos;) &amp;&amp; (reportNIC.trim() != &quot;&quot;))
+    report += reportNIC + crlf;
+if ( (warningNIC != null) &amp;&amp; (warningNIC != &apos;undefined&apos;) &amp;&amp; (warningNIC.trim() != &quot;&quot;))
+    warning += warningNIC + crlf;
+
+// did we have any warnings?
+warnstring = &quot;&quot;;
+if (warning != &quot;&quot;) warnstring =  crlf + &quot;Summary Of Warnings:&quot; + crlf;
+
+// format the final output information
+scriptletResult = header + report  + warnstring + warning ;
+
+// functions for checking all data
+
+// -----------------------------------------------------------------------------------
+//  showProcInfo ()   - show key processor information
+// -----------------------------------------------------------------------------------
+
+function showProcInfo() {
+
+   procCount = scriptletContext.get(&quot;ic_numProcs&quot;);
+   procStatus = scriptletContext.get(&quot;ic_online&quot;);
+   load = scriptletContext.get(&quot;ic_load&quot;);
+   blockedThreads = scriptletContext.get(&quot;ic_blockedThreads&quot;);
+
+   // Add a heading
+   report += &quot;Processor Information:&quot; + crlf;
+
+   // add processor information
+   if (procCount != null &amp;&amp; procCount != &quot;&quot; &amp;&amp; procCount != &apos;undefined&apos;) {
+      num = parseInt(procCount);
+      if (num != 1) {
+         report += &quot;System has &quot; + procCount + &quot; processors.&quot;+crlf;
+      }
+      else {
+         report += &quot;System has 1 processor.&quot;+crlf;
+      }
+   }
+   else {
+      report += &quot;Unable to get processor count.&quot;+crlf;
+   }
+   
+   if (procStatus != null &amp;&amp; procStatus != &quot;&quot; &amp;&amp; procStatus != &apos;undefined&apos;) {
+	var loads = load.split(&quot;,&quot;);
+	var statuses = procStatus.split(&quot;,&quot;);
+	for (count = 0; count &lt; num;count++){
+		report += &quot;Processor: &quot; + count+1 + &quot;; &quot;;
+		report += &quot;Status: &quot; + statuses[count] + &quot;; &quot;;
+		report += &quot;Load: &quot; + loads[count]+&quot;%&quot; + crlf;
+	}
+   } 
+   else {
+      report += &quot;Unable to obtain processor status.&quot;+crlf;
+   }
+
+
+   // check blocked threads
+   if (blockedThreads != null &amp;&amp; blockedThreads != &quot;&quot; &amp;&amp; blockedThreads != &apos;undefined&apos;) {
+      threads = parseInt(blockedThreads);
+      if (threads == 0) {
+         report += &quot;No blocked threads found. &quot;+crlf;
+      }
+      else if (threads &lt; 70) {
+         report += &quot;Some blocked threads detected. &quot;+crlf;
+      } 
+      else {
+         report += &quot;Many blocked threads (&quot;+threads+&quot;) detected.  System may be CPU bound.&quot;+crlf;
+      }
+   }
+   
+   report += crlf;
+}
+</script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="36bb19a8-f4d7-4461-ad75-4c704f263cd8">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="339eb9c6-2a90-42db-a18b-1046bdc3b947">
+    <annotation></annotation>
+    <name>returnResult</name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="d97d9933-8864-47cb-ad14-20c448ae88d7">
+    <baseIcon>document.png</baseIcon>
+    <basePath>Others/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="21264229-d8b3-4f02-a9ca-078f092d25ab">
+        <baseIcon>edit.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <opRef>
+    <refId>ddd79f22-8b1e-4605-88d5-d912bb2da2b9</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

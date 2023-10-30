@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="cf9836f4-1120-49fe-90f9-b5b5e833043e">
+  <descriptionCdata><![CDATA[cf9836f4-1120-49fe-90f9-b5b5e833043e.description=Insert an object into a JSON array, optionally specifying the position at which to insert the new object. \n\nThis Operation differes from the 'Add to Array' operation in that this one will try and validate the new element as\na JSON object, whereas 'Add to Array' will just wrap the element in quotes and treat it as a string. This means \nthat the element passed into this operation must be a valid JSON object, or the operation will fail. \n\nWhen specifying the index to an array element it is possible to use the standard notation, where the 1st \nelement from the left is index 0, and the right-most element is (n-1), in an array with n elements. However, \nit is also possible to specify elements starting from the right side of the array using negative numbers, in which case\nthe right-most element is referred to by index -1 and the left-most element is at position (-1 * n), again for an array with n elements.\n\nInputs\:\n    array - String representation of a JSON array. Arrays in JSON are comma separated lists of objects, enclosed in square brackets ( [ ] ).\nExamples\: [1,2,3] or ["one","two","three"] or [{"one"\:1, "two"\:2}, 3, "four"]\n    element - The element to insert into the array. As noted above, this must be a valid JSON object or the operation will fail. It can be \n                    any valid JSON object; such as a number, string, an array, or a name/value pair list. Numbers can be entered as-is, strings\n                    must be wrapped in quotes, and objects must be formatted correctly (see examples below for more info)\nValid values\: Any valid JSON object\nExamples\: 1 or "a string" or {"one"\:"two", "three"\:"four"} or [1,2,3]\n    index -The index in the array at which to insert the new element. If index is undefined, or index is equal to the length of the array \n               (one past the last element), the new element is placed at the end of the array. See the notes above for more information\n               on using negative numbers to specify array elements.\n               If the index is valid, the new element is inserted at that position, and all remaining elements are shifted one position to the right.\n\nValid values\: Integer between (-1*n) and n for an array with n elements.\nDefault value\: undefined (insert the new element at the end of the array)\n\n\nResponses\:\n    success - The operation completed as stated in the description.\n    failure - The operation failed. See the message in returnResult for details\n\nResults\:\n    returnResult - The new JSON array with the inserted element.\n\n
+]]></descriptionCdata>
+  <annotation>cf9836f4-1120-49fe-90f9-b5b5e833043e.description</annotation>
+  <name>Add Object to Array</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="2112102e-56f9-4067-913f-99986a4da20c">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>array</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="1ba17b7c-4f11-435d-9bfc-c8169c5df760">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>element</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="8fb28ac2-112f-4612-b53d-e1ed906a3612">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>index</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="ee837b6a-44e0-440f-9364-79c206354250">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="fc44ed43-5a0f-4a37-9e28-fc3c7e80f2e9">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="79b1179c-16fe-4506-969b-249de81bb540">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="7a6f0443-5787-4413-a893-86476d6d7661">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="c7e168ca-d65a-48c2-8b36-5e06f0070017">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="496d68dc-6625-4161-953b-fd18a875f83a">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>-1</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="3bd629fb-06e4-42f1-a808-cfeceebc2106">
+    <annotation></annotation>
+    <name>returnResult</name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="1a23f259-5845-4553-8d48-5fd32b03a351">
+    <baseIcon>jar.png</baseIcon>
+    <basePath>/Others/</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>score-actions-base-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>Add Object to Array</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

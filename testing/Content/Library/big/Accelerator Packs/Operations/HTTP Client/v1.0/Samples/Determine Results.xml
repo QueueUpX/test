@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="f47a192d-bec7-4c6b-8a3a-008dc4c1d6cc">
+  <descriptionCdata><![CDATA[f47a192d-bec7-4c6b-8a3a-008dc4c1d6cc.description=<pre>\nChecks the outcome of the 'Http Client Detailed Return' operation.\n\nResponses\:\n    HTTP get succeeded - The GET succeeded.\n    HTTP get failed - The GET failed.\n</pre>
+]]></descriptionCdata>
+  <annotation>f47a192d-bec7-4c6b-8a3a-008dc4c1d6cc.description</annotation>
+  <name>Determine Results</name>
+  <categories/>
+  <inputs>
+    <staticBinding id="b6980834-6d7f-47aa-9476-a2b13dc67ae4">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>input</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${MyResult}</value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <scriptlet id="8aff21c1-ff35-4c69-b8ad-62e7e14f4ee3">
+    <annotation></annotation>
+    <name>Operation Determine Results (be0cc732-b81d-4bff-b633-da8e3e179878)</name>
+    <script>scriptletResponse = &quot;HTTP get failed&quot;;
+if(typeof input != &apos;undefined&apos; &amp;&amp; null != input)
+{
+	inputString = input;
+	if(inputString.equalsIgnoreCase(&quot;SUCCESS&quot;))
+	{
+		scriptletResponse = &quot;HTTP get succeeded&quot;;
+	}
+	scriptletResult = input;
+}
+else{
+	scriptletResult = &quot;&quot;;
+}
+</script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="476998c6-c90b-4b4a-acb4-27746133d9b9">
+      <annotation></annotation>
+      <name>HTTP get succeeded</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="557f2785-0512-4cb3-aab5-c7b1d1ca2b8e">
+      <annotation></annotation>
+      <name>HTTP get failed</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="d22cf64b-a43b-49d8-98f2-24f94449a571">
+    <annotation></annotation>
+    <name>returnResult</name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="ed44a34f-c0c4-4c25-9642-dcc6291c141d">
+    <baseIcon>branch_element.png</baseIcon>
+    <basePath>Others/</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <opRef>
+    <refId>ddd79f22-8b1e-4605-88d5-d912bb2da2b9</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

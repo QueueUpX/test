@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="3adcdf5b-b6de-473e-99b6-1cbd77112dd1">
+  <descriptionCdata><![CDATA[3adcdf5b-b6de-473e-99b6-1cbd77112dd1.description=This operation runs Perl scripts from a file.\n\nInputs\:\n    scriptFile - The path to the script file.\n    args - The arguments to be passed to the script.\n    timeout - The time to wait for the command to complete (in milliseconds).\nDefault value\: 90000 (90 seconds).\n\nReturns\:\n    returnResult - The return code of the operation\: -1 for failure, 0 for success.\n    Output String - The output of the Perl script.\n    TimedOut - Returns if the operation was timed out.\nValid values\: true, false\n    Error String - The error returned by the operation.\n\nResponses\:\n    success - The operation run successfully or the operation run without errors and a timeout occured.\n    failure - The operation completed unsuccessfully. For example\: if the script file was not found, invalid script.\n\nNotes\:\n    1. As a prerequisite, Perl must be installed on the machine (Studio/Central/RAS).\n    2. The operation returns the output of a "perl -W <scriptFile> <args>".\n\n
+]]></descriptionCdata>
+  <annotation>3adcdf5b-b6de-473e-99b6-1cbd77112dd1.description</annotation>
+  <name>Perl Script</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="3d023eaf-e0bc-4e59-a5be-16b0fc81b9ee">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>scriptFile</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="3da91f39-22e1-44be-8f9f-0a22b52a2051">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>args</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="99ef078b-a2ee-4e4b-9b49-72be86f283bd">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>timeout</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="7df4ea75-367b-46e0-8ceb-292d4d2a4a5b">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Args</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${args}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="0b16ab87-a63e-48bf-af25-ef34ab1daf62">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Timeout</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${timeout}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="c70f636f-75ac-4eb1-b8eb-41b31aada90e">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Script_File</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${scriptFile}</value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="0d10c13d-6b2a-445a-9b00-d539dd41d1d9">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="d3f90ff4-7ceb-46b2-aa64-838b192f2e17">
+          <annotation></annotation>
+          <name>Code</name>
+          <fieldName>Code</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="3bb660a9-f784-4d9a-8bdb-5c6785007051">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="b45d4479-cd22-44a9-a660-2ab7e083c47f">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="e70e5fb9-fc3a-454f-96fa-2de7f7382d12">
+    <annotation></annotation>
+    <name>Code</name>
+    <fieldName>Code</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="8772fd5f-baad-4e78-9537-97c93620af11">
+    <baseIcon>perl.png</baseIcon>
+    <basePath>System</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-base-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>perlOp</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

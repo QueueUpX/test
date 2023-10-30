@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="d639ad9b-746c-42b1-8a89-3b30e40d87b1">
+  <descriptionCdata><![CDATA[d639ad9b-746c-42b1-8a89-3b30e40d87b1.2b2e5797-d204-44fb-8610-0246260a4d84.prompt=Echo command\:
+d639ad9b-746c-42b1-8a89-3b30e40d87b1.6cc25d96-03bd-4506-8cb2-63bb54ca61be.prompt=SMTP host\:
+d639ad9b-746c-42b1-8a89-3b30e40d87b1.99afdd3d-9632-4a18-99e5-bbed27671dae.prompt=SMTP port\:
+d639ad9b-746c-42b1-8a89-3b30e40d87b1.description=<pre>Send HELO/EHLO command to SMTP Server. \n\nInputs\:\nSMTPhost - IP address. \nSMTPPort - Port on which SMTP Server listens (Default\: 25).\nCommand - Either HELO or EHLO.\n\nResponses\: \nsuccess \u2013 SMTP server response OK to sent message.\nfailure \u2013 SMTP server response with different message.\n\nResult\:\nSMTP server response.\n</pre>\n
+]]></descriptionCdata>
+  <annotation>d639ad9b-746c-42b1-8a89-3b30e40d87b1.description</annotation>
+  <name>Check SMTP Server</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="6cc25d96-03bd-4506-8cb2-63bb54ca61be">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>SMTPhost</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>d639ad9b-746c-42b1-8a89-3b30e40d87b1.6cc25d96-03bd-4506-8cb2-63bb54ca61be.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="99afdd3d-9632-4a18-99e5-bbed27671dae">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>SMTPPort</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>d639ad9b-746c-42b1-8a89-3b30e40d87b1.99afdd3d-9632-4a18-99e5-bbed27671dae.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="2b2e5797-d204-44fb-8610-0246260a4d84">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Command</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>d639ad9b-746c-42b1-8a89-3b30e40d87b1.2b2e5797-d204-44fb-8610-0246260a4d84.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <link>
+        <refId>7160ab4d-0eba-488b-99c3-c79662f8f0ea</refId>
+        <refName>SMTP Greetings</refName>
+      </link>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="2dc1ebe0-1bae-439b-8d0a-52cfe86cc7e4">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="71d18c71-d48e-4dc7-961f-11afc665f92c">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="a94e23e9-c1c0-48fd-94df-af8826fe269b">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="605f7fd2-9015-4df0-8b68-a7c3c9463f4b">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="3656a4e9-8c48-44bb-a6b8-33fbbc27ee36">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="7176feea-80dc-4a60-97be-e27b12f13b87">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>-1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="941f692f-48ef-4afb-876c-09a73ff77fef">
+    <annotation></annotation>
+    <name>returnCode</name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="ca6a61a2-9854-4d9a-827e-baf037727e7c">
+    <baseIcon>mail_exchange.png</baseIcon>
+    <basePath>E-mail/</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-base-legacy-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>com.iconclude.content.actions.smtp.CheckEHLO</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

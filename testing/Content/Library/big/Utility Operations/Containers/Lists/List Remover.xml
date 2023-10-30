@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="217fbbb2-a85e-4290-9b2a-200cccb46f3c">
+  <descriptionCdata><![CDATA[217fbbb2-a85e-4290-9b2a-200cccb46f3c.description=Removes an item from a list stored in a context variable.\n\n<pre>\nInputs\:\nlistKeyName - The name of the context key containing the list.\ndelimiter - A delimiter separating elements of the list.\nitemToRemove - The index number of the item in the list to remove.\n\nResponses\:\nsuccess - item removed.\nfailure - something went wrong.\n\nReturns\:\nThe removed item.\n</pre>
+]]></descriptionCdata>
+  <annotation>217fbbb2-a85e-4290-9b2a-200cccb46f3c.description</annotation>
+  <name>List Remover</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="b47d5adb-65b3-4e0f-b19a-24a8bbe9e81a">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>listKeyName</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="8ae0f7a6-a935-487d-bf6f-84e13c490058">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>delimiter</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="32128d4a-45e2-46d6-b3a3-66e7fe7ecb8d">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>itemToRemove</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <scriptlet id="edd62aaf-66c5-42a4-ac6a-66fd670f6520">
+    <annotation></annotation>
+    <name>Operation List Remover (f8805eeb-bb35-4977-a72f-e6a198e0d06e)</name>
+    <script>try {
+st = new java.util.StringTokenizer(scriptletContext.get(listKeyName), delimiter);
+} catch (e) {
+st = null;
+}
+
+scriptletResponse = &quot;success&quot;;
+scriptletResult=&quot;&quot;;
+var newList = &quot;&quot;;
+if (st==null || ! st.hasMoreTokens() || scriptletContext.get(listKeyName) == &quot;&quot;|| scriptletContext.get(listKeyName) == null) {
+  scriptletResponse = &quot;failure&quot;;
+} else {
+  if (itemToRemove == &quot;end&quot;)
+  {
+     itemToRemove = st.countTokens() -1;
+  }
+  if (itemToRemove&gt;st.countTokens()) {
+    scriptletResponse = &quot;failure&quot;;
+  } else {
+    for (i=0;st.hasMoreTokens();i++) {
+      if (i == parseInt(itemToRemove))
+	scriptletResult = &quot;&quot; + st.nextToken();
+      else if (newList != &quot;&quot;)
+		newList += delimiter+st.nextToken();
+	  else
+	    newList += st.nextToken();
+    }
+    scriptletContext.put(listKeyName, newList);
+  }
+}</script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="1add4978-4161-4bed-a54d-9f0e9bd4accd">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="a6aedc41-1c71-4bba-af5e-b514d29abe08">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="0ee88a17-6cba-4e8e-9849-e994f42334cc">
+    <annotation></annotation>
+    <name>returnResult</name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="3babc21f-a063-47a0-86be-ad3f50958a8f">
+    <baseIcon>jar.png</baseIcon>
+    <basePath>Others/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="b0c67876-b5b8-4869-bc03-25190eaba16b">
+        <baseIcon>delete.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <opRef>
+    <refId>ddd79f22-8b1e-4605-88d5-d912bb2da2b9</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

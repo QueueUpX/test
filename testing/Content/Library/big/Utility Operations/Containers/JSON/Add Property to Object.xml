@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="ac9b40bb-2f9d-4b8c-a329-3f5c2215fde1">
+  <descriptionCdata><![CDATA[ac9b40bb-2f9d-4b8c-a329-3f5c2215fde1.description=Inserts a new name/value property into a JSON object, where the value is a string. This operation forces the value of the name/value pair to be a string, no matter what data type it actually is. This means that the <newPropertyValue> input does not need to be wrapped in quotes as any quotes entered in this input will be escaped, ending up in the properties' value. \nThe 'Add JSON Property to Object' operation should be used to add values of type other than string, for example\: another object, an array or a number. \n\nInputs\:\n    jsonObject - String representation of a JSON object. Objects in JSON are a collection of name value pairs, separated by a colon and surrounded with curly brackets {}. The name must be a string value, and the value can be a single string or any valid JSON object or array.\nExamples\: {"one"\:1, "two"\:2}, {"one"\:{"a"\:"a","B"\:"B"}, "two"\:"two", "three"\:[1,2,3.4]}\n    newPropertyName - The name of the new property to add to the JSON object. \nExamples\: property1, some_property, another property\n    newPropertyValue - The value for the new property. This is interpreted as a string, no matter what the contents of the input. \nExamples\: value1, another value\n\nResults\:\n    Result - The JSON array with the inserted element.\n\nResponses\:\n    success - The operation completed as stated in the description.\n    failure - The operation completed unsuccessfully. See the message in <returnResult> for details.\n\nExamples\: \n1)\n    Inputs\:\n        jsonObject\: {}\n        newPropertyName\: test\n        newPropertyValue\: test_value\n     Result\:\n         { "test"\:"test_value"}\n2)\n    Inputs\:\n        jsonObject\: {}\n        newPropertyName\: test\n        newPropertyValue\: "test_value"\n     Result\:\n         { "test"\:"\\"test_value\\""}\n3)\n    Inputs\:\n        jsonObject\: {}\n        newPropertyName\: test\n        newPropertyValue\: 1\n     Result\:\n         { "test"\:"1"}\n4)\n    Inputs\:\n        jsonObject\: {}\n        newPropertyName\: test\n        newPropertyValue\: [1,2,3,4]\n     Result\:\n         { "test"\:"[1,2,3,4]"}\n     Note the value in the name/value pair above is not a JSON Array, but a plain string that looks like one. 
+]]></descriptionCdata>
+  <annotation>ac9b40bb-2f9d-4b8c-a329-3f5c2215fde1.description</annotation>
+  <name>Add Property to Object</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="8e930a54-932f-4278-a6d5-facad5f53aa7">
+      <annotation>String representation of a JSON object. Objects in JSON are a collection of name value pairs separated by a colon and surrounded with curly brackets {}. The name must be a string value and the value can be a single string or any valid JSON object or array. Examples: {&quot;one&quot;:1, &quot;two&quot;:2}, {&quot;one&quot;:{&quot;a&quot;:&quot;a&quot;,&quot;B&quot;:&quot;B&quot;}, &quot;two&quot;:&quot;two&quot;, &quot;three&quot;:[1,2,3.4]}</annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>jsonObject</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="8351f75d-0cf4-4bb6-9830-8ef58985bad1">
+      <annotation>The name of the new property to add to the JSON object. There is no rule as to which character to use. Examples: property1, some_property, another property</annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>newPropertyName</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="00278ba4-2d96-4121-8104-7cfcea7f493e">
+      <annotation>The value for the new property. This is interpreted as a string, no matter what the contents of the input. Examples: value, 1, [1,2,3]</annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>newPropertyValue</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="d2a77e32-337c-48b3-b931-09e9641a1e2e">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="7ebcf2b8-a94a-441a-a97d-16ac31a4d504">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="ea488122-faa0-47cc-b27c-4d5d70911577">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="856413d1-d39f-4e11-8dad-ff505d833a33">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="7e53bc10-da2c-4aa3-a209-aea8207b9810">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="72be40b2-d1d5-45f7-9378-ecd8680bc28b">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>-1</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="73638fb5-2de4-4669-a3a8-587d27f278b6">
+    <annotation></annotation>
+    <name>returnResult</name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="5386a535-f7d0-45e0-b121-e4bfb6c7e140">
+    <baseIcon>text_msg.png</baseIcon>
+    <basePath>/E-mail/</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>score-actions-base-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>Add Property to Object</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

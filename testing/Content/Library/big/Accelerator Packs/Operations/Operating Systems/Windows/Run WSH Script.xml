@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="a70da4ec-c0eb-4f6c-b637-c7cecf922410">
+  <descriptionCdata><![CDATA[a70da4ec-c0eb-4f6c-b637-c7cecf922410.description=<pre>This operation runs a Windows Script Host (WSH) scripts from file.\n\nInputs\:\n    scriptFile - The path to the script file.\n    args - The arguments to be passed to the script.\n    timeout - The time to wait for the command to complete (in milliseconds).\nDefault value\: 90000 (90 seconds).\n\nResults\:\n    returnResult - The return code of the operation\: -1 for failure, 0 for success.\n    Code - The status code for the WSH script. If this code is 0 the operation goes to success.\n    Output String - The output of the WSH script.\n    Error String - The error returned by the operation.\n    TimedOut - Returns "true" if the operation was timed out.\nValid values\: true, false\n\nResponses\:\n    success -The script was executed successfully.\n    failure - The operation completed unsuccessfully. For example\: if the script file was not found, invalid script.\n\nNotes\:\n1. The operation returns the output for "cscript //nologo <scriptFile> <args>".\n</pre>
+]]></descriptionCdata>
+  <annotation>a70da4ec-c0eb-4f6c-b637-c7cecf922410.description</annotation>
+  <name>Run WSH Script</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="8c15ea33-5e27-4184-85fa-d441b89b2215">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>scriptFile</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="e5325e5f-6487-497d-9993-7a6e244587e1">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>args</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="5c2fafb7-f95d-4d68-9b68-f4b16ac5ae9e">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>timeout</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="2e932e13-bb6e-487a-9829-9ada6ce96448">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Args</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${args}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="314c36a9-0fd9-43bf-9cf5-171aa4a0f2fd">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Timeout</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${timeout}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="77718c12-e4a8-424a-8643-3185c908d20c">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Script_File</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${scriptFile}</value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="96d719fe-c1c8-40a7-9161-c3b8a05a8245">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="d2cf0458-9b95-4f83-871a-468c12ecb86d">
+          <annotation></annotation>
+          <name>Code</name>
+          <fieldName>Code</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="82a36c93-e4fa-4b09-b276-3880c8fb4616">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="b4b31e60-cd22-43ce-8b4f-37643090c169">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="21eccde8-009d-46b5-93f8-7a8fd76fae31">
+    <annotation></annotation>
+    <name>Code</name>
+    <fieldName>Code</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="648ceb37-56cc-4e06-9b70-fcf6be70e0a5">
+    <baseIcon>vbscript.png</baseIcon>
+    <basePath>System</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-base-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>wshOp</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

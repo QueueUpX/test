@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="a580f161-9fbf-4fd2-ad54-55e4288276ec">
+  <descriptionCdata><![CDATA[a580f161-9fbf-4fd2-ad54-55e4288276ec.description=<pre>Sets WinRM (Windows Remote Management) service policies. Each policy setting is defined by a list of registry keys and values which enable or disable some functionalities for the WinRM service. PowerShell remoting is based on the WinRM service, therefore any of these policies apply also to PowerShell. In this case, HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Windows\\WinRM\\Service is the registry key which stores WinRM service policies. In the policy editor (gpedit.msc or gpmc.msc) you can find the WinRM service policies at Computer Configuration > Policies > Administrative Templates > Windows Components > Windows Remote Management (WinRM) > WinRM Service.\n\nThe status of a policy can be one of the following\:\nNotConfigured - The operation will ignore the policy;\nEnabled - The operation will enable the policy;\nDisabled - The operation will disable the policy (i.e. delete the registry entries).\n\nThe policies can be applied for a single target host or they can be applied for a GPO (Group Policy Object) which can be linked to an organizational unit (OU) from Active Directory. In the first case, the operation writes directly the registry entries from the target host. Please note that these policies and settings will be overwritten in the following order, each time the system reboots or refreshes the policies\:\n1. Local Computer Policy. These policies are available on a localhost using the Local Group Policy Editor (gpedit.msc).\n2. Domain Policy. These policies are available using the Group Policy Management Editor (gpmc.msc).\n3. Site Policy.\n4. OU Policy. \nAs you can see, the strongest policy is the one applied at OU level. Therefore, our recommandation is to use this operation to set the policies on a GPO which is linked to an OU containing the list of servers which should be enabled for PowerShell remoting.\n\nInputs\:\n    host - The hostname or ip address of the target PowerShell host where the policies should be applied. If empty, the operation will apply the policies for the domain GPO defined by gpoName.\nDefault value\: localhost\n    gpoName - The name of the group policy object where the policies should be applied. The operation will create a new GPO if one with the same name can'tbe found on the domain controller. \n    allowLocalPortExceptions - Allows administrators to use the Windows Firewall component in Control Panel to define a local port exceptions list. Windows Firewall uses two port exceptions lists; the other is defined by the "Windows Firewall\: Define inbound port exceptions" policy setting. If you enable this policy setting, the Windows Firewall component in Control Panel allows administrators to define a local port exceptions list. If you disable this policy setting, the Windows Firewall component in Control Panel does not allow administrators to define a local port exceptions list.  However, local administrators will still be allowed to create firewall rules in the Windows Firewall with Advanced Security snap-in.  If you wish to prevent all locally created rules from applying, use the Group Policy Object Editor snap-in and configure Computer Configuration\\Windows Settings\\Security Settings\\Windows Firewall with Advanced Security to specify that local firewall rules should not apply.\n    allowBasicAuthentication - This policy setting allows you to manage whether the Windows Remote Management (WinRM) service accepts Basic authentication from a remote client. If you enable this policy setting, the WinRM service will accept Basic authentication from a remote client. If you disable or do not configure this policy setting, the WinRM service will not accept Basic authentication from a remote client.\nValid values\: NotConfigured, Enabled, Disabled.\n    allowCredSSPAuthentication - This policy setting allows you to manage whether the Windows Remote Management (WinRM) service accepts CredSSP authentication from a remote client. If you enable this policy setting, the WinRM service will accept CredSSP authentication from a remote client. If you disable or do not configure this policy setting, the WinRM service will not accept CredSSP authentication from a remote client.\nValid values\: NotConfigured, Enabled, Disabled.\n    allowUnencryptedTraffic - This policy setting allows you to manage whether the Windows Remote Management (WinRM) service sends and receives unencrypted messages over the network. If you enable this policy setting, the WinRM client sends and receives unencrypted messages over the network. If you disable or do not configure this policy setting, the WinRM client sends or receives only encrypted messages over the network.\nValid values\: NotConfigured, Enabled, Disabled.\n    allowAutomaticConfigurationOfListeners - This policy setting allows you to manage whether the Windows Remote Management (WinRM) service automatically listens on the network for requests on the HTTP transport over the default HTTP port. If you enable this policy setting, the WinRM service automatically listens on the network for requests on the HTTP transport over the default HTTP port. If you disable or do not configure this policy setting, then the WinRM service does not automatically listen on the network and you must manually create listeners on every computer. To allow WinRM service to receive requests over the network, configure the Windows Firewall policy setting with exceptions for Port 5985 (default port for HTTP). \nValid values\: NotConfigured, Enabled, Disabled.\n    ipv4Filter - The service listens on the addresses specified by the IPv4 filter. IPv4 filter specifies one or more ranges of IPv4 addresses. If specified, the service enumerates the available IP addresses on the computer and uses only addresses that fall within one of the filter ranges. You should use asterisk (*) to indicate that the service listens on all available IP addresses on the computer. When * is used, other ranges in the filter are ignored. If the filter is left blank, the service does not listen on any addresses. For example, if you want the service to listen only on IPv4 addresses, leave the IPv6 filter empty. Ranges are specified using the syntax IP1-IP2. Multiple ranges are separated using "," (comma) as the delimiter.\nExamples\:2.0.0.1-2.0.0.20, 24.0.0.1-24.0.0.22\n    ipv6Filter -  The service listens on the addresses specified by the IPv6 filter. IPv6 filter specifies one or more ranges of IPv6 addresses. If specified, the service enumerates the available IP addresses on the computer and uses only addresses that fall within one of the filter ranges. You should use asterisk (*) to indicate that the service listens on all available IP addresses on the computer. When * is used, other ranges in the filter are ignored. If the filter is left blank, the service does not listen on any addresses. For example, if you want the service to listen only on IPv6 addresses, leave the IPv4 filter empty. Ranges are specified using the syntax IP1-IP2. Multiple ranges are separated using "," (comma) as the delimiter.\nExamples\:3FFE\:FFFF\:7654\:FEDA\:1245\:BA98\:0000\:0000-3FFE\:FFFF\:7654\:FEDA\:1245\:BA98\:3210\:4562   \n\nResponses\:\n    Success - The policies were successfully applied.\n    Failure - Invalid policy values. RAS and target host are not members of the same domain. The RSJRAS user account doesn't have enough privileges to perform this operation.\n\nNotes\:\n1. The operation requires PowerShell v2 on the target host.\n2. The RAS and target host should be members of the same domain.\n3. The RSJRAS service should run under an user account which has enough privileges to perform this operation (e.g. domain admin).\n4. Host and gpoName inputs are mutual exclusive. The operation fails if the user doesn't provide a value for at least one of these inputs.\n5. To see the available GPOs go to Start > Run > gpmc.msc and open Group Policy Management > Domain > domain_name > Group Policy Objects.\n6. For a single target host, the policies should be available once you restart the WinRM service. Otherwise, for a domain GPO, you could try to run the command "gpupdate /force". If this doesn't work, a reboot is required.\n7. Supported OS version for domain policies\: 2008 or higher.\n</pre>\n
+]]></descriptionCdata>
+  <annotation>a580f161-9fbf-4fd2-ad54-55e4288276ec.description</annotation>
+  <name>Set WinRM Service Policies</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="eaf0fc3d-1703-4591-b346-98f560a600df">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>host</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="818cb8a3-7d5e-4d95-a7ca-1763bdb73503">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>gpoName</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="5d92ff9d-f8b4-4bb5-a0bc-c99a46040566">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>allowLocalPortExceptions</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <link>
+        <refId>8a4be23a-9305-4291-a72c-5bdde67410eb</refId>
+        <refName>Group Policy Status</refName>
+      </link>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="c8a942d4-4017-4dde-9eea-c76464a564ef">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>allowBasicAuthentication</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <link>
+        <refId>8a4be23a-9305-4291-a72c-5bdde67410eb</refId>
+        <refName>Group Policy Status</refName>
+      </link>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="93f79d77-e8ed-489c-9ef2-85c309bd8e24">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>allowCredSSPAuthentication</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <link>
+        <refId>8a4be23a-9305-4291-a72c-5bdde67410eb</refId>
+        <refName>Group Policy Status</refName>
+      </link>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="45c04dcf-3716-4222-bd3a-eeb9dbe41926">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>allowUnencryptedTraffic</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <link>
+        <refId>8a4be23a-9305-4291-a72c-5bdde67410eb</refId>
+        <refName>Group Policy Status</refName>
+      </link>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="5ffed48e-7a8d-4662-9256-34ee104185b2">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>allowAutomaticConfigurationOfListeners</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <link>
+        <refId>8a4be23a-9305-4291-a72c-5bdde67410eb</refId>
+        <refName>Group Policy Status</refName>
+      </link>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="06a2780f-eaed-4ff1-b0be-af5dab31f003">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>ipv4Filter</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="8090312d-a9a7-4a7e-a9c1-72619ccc0c67">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>ipv6Filter</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="591652f6-bdfc-4e14-9535-ad5dc41d6bc7">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="29c1e754-fdad-4bb0-9751-f9e5906fdd2f">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="d365fe81-ffc6-40f5-a569-67340b0de838">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="f39befe4-b1dd-4db6-91d8-73021398bfa2">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="5dad724c-850b-4e04-bed4-b1b1ad70b06d">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="60686088-53a5-4f5f-9cb2-4d3592241795">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="95a51974-d192-4aaa-9f29-5a5852a2ab68">
+    <annotation></annotation>
+    <name>returnCode</name>
+    <fieldName>returnCode</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="e0459228-12d0-4666-8181-1ddca4d85236">
+    <baseIcon>PowerShell.png</baseIcon>
+    <basePath>/Operating System/</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-powershellv2-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>dotNETWebActions_PowerShell.IActions.SetWinRMServicePolicies</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideNRAS}</overrideGroupAlias>
+</operation>

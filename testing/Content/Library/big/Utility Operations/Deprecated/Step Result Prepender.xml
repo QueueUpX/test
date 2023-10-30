@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="c4965c65-0250-4526-8a64-28f96822566e">
+  <descriptionCdata><![CDATA[c4965c65-0250-4526-8a64-28f96822566e.93c8ca15-cd1e-4dc6-89c0-5e919baa1d81.prompt=Text\:
+c4965c65-0250-4526-8a64-28f96822566e.description=<pre>Useful op to keep a running result.\nTakes a string input (resultText) and prepends this to the "runningResults" context value.\n\nDeprecated in favor of Context Prepender\n\nInputs\:\nresultText - text to add to the "runningResults" context value\n\nResponses\:\nsuccess - completed operation\n</pre>
+]]></descriptionCdata>
+  <annotation>c4965c65-0250-4526-8a64-28f96822566e.description</annotation>
+  <name>Step Result Prepender</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="93c8ca15-cd1e-4dc6-89c0-5e919baa1d81">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>resultText</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>c4965c65-0250-4526-8a64-28f96822566e.93c8ca15-cd1e-4dc6-89c0-5e919baa1d81.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <scriptlet id="d82c3879-5484-41b8-9ccb-9e30962ea905">
+    <annotation></annotation>
+    <name>Operation Step Result Prepender (c6bdaa18-314e-4a4e-9038-ac3d4ac6b580)</name>
+    <script>
+currentResults = scriptletContext.get(&quot;runningResults&quot;);
+
+if (currentResults == null) {
+   currentResults = resultText;
+} else {
+   currentResults = resultText + currentResults;
+}
+
+
+scriptletContext.putGlobal(&quot;runningResults&quot;, currentResults);</script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="b75b42af-cb85-44ca-8133-0290acb00ca5">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="e27548b0-c23a-4a5a-9660-031d6961b20c">
+    <annotation></annotation>
+    <name></name>
+    <fieldName>FailureMessage</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="8b8af1b1-3253-40b4-80e4-8020a7c831e1">
+    <baseIcon>war.png</baseIcon>
+    <basePath>Others/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="7a5fc4f5-0793-4617-b8cb-58bd12d9de49">
+        <baseIcon>add.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <opRef>
+    <refId>1bd85f69-23a6-4ea0-93df-419b1487789a</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

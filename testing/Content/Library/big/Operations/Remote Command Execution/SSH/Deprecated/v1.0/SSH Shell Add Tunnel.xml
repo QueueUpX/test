@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="2d0229a8-b054-444b-93e9-dcdec61eb343">
+  <descriptionCdata><![CDATA[2d0229a8-b054-444b-93e9-dcdec61eb343.15b24345-3f61-48db-b75f-e689a5c092b4.prompt=Host for remote end of tunnel\:
+2d0229a8-b054-444b-93e9-dcdec61eb343.7ade1f13-52d9-49fb-bac6-adefac9ae649.prompt=Port for local end of tunnel\:
+2d0229a8-b054-444b-93e9-dcdec61eb343.description=<pre>\nOpen a port forwarding tunnel between the RAS system and the remote ssh \nserver. This will cause a local port to be opened for listening on the RAS server, \nand any connection made to the local port will be forwarded to the specified port \non the remote host .\n\n\nInputs\:\nsessionId - this is the sessionId, created by 'SSH Shell Logon', which the tunnel will be added to\nforwardLocalPort - local port on the RAS to listen for connections on\nforwardRemoteHost - any host or IP address which is reachable by the system on the other end of the tunnel\nforwardRemotePort - the port on the remote host to send traffic to\n\n\nNOTE\: This tunnel will stay open until the call to 'SSH Shell Logoff' is made to close the session. In the \n       event that something goes wrong, and the call is not made to 'SSH Shell Logoff', a suicide timer\n       is started on the session when a tunnel is open. This timer will close the session, if it's still open,\n       after the default RAS session timeout has expired. This ensures that ports are not left open \n       on the RAS, since there is no way to close the session interactively after the parent flow is gone.\n      \n       If something goes wrong, and the ssh session is not closed, you have 2 options if you don't want to \n       wait for the default session timeout to expire (30 minutes by default)\: 1) Probably the easiest, and\n       least disruptive, is to log on to the remote system and kill the remote end of the tunnel, or 2) restart\n       the RAS. \n\nNOTE\: It turns out that the sessionId variable, used to identify the ssh session, collides with the internal\n      sessionId of every flow. Therefore, if you use an operatoin (or flow) wihch is not one of the 'SSH Shell *'\n      operations, you must propagate sessionId through. See the sample flow 'SSH Tunnel Example' for \n      an example of how to do this.\n\n</pre>
+2d0229a8-b054-444b-93e9-dcdec61eb343.e0df1a93-235a-49ff-9670-88721f352731.prompt=Port for remote end of tunnel\:
+2d0229a8-b054-444b-93e9-dcdec61eb343.eee8c4d0-9d96-4a8e-8768-c0e66ff26293.prompt=Please enter a value\:
+]]></descriptionCdata>
+  <annotation>2d0229a8-b054-444b-93e9-dcdec61eb343.description</annotation>
+  <name>SSH Shell Add Tunnel</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="eee8c4d0-9d96-4a8e-8768-c0e66ff26293">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>sessionId</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>2d0229a8-b054-444b-93e9-dcdec61eb343.eee8c4d0-9d96-4a8e-8768-c0e66ff26293.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="7ade1f13-52d9-49fb-bac6-adefac9ae649">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>forwardLocalPort</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>2d0229a8-b054-444b-93e9-dcdec61eb343.7ade1f13-52d9-49fb-bac6-adefac9ae649.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="15b24345-3f61-48db-b75f-e689a5c092b4">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>forwardRemoteHost</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>2d0229a8-b054-444b-93e9-dcdec61eb343.15b24345-3f61-48db-b75f-e689a5c092b4.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="e0df1a93-235a-49ff-9670-88721f352731">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>forwardRemotePort</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>2d0229a8-b054-444b-93e9-dcdec61eb343.e0df1a93-235a-49ff-9670-88721f352731.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="8a233a70-c771-4a30-a774-dd54813ab5ea">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="ae87066e-7bd7-45fe-ae6f-19018a6ae68e">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="6e318bcb-ae0c-4fce-a8e9-e2c3c5ff2d20">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="f81226e7-1af0-4c10-9854-75c979c0828b">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="541b7d16-d9b5-4b95-9aab-89df012ede50">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="bfa47e5d-2b65-46ad-9871-0d25b7bb2d34">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>-1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="281c603e-11d5-4074-9694-5abc1fc729e0">
+    <annotation></annotation>
+    <name>returnCode</name>
+    <fieldName>returnCode</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="e5075ec0-5809-4ddb-86fa-6a15325ee4a8">
+    <baseIcon>webservice.png</baseIcon>
+    <basePath>System</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-base-legacy-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>com.iconclude.content.actions.ssh.SSHShellAddTunnel</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

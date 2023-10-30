@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="b39a0811-2e13-4868-97ce-8af2126ffa03">
+  <descriptionCdata><![CDATA[b39a0811-2e13-4868-97ce-8af2126ffa03.description=<pre>\nMoves all resources on a server to another server in its cluster so that it can go offline.\n\n\nInput Parameters\:\nserver - Server to remove.\ncluster - the cluster to remove the server from.\ntimeout - How many seconds the process should allow for each group to be moved. If the timeout is exceeded, then the server may still be in use. Be sure to check that it is no longer in use before performing maintenance.\nforce - a boolean value, specifies whether or not parts of the cluster can be turned off if necessary to remove the server. If true some resources may be unavailable. If false, the the server will only be removed if other servers can take ownership of its resources.\n\nResponses\:\nfailure - If the server is not in the cluster, or could not be removed from the cluster.\noffline - force was set to true, and the server's resources could not all be moved.\nsuccess - The system's resources were all moved to other systems in the cluster.\n\n</pre>\n
+]]></descriptionCdata>
+  <annotation>b39a0811-2e13-4868-97ce-8af2126ffa03.description</annotation>
+  <name>Remove Server From Cluster</name>
+  <categories/>
+  <inputs>
+    <staticBinding id="507afb33-fed7-4a4e-a19e-99edc4cb3b09">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>timeout</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>32</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="4a8c566c-ddbe-44a5-9227-793e179371b6">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>force</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>false</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="4c85872f-b169-4249-b57c-faef27ccb10c">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>server</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="cc66ad46-4fe0-4b17-9018-da2280470cb3">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>cluster</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="61fc249a-2f99-45c3-9e95-8da4d86029d6">
+      <annotation></annotation>
+      <name>offline</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules>
+        <expression id="703707d2-8ae4-4166-b8e9-85c150b86565">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="7261d6df-4e28-47c3-b1da-0ad8661c6b79">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>28</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="bc0a6bff-6ce4-439c-8dd3-a8c9bcae1812">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="9ce91078-50fd-4f44-b6b6-2f43106d605d">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="3877d942-b6fe-41c0-8cbe-c0dfe3d9f5f8">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="6fe99eab-8023-4d16-98a4-601701d0dae7">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="ff1cbb78-8d7c-4738-a5ea-4ac211d88d2a">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="638531dd-0721-43d7-8ccc-63b78135f1a7">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="b0640923-483b-4436-a2c2-301550d61949">
+    <annotation></annotation>
+    <name></name>
+    <fieldName>returnCode</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="838086e7-9c85-41da-92a7-c48aec11d309">
+    <baseIcon>node.png</baseIcon>
+    <basePath>Servers/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="0a75acdd-e895-42a6-be51-44dfbcfa6f53">
+        <baseIcon>disable.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <opRef>
+    <refId>1e9c89ef-51bc-47e0-9171-7d90b0dfca61</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideNRAS}</overrideGroupAlias>
+</operation>

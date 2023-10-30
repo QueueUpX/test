@@ -1,0 +1,826 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow id="7459e7b9-c4a3-420b-8ca6-6550dab11526">
+  <descriptionCdata><![CDATA[7459e7b9-c4a3-420b-8ca6-6550dab11526.166c4af5-6a2f-4075-b4c5-66f12c831796.description=A bad username or password was entered
+7459e7b9-c4a3-420b-8ca6-6550dab11526.166c4af5-6a2f-4075-b4c5-66f12c831796.prompt=A bad username or password was entered
+7459e7b9-c4a3-420b-8ca6-6550dab11526.178e70fe-3798-47c5-be00-e87c84446ea1.transition.description=process is not running
+7459e7b9-c4a3-420b-8ca6-6550dab11526.41323ab4-0fe0-4340-9f62-f01583466ddc.transition.description=host not found
+7459e7b9-c4a3-420b-8ca6-6550dab11526.5db61d51-c3fa-405c-ab12-8f04e611a601.description=The host name could not be resolved.
+7459e7b9-c4a3-420b-8ca6-6550dab11526.5db61d51-c3fa-405c-ab12-8f04e611a601.prompt=The flow was unable to resolve the host name that the user entered
+7459e7b9-c4a3-420b-8ca6-6550dab11526.610729d5-5fa5-4b98-af4c-443eaf09d41f.transition.description=process is running.
+7459e7b9-c4a3-420b-8ca6-6550dab11526.8e5c564e-027c-42b6-8e06-4676ecfcbbf0.prompt=host - the computer that you want to check whether has a specified process running.
+7459e7b9-c4a3-420b-8ca6-6550dab11526.9295c0ef-2cdb-4523-a467-24e5b249d77d.description=The specified PID belongs to a process that is not running.
+7459e7b9-c4a3-420b-8ca6-6550dab11526.9295c0ef-2cdb-4523-a467-24e5b249d77d.prompt=Operator returned the return value of the call to ps\: \n${ps_return}\n\nNo values were put into the context.
+7459e7b9-c4a3-420b-8ca6-6550dab11526.957bdc77-8af0-44ac-bc43-190b7fdb64a0.transition.description=unknown error
+7459e7b9-c4a3-420b-8ca6-6550dab11526.b25795e1-4e36-4029-9b34-e8d2719b23d1.description=the specified PID is running.
+7459e7b9-c4a3-420b-8ca6-6550dab11526.b25795e1-4e36-4029-9b34-e8d2719b23d1.prompt=Operator returned ps return code\: ${ps_return}\n\nNo values were put into the context.
+7459e7b9-c4a3-420b-8ca6-6550dab11526.ba442b90-10fb-4405-892e-022d94a6ee9b.prompt=PID - The id number of the process you are checking to see if is running
+7459e7b9-c4a3-420b-8ca6-6550dab11526.d249f472-8016-47a0-8b62-7c1f665a7060.prompt=password - the password to use when connecting to the host.
+7459e7b9-c4a3-420b-8ca6-6550dab11526.d3a89fb7-2a07-40c3-8d85-f06f26abebd3.description=<pre>\nThis Flow tests the Check process by PID operation.\n</pre>\n\nThis operation verifies that a process with a particular PID exists\n\nInputs\:\n\thost\:            unix host name to check\n\tusername\:        user name to login into host as\n\tpassword\:        password to use for login\n\tPID\:             the PID to check\n\nResponses\:\n\tRunning\:         If the process is running\n\tNot Running\:     If the process is not running\n\tHost Not Found\:  If the host cannot be found\n\tAuthentication Failure\: If the login fails\n\tFailed\:          Any other error condition\n\nResults and Context\:\n\tThe ps return code is placed into the operation result\n\tNothing is placed into the context
+7459e7b9-c4a3-420b-8ca6-6550dab11526.d3a89fb7-2a07-40c3-8d85-f06f26abebd3.prompt=This sample will demonstrate how to use the check process by pid operation. You will specify a process ID number, and the operation will tel lyou if it is running on a given machine.
+7459e7b9-c4a3-420b-8ca6-6550dab11526.description=\nThis sample demonstrates how to verify that a process with a specific PID exists.\ninputs\:\nhost - the host to check pid on.\nusername - user to log in as.\npassword - password to login with\nPID - the pid to check.\n    
+7459e7b9-c4a3-420b-8ca6-6550dab11526.e98e2aec-4af7-416c-85d4-b3ca48fcf3d0.prompt=username - the username to use when connecting to the host
+7459e7b9-c4a3-420b-8ca6-6550dab11526.ec222f4e-345c-464e-8eb5-812fa77c89d8.description=Unknown Error
+7459e7b9-c4a3-420b-8ca6-6550dab11526.ec222f4e-345c-464e-8eb5-812fa77c89d8.prompt=Unknown Error
+7459e7b9-c4a3-420b-8ca6-6550dab11526.f4da69ff-8783-4ed7-8d60-7706bb366761.transition.description=authentication failure
+]]></descriptionCdata>
+  <annotation>7459e7b9-c4a3-420b-8ca6-6550dab11526.description</annotation>
+  <name>Check process by pid sample</name>
+  <categories/>
+  <inputs/>
+  <possibleResponses>
+    <opResponse id="50edbc64-17b7-4808-8f04-7f25d38ab798">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="03f416b7-3b26-490e-92be-99c967e3a857">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>false</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="dbb8bdaa-cc30-4d49-a49d-1fb9449f2037">
+    <annotation></annotation>
+    <name></name>
+    <fieldName>Value</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="405a21a9-06f5-4a1a-aef4-8977e0e93345">
+    <baseIcon>flow.png</baseIcon>
+    <basePath>System</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <callouts/>
+  <checkPointFlow>true</checkPointFlow>
+  <compatibleRuntimeContext>true</compatibleRuntimeContext>
+  <historyCheckPointFlow>true</historyCheckPointFlow>
+  <steps>
+    <step id="d3a89fb7-2a07-40c3-8d85-f06f26abebd3">
+      <annotation>7459e7b9-c4a3-420b-8ca6-6550dab11526.d3a89fb7-2a07-40c3-8d85-f06f26abebd3.description</annotation>
+      <name>Check process by PID</name>
+      <bounds>
+        <x>220.0</x>
+        <y>0.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>true</addResultToRunContext>
+      <isCriticalStep>true</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <resultContextKey>ps_return</resultContextKey>
+      <userPrompt>7459e7b9-c4a3-420b-8ca6-6550dab11526.d3a89fb7-2a07-40c3-8d85-f06f26abebd3.prompt</userPrompt>
+      <bindings>
+        <userInputBinding id="8e5c564e-027c-42b6-8e06-4676ecfcbbf0">
+          <annotation></annotation>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>host</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <record>false</record>
+          <prompt>7459e7b9-c4a3-420b-8ca6-6550dab11526.8e5c564e-027c-42b6-8e06-4676ecfcbbf0.prompt</prompt>
+          <isMultiSelect>false</isMultiSelect>
+          <sourceDelimiter>|</sourceDelimiter>
+        </userInputBinding>
+        <userInputBinding id="e98e2aec-4af7-416c-85d4-b3ca48fcf3d0">
+          <annotation></annotation>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>username</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <record>false</record>
+          <prompt>7459e7b9-c4a3-420b-8ca6-6550dab11526.e98e2aec-4af7-416c-85d4-b3ca48fcf3d0.prompt</prompt>
+          <isMultiSelect>false</isMultiSelect>
+          <sourceDelimiter>|</sourceDelimiter>
+        </userInputBinding>
+        <userInputBinding id="d249f472-8016-47a0-8b62-7c1f665a7060">
+          <annotation></annotation>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>ENCRYPTED</inputType>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>password</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <record>false</record>
+          <prompt>7459e7b9-c4a3-420b-8ca6-6550dab11526.d249f472-8016-47a0-8b62-7c1f665a7060.prompt</prompt>
+          <isMultiSelect>false</isMultiSelect>
+          <sourceDelimiter>|</sourceDelimiter>
+        </userInputBinding>
+        <userInputBinding id="ba442b90-10fb-4405-892e-022d94a6ee9b">
+          <annotation></annotation>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>PID</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <record>false</record>
+          <prompt>7459e7b9-c4a3-420b-8ca6-6550dab11526.ba442b90-10fb-4405-892e-022d94a6ee9b.prompt</prompt>
+          <isMultiSelect>false</isMultiSelect>
+          <sourceDelimiter>|</sourceDelimiter>
+        </userInputBinding>
+        <staticBinding id="04b44e41-8fae-417c-9c44-3f5b1b496799">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <recordKey></recordKey>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>Host</inputSymbol>
+          <listDelimiter></listDelimiter>
+          <value>${host}</value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="fa2f35a8-cfab-45b0-93cd-e61c573ce7fa">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <recordKey></recordKey>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>Private_Key_File</inputSymbol>
+          <listDelimiter></listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="824f66b1-4581-49e2-987b-5edfc0314e53">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <recordKey></recordKey>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>Pty</inputSymbol>
+          <listDelimiter></listDelimiter>
+          <value>false</value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="60d326b1-24e0-4853-9487-9cd1750cc968">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <recordKey></recordKey>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>Argument</inputSymbol>
+          <listDelimiter></listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="7b4184cf-206c-4e0f-b3fb-1a99cf86855c">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <recordKey></recordKey>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>Command</inputSymbol>
+          <listDelimiter></listDelimiter>
+          <value>ps -p ${PID}</value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="9edbaad7-6890-4476-8671-a45df3b18ba0">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>ENCRYPTED</inputType>
+          <recordKey></recordKey>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>Password</inputSymbol>
+          <listDelimiter></listDelimiter>
+          <value>{OBFUSCATED}SqstnSxglAP4D4gm72ILRw==</value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="0ddbdfa7-83c9-4056-a26a-dfe5f81bb760">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <recordKey></recordKey>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>User</inputSymbol>
+          <listDelimiter></listDelimiter>
+          <value>${username}</value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="f69473ee-8b95-43c7-8a05-0ad033dfb8a4">
+          <annotation></annotation>
+          <toContextKey></toContextKey>
+          <fromContextKey></fromContextKey>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <recordKey></recordKey>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>Environment</inputSymbol>
+          <listDelimiter></listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+      </bindings>
+      <transitions>
+        <transition id="41323ab4-0fe0-4340-9f62-f01583466ddc">
+          <annotation>7459e7b9-c4a3-420b-8ca6-6550dab11526.41323ab4-0fe0-4340-9f62-f01583466ddc.transition.description</annotation>
+          <name>host not found</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>host not found</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>5db61d51-c3fa-405c-ab12-8f04e611a601</refId>
+          </destination>
+          <source>
+            <refId>d3a89fb7-2a07-40c3-8d85-f06f26abebd3</refId>
+          </source>
+          <positions>
+            <point>
+              <x>92.53521126760563</x>
+              <y>67.0</y>
+            </point>
+            <point>
+              <x>117.23076923076923</x>
+              <y>347.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>849.2147727174283</x>
+            <y>36.64876228376792</y>
+          </labelPosition>
+        </transition>
+        <transition id="f4da69ff-8783-4ed7-8d60-7706bb366761">
+          <annotation>7459e7b9-c4a3-420b-8ca6-6550dab11526.f4da69ff-8783-4ed7-8d60-7706bb366761.transition.description</annotation>
+          <name>authentication failure</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>authentication failure</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>166c4af5-6a2f-4075-b4c5-66f12c831796</refId>
+          </destination>
+          <source>
+            <refId>d3a89fb7-2a07-40c3-8d85-f06f26abebd3</refId>
+          </source>
+          <positions>
+            <point>
+              <x>299.0243902439024</x>
+              <y>65.0</y>
+            </point>
+            <point>
+              <x>265.51724137931035</x>
+              <y>145.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>1120.3917390061536</x>
+            <y>48.22745060160123</y>
+          </labelPosition>
+        </transition>
+        <transition id="957bdc77-8af0-44ac-bc43-190b7fdb64a0">
+          <annotation>7459e7b9-c4a3-420b-8ca6-6550dab11526.957bdc77-8af0-44ac-bc43-190b7fdb64a0.transition.description</annotation>
+          <name>failure</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>failure</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>ec222f4e-345c-464e-8eb5-812fa77c89d8</refId>
+          </destination>
+          <source>
+            <refId>d3a89fb7-2a07-40c3-8d85-f06f26abebd3</refId>
+          </source>
+          <positions>
+            <point>
+              <x>324.6341463414634</x>
+              <y>65.0</y>
+            </point>
+            <point>
+              <x>369.3103448275862</x>
+              <y>145.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>924.5977538758685</x>
+            <y>-18.39271902526917</y>
+          </labelPosition>
+        </transition>
+        <transition id="610729d5-5fa5-4b98-af4c-443eaf09d41f">
+          <annotation>7459e7b9-c4a3-420b-8ca6-6550dab11526.610729d5-5fa5-4b98-af4c-443eaf09d41f.transition.description</annotation>
+          <name>running</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>running</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>b25795e1-4e36-4029-9b34-e8d2719b23d1</refId>
+          </destination>
+          <source>
+            <refId>d3a89fb7-2a07-40c3-8d85-f06f26abebd3</refId>
+          </source>
+          <positions>
+            <point>
+              <x>95.07615287341368</x>
+              <y>71.63655337923856</y>
+            </point>
+            <point>
+              <x>506.0810810810811</x>
+              <y>268.9189189189189</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>520.2129225507973</x>
+            <y>-14.1589623989972</y>
+          </labelPosition>
+        </transition>
+        <transition id="178e70fe-3798-47c5-be00-e87c84446ea1">
+          <annotation>7459e7b9-c4a3-420b-8ca6-6550dab11526.178e70fe-3798-47c5-be00-e87c84446ea1.transition.description</annotation>
+          <name>not running</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>not running</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>9295c0ef-2cdb-4523-a467-24e5b249d77d</refId>
+          </destination>
+          <source>
+            <refId>d3a89fb7-2a07-40c3-8d85-f06f26abebd3</refId>
+          </source>
+          <positions>
+            <point>
+              <x>341.0</x>
+              <y>57.42857142857143</y>
+            </point>
+            <point>
+              <x>491.0</x>
+              <y>157.42857142857144</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>809.4505494505498</x>
+            <y>-17.27494896815715</y>
+          </labelPosition>
+        </transition>
+      </transitions>
+      <properties>
+        <entry>
+          <key>Prompt Title</key>
+          <modelValue id="1379f6d1-2f36-4870-ab4c-1af921ca77a0">
+            <doubleValue>0.0</doubleValue>
+            <stringValue>Introduction</stringValue>
+            <encrypted>false</encrypted>
+            <type>9</type>
+          </modelValue>
+        </entry>
+        <entry>
+          <key>Prompt Width</key>
+          <modelValue id="43ee73c6-bb76-48c4-b467-45e36d0d9bca">
+            <doubleValue>0.0</doubleValue>
+            <encrypted>false</encrypted>
+            <type>5</type>
+          </modelValue>
+        </entry>
+        <entry>
+          <key>Prompt Height</key>
+          <modelValue id="1f7d1f21-8c24-4918-a8cb-f67dd1fd189c">
+            <doubleValue>0.0</doubleValue>
+            <encrypted>false</encrypted>
+            <type>5</type>
+          </modelValue>
+        </entry>
+      </properties>
+      <opRef>
+        <refId>370f1bf3-84fe-4777-8c38-c13c9458693c</refId>
+      </opRef>
+      <assignments>
+        <flowVariableAssignment id="f158d82a-f930-4293-b844-27b34cbec3dc">
+          <annotation>Automatically created during conversion</annotation>
+          <name>assignment</name>
+          <action>OVERWRITE</action>
+          <assignmentTargetType>FLOW_VARIABLE</assignmentTargetType>
+          <contextKey>ps_return</contextKey>
+          <expression id="bc3d6479-ece7-4420-a565-0a853e266651">
+            <annotation>Automatically created during conversion</annotation>
+            <name>Result Field: Result</name>
+            <fieldName>Result</fieldName>
+            <sourceType>RAWRESULT</sourceType>
+            <filters/>
+          </expression>
+        </flowVariableAssignment>
+      </assignments>
+      <throttleSize>0</throttleSize>
+    </step>
+    <returnStep id="166c4af5-6a2f-4075-b4c5-66f12c831796">
+      <annotation>7459e7b9-c4a3-420b-8ca6-6550dab11526.166c4af5-6a2f-4075-b4c5-66f12c831796.description</annotation>
+      <name>Authentication Error : failure</name>
+      <bounds>
+        <x>160.0</x>
+        <y>140.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>true</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt>7459e7b9-c4a3-420b-8ca6-6550dab11526.166c4af5-6a2f-4075-b4c5-66f12c831796.prompt</userPrompt>
+      <bindings/>
+      <transitions>
+        <transition id="ccb725ff-4758-4e6c-bebc-057569d61194">
+          <annotation></annotation>
+          <name>return</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>failure</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>166c4af5-6a2f-4075-b4c5-66f12c831796</refId>
+          </destination>
+          <source>
+            <refId>166c4af5-6a2f-4075-b4c5-66f12c831796</refId>
+          </source>
+          <positions/>
+        </transition>
+      </transitions>
+      <properties>
+        <entry>
+          <key>Prompt Title</key>
+          <modelValue id="3780e190-6787-4728-83a4-b9ee06b4cc3c">
+            <doubleValue>0.0</doubleValue>
+            <stringValue>Unable to authenticate user.</stringValue>
+            <encrypted>false</encrypted>
+            <type>9</type>
+          </modelValue>
+        </entry>
+        <entry>
+          <key>Prompt Width</key>
+          <modelValue id="d69bd739-f8b6-4ac4-9139-85a85cb5809a">
+            <doubleValue>0.0</doubleValue>
+            <encrypted>false</encrypted>
+            <type>5</type>
+          </modelValue>
+        </entry>
+        <entry>
+          <key>Prompt Height</key>
+          <modelValue id="4513923b-60cb-47c6-b291-ee0d68ded14f">
+            <doubleValue>0.0</doubleValue>
+            <encrypted>false</encrypted>
+            <type>5</type>
+          </modelValue>
+        </entry>
+      </properties>
+      <returnStepType>ERROR</returnStepType>
+      <assignments/>
+    </returnStep>
+    <returnStep id="9295c0ef-2cdb-4523-a467-24e5b249d77d">
+      <annotation>7459e7b9-c4a3-420b-8ca6-6550dab11526.9295c0ef-2cdb-4523-a467-24e5b249d77d.description</annotation>
+      <name>Not Running : success</name>
+      <bounds>
+        <x>430.0</x>
+        <y>140.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>true</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt>7459e7b9-c4a3-420b-8ca6-6550dab11526.9295c0ef-2cdb-4523-a467-24e5b249d77d.prompt</userPrompt>
+      <bindings/>
+      <transitions>
+        <transition id="f839f472-9c02-46b0-93c1-0ac2f3c84022">
+          <annotation></annotation>
+          <name>return</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>success</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>9295c0ef-2cdb-4523-a467-24e5b249d77d</refId>
+          </destination>
+          <source>
+            <refId>9295c0ef-2cdb-4523-a467-24e5b249d77d</refId>
+          </source>
+          <positions/>
+        </transition>
+      </transitions>
+      <properties>
+        <entry>
+          <key>Prompt Title</key>
+          <modelValue id="4aadba91-c9be-4f13-8f00-6480216c8105">
+            <doubleValue>0.0</doubleValue>
+            <stringValue>Not running</stringValue>
+            <encrypted>false</encrypted>
+            <type>9</type>
+          </modelValue>
+        </entry>
+        <entry>
+          <key>Prompt Width</key>
+          <modelValue id="e138412d-8b2e-4edf-a984-7a34301fa5fd">
+            <doubleValue>0.0</doubleValue>
+            <encrypted>false</encrypted>
+            <type>5</type>
+          </modelValue>
+        </entry>
+        <entry>
+          <key>Prompt Height</key>
+          <modelValue id="e6465c26-4d65-4e73-bc53-17a69dcf0100">
+            <doubleValue>0.0</doubleValue>
+            <encrypted>false</encrypted>
+            <type>5</type>
+          </modelValue>
+        </entry>
+      </properties>
+      <returnStepType>RESOLVED</returnStepType>
+      <assignments/>
+    </returnStep>
+    <returnStep id="5db61d51-c3fa-405c-ab12-8f04e611a601">
+      <annotation>7459e7b9-c4a3-420b-8ca6-6550dab11526.5db61d51-c3fa-405c-ab12-8f04e611a601.description</annotation>
+      <name>Unknown Host : failure</name>
+      <bounds>
+        <x>0.0</x>
+        <y>140.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>true</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt>7459e7b9-c4a3-420b-8ca6-6550dab11526.5db61d51-c3fa-405c-ab12-8f04e611a601.prompt</userPrompt>
+      <bindings/>
+      <transitions>
+        <transition id="1a6f49b6-ba39-44ad-a4b1-e2c5c1cb46cc">
+          <annotation></annotation>
+          <name>return</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>failure</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>5db61d51-c3fa-405c-ab12-8f04e611a601</refId>
+          </destination>
+          <source>
+            <refId>5db61d51-c3fa-405c-ab12-8f04e611a601</refId>
+          </source>
+          <positions/>
+        </transition>
+      </transitions>
+      <properties>
+        <entry>
+          <key>Prompt Title</key>
+          <modelValue id="a7fff060-25f3-4dc8-9535-88d9d86f3541">
+            <doubleValue>0.0</doubleValue>
+            <stringValue>Unknown host</stringValue>
+            <encrypted>false</encrypted>
+            <type>9</type>
+          </modelValue>
+        </entry>
+        <entry>
+          <key>Prompt Width</key>
+          <modelValue id="53cf7fbb-9219-4dce-8b87-9e81a81c6f1a">
+            <doubleValue>0.0</doubleValue>
+            <encrypted>false</encrypted>
+            <type>5</type>
+          </modelValue>
+        </entry>
+        <entry>
+          <key>Prompt Height</key>
+          <modelValue id="65cbd5d8-1228-4be6-b770-320b8d5cea63">
+            <doubleValue>0.0</doubleValue>
+            <encrypted>false</encrypted>
+            <type>5</type>
+          </modelValue>
+        </entry>
+      </properties>
+      <returnStepType>ERROR</returnStepType>
+      <assignments/>
+    </returnStep>
+    <returnStep id="ec222f4e-345c-464e-8eb5-812fa77c89d8">
+      <annotation>7459e7b9-c4a3-420b-8ca6-6550dab11526.ec222f4e-345c-464e-8eb5-812fa77c89d8.description</annotation>
+      <name>Error : failure</name>
+      <bounds>
+        <x>300.0</x>
+        <y>140.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>true</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt>7459e7b9-c4a3-420b-8ca6-6550dab11526.ec222f4e-345c-464e-8eb5-812fa77c89d8.prompt</userPrompt>
+      <bindings/>
+      <transitions>
+        <transition id="c9336f0a-709b-4127-ab49-b2a66ad952ac">
+          <annotation></annotation>
+          <name>return</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>failure</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>ec222f4e-345c-464e-8eb5-812fa77c89d8</refId>
+          </destination>
+          <source>
+            <refId>ec222f4e-345c-464e-8eb5-812fa77c89d8</refId>
+          </source>
+          <positions/>
+        </transition>
+      </transitions>
+      <properties>
+        <entry>
+          <key>Prompt Title</key>
+          <modelValue id="9556dd2a-389c-45ca-b029-e423e336b095">
+            <doubleValue>0.0</doubleValue>
+            <stringValue>Unknown Error</stringValue>
+            <encrypted>false</encrypted>
+            <type>9</type>
+          </modelValue>
+        </entry>
+        <entry>
+          <key>Prompt Width</key>
+          <modelValue id="c4dd2169-c45a-4760-9790-06955630f7ff">
+            <doubleValue>0.0</doubleValue>
+            <encrypted>false</encrypted>
+            <type>5</type>
+          </modelValue>
+        </entry>
+        <entry>
+          <key>Prompt Height</key>
+          <modelValue id="c9d847c3-4db9-488d-8452-5c790b65a8cb">
+            <doubleValue>0.0</doubleValue>
+            <encrypted>false</encrypted>
+            <type>5</type>
+          </modelValue>
+        </entry>
+      </properties>
+      <returnStepType>ERROR</returnStepType>
+      <assignments/>
+    </returnStep>
+    <returnStep id="b25795e1-4e36-4029-9b34-e8d2719b23d1">
+      <annotation>7459e7b9-c4a3-420b-8ca6-6550dab11526.b25795e1-4e36-4029-9b34-e8d2719b23d1.description</annotation>
+      <name>Running : success</name>
+      <bounds>
+        <x>570.0</x>
+        <y>140.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>true</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt>7459e7b9-c4a3-420b-8ca6-6550dab11526.b25795e1-4e36-4029-9b34-e8d2719b23d1.prompt</userPrompt>
+      <bindings/>
+      <transitions>
+        <transition id="7cee64fa-7315-436e-bff3-37210811936b">
+          <annotation></annotation>
+          <name>return</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>success</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>b25795e1-4e36-4029-9b34-e8d2719b23d1</refId>
+          </destination>
+          <source>
+            <refId>b25795e1-4e36-4029-9b34-e8d2719b23d1</refId>
+          </source>
+          <positions/>
+        </transition>
+      </transitions>
+      <properties>
+        <entry>
+          <key>Prompt Title</key>
+          <modelValue id="12f7923b-c335-4a6b-9511-67f497f3ded9">
+            <doubleValue>0.0</doubleValue>
+            <stringValue>Process Running</stringValue>
+            <encrypted>false</encrypted>
+            <type>9</type>
+          </modelValue>
+        </entry>
+        <entry>
+          <key>Prompt Width</key>
+          <modelValue id="17b04d72-7f1d-4c70-ae5f-afce38f4d7f8">
+            <doubleValue>0.0</doubleValue>
+            <encrypted>false</encrypted>
+            <type>5</type>
+          </modelValue>
+        </entry>
+        <entry>
+          <key>Prompt Height</key>
+          <modelValue id="217bf151-5a3c-49eb-94d5-203ba4730db7">
+            <doubleValue>0.0</doubleValue>
+            <encrypted>false</encrypted>
+            <type>5</type>
+          </modelValue>
+        </entry>
+      </properties>
+      <returnStepType>RESOLVED</returnStepType>
+      <assignments/>
+    </returnStep>
+  </steps>
+  <startSteps>d3a89fb7-2a07-40c3-8d85-f06f26abebd3</startSteps>
+</flow>

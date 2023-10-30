@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="bf11bf12-53a3-4df4-baeb-f821c962669d">
+  <descriptionCdata><![CDATA[bf11bf12-53a3-4df4-baeb-f821c962669d.description=<pre>\nCreates a SSH Shell session to be used by multiple SSH Shell operations.\n\nInputs\:\n    host - The hostname/IP address of the remote machine.\n    port - The port number for SSH protocol.\nDefault value\: 22\n    username - Name of the account on the remote machine.\n    password - The password for the username. When using a private key file or a private key string, this input will be used as the passphrase for the file or string. For security reasons it is recommend to provide this input and protect the private key when using the 'privateKeyData' and the 'privateKeyFile' inputs.\n    proxyHost - The proxy server used to access the remote machine.\n    proxyPort - The proxy server port. Default\: 8080. Valid values\: -1 and numbers greater than 0.\n    proxyUsername - The user name used when connecting to the proxy.\n    proxyPassword - The proxy server password associated with the proxyUsername input value.\n    privateKeyFile - Path to private key file (OpenSSH type) on the machine where is the worker. For security reasons it is recommend that the private key be protected by a passphrase that should be provided through the 'password' input.\n    privateKeyData \u2013 A string representing the private key (OpenSSH type) used for authenticating the user. This string is usually the content of a private key file. The 'privateKeyData' and the 'privateKeyFile' inputs are mutually exclusive. For security reasons it is recommend that the private key be protected by a passphrase that should be provided through the 'password' input.\n    knownHostsPolicy - The policy used for managing known_hosts file. We recommend to use a "strict" policy so as to verify the host key against a local file containing known, trustworthy machines. If you choose "allow" or "add" policy then you will connect to the server without any verification. If there is a Man-In-The-Middle attack then you will be connected to a fake server and the SSH commands that you send will go through that fake server. \nValid values\:  \nallow\=It will permit the connection to any hosts. \nstrict\=It will permit the connection only to the hosts specified in known_hosts file. \nadd\=It will permit the connection to any hosts, if the host is not in the known_hosts file it will be added. \nDefault value\: strict\n    allowedCiphers - A comma separated list of ciphers that will be used in the client-server handshake mechanism when the connection is created. Check the notes section for security concerns regarding your choice of ciphers. The default value will be used even if the input is not added to the operation.\nDefault value\: aes128-ctr,aes128-cbc,aes192-ctr,aes192-cbc,aes256-ctr,aes256-cbc\n    connectTimeout - Time in milliseconds to wait for the connection to be made.\nDefault value\: 10000\n    useGlobalContext -  Specifies whether to enable the session sharing into the subflows.\nValid values\: false, true \nDefault value\: false\n\nResults\:\n    returnResult - The newly created sessionId.\n    sessionId - The ssh session identifier to be used for SSH Shell and SSH Shell Logoff operations.  This session identifier can only be used in the flow run context that it is created in. Multiple ssh shell sessions can be created and distinguished by assigning this sessionId to unique flow variables.\n    TimedOut - Is set to "true" if the value set in the "timeout" input has elapsed and the command timed out.\n\nResponses\:\n    success - SSH shell session and sessionId successfully created.\n    failure - An error occurred while attempting to create the ssh shell session.\n\nNotes\:\n1. Hidden inputs\:\n    knownHostsPath -  Specifies the path to the known_hots file on the running server.\nDefault value\: <user.home>/.ssh/known_hosts\nExamples\: /home/admin/.ssh/known_hosts\n2. In order to use private keys with different encryption types (ex.\: aes256-cbc) needs to be updated the <OO_Home>/java/lib/security/local_policy.jar JAR file with one that accept all security policies (ex.\: http\://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html). After update you must restart the Studio or Central service.\n3. The operation supports connections through HTTP proxy with username and password authentication.\n4. For security reasons, HPE does not recommend the use of outdated or vulnerable ciphers. Therefore "arcfour" cihpers should be avoided because they do not provide confidentiality for data in transit and using them can lead to information leakage.\nArcfour is vulnerable to the following attacks\: Fluhrer, Mantin and Shamir attack, Klein's attack, Royal Holloway attack, Bar-mitzvah attack and NOMORE attack.\n</pre>
+]]></descriptionCdata>
+  <annotation>bf11bf12-53a3-4df4-baeb-f821c962669d.description</annotation>
+  <name>SSH Shell Logon</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="b00f6173-2199-4830-9ff2-54b32c3deb10">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>host</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="2942ba4c-f47d-411a-9a1e-181bb0ad4d39">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>port</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>22</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="fb29030a-169b-4046-ba7e-838d24dc0256">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>username</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="2e0d49ce-8662-41b5-9905-6960846f0fc1">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>password</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="95cb7642-79e9-4f1e-b38d-3280424db153">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>proxyHost</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="46721204-29f5-477e-ba65-00c59eae8bd4">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>proxyPort</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="0186595d-a695-420a-b253-5ce79fdfaafb">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>proxyUsername</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="eedf5fc1-31ef-4072-8332-1f989cbd0f06">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>proxyPassword</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>{OBFUSCATED}tFQ2pnWYKQCGLnn/5LPzoA==</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="2fed8df5-51cd-4aec-8a2c-61be961bdbd9">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>privateKeyFile</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="0bf0dd2c-407a-40d8-af32-1d3eb5fc4396">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>privateKeyData</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>{OBFUSCATED}tFQ2pnWYKQCGLnn/5LPzoA==</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="fe338c07-6d12-4ab6-98a5-33a6e3025523">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>knownHostsPolicy</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>strict</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="57a130ca-6bde-4202-8b4c-9253e1cddd11">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>allowedCiphers</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="1f3a980a-dc3f-4f9e-8661-5035bbbbbfbc">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>connectTimeout</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>10000</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="e5ab96af-cd3f-4a2b-9aff-bf4f18c1f449">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>useGlobalContext</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>false</value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="a357d54e-8a3d-4c48-81cc-55718c027ba0">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="32781bb3-5b4f-4445-8160-767804d8cf7f">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="24c4cf39-a2f1-4b9a-8c08-2f0c957b170f">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="f2e033ca-fde6-466b-8efe-b51d294c83e3">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="b0d3abdb-838b-4049-9371-a16621dc1143">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="7f87a055-e9f2-45c8-ae2d-e79381132863">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>-1</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="72806af9-b466-4331-82b8-3527a1351517">
+    <annotation></annotation>
+    <name>returnResult</name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="1c81a76b-18ac-4c7c-af19-006af9836438">
+    <baseIcon>workstation_network.png</baseIcon>
+    <basePath>/Others/</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-ssh-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>SSH Shell Logon</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="187ac45d-fec8-4595-873b-8e0d923103c6">
+  <descriptionCdata><![CDATA[187ac45d-fec8-4595-873b-8e0d923103c6.description=Parses an HTTP Header string and returns the header with the specified name. This operation can be used to parse "responseHeaders" output from HTTP Client v2.\n\nInputs\n    headers - The list of headers that will be parsed, separated by a new line (LF). The header's name-value pairs will be separated by "\:".\nFormat\: According to HTTP standard for headers (RFC 2616).\n    headerName - The name of the headers to be retrieved.\nExample\: Content-Type\n    headerElementName - The name of the header element or attribute to be retrieved. This input is applicable only for headers that have elements which are name-value pairs separated by "\=".\nExample\: JSESSIONID\n\nResults\n    returnResult - This is the primary output. In case of success it contains the retrieved header and has the same value as the "header" output. In case of failure it contains the exception message.\n    header - This output contains the header with the specified "headerName". In case multiple headers are found, a list of headers separated by new line (LF) will be returned. This output remains empty if no header is found.\n    headerValue - The value of the retrieved header. In case multiple headers are found, a list of header values separated by new line (LF) will be returned. This output remains empty if no header is found.\n    headerElementValue - The value of the header element or attribute found in the retrieved header. This output represents the first occurrence of the element with name equals to "headerElementName". This output remains empty if no header element is found.\n    cookieHeader - The "Cookie" header containing basic cookies (name\=value) extracted from the "headers" input if it contains a response header list with "Set-Cookie" header entries. This output remains empty if no "Set-Cookie" headers are found.\n    returnCode - The code that specifies whether the operation ran with success or failure.\n    exception - In case of success, this result is empty. In case of failure, this result contains the exception stack trace.\n\nResponses\n    success - The operation completed as stated in the description.\n    failure - The operation completed unsuccessfully.\n
+]]></descriptionCdata>
+  <annotation>187ac45d-fec8-4595-873b-8e0d923103c6.description</annotation>
+  <name>Http Parse Header</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="7bc320b1-8d97-4bed-99b3-9a2f2ac79985">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>headers</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="dea880ea-42ea-4eb1-940a-e7bd4e6f7c42">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>headerName</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="feb5626d-81e0-4322-886b-76d0a9dccb93">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>headerElementName</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="9b31d33b-fce3-42cd-9660-2476de0c4659">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="317ddc6f-d1f2-47f3-bce9-c666ccdcf16e">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="7552cd01-f684-4677-92a7-d1e2cc66ce00">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="e3f00544-310f-452b-8dc2-87402f505f9b">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="d2cc49f7-3809-4ada-ab53-0829acff7837">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="bc8e21f9-84a7-4a48-bac8-b8dd5d64a43a">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>-1</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="9c1f893c-cabf-471f-9bc3-f336be088345">
+    <annotation></annotation>
+    <name>returnResult</name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="b9c1c4ae-c416-4aaf-ae4f-f66f4c2c6366">
+    <baseIcon>message.png</baseIcon>
+    <basePath>/Others/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="cc760473-c904-4dea-83d5-7df497c27561">
+        <baseIcon>enable.png</baseIcon>
+        <basePath>/Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-base-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>Http Parse Header</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

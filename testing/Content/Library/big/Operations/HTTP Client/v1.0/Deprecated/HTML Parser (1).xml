@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="4b52ece2-0367-439d-bb75-13f49679ab67">
+  <descriptionCdata><![CDATA[4b52ece2-0367-439d-bb75-13f49679ab67.description=<pre>\nScans for a specified HTML flag and returns everything between that flag and its closing flag. For example\:\nif flag is table then then everything between <table> and </table> is returned. The function does support nested tables, specifically if the html had\:\n<table>\nfoo\n<table>\nbar\n</table>\n</table>\n<table>\nmoo\n</table>\nThe inner table (bar) will NOT be gotten. But foo or moo can be, and if foo is gotten it will contain the sub-table bar.\n\ninputs\:\noccurrenceNumber - which flagged section to return, 1 \= first section, 2 \= second. 0 will return the entire document.\nstartFlag - the html flag to parse on, in the above example this was <table\nendFlag - the html flag to parse on, in the above example this was </table>\nhtml - the html to parse. NOTE, this is the actual html, not the path to an html file.\n\nreturns - The information between <flag ...> and </flag>\n\nExtra Results\:\nhtmlParamNames - The names of all parameters in the <flag ...> header.\nhtmlParamValues - The names of all values that correspond to htmlParamNames.\n\nResponses\:\nsuccess - the specified flag was returned.\nfailure - The parse failed, the html does not have enough occurrences of flag.\n</pre>\n
+]]></descriptionCdata>
+  <annotation>4b52ece2-0367-439d-bb75-13f49679ab67.description</annotation>
+  <name>HTML Parser (1)</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="7f16ed02-ee27-499f-b34a-6efd13c3715d">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>html</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="3baf91e1-88ee-4ba3-8c45-ab99df7bee19">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>occurrenceNumber</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="6bfb67fb-8fe6-4cef-ad33-48e278fc3b52">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>startFlag</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="75caa5e4-5553-44f9-bf14-74ae6a32f97d">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>endFlag</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="867f7eaf-485f-4bf2-b88a-2c04f3b65fea">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Field_1</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${html}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="4ffca4d4-14dd-4ed3-8a88-cea8c63bc8f4">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Field_2</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${occurrenceNumber}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="eb39c418-78b1-489c-90be-fe793b589ec4">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Field_3</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${in3}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="97609899-0d57-456a-8ef4-824fcc311728">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Field_4</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${in4}</value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <scriptlet id="7ab580e0-f9d8-498e-b3b4-5cf6e28058f9">
+    <annotation></annotation>
+    <name>Operation HTML Parser (1) (60340cc7-38b4-400b-b90a-17b39ad9d36d)</name>
+    <script>scriptletResponse = &quot;failure&quot;;
+try{
+var index = parseInt(occurrenceNumber);
+var paramNames = &quot;&quot;;
+var paramVals = &quot;&quot;;
+var usedEndFlag = &quot;&quot;;
+endFlag = endFlag.toLowerCase();
+startFlag = startFlag.toLowerCase();
+while (html.length &gt; 0 &amp;&amp; index &gt;0){
+
+	var htmlLC = html.toLowerCase();
+	var subStart = htmlLC.indexOf(startFlag);//indexOfCaseless(html,startFlag); 
+	if (subStart &lt;0)
+		throw new java.lang.Exception(&quot;Unable to find specified flag or occurrence of flag&quot;);;
+	var accum = subStart;
+	var end = getEnd(subStart+1);
+	index --;	
+	if (index == 0){
+		var paramsEnd = getEndParamsIndex(subStart, html);
+		getParams(html.substring(subStart+startFlag.length , paramsEnd));
+		subStart = getEndParamsIndex(subStart, html);
+		html = html.substring(subStart + 1 , end);
+	}
+	else
+		html = html.substring(end+(usedEndFlag).length+1, html.length); 
+}
+scriptletContext.put(&quot;htmlParamNames&quot;, paramNames);
+scriptletContext.put(&quot;htmlParamValues&quot;, paramVals);
+if (html.length &lt;= 0 &amp;&amp; paramNames.length&lt;=0){
+	scriptletResponse = &quot;failure&quot;;
+	scriptletResult = &quot;&quot;+html; 
+}
+else{
+	scriptletResponse = &quot;success&quot;;
+	scriptletResult = &quot;&quot;+html; 
+}
+}
+catch (e){
+scriptletResponse = &quot;failure&quot;;
+scriptletResult = &quot;&quot;+e;
+}
+
+function indexOfCaseless(container, toFind){
+	return indexOfCaselss(container,toFind,0);
+}
+
+function indexOfCaseless(container, toFind, offset){
+	return container.toLowerCase().indexOf(toFind.toLowerCase(), offset);
+}
+
+function getParams(info){
+	info = info.replace(/\s+&amp;/, &quot;&quot;);
+	info = info.replace(/^\s+/, &quot;&quot;);
+	var split = info.split(/^([^\s=]+)=*(&quot;[^&quot;]*&quot;|\S*)/);
+	while (split != null &amp;&amp; split.length &gt; 2){
+		if (paramNames != null &amp;&amp; paramNames.length &gt; 0)
+			paramNames +=&quot;,&quot;;
+		if (paramNames != null &amp;&amp; paramNames.length &gt; 0)
+			paramVals +=&quot;,&quot;;
+		paramNames += split[1];
+		if(split[2].indexOf(&quot;\&quot;&quot;)==0)
+			paramVals += split[2].substring(1, split[2].length-1);
+		else
+			paramVals += split[2];
+		if (split.length &gt; 3)
+			split = split[3].replace(/^\s+/, &quot;&quot;).split(/^([^\s=]+)=*(&quot;[^&quot;]*&quot;|\S*)/);
+		else
+			split = null
+	}
+}
+
+function trimGRLT(toTrim){
+	toTrim = toTrim.replace(/&lt;+&amp;/, &quot;&quot;);
+	toTrim = toTrim.replace(/^&lt;+/, &quot;&quot;);
+	toTrim = toTrim.replace(/&gt;+&amp;/, &quot;&quot;);
+	toTrim = toTrim.replace(/^&gt;+/, &quot;&quot;);
+	return toTrim;
+}
+
+function getEndParamsIndex(offset, toParse){
+	var quoteStart = html.indexOf(&quot;\&quot;&quot;, subStart);
+	var gtStart = html.indexOf(&quot;&gt;&quot;, subStart);
+	while (quoteStart &lt;gtStart &amp;&amp; quoteStart &gt;=0){
+		quoteStart = html.indexOf(&quot;\&quot;&quot;, quoteStart+1);
+		gtStart = html.indexOf(&quot;&gt;&quot;, quoteStart+1);
+		quoteStart = html.indexOf(&quot;\&quot;&quot;, quoteStart+1);
+	}
+	return gtStart;
+}
+
+function getEnd(offset) {
+	//var end = indexOfCaseless(html, endFlag, offset);
+	var end = htmlLC.indexOf(endFlag, offset);
+	var temp = html.substring(end, html.length);
+	if (endFlag == &quot;&lt;&quot;){
+		var proposedEnd = &quot;&lt;/&quot;+trimGRLT(startFlag)
+		if(temp.toLowerCase().indexOf(proposedEnd) == 0){
+		//if (indexOfCaseless(temp, proposedEnd)==0){
+			//end = indexOfCaseless(html, proposedEnd, offset);
+			end = htmlLC.indexOf(proposedEnd, offset);
+			usedEndFlag = proposedEnd;
+		}
+	}
+	else
+		usedEndFlag = endFlag;
+	//var recCheck = indexOfCaseless(html, startFlag, offset);
+	var recCheck = htmlLC.indexOf(startFlag, offset);
+	while (recCheck &lt; end &amp;&amp; recCheck &gt;= 0 &amp;&amp; end &gt;=0){
+		if (recCheck &gt; end)
+			return end;
+		else
+			offset = getEnd(recCheck+1)+1; 
+		//recCheck = indexOfCaseless(html, startFlag, offset);
+		recCheck = htmlLC.indexOf(startFlag, offset);
+		//end = indexOfCaseless(html, endFlag, offset);
+		end = htmlLC.indexOf(endFlag, offset);
+	}
+	if (end &gt; 0)
+		return end
+	else
+		return html.length-1;
+}</script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="d27537d7-ae65-4e21-84ee-2addf81b76f8">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="d7965768-1d7c-45be-b40b-e6bdc9316f82">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="a815c9ab-1f5e-47f6-8f20-59291bad8510">
+    <annotation></annotation>
+    <name>Field 1</name>
+    <fieldName>Field_1</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="0a84168e-f557-4461-b633-7811f59251e0">
+    <baseIcon>website.png</baseIcon>
+    <basePath>Application/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="08cdef37-4c9f-4641-bc24-9b703c6e1b13">
+        <baseIcon>wrench.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <opRef>
+    <refId>ddd79f22-8b1e-4605-88d5-d912bb2da2b9</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow id="4f830fb0-f241-419c-b833-56eca9047e86">
+  <descriptionCdata><![CDATA[4f830fb0-f241-419c-b833-56eca9047e86.57bfc320-6daa-4237-b9df-b6e297f38475.prompt=Enter a value for host
+4f830fb0-f241-419c-b833-56eca9047e86.59f62690-ae98-4c1b-9b10-c9893fa96645.prompt=Alternate Credentials - Password\:
+4f830fb0-f241-419c-b833-56eca9047e86.633e20fd-6b47-48c6-bc1c-ee15899b443a.prompt=DNS Server\:
+4f830fb0-f241-419c-b833-56eca9047e86.ca701db1-2066-4693-9217-f04d632b23b3.prompt=Alternate Credentials - UserName\:
+4f830fb0-f241-419c-b833-56eca9047e86.description=<pre>\nThis flow checks to see if a host is receiving bad DNS update packets.\n\nInputs\:\nhost - The host to check the event logs on.\naltuser - The user to authenticate to host as.\naltpass - the password for altuser.\n\nResponses\:\nsuccess - No bad packets have been received.\nfailure - Bad DNS update packets have been received.\n</pre>
+4f830fb0-f241-419c-b833-56eca9047e86.fe2fe01c-7e55-47d8-acdf-9ea3d02dc643.description=<pre>\nSearches the NT Event Log using the supplied search criteria.\n\nInputs\:\nhost - The hostname or ip address of the machine you want to search against.\nuser - Username to use for WMI impersonation on the host for this operation (to be left blank for localhost).\npassword - Password of the user.\nlog - The name of the Event Log to search. Example\: Application or System or Security or *.\nage - The number of seconds old an event can be to be counted.  Use * for all.\nseverity - The severity of the event.  Use * for all. Valid values\: error, information, warning, *.\nthreshold - The value used to determine the response.\neventid - The eventid of the event.\nsource - The source of the event.\nmessage - The message text of the searched events. If left empty the search will not consider the message.\n\nResponses\:\nover threshold - The number of events found was higher than the input parameter threshold or equal to it.\nunder threshold - The number of events found was lower than the input parameter threshold.\nhost not found - Host could not be resolved.\nInvalid parameters - An unknown Error occurred.\n\nExtra Results\:\ncount - The total number of events that matched.\nlogs - The actual logs captured.\n\nNotes\: \n1. The username and password inputs must be blank for localhost and fully qualified usernames must be used for remote hosts.\nExample\:\nuser\: DOMAIN\\Administrator\npassword\: password\n\n2. If a hostname is assigned to the host input, please make sure that the DNS Server you have set is correct, otherwise the hostname will not be resolved.\n</pre>
+]]></descriptionCdata>
+  <annotation>4f830fb0-f241-419c-b833-56eca9047e86.description</annotation>
+  <name>Event 5509</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="633e20fd-6b47-48c6-bc1c-ee15899b443a">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>host</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>4f830fb0-f241-419c-b833-56eca9047e86.633e20fd-6b47-48c6-bc1c-ee15899b443a.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="ca701db1-2066-4693-9217-f04d632b23b3">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>altuser</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>4f830fb0-f241-419c-b833-56eca9047e86.ca701db1-2066-4693-9217-f04d632b23b3.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="59f62690-ae98-4c1b-9b10-c9893fa96645">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>altpass</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>4f830fb0-f241-419c-b833-56eca9047e86.59f62690-ae98-4c1b-9b10-c9893fa96645.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="3da4c5aa-d3e5-4e8c-aeff-92ab03788274">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="5a04ca73-c87d-4db5-b684-60649210d0e1">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="26fed691-1e82-4041-90d2-71a02d4a5544">
+    <annotation></annotation>
+    <name></name>
+    <fieldName>Value</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="210c2e78-5211-4b29-aaf1-98311495ff85">
+    <baseIcon>windows_event_log.png</baseIcon>
+    <basePath>Operating System/</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <callouts/>
+  <checkPointFlow>true</checkPointFlow>
+  <compatibleRuntimeContext>true</compatibleRuntimeContext>
+  <historyCheckPointFlow>true</historyCheckPointFlow>
+  <steps>
+    <step id="fe2fe01c-7e55-47d8-acdf-9ea3d02dc643">
+      <annotation>4f830fb0-f241-419c-b833-56eca9047e86.fe2fe01c-7e55-47d8-acdf-9ea3d02dc643.description</annotation>
+      <name>SearchEventLog</name>
+      <bounds>
+        <x>0.0</x>
+        <y>12.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <bindings>
+        <staticBinding id="d1fe13fe-d172-4bc0-ac10-7f3dbb5e0959">
+          <annotation></annotation>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>eventid</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value>5509</value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="b47e5f04-eae5-4461-841e-271de6f4ee5e">
+          <annotation></annotation>
+          <fromContextKey>altpass</fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>ENCRYPTED</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>password</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="58cb5bdc-4b82-4865-95f4-ddbafe64d4c3">
+          <annotation></annotation>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>log</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value>dns</value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="c38b65f6-408a-4a11-8cf0-78c834c7d912">
+          <annotation></annotation>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>age</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value>*</value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="d6ec8f01-c1c1-4fac-9bc5-44e241a35395">
+          <annotation></annotation>
+          <fromContextKey>altuser</fromContextKey>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>user</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="770ee003-268e-40b7-bf02-c8521303bb59">
+          <annotation></annotation>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>severity</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value>warning</value>
+          <record>false</record>
+        </staticBinding>
+        <userInputBinding id="57bfc320-6daa-4237-b9df-b6e297f38475">
+          <annotation></annotation>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>host</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <record>false</record>
+          <prompt>4f830fb0-f241-419c-b833-56eca9047e86.57bfc320-6daa-4237-b9df-b6e297f38475.prompt</prompt>
+          <isMultiSelect>false</isMultiSelect>
+          <sourceDelimiter>|</sourceDelimiter>
+        </userInputBinding>
+        <staticBinding id="5892f098-b341-4738-a249-60fb1693c23b">
+          <annotation></annotation>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>message</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value>DNS_EVENT_BAD_UPDATE_PACKET DNS Server encountered invalid UPDATE message from *. Packet was rejected. The IP address of the specific client that was rejected is shown in the event. , The DNS server encountered an invalid DNS update message from &quot;*.&quot;. The packet was rejected.</value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="5aa7ef8f-c145-4a7e-b7ab-aa068db71064">
+          <annotation></annotation>
+          <assignFromContext>true</assignFromContext>
+          <assignToContext>true</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>true</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>threshold</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value>1</value>
+          <record>false</record>
+        </staticBinding>
+        <staticBinding id="1ef7d90a-e474-43fd-91b8-4bde2ac7d091">
+          <annotation></annotation>
+          <assignFromContext>false</assignFromContext>
+          <assignToContext>false</assignToContext>
+          <inputType>STRING</inputType>
+          <isList>false</isList>
+          <required>false</required>
+          <isPersisted>true</isPersisted>
+          <inputSymbol>source</inputSymbol>
+          <listDelimiter>,</listDelimiter>
+          <value></value>
+          <record>false</record>
+        </staticBinding>
+      </bindings>
+      <transitions>
+        <transition id="0557a676-e820-4228-baec-e14a777ff741">
+          <annotation></annotation>
+          <name>under threshold</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>under threshold</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>80800b08-5c36-475c-8c0a-884cf6c4421b</refId>
+          </destination>
+          <source>
+            <refId>fe2fe01c-7e55-47d8-acdf-9ea3d02dc643</refId>
+          </source>
+          <positions>
+            <point>
+              <x>90.0</x>
+              <y>77.0</y>
+            </point>
+            <point>
+              <x>90.0</x>
+              <y>125.0</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>645.8333333333334</x>
+            <y>36.0</y>
+          </labelPosition>
+        </transition>
+        <transition id="ee15a879-198a-492a-9922-ec4a47491709">
+          <annotation></annotation>
+          <name>over threshold</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>over threshold</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>d4cc4b19-574c-4e5e-844a-6967b32fbbaf</refId>
+          </destination>
+          <source>
+            <refId>fe2fe01c-7e55-47d8-acdf-9ea3d02dc643</refId>
+          </source>
+          <positions>
+            <point>
+              <x>121.0</x>
+              <y>50.4</y>
+            </point>
+            <point>
+              <x>211.0</x>
+              <y>49.199999999999996</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>521.0036734210212</x>
+            <y>8.225935504894203</y>
+          </labelPosition>
+        </transition>
+        <transition id="911a36e8-b763-4d88-83cc-2021552bc152">
+          <annotation></annotation>
+          <name>host not found</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>host not found</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>d4cc4b19-574c-4e5e-844a-6967b32fbbaf</refId>
+          </destination>
+          <source>
+            <refId>fe2fe01c-7e55-47d8-acdf-9ea3d02dc643</refId>
+          </source>
+          <positions>
+            <point>
+              <x>121.0</x>
+              <y>50.4</y>
+            </point>
+            <point>
+              <x>211.0</x>
+              <y>49.199999999999996</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>447.8314966228229</x>
+            <y>-22.864634345046277</y>
+          </labelPosition>
+        </transition>
+        <transition id="5574b8d0-22bf-4c0a-90ed-4f02aabee433">
+          <annotation></annotation>
+          <name>Invalid parameters</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>Invalid parameters</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>d4cc4b19-574c-4e5e-844a-6967b32fbbaf</refId>
+          </destination>
+          <source>
+            <refId>fe2fe01c-7e55-47d8-acdf-9ea3d02dc643</refId>
+          </source>
+          <positions>
+            <point>
+              <x>121.0</x>
+              <y>50.4</y>
+            </point>
+            <point>
+              <x>211.0</x>
+              <y>49.199999999999996</y>
+            </point>
+          </positions>
+          <labelPosition>
+            <x>490.786823083304</x>
+            <y>-12.812194522209605</y>
+          </labelPosition>
+        </transition>
+      </transitions>
+      <properties/>
+      <opRef>
+        <refId>3be162de-525e-4685-9e84-f4083d87f729</refId>
+      </opRef>
+      <assignments/>
+      <throttleSize>0</throttleSize>
+    </step>
+    <returnStep id="80800b08-5c36-475c-8c0a-884cf6c4421b">
+      <annotation></annotation>
+      <name>Resolved : success</name>
+      <bounds>
+        <x>0.0</x>
+        <y>120.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <bindings/>
+      <transitions>
+        <transition id="9f2cadd7-346c-4346-b750-923831bd7ada">
+          <annotation></annotation>
+          <name>return</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>success</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>80800b08-5c36-475c-8c0a-884cf6c4421b</refId>
+          </destination>
+          <source>
+            <refId>80800b08-5c36-475c-8c0a-884cf6c4421b</refId>
+          </source>
+          <positions/>
+        </transition>
+      </transitions>
+      <properties/>
+      <returnStepType>RESOLVED</returnStepType>
+      <assignments/>
+    </returnStep>
+    <returnStep id="d4cc4b19-574c-4e5e-844a-6967b32fbbaf">
+      <annotation></annotation>
+      <name>Error : failure</name>
+      <bounds>
+        <x>150.0</x>
+        <y>10.0</y>
+      </bounds>
+      <layer>-1</layer>
+      <hideInbound>false</hideInbound>
+      <addResultToRunContext>false</addResultToRunContext>
+      <isCriticalStep>false</isCriticalStep>
+      <isNonBlocking>false</isNonBlocking>
+      <isParallelStep>false</isParallelStep>
+      <isSingleResponse>false</isSingleResponse>
+      <recordInHistory>false</recordInHistory>
+      <recordRawOutput>false</recordRawOutput>
+      <recordPrimaryOutput>false</recordPrimaryOutput>
+      <checkPointStep>true</checkPointStep>
+      <historyCheckPointStep>true</historyCheckPointStep>
+      <scriptResultStep>false</scriptResultStep>
+      <userPrompt></userPrompt>
+      <scriptlet id="95fc41e7-297d-4688-8b4d-95e093a7beb4">
+        <annotation></annotation>
+        <name>Step Error : failure in Flow Event 5509 (ddb98080-ab79-4607-a937-6de0998d98aa)</name>
+        <type>RHINO</type>
+      </scriptlet>
+      <bindings/>
+      <transitions>
+        <transition id="af485161-4350-4435-87a8-13d3a650aaf4">
+          <annotation></annotation>
+          <name>return</name>
+          <command>NEXT</command>
+          <linkMode>false</linkMode>
+          <responseSymbol>failure</responseSymbol>
+          <shouldHandoff>false</shouldHandoff>
+          <transitionValue>0.0</transitionValue>
+          <destination>
+            <refId>d4cc4b19-574c-4e5e-844a-6967b32fbbaf</refId>
+          </destination>
+          <source>
+            <refId>d4cc4b19-574c-4e5e-844a-6967b32fbbaf</refId>
+          </source>
+          <positions/>
+        </transition>
+      </transitions>
+      <properties/>
+      <returnStepType>ERROR</returnStepType>
+      <assignments/>
+    </returnStep>
+  </steps>
+  <startSteps>fe2fe01c-7e55-47d8-acdf-9ea3d02dc643</startSteps>
+</flow>

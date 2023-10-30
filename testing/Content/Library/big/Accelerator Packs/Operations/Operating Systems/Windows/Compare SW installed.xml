@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="5a930d5c-51e4-4517-a20c-aefe5daf4d0b">
+  <descriptionCdata><![CDATA[5a930d5c-51e4-4517-a20c-aefe5daf4d0b.description=<pre> Compares installed SW lists and gives a report. Don't touch this unless you know what you're doing.\n</pre>\n
+]]></descriptionCdata>
+  <annotation>5a930d5c-51e4-4517-a20c-aefe5daf4d0b.description</annotation>
+  <name>Compare SW installed</name>
+  <categories/>
+  <inputs/>
+  <scriptlet id="384aea35-1ec4-474e-8736-f930eef990c3">
+    <annotation></annotation>
+    <name>Operation Compare SW installed (0783c36c-d4b6-481f-91f5-128ccbc8a891)</name>
+    <script>var requiredSW=scriptletContext.get(&quot;requiredSW&quot;);
+var delim = scriptletContext.get(&quot;delimiter&quot;);
+var req=scriptletContext.get(&quot;req&quot;);
+if(req != null){
+    delim=&quot;;&quot;;
+    }
+
+var sw1=requiredSW.split(delim);
+var sw=scriptletContext.get(&quot;sw2&quot;);
+var sw2=sw.split(delim);
+var listRez=&quot;&quot;;
+var delimiter=&quot;&quot;;
+var outputDelim = scriptletContext.get(&quot;outputDelimiter&quot;);
+if(outputDelim == null){
+    outputDelim = &quot;\r\n&quot;;
+}
+var index1=sw1.length;
+var index2=sw2.length;
+var index3=requiredSW.split(&quot;n&quot;).length;
+var response=&quot;Success&quot;;
+for(i=0;i&lt;index1;i++){
+    var cond=false;
+    for(j=0;j&lt;index2;j++){
+        if(sw1[i].toString()==sw2[j].toString()){
+            listRez+=delimiter+sw1[i].toString()+&quot; (true)&quot;;
+            delimiter=outputDelim;
+            cond=true;
+        }
+    }
+    if(cond==false){
+        listRez+=delimiter+sw1[i].toString()+&quot; (false)&quot;;
+        delimiter=outputDelim;
+        response=&quot;Failure&quot;;
+    }
+}
+
+scriptletResult = response+&quot;\n&quot;+listRez; </script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="467995a0-e911-46f8-b6bb-e32a3cf15646">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="9dff5837-903c-4874-8fac-865e70835c6f">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>false</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="ca10b5c5-3c98-4343-9b2c-f09acfa01806">
+    <annotation></annotation>
+    <name>returnResult</name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="dfc998eb-a24f-4adc-8459-52647b46a8a9">
+    <baseIcon>scriptlet.png</baseIcon>
+    <basePath>System</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <opRef>
+    <refId>ddd79f22-8b1e-4605-88d5-d912bb2da2b9</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

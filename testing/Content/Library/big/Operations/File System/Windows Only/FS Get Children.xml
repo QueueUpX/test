@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="adea6694-09c8-47c8-8b1c-d10e2e9fa4b6">
+  <descriptionCdata><![CDATA[adea6694-09c8-47c8-8b1c-d10e2e9fa4b6.c7502b45-520b-4bf0-809a-ab1e54919c4c.prompt=Enter a starting directory
+adea6694-09c8-47c8-8b1c-d10e2e9fa4b6.description=<pre>\nGets a list of files and folders in a directory.\n\nInput Parameters\:\nsource - The directory to check.\ndelimiter - A delimiter to put between files and folders in the directory.\nuser - Username to use for thread impersonation on the RAS host when reading.\npassword - Password for the user.\n\nReturns\:\nThe children of the path.\n\nExtra Results\:\ncount - The number of children.\n\nResponses\:\nfailure - The operation failed. The path probably could not be found, or was a file.\nsuccess - The operation succeeded.\n</pre>\n
+]]></descriptionCdata>
+  <annotation>adea6694-09c8-47c8-8b1c-d10e2e9fa4b6.description</annotation>
+  <name>FS Get Children</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="e8bc5f6b-7a46-44f0-8da3-a19ed9be54a7">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>user</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="8d298712-9404-4210-adb0-eda0ff517e92">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>password</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="c7502b45-520b-4bf0-809a-ab1e54919c4c">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>source</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>adea6694-09c8-47c8-8b1c-d10e2e9fa4b6.c7502b45-520b-4bf0-809a-ab1e54919c4c.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="5652570a-7be1-488b-b0b8-9671984e2fff">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>delimiter</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>,</value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <scriptlet id="cfb72fe3-c44e-4fc9-ba14-97481deba410">
+    <annotation></annotation>
+    <name>Operation FS Get Children (8afc4bc4-34af-4e44-881f-3563f0cb7580)</name>
+    <script>if (scriptletRawResult[&apos;count&apos;] != null)
+	scriptletContext.put(&quot;count&quot;, scriptletRawResult[&apos;count&apos;]);
+scriptletResult = scriptletRawResult[&apos;returnResult&apos;];</script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="7cf024d1-222b-4916-9176-625bd08072ba">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="9099c9f3-333b-415d-a299-f0f4eb5d6d44">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="73ba5558-3fb0-417b-96c1-47e4385999d2">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="88660206-2876-46d3-a0a1-0b67d3460b92">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="8a9e0825-7c8f-4e02-a654-3c46c6b91ab7">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="2672259c-8b02-49cd-a42f-fcfe616e86e8">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="b758a383-3ec6-48a8-9f37-d18318a2ba24">
+    <annotation></annotation>
+    <name>exception</name>
+    <fieldName>exception</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="e3f06946-a366-4a9d-80d9-e132690e681a">
+    <baseIcon>folder.png</baseIcon>
+    <basePath>Operating System/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="19a66121-de02-49f7-999f-ba93306f7dd9">
+        <baseIcon>view.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-dotnet-web-actions-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>dotNETWebActions_FileSystem.FSGetChildren</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideNRAS}</overrideGroupAlias>
+</operation>

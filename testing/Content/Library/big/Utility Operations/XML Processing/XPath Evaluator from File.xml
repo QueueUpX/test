@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="39f16a9e-a86f-45ea-ab30-fda2eeeb43f7">
+  <descriptionCdata><![CDATA[39f16a9e-a86f-45ea-ab30-fda2eeeb43f7.description=<pre>This operation evaluates the given "xpathExpression" and returns the results in form of an iterator. This powerful operation can be used to retrieve XML Elements, Attributes, Text or filters based on element names, paths, attributes etc. \nThis operation should be used instead of "XPath Evaluator" in case the xml content has huge size.\n\nInputs\:\n    filename - The absolute path to the XML file.\n    xpathExpression - The XPath expression to evaluate.\n    parsingFeatures - The list of XML parsing features separated by new line (CRLF). The feature name - value must be separated by empty space. Setting specific features this field could be used to avoid XML security issues like "XML Entity Expansion injection" and "XML External Entity injection". To avoid aforementioned security issues we strongly recommend to set this input to the following values\: \nhttp\://apache.org/xml/features/disallow-doctype-decl true \nhttp\://xml.org/sax/features/external-general-entities false \nhttp\://xml.org/sax/features/external-parameter-entities false \nWhen the "http\://apache.org/xml/features/disallow-doctype-decl" feature is set to "true" the parser will throw a FATAL ERROR if the incoming document contains a DOCTYPE declaration.  \nWhen the "http\://xml.org/sax/features/external-general-entities" feature is set to "false" the parser will not include external general entities. \nWhen the "http\://xml.org/sax/features/external-parameter-entities" feature is set to "false" the parser will not include external parameter entities or the external DTD subset. \nIf any of the validations fails, the operation will fail with an error message describing the problem. \nDefault value\:\nhttp\://apache.org/xml/features/disallow-doctype-decl true\nhttp\://xml.org/sax/features/external-general-entities false\nhttp\://xml.org/sax/features/external-parameter-entities false\n\nResults\:\n    returnResult - Result evaluated from the XPath expression provided or an error message in case of failure.\n    exception - The exception stack trace in case of failure.\n    type - The type of XML result returned.\nValid values\: ELEMENT, ATTRIBUTE, TEXT, OTHER\n    attributeName - If the type of the result is "ATTRIBUTE", it will contain the name of the attribute.\n\nResponses\:\n    has more - Another result was in the list, and has been returned.\n    failure - The operation completed unsuccessfully.\n    no more - No more results. This will only be returned once, then iteration restarts.\n\nNotes\:\n1. The World Wide Web Consortium (W3C) organization provides the XPath specification (http\://www.w3.org).\n2. XML using default namespace is also supported by this operation.\n3. An element from the default namespace can be retrieved using a location path.\n\nExamples\:\n   The following is a valid inputs example for working with a XML that uses default namespace. This example searches all "td" elements from the default namespace\:\n    xml\: <table xmlns\="http\://www.w3.org/TR/html4/">\n                <tr>\n                    <td>Apples</td>\n                    <td>Bananas</td>\n                 </tr>\n            </table>\n    path\: //*[namespace-uri()\="http\://www.w3.org/TR/html4/" and name()\="td"]\n\n</pre>
+]]></descriptionCdata>
+  <annotation>39f16a9e-a86f-45ea-ab30-fda2eeeb43f7.description</annotation>
+  <name>XPath Evaluator from File</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="b6406b41-fbdb-4cc1-abb1-85d628136ae5">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>filename</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="79950309-8160-459f-82ea-3e2a469802d5">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>xpathExpression</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="ea1a3399-9564-4537-952d-08b0bee3ea9e">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>parsingFeatures</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>http://apache.org/xml/features/disallow-doctype-decl true
+http://xml.org/sax/features/external-general-entities false
+http://xml.org/sax/features/external-parameter-entities false</value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="8e8fa6d3-70cf-4bb1-99a2-a422bdbae5e9">
+      <annotation></annotation>
+      <name>has more</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="6d504167-97b4-4f59-bbfa-116b11f41e9a">
+          <annotation></annotation>
+          <name>result</name>
+          <fieldName>result</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="6f27ff4e-c8e2-4929-8958-c2ae191d7de8">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>has more</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="4c5f2625-f5e3-4263-96c0-9140494435ad">
+      <annotation></annotation>
+      <name>no more</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="08421a90-199c-4293-994a-06d17e84cba7">
+          <annotation></annotation>
+          <name>result</name>
+          <fieldName>result</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="c24c9013-6e03-412f-af3c-4201f0fe21a1">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>no more</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="4f5e74c2-6327-4d8e-b031-7fc30ff53066">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="2bd7722b-2f79-407c-ba5c-ed09ccb8fa45">
+          <annotation></annotation>
+          <name>result</name>
+          <fieldName>result</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="813577a7-66fd-44d0-b958-4926ab508906">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>failure</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="d5fb526e-dc13-484f-a9a9-e33fa6b72eba">
+    <annotation></annotation>
+    <name>returnResult</name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="dc659c3f-27ff-4d98-9bf3-fb0e25960e3d">
+    <baseIcon>document_xml.png</baseIcon>
+    <basePath>/Databases/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="017c6d2d-4860-4ba1-ba79-3cb396a9125c">
+        <baseIcon>view.png</baseIcon>
+        <basePath>/Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-base-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>XPath Evaluator from File</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

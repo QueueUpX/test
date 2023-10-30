@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="20f8c9dc-7258-4db1-a5c3-8464c941fb8e">
+  <descriptionCdata><![CDATA[20f8c9dc-7258-4db1-a5c3-8464c941fb8e.4d0a54c4-18bd-443f-92fc-147d7dc55cde.prompt=FileName\:
+20f8c9dc-7258-4db1-a5c3-8464c941fb8e.description=<pre>This operation reads all contents of a file into the scriptletResult.\n\nInput Parameters\:\n    filename - the name of the file to read\n\nResults\:\n    Result - the content of the file\n\nResponses\:\nsuccess - read the file into the scriptletResult\n\n</pre>
+]]></descriptionCdata>
+  <annotation>20f8c9dc-7258-4db1-a5c3-8464c941fb8e.description</annotation>
+  <name>Temp File Reader</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="4d0a54c4-18bd-443f-92fc-147d7dc55cde">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>filename</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>20f8c9dc-7258-4db1-a5c3-8464c941fb8e.4d0a54c4-18bd-443f-92fc-147d7dc55cde.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <scriptlet id="792d52a2-caf0-4314-affb-d1f9651477fa">
+    <annotation></annotation>
+    <name>Operation Temp File Reader (86d3bcff-9acc-4ae4-b584-1fd02e3b3f1c)</name>
+    <script>try{
+var r = new java.io.FileReader(filename);
+var br= new java.io.BufferedReader(r); 
+ var out=&quot;&quot;;
+ var s;
+  while((s=br.readLine())!=null)
+  {
+ out=out+&quot;\n&quot;+s;
+ }
+  r.close();
+scriptletResult =out;
+}
+catch (e){
+scriptletResult=&quot;&quot;;
+}
+ 
+</script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="4a991bff-86e6-44de-b961-d585ac813d41">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="c555c9e9-6e8f-493e-993d-17cd377c2d13">
+    <annotation></annotation>
+    <name>Field 1</name>
+    <fieldName>Field_1</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="d68e1036-ea95-4f7f-8e34-49be26318930">
+    <baseIcon>document_text.png</baseIcon>
+    <basePath>Operating System/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="5f9009e6-c2d7-4e5f-95a3-29ffb50e582f">
+        <baseIcon>view.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <opRef>
+    <refId>ddd79f22-8b1e-4605-88d5-d912bb2da2b9</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

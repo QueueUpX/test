@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="826bfcb1-c62f-4e85-87ad-15a75ec6c04e">
+  <descriptionCdata><![CDATA[826bfcb1-c62f-4e85-87ad-15a75ec6c04e.description=<pre>\nCompares a files last accessed date/time to a given threshold.\n\nInput Parameters\:\nSource - The file to read.\nthreshold - The threshold to compare the file last accessed time to (MM/dd/YYYY h\:mm\:ss a format  Feb 6, 2007 3\:06\:33 PM).\nusername - Username to use for thread impersonation on the RAS host when reading.\npassword - Password to use when reading.\n\nResponses\:\nfailure - The operation failed. The file probably could not be found.\ngreater than\t- The file's last accessed time is larger than the threshold.\nless than - The file's last accessed time is smaller than the threshold.\nequal to - The file's last accessed time is the same as the threshold.\n\nExtra Results\:\ndate - The file's last accessed time.\n</pre>\n
+]]></descriptionCdata>
+  <annotation>826bfcb1-c62f-4e85-87ad-15a75ec6c04e.description</annotation>
+  <name>FS Accessed</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="fc82043f-baf0-4512-a39d-16bfc3e66357">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>user</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="7d6464da-ab3f-4a6c-aad1-1abc6c16503f">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>password</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="018d2ec0-ddee-4908-a779-3b6fb0c2070a">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Source</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="1908742d-0baf-444f-b51f-ec7d80c481e9">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>threshold</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <scriptlet id="90b7f117-29a8-4af1-9376-eca51229fff6">
+    <annotation></annotation>
+    <name>Operation FS Accessed (65e799dc-3a26-4b47-96dd-499bbe450208)</name>
+    <script>scriptletContext.put(&quot;date&quot;, scriptletRawResult[&apos;date&apos;]);</script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="e3d7ce0a-b21a-48fa-9f63-364d8b71e48b">
+      <annotation></annotation>
+      <name>less than</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules>
+        <expression id="cbc83b5c-8af0-482e-a002-fb69106e21b2">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="947f9189-547c-4230-9652-8b6e48588fba">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>26</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="5a2b3d02-8f90-4396-af36-343aeed88c74">
+      <annotation></annotation>
+      <name>equal to</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules>
+        <expression id="61973e90-edf0-4b1b-8acf-163130f13c93">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="a8f87436-7ed7-4cf0-8a17-494d84bf120f">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>27</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="0bcbd570-7cdf-4575-b027-083a4cee76a6">
+      <annotation></annotation>
+      <name>greater than</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules>
+        <expression id="61f21f7d-87e7-4287-9b48-d590f5cc819a">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="3746815d-a8b3-4e36-8323-e07b46d1fc35">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>25</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="0ef5772d-a4e8-4d5a-a438-87e22b79d445">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="1d8f03e6-f3c7-4693-afd3-70dfce3d4e92">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="007502a4-61f5-489c-9ec9-e65afc96a6bd">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="9580dd94-9368-4afd-bb32-b9c8b72f3aed">
+    <annotation></annotation>
+    <name></name>
+    <fieldName>returnCode</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="217752f3-8818-4488-8840-7041d08c4fa1">
+    <baseIcon>document_text.png</baseIcon>
+    <basePath>Operating System/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="d34001af-f655-4dfe-a6b7-3ba9548f65b6">
+        <baseIcon>view.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <opRef>
+    <refId>0db53824-1c32-4b93-9450-7a2636f8881d</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideNRAS}</overrideGroupAlias>
+</operation>

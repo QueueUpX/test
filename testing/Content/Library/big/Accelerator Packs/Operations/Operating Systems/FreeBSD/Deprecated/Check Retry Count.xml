@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="c5b26693-d56f-42c0-b060-fdd93eb86c24">
+  <descriptionCdata><![CDATA[c5b26693-d56f-42c0-b060-fdd93eb86c24.description=\nChecks to see if the maximum number of retries has been reached\n\nrequired context values\:\nic_retrycount - The \# of retries made so far.\n\nInputs\:\ncount - The maximum number of retries.\n\nresponses\:\nsuccess - the retry limit has not been reached.\nfailure - the limit has reached 0, or something went wrong.\n      
+]]></descriptionCdata>
+  <annotation>c5b26693-d56f-42c0-b060-fdd93eb86c24.description</annotation>
+  <name>Check Retry Count</name>
+  <categories>
+    <category>
+      <refId>2d79a24d-6cca-41d8-b1af-1610d04d9e6f</refId>
+      <refName>Unix OS</refName>
+    </category>
+  </categories>
+  <inputs>
+    <userInputBinding id="231678ea-8566-4abf-ad42-65f2a84cd31e">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>count</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="4227eca5-0532-4a4f-af71-327eec4a05f7">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Field_1</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${in1}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="e50c092c-5376-4374-843d-788d1712d182">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Field_2</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${in2}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="86db687d-ebf2-4618-8709-c330148c47d8">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Field_3</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${in3}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="e54619e3-0fc4-4653-861a-c53284f038cc">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Field_4</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${in4}</value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <scriptlet id="fd82c140-1352-493b-89b6-b14bb1e988fc">
+    <annotation></annotation>
+    <name>Operation Check Retry Count (37852576-c2e7-43c1-9454-9865e841a90f)</name>
+    <script>// get the curent count
+count = scriptletContext.get(&quot;ic_retrycount&quot;);
+left = parseInt(count);
+
+// any retries left?
+if (left &gt; 0) {
+   left--;
+   scriptletResponse = &quot;success&quot;;
+}
+else {
+   scriptletResponse = &quot;failure&quot;;
+}
+
+// stick this back into the context
+scriptletContext.putGlobal(&quot;ic_retrycount&quot;,left.toString());</script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="51c46473-455c-432a-8b18-414ea1e08743">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="547c4fb6-9d00-4155-be0f-7c01e8cd6c1c">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="c58d8b04-e9bf-4d7b-8cef-cc2011ebfe99">
+    <annotation></annotation>
+    <name></name>
+    <fieldName>Field_1</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="5e558648-38a2-41d9-abfc-6367c27966a4">
+    <baseIcon>branch_element.png</baseIcon>
+    <basePath>Others/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="b6d866db-4e9b-4e9f-a91b-8a4f5459eb69">
+        <baseIcon>wrench.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <opRef>
+    <refId>ddd79f22-8b1e-4605-88d5-d912bb2da2b9</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

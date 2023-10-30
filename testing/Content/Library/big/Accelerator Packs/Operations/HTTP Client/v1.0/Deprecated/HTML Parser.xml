@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="2c61b869-14bc-45f6-a064-a535d7092b90">
+  <descriptionCdata><![CDATA[2c61b869-14bc-45f6-a064-a535d7092b90.description=Scans for a specified HTML flag and returns everything between that flag and its closing flag. For example\:\nif flag is table then then everything between <table> and </table> is returned. The function does support nested tables, specifically if the html had\:\n<table>\nfoo\n<table>\nbar\n</table>\n</table>\n<table>\nmoo\n</table>\nThe inner table (bar) will NOT be gotten. But foo or moo can be, and if foo is gotten it will contain the sub-table bar.\n\ninputs\:\noccurrenceNumber - which flagged section to return, 1 \= first section, 2 \= second. 0 will return the entire document.\nflag - the html flag to parse on, in the above example this was table\nhtml - the html to parse.\n\nResponses\:\nsuccess - the specified flag was returned.\nfailure - The parse failed, the html does not have enough occurrences of flag.\n
+]]></descriptionCdata>
+  <annotation>2c61b869-14bc-45f6-a064-a535d7092b90.description</annotation>
+  <name>HTML Parser</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="9b6e1c6e-2120-4037-9376-215aaa9027a0">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>html</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="b7d18c87-2263-42c7-8cfd-03cd80bfcca9">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>occurrenceNumber</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="b7085233-44c7-454c-90f3-1ec1d6fdf656">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>flag</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="66d0cd1b-3c75-40b4-90a2-cc874822f4a7">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Field_2</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${occurrenceNumber}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="4d1ebdc5-3ecb-4ca5-ba58-80f739f8cbcb">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Field_3</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${in3}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="a48d0cfd-7b4d-4c92-923f-a8d031536416">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Field_4</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${in4}</value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <scriptlet id="267dc549-4698-42fd-9b5f-99dc837a7d2b">
+    <annotation></annotation>
+    <name>Operation HTML Parser (f9b1cead-cc35-4f37-9d8a-38f5dce28930)</name>
+    <script>scriptletResponse = &quot;failure&quot;;
+try{//var tables = html;//html.split(&quot;&lt;&quot;+flag);
+var index = parseInt(occurrenceNumber);
+var startFlag = &quot;&lt;&quot;+flag;
+var endFlag = &quot;&lt;/&quot;+flag+&quot;&gt;&quot;;
+while (html.length &gt; 0 &amp;&amp; index &gt;0){
+	var subStart = html.indexOf(startFlag);
+	if (subStart &lt;0)
+		break;
+	var accum = subStart;
+	var end = getEnd(subStart+1);
+	index --;	
+	if (index == 0){
+		subStart = html.indexOf(&quot;&gt;&quot;, subStart);
+		html = html.substring(subStart + 1 , end);
+	}
+	else
+		html = html.substring(end+(endFlag).length, html.length); 
+}
+if (html.length &lt;= 0){
+	scriptletResponse = &quot;failure&quot;;
+	scriptletResult = &quot;&quot;+html; 
+}
+else{
+	scriptletResponse = &quot;success&quot;;
+	scriptletResult = &quot;&quot;+html; 
+}
+}
+catch (e){
+scriptletResponse = &quot;failure&quot;;
+scriptletResult = &quot;&quot;+e;
+}
+
+function getEnd(offset) {
+	var end = html.indexOf(endFlag, offset);
+	var recCheck = html.indexOf(startFlag, offset);
+	while (recCheck &lt; end &amp;&amp; recCheck &gt;= 0 &amp;&amp; end &gt;=0){
+		if (recCheck &gt; end)
+			return end;
+		else
+			offset = getEnd(recCheck+1)+1; 
+		recCheck = html.indexOf(startFlag, offset);
+		end = html.indexOf(endFlag, offset);
+	}
+	if (end &gt; 0)
+		return end
+	else
+		return html.length-1;
+}</script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="5b925302-b6b7-45f6-892f-567d3b90f35d">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="b50c09ac-5ae0-492b-869d-e0961b8b7aa7">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="1aba3bbb-e51a-4f01-b0f8-f9a4a8fc7dc3">
+    <annotation></annotation>
+    <name>Field 1</name>
+    <fieldName>Field_1</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="f687443c-6322-4d1e-a3e9-ce4070d7a229">
+    <baseIcon>website.png</baseIcon>
+    <basePath>Application/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="c483eba3-afb5-4979-9db5-be86c8052420">
+        <baseIcon>view.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <opRef>
+    <refId>ddd79f22-8b1e-4605-88d5-d912bb2da2b9</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

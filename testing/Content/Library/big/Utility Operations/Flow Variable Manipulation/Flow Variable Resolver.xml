@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="325f8ec6-0f6c-4843-8227-79d802b559db">
+  <descriptionCdata><![CDATA[325f8ec6-0f6c-4843-8227-79d802b559db.description=<pre>Resolves any flow variables in a String. This is useful if you have an input to a flow that references undefined flow variables, and define them later. Pass in the flow variable key name of the string that contains unresolved flow variables.\n\nInputs\:\nkeyName - The name of the flow variable that should have its value reresolved.\neraseUnresolved - A boolean value. If true, any unresolved flow variable references will be replaced by nothing (IE ${variable} disappears).\n\nResponses\:\nsuccess - One or more flow variables were replaced, or could not be resolved and were erased from the string.\nfailure - No flow variables were referenced in the string.\n\nReturns\:\nThe resulting string having had flow variable references replaced with the resolved values.\n\nExamples of usage \:\n\nI .\n\nSet flow variable \: fw_var \= ${systems}xyz${system}        \nSet flow variable \: system \= text\n\nFlow variable resolver \:\n\nkeyName \= fw_var                              \neraseUnresolved \= false\n\nThe response is success and the result is ${systems}xyztext. The "systems" flow varible does not exist but is not deleted.\n\nI' ( I reversed )\n\nSet flow variable \: system \= text\nSet flow variable \: fw_var \= ${systems}xyz${system}        \n\nFlow variable resolver \:\n\nkeyName \= fw_var                              \neraseUnresolved \= false\n\nWhen executing the second Set Flow Variable step, OO sees that it can resolve ${system} and does this. By the time the execution reaches Flow Variable Resolver, fw_var is already ${systems}xyztext. And the operation cannot resolve any more variables so it fails.\n\nII. \n\nSame as I, but eraseUnresolved is true.\n\nThe response is success and the result is xyztext. The systems flow variable does not exist and is deleted   \n\nIII. same as I,  but "system" flow variable does not exist.\n\nThe response is failure and the result is ${systems}xyz${system}. Both flow variables do not exist and are not deleted, failure occurs because nothing changed from the initial value.\n\nIV. \n\nSet flow variables\:\n\n- keyNames \= system,vs\n- myValues \= vs,1234\n\nFlow variable resolver\:\n- keyName \= ${system}\n- eraseUnresolved \= false\n\nAlthough we suply ${system} as the value for keyName, when debugging we see that the Step Input value is actually "vs" ( similar to I', OO already resolves the variable, before it reaches the functionality of the operation ). The variable "vs" exists in the context with the value 1234, which is also returned in the result. However, "vs" does not contain any flow variable names, therefore is not changed in the operation itself. Subsequenlty, the operation fails. </pre>
+]]></descriptionCdata>
+  <annotation>325f8ec6-0f6c-4843-8227-79d802b559db.description</annotation>
+  <name>Flow Variable Resolver</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="b6474c9d-6781-4aa0-8537-b6cabea09772">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>keyName</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="81a05e21-444c-4b57-baaf-88aaed8b890b">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>eraseUnresolved</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>false</value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <scriptlet id="6176069c-e1e0-47b6-b787-07a84fe013fa">
+    <annotation></annotation>
+    <name>Operation Flow Variable Resolver (aedbea49-e28b-4ed5-a64d-25681e3c8196)</name>
+    <script>try {
+templateString = scriptletContext.get(keyName);
+initialString = templateString; 
+unrezolvedVar = [];
+unrezolvedIndex = [];
+
+start = templateString .indexOf(&quot;${&quot;);
+end = templateString .indexOf(&quot;}&quot;);
+varName = &quot;&quot;
+
+while (start &gt;= 0){
+    varName = templateString.substring(start+2, end);
+    toReplace = &quot;${&quot;+varName+&quot;}&quot;;
+    replaceWith = scriptletContext.get(varName);
+               
+    if (typeof(replaceWith) == &quot;undefined&quot; || replaceWith == null || replaceWith == &quot;&quot;){
+        templateString = templateString.replace(toReplace, &quot;&quot;);
+        unrezolvedVar.push(toReplace);
+        unrezolvedIndex.push(start);
+    }else{
+        templateString = templateString.replace(toReplace, replaceWith);
+    }
+    
+    start = templateString.indexOf(&quot;${&quot;);
+    end = templateString.indexOf(&quot;}&quot;);
+}
+
+if (typeof(eraseUnresolved) == &quot;undefined&quot; || eraseUnresolved == null || eraseUnresolved == &quot;&quot; || eraseUnresolved.toString() == &quot;false&quot; ){
+    offset = 0;
+    for (i=0; i&lt;unrezolvedVar.length; i++){
+        templateString =  new java.lang.StringBuffer(templateString).insert(offset + unrezolvedIndex[i], unrezolvedVar[i]).toString();                                       
+        offset = parseInt(offset + unrezolvedVar[i].length);
+    }
+}
+
+scriptletResponse = &quot;success&quot;;
+scriptletResult = templateString;
+
+if (templateString == initialString){
+    scriptletResponse = &quot;failure&quot;;
+}}
+catch (e){
+    scriptletResponse = &quot;failure&quot;;
+    scriptletResult = &quot;&quot;+e;
+}</script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="628464de-4a79-4833-a9bb-76129003a6c7">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="92bd87c7-3e4c-48bd-be57-ba499a678611">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="a2a5d0a0-d77a-415b-8d95-e0229bb6fc4f">
+    <annotation></annotation>
+    <name>returnResult</name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="60395db5-e1ab-446c-af3d-64904a91132e">
+    <baseIcon>compare.png</baseIcon>
+    <basePath>Utilities</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-base-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>ContextResolver</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

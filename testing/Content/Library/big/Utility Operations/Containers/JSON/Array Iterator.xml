@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="32d81bbc-992c-4ec3-9d86-c1064c0cbb14">
+  <descriptionCdata><![CDATA[32d81bbc-992c-4ec3-9d86-c1064c0cbb14.description=This operation iterates through a string that contains an array in the JavaScript Object Notation format (JSON).  Each time this operation is called, it places the value of the current array element into the "returnResult" output and advances the iterator to the next array element.\n\nThe JSON format is used to encode arrays and other values using JavaScript notation.  For arrays, this means that the values need to be enclosed by square brackets, and each element in the array can be a string (enclosed by quotes), a number, true, false, null, or nested array or object.  Commas are always used as delimiters between array elements, and they can also appear within string elements. \n\nThe benefits of JavaScript arrays are that delimiters are fixed and cannot be confused with data, and that complex nesting of arrays and objects are supported.  The description of the enclosing folder, /Library/Utility Operations/Container/JSON has more examples, and the JSON format is described completely at http\://www.json.org.\n\nInputs\:\n    array - The JavaScript array that will be iterated through. A normal OO list is NOT a JavaScript array.\nExamples\:\n    For example, the following is a simple JSON array\:\n        [ "cat", "dog", "horse" ]\n    The equivalent OO list (that is not a JavaScript array) is\:\n        cat,dog,horse\n\n Results\:\n    returnResult - This is the primary output and contains the current array element or an exception message if something went wrong.  When incorporating this operation into a flow, you should assign a meaningful result value from this field.\n\nResponses\:\n   has more - The iterator has not yet reached the end of the array. The "returnResult" output will be populated with the value of the current element in the array, and the iterator will advance to the next element in the array.\n   no more - The iterator has reached the end of the array, and there is no more data to return.  The iterator will become undefined after this call, which basically will reset it so that if called again, this operation will begin another iteration at the beginning of the array.\n   failure - There was some error in iterating through the list, and the "returnResult" output will contain information about the error. This will occur if the input array is not a valid JavaScript array. You may wish to use a tool such as http\://www.jsonlint.com/ to help diagnose problems with JavaScript Object Notation.\n\nNotes\:\n1. Modifying the contents of the array during iteration is not supported unless the iteration has finished.\n2. The operation supports iterating through nested arrays.
+]]></descriptionCdata>
+  <annotation>32d81bbc-992c-4ec3-9d86-c1064c0cbb14.description</annotation>
+  <name>Array Iterator</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="464aced5-20d3-4c9f-819e-29fbf8b2d44d">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>array</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="8f4b9055-4592-47c1-9a44-07ac0d96d225">
+      <annotation></annotation>
+      <name>has more</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="5186b53e-397e-4ff4-b67b-18a265bae348">
+          <annotation></annotation>
+          <name>response</name>
+          <fieldName>response</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="c572d34c-db88-484c-86b6-6f3f2658d7c8">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>has more</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="f6796173-8bf1-42b1-9e70-cf583cd89cb7">
+      <annotation></annotation>
+      <name>no more</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="87feb29e-8041-4616-9afa-ada28793549e">
+          <annotation></annotation>
+          <name>response</name>
+          <fieldName>response</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="72a2f2d4-f60c-463f-998a-1db2048ae1cb">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>no more</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="051432db-726c-4bc1-a540-5ed9cc2a2250">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="454f35b6-68a9-4eb7-808e-612a589de5cb">
+          <annotation></annotation>
+          <name>response</name>
+          <fieldName>response</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="6dd43e1e-0141-4aab-ae12-49eef75904fe">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>failure</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="92644919-dc92-4687-8a92-453f3172394c">
+    <annotation></annotation>
+    <name>returnResult</name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="896734bc-9c1b-4905-ac22-331e496c7354">
+    <baseIcon>flow.png</baseIcon>
+    <basePath>/Basic/</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-base-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>Array Iterator</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="a84538ce-4ac9-456e-b32c-54a191f5a979">
+  <descriptionCdata><![CDATA[a84538ce-4ac9-456e-b32c-54a191f5a979.description=Parse a file path.\n\nInputs\:\n    filePath - The file path that needs to be parsed.\n\nResults\:\n    sharedPath - The path of the provided file and its root folder.\n    folderName -  The name of the folder containing the provided file.\n    fileName - The name of the file from the provided path.\n    folderPath - The full path to the provided folder without the containing file.\n    \nResponses\:\n    success - The path was successfuly parsed.\n    failure - Unable to parse the received path.\n\nExample\:\n    For the following filePath "C\:\\Users\\Administrator\\workspace\\test.zip" the expected result values are\:\n    sharedPath \= workspace\\test.zip\n    folderName \= workspace\n    fileName \= test.zip\n    folderPath \= C\:\\Users\\Administrator\\workspace
+]]></descriptionCdata>
+  <annotation>a84538ce-4ac9-456e-b32c-54a191f5a979.description</annotation>
+  <name>File Path Parser</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="7f63ab64-4e1e-4cd5-bcfa-1d716c35b869">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>filePath</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="e08628ce-3f2c-44f9-9559-a18847d6ce78">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="6d29d1b1-62dc-4cf7-80d7-f3b1f2fd48c9">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="10be8902-f5fa-436c-83d7-c41512408b36">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="f2a68e57-8571-49d6-bc67-913951858a64">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="075fff7f-a99e-4509-a52e-6bdd265fc9c3">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="2c8055f3-de19-4743-af34-1072ab022201">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>-1</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="16935dc6-f30d-4b4f-86a1-8bbf738977fb">
+    <annotation></annotation>
+    <name>folderPath</name>
+    <fieldName>folderPath</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="8376b854-9f87-4a7a-84bd-2e140a0c78c1">
+    <baseIcon>folder.png</baseIcon>
+    <basePath>/Operating System/</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-base-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>FilePathParserAction</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

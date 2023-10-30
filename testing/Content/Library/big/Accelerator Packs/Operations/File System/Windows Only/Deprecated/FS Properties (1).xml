@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="36235c54-6a8d-4e77-8f02-8d315a8b8f43">
+  <descriptionCdata><![CDATA[36235c54-6a8d-4e77-8f02-8d315a8b8f43.description=<pre>FSInfo reads the properties of a file and reports them back.\n\nInput Parameters\:\nSource - The file to read.\nuser - Username to use for thread impersonation on the RAS host when reading.\npassword - Password for the user.\n\nResponses\:\nfailure - The operation failed. The file probably could not be found.\nsuccess - The operation succeeded.\n\nExtra results\:\narchive - The file's archive status.\ncompressed - The file is compressed.\ndevice - Reserved for future use.\ndirectory - The file is actually a directory not a file.\nencrypted - The file is encrypted.\nhidden - The file is hidden.\nnormal - No attributes other than this one are set.\nnotcontentindexed - The file will not be indexed by the operating system.\noffline - The file is offline and not immediately available.\nreadonly - The file is read only and cannot be written to.\nreparsepoint - Contains a reparse point or block os user define data.\nsparsefile - Is a sparse file. this normally means it is a large file composed primarily of bits that are 0.\nsystem - This file is used by the operating system.\ntemporary - This file is temporary.\ncomments - The comments associated with the file. This information is available only if the file is portable executable file.\ncompany - The name of the company that produced the file. This information is available only if the file is Portable Executable.\nfileVersion - The file version number. This information is available only if the file is Portable Executable.\ninternalName - The internal name of the file. This information is available only if the file is Portable Executable.\nproductName - The name of the product this file is distributed with. This information is available only if the file is Portable Executable.\nproductVersion - The version of the product this file is distributed with. This information is available only if the file is Portable Executable.\n</pre>
+]]></descriptionCdata>
+  <annotation>36235c54-6a8d-4e77-8f02-8d315a8b8f43.description</annotation>
+  <name>FS Properties (1)</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="b35740c3-7544-4f58-80fc-8201e11e63dd">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Source</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="9252fe66-ef7e-4ee5-8d5c-5f8d44a7babb">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>user</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="bbc69609-124e-4f98-8083-4b93db7a1b37">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>password</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="ae84b820-a981-4142-9f92-1ea671d28960">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="3a96e7eb-02a2-438e-9caf-7ebb390b4f52">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="e2ab9a0f-1277-4316-97ee-4d278d7a2f90">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="bb00dde8-226a-41d3-b254-48ae4341cfe9">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="e22e81d2-2e07-4d7e-9edd-6f47b18dc69a">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="a5d39367-cdbc-4cde-9279-3d9d2b08d314">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="ffc90f53-f02e-4e7a-a8d8-adcf126bef38">
+    <annotation></annotation>
+    <name>returnCode</name>
+    <fieldName>returnCode</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="49e25d41-6c5c-4813-a79f-5db351f240ba">
+    <baseIcon>document_text.png</baseIcon>
+    <basePath>/Operating System/</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-dotnet-web-actions-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>dotNETWebActions_FileSystem.FSInfo</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideNRAS}</overrideGroupAlias>
+</operation>

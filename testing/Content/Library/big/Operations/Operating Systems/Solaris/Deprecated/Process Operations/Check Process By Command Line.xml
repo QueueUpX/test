@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="8419a3e5-4cff-4b3f-ac54-79d710217df2">
+  <descriptionCdata><![CDATA[8419a3e5-4cff-4b3f-ac54-79d710217df2.36fba1f6-3a5f-49ee-bbd4-079ae6c4e294.prompt=Enter password
+8419a3e5-4cff-4b3f-ac54-79d710217df2.description=This uses a full command line including all arguments to determine whether a service is running. \n\nInputs\:\nhostname - The host to check for the process on.\nidentity - credentials to use when authenticating to hostname.\nservice - The name of the process to check for.\n\nResult\: the PID of the service\n\nResponses\:\n   success if the service is running\n   failure if the service is not running or the data could not be obtained (typically because of an incorrect hostname, username or password)
+8419a3e5-4cff-4b3f-ac54-79d710217df2.f39b2cc5-d876-4529-a95b-49e6388d14b3.prompt=Enter username
+]]></descriptionCdata>
+  <annotation>8419a3e5-4cff-4b3f-ac54-79d710217df2.description</annotation>
+  <name>Check Process By Command Line</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="12ff073b-5035-45a1-9e8a-a5238fd964c5">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>hostname</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="f39b2cc5-d876-4529-a95b-49e6388d14b3">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>identityUsername</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>8419a3e5-4cff-4b3f-ac54-79d710217df2.f39b2cc5-d876-4529-a95b-49e6388d14b3.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter></sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="36fba1f6-3a5f-49ee-bbd4-079ae6c4e294">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>identityPassword</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>8419a3e5-4cff-4b3f-ac54-79d710217df2.36fba1f6-3a5f-49ee-bbd4-079ae6c4e294.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter></sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="6f83299a-6b27-4e87-8fd6-216abc854c6d">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>service</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="d3ee47c6-7bdf-437b-8242-616cefe28135">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Environment</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="a6b0bc15-01c3-4498-9ac1-602104f236a3">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>User</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${identityUsername}</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="a71da91a-c812-4fff-8418-39d578800328">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Command</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>pgrep -f -l &quot;${service}&quot;</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="29e429c2-04c9-4c38-aadb-9a078460c4c7">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Argument</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="7b89944b-3c39-4756-af84-07ad766f0015">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Host</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${hostname}</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="26d3a1bf-3a80-43e2-8768-a770f64b238e">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Private_Key_File</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="3bd5b73d-63ef-46ab-b7f9-49b0cdc21d18">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Password</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>{OBFUSCATED}US5wnHkQ47E2L9FCXJ5F+T0xXjijbPyz9ZnDWsqUaQ4=</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="568efa4e-6421-42a0-bf08-f836b50ea4c8">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Pty</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>false</value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <scriptlet id="12bf285d-f040-4c4a-a5af-3cb667a8556c">
+    <annotation></annotation>
+    <name>Operation Check Process By Command Line (76239d2c-ed19-4dbb-9448-5f1a55274d79)</name>
+    <script>// set up default returns
+scriptletResponse = &quot;failure&quot;;
+scriptletResult = &quot;-1&quot;;
+
+// convert the output data into lines
+data = scriptletRawResult[&apos;Output String&apos;];
+lines = data.split(/\n/);
+ for (i = 0; i &lt; 1000; i++) {
+   if (lines[i] == null) break;
+   // if this line is just our own pgrep command then ignore it
+   if (lines[i].match(/pgrep/) != null) continue;
+   // make sure we didn&apos;t get some stray white space
+   if (lines[i].match(service) != null) {
+      // okay, now we have the real data, turn it into columns
+      cols = lines[i].split(/\s/);
+      scriptletResult = lines[1];
+      scriptletResponse = &quot;success&quot;;
+      // we found it so break out
+      break;
+   }
+}</script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="31d8e1d9-1234-4f30-b123-57f128b065be">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="5d662a94-d403-4a94-89de-72ad6fb9333f">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="682fd4ca-d50c-46e2-b422-a5ba00de2224">
+    <annotation></annotation>
+    <name>Code</name>
+    <fieldName>Code</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="013d9430-98d3-4c4d-ab1f-61ffaa622400">
+    <baseIcon>thread.png</baseIcon>
+    <basePath>Others/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="94d4c1e0-8bc0-4439-8e8e-eb25156a0280">
+        <baseIcon>wrench.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <opRef>
+    <refId>46c0f7ea-a981-4ddc-bcaf-d4faed7af0b6</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

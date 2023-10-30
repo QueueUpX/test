@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="b5fd147c-9c72-4bb5-b2a6-b3d411c52aa9">
+  <descriptionCdata><![CDATA[b5fd147c-9c72-4bb5-b2a6-b3d411c52aa9.description=<pre>\nGet the IP Address of a Host\n\n Inputs\:\n    hostname\t- The hostname to perform a lookup on.\n    dnsServer - (optional) dns server to perform lookup against.\n    ipVersion - (optional) specify if you want only IPv6 results with "6", if you want only IPv4 results with "4". Any other value will return both IPv4 and IPv6 in ipAddressList result, and the first address found in ipaddress result.\n    timeout - The timeout in seconds.\n\nResult \:\n    ipaddress\t- Returns the IP address.\n    ipAddressList - Returns a List with all IP address spearated by ','.\n \n Responses\:\n    success - The operation completed successfully.\n    failure - The operation failed.\n</pre>
+b5fd147c-9c72-4bb5-b2a6-b3d411c52aa9.f07d3d21-e80b-448e-9024-d5453cea2310.prompt=Enter the Host Name \:
+]]></descriptionCdata>
+  <annotation>b5fd147c-9c72-4bb5-b2a6-b3d411c52aa9.description</annotation>
+  <name>DNS Lookup</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="f07d3d21-e80b-448e-9024-d5453cea2310">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>hostname</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>b5fd147c-9c72-4bb5-b2a6-b3d411c52aa9.f07d3d21-e80b-448e-9024-d5453cea2310.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="05b191fa-ac2a-4862-b689-c8245e573406">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>dnsServer</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="4f39055d-82f3-47dc-abd1-c1ed11b7cd9f">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>ipVersion</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="a654d033-22ec-4101-8bce-27af5f94efce">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>timeout</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="08703ca5-6bc1-447f-accb-b31e1391a35a">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="1b008174-7168-4e29-999d-53de816a52f8">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="dc6df392-93b5-4580-b562-ca054d21192b">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="be0404d5-bf6a-4291-be6f-cbadf2fa6601">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="3c13c3f6-2e52-4b54-8e49-aeb4f60be90b">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="c1e419ed-8843-44e1-a4bc-fdc716a1816c">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>-1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="0375c196-2b5b-4531-9f1b-1798f0863722">
+    <annotation></annotation>
+    <name>ipaddress</name>
+    <fieldName>ipaddress</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="7c5f6d50-eb78-4bf0-9466-4920c6b038d9">
+    <baseIcon>client_network.png</baseIcon>
+    <basePath>/Networking/</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-base-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>DNS Lookup</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

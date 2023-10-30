@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="6204dede-9a7e-4272-9b98-be1380f1e8b2">
+  <descriptionCdata><![CDATA[6204dede-9a7e-4272-9b98-be1380f1e8b2.56ba1202-aa88-43e8-8c79-25e64c0ed5d0.prompt=Ignore Case
+6204dede-9a7e-4272-9b98-be1380f1e8b2.description=<pre>\nChecks to see if a list contains every element in another list.\n\nInputs\:\nsublist -The contained list.\ncontainer - The containing list.\ndelimiter - A delimiter separating elements in the two lists. Default is a comma\nignoreCase - If set to 'True' then the compare is not case sensitive. Default is True\n\nResponses\:\ntrue - sublist is contained in container.\nfalse - sublist is not contained in container.\n\nResults\:\nResult - All items contained in the sublist that are not in the container. \n</pre>    
+]]></descriptionCdata>
+  <annotation>6204dede-9a7e-4272-9b98-be1380f1e8b2.description</annotation>
+  <name>Contains All</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="0680cac0-cba4-42ec-bca4-b44aabd8ff0a">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>sublist</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="ff175eaa-46a7-4a47-a18e-c133a3e3d130">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>container</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="f1c1ec2c-2845-4496-ab69-f0206b454882">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>delimiter</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="56ba1202-aa88-43e8-8c79-25e64c0ed5d0">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>ignoreCase</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>6204dede-9a7e-4272-9b98-be1380f1e8b2.56ba1202-aa88-43e8-8c79-25e64c0ed5d0.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <link>
+        <refId>362bc113-e130-45d5-be90-832d5de87730</refId>
+        <refName>Boolean</refName>
+      </link>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <scriptlet id="6de158b4-2ed3-4d1b-bb77-7aa5cbacbbf1">
+    <annotation></annotation>
+    <name>Operation Contains All (418595e1-7163-4ed8-bab3-707025252cea)</name>
+    <script>// default response
+scriptletResponse = &quot;false&quot;;
+
+// All items contained in the sublist that are not in the container.
+scriptletResult = &quot;&quot;;
+
+// check delimiter, default to comma
+if (typeof(delimiter) == &quot;undefined&quot;)
+    limiter = &quot;,&quot;;	
+else
+    limiter = delimiter;	
+
+// check for case sensitive compare. Default is True
+var caseIgnore = true;
+if (typeof(ignoreCase) == &quot;undefined&quot;) {
+    // do nothing, default to true
+} else if(ignoreCase.toLowerCase() == &quot;false&quot;) {
+    caseIgnore = false;
+} 
+
+// split sublist based on the delimiter
+var sub = sublist.split(limiter);
+
+// split container list based on the delimiter
+var parent = container.split(limiter);
+
+if (sub.length == 1){
+   if (caseIgnore)
+       sub = sub[0].toLowerCase();
+       
+   if (contains(parent, sub, caseIgnore)) 
+       scriptletResponse = &quot;true&quot;;
+   else
+	   scriptletResult = sub;
+} else {  
+    missing = &quot;&quot;;
+
+    if (sub==null || parent==null) {
+      scriptletResponse = &quot;false&quot;;
+    } else {
+	    for (count = 0; count &lt; sub.length; count++){
+		    var curr = sub[count];
+		    if (caseIgnore)
+		        curr = curr.toLowerCase();
+		    if (!contains(parent, curr, caseIgnore)){
+			    if (missing.length &gt; 0){
+				    missing += delimiter;
+				    missing += curr;
+			    } 
+			    else
+				    missing = curr;
+		    }
+	    }
+    }
+    if (missing.length &gt; 0){
+	    scriptletResponse = &quot;false&quot;;
+	    scriptletResult = missing;
+    } else {
+	    scriptletResponse = &quot;true&quot;;
+	    scriptletResult = &quot;&quot;;
+    }
+}
+
+function contains(parent, sub, caseIgnore) {
+	for (icount = 0; icount &lt; parent.length; icount++){
+		var p = parent[icount];
+		if (caseIgnore) 
+		    p = p.toLowerCase();
+		if (p == sub) 
+		    return true;
+	}
+	return false;
+}</script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="324a1618-a092-4a89-9af2-59cae7c94c8b">
+      <annotation></annotation>
+      <name>true</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="713b4c04-a58a-475e-b3ea-0d0b4ac0287d">
+      <annotation></annotation>
+      <name>false</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>RESOLVED</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="9b2e6663-8d23-4218-ac0a-84ea54b3da45">
+    <annotation></annotation>
+    <name>returnResult</name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="74dec90c-7e20-4697-acdf-404afe8deea8">
+    <baseIcon>compare.png</baseIcon>
+    <basePath>Utilities/</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <opRef>
+    <refId>ddd79f22-8b1e-4605-88d5-d912bb2da2b9</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

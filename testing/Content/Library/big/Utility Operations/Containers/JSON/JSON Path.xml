@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="143f33ad-9965-44f3-b590-35e31d5a6018">
+  <descriptionCdata><![CDATA[143f33ad-9965-44f3-b590-35e31d5a6018.description=This operation takes a reference to JSON (in the form of a string) and runs a specified JSON Path query on it. It returns the results as a JSON Object. \n\nInputs\:\n    json - The JSON in the form of a string.\n    jsonPathQuery - The JSON Path query to run. See details and examples in the Notes section below.\n\nResults\:\n    returnResult - This is the primary output. It contains the resulted JSON from the given path.\n\nResponses\:\n    success - The operation completed as stated in the description.\n    failure - The operation completed unsuccessfully.\n\nNotes\:\n1.Query syntax\:\nJSONPath \t\tDescription\n------------                           -------------     \n$ \t\tThe root object/element\n@ \t\tThe current object/element\n. or [] \t\tChild operator\nn/a \t\tParent operator\n.. \t\tRecursive descent. JSONPath borrows this syntax from E4X.\n* \t\tWildcard. All objects/elements regardless of their names.\nn/a \t\tAttribute access. JSON structures do not have attributes.\n[] \t\tSubscript operator. XPath uses it to iterate over element collections and for predicates. In JSON it is the native array operator.\n[,] \t\tUnion operator in XPath results in a combination of node sets. JSONPath allows alternate names or array indices as a set.\n[start\:end\:step] \tArray slice operator borrowed from ES4.\n?() \t\tApplies a filter (script) expression.\n() \t\tSript expression, using the underlying script engine.\n\n2.Examples\:\nThe examples below use the following JSON string value\:\n{\n    "store"\: {\n        "book"\: [\n            {\n                "category"\: "reference",\n                "author"\: "Nigel Rees",\n                "title"\: "Sayings of the Century",\n                "price"\: 8.95\n            },\n            {\n                "category"\: "fiction",\n                "author"\: "Evelyn Waugh",\n                "title"\: "Sword of Honour",\n                "price"\: 12.99\n            },\n            {\n                "category"\: "fiction",\n                "author"\: "Herman Melville",\n                "title"\: "Moby Dick",\n                "isbn"\: "0-553-21311-3",\n                "price"\: 8.99\n            },\n            {\n                "category"\: "fiction",\n                "author"\: "J. R. R. Tolkien",\n                "title"\: "The Lord of the Rings",\n                "isbn"\: "0-395-19395-8",\n                "price"\: 22.99\n            }\n        ],\n        "bicycle"\: {\n            "color"\: "red",\n            "price"\: null\n        }\n    },\n    "expensive"\: "10"\n}\n\nJSONPath \t\t\tResult\n------------                                                ---------\n$.store.book[*].author \t\tThe authors of all books in the store\n$...author \t\t\tAll authors\: ["Nigel Rees","Evelyn Waugh","Herman Melville","J. R. R. Tolkien"]\n$.store.* \t\t\tAll items in store, which are some books and a red bicycle.\n$.store..price \t\tThe price of everything in the store\n$..book[2] \t\t\tThe third book\n$..book[(@.length-1)] or $..book[-1\:] \tThe last book in order\n$..book[0,1] or $..book[\:2] \tThe first two books\n$..book[?(@.isbn)] \t\tFilter all books with isbn number\n$..book[?(@.price<10)] \t\tFilter all books wholse price is less than 10\n$..* \t\t\tAll Elements in XML document. All members of JSON structure. \n$.store.book[0]\t\tReturns the details of the first book\: reference,Nigel Rees,Sayings of the Century,8.95\n$.store.bicycle\t\t\tReturns the details of the bicycle including null in JSON format\: {"color"\:"red","price"\:null}
+]]></descriptionCdata>
+  <annotation>143f33ad-9965-44f3-b590-35e31d5a6018.description</annotation>
+  <name>JSON Path</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="5df6cb97-1af1-4d30-85cb-cb21b3c6ab65">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>json</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="a203b1d7-f769-4570-8e2f-91f4e685e0df">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>jsonPathQuery</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="8033997c-dad6-4705-8b6c-660d68cb1b73">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="ee15d9e9-3f9b-4aeb-aa0c-c87746d4ca6d">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="e3860863-94de-4d88-bda8-1d0c833ff49a">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="f355f5da-7f3c-4c1c-bdd4-bc782d6e6fe5">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="b0e2c663-406a-45ee-bafd-8f868708ad69">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="f5012714-0091-4ac0-a1ac-2cc9a1c0b1cd">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>-1</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="303060df-6771-4bf1-b14c-ef6600feaa03">
+    <annotation></annotation>
+    <name>returnResult</name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="464ea4fd-9178-4210-bad1-8926e6569fef">
+    <baseIcon>text_msg.png</baseIcon>
+    <basePath>/E-mail/</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-base-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>JSON Path</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

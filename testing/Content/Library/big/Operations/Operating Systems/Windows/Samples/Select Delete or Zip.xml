@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="b67c7169-c66e-457e-8582-4894bec639fc">
+  <descriptionCdata><![CDATA[b67c7169-c66e-457e-8582-4894bec639fc.9bf7ed43-df9f-4e4d-95c9-ee78378b582e.prompt=Select the Operation \:
+b67c7169-c66e-457e-8582-4894bec639fc.description=<pre>\nAllows a user to select whether to delete a file or zip a file in a local machine or in  a remote machine.\n\nInputs\:\nAction - The action to perform.\n\nNote\:\nThis will not perform any operation. Simply a user defined Operation and used  to pass the control to next operation. \n\nResult \:\nthe given action.\n\nResponses\:\nLocalDelete \t- Files of specified extension from the given path will be deleted in the local machine\nLocalZip \t- Files of specified extension from the given path will be zipped in to a given archive name in the local \t\tmachine\nRemoteDelete - Files of specified extension from the given path will be deleted in the Remote machine\nRemoteZip\t- Files of specified extension from the given path will be zipped in to a given archive name in the \t\tRemote machine  \n</pre>\n
+]]></descriptionCdata>
+  <annotation>b67c7169-c66e-457e-8582-4894bec639fc.description</annotation>
+  <name>Select Delete or Zip</name>
+  <categories>
+    <category>
+      <refId>52a35ef3-32cc-4523-ae68-45de1dd8efdb</refId>
+      <refName>Windows OS</refName>
+    </category>
+  </categories>
+  <inputs>
+    <userInputBinding id="9bf7ed43-df9f-4e4d-95c9-ee78378b582e">
+      <annotation></annotation>
+      <toContextKey>strOperation</toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Action</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>b67c7169-c66e-457e-8582-4894bec639fc.9bf7ed43-df9f-4e4d-95c9-ee78378b582e.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <link>
+        <refId>35664479-3777-4e9f-b7af-dd2e02d4e97d</refId>
+        <refName>Selection List Delete or Zip</refName>
+      </link>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <scriptlet id="8ccb38e8-35cd-4879-afc5-da16caea6206">
+    <annotation></annotation>
+    <name>Operation Select Delete or Zip (a96305de-b602-4751-9412-663e13f3a87d)</name>
+    <script>scriptletContext.put(&quot;ArchiveName&quot;, scriptletRawResult[&apos;Action&apos;]);
+if(typeof Action != &apos;undefined&apos; &amp;&amp; null != Action &amp;&amp; Action.length &gt; 0){
+	if(Action == &quot;LocalDelete&quot;){
+		scriptletResponse = &quot;LocalDelete&quot;;
+	}
+	else if (Action == &quot;LocalZip&quot;){
+		scriptletResponse = &quot;LocalZip&quot;;
+	}
+	else if (Action == &quot;RemoteDelete&quot;){
+		scriptletResponse = &quot;RemoteDelete&quot;;
+	}
+	else if (Action == &quot;RemoteZip&quot;){
+		scriptletResponse = &quot;RemoteZip&quot;;
+	}
+	scriptletResult = Action;
+}else{
+	scriptletResult = &quot;&quot;;
+}</script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="f385e31e-1a11-4033-82ac-d61e4624be9d">
+      <annotation></annotation>
+      <name>LocalDelete</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>DIAGNOSED</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="4779db8f-da7f-42cc-93b9-0c79d917d1bf">
+      <annotation></annotation>
+      <name>LocalZip</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>DIAGNOSED</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="0e699ed6-b504-4466-992e-1c640e6b3455">
+      <annotation></annotation>
+      <name>RemoteDelete</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>DIAGNOSED</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="bfdf0357-f1c2-422c-ab89-0d0857f44a79">
+      <annotation></annotation>
+      <name>RemoteZip</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>DIAGNOSED</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="3a015bcc-953a-4707-abe9-64a7cc09e893">
+    <annotation></annotation>
+    <name>returnResult</name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="46c37d98-1872-4eaa-802c-f94fdc1cd5bd">
+    <baseIcon>scriptlet.png</baseIcon>
+    <basePath>System</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <opRef>
+    <refId>ddd79f22-8b1e-4605-88d5-d912bb2da2b9</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

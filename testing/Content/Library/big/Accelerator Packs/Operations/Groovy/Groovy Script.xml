@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="abb786ae-d191-45e2-8888-dc25a8e96a1e">
+  <descriptionCdata><![CDATA[abb786ae-d191-45e2-8888-dc25a8e96a1e.description=<pre>\nRuns a Groovy script either as is, or from a file. \n\nInputs\:\n    script - The Groovy script to run. \n    file - The full local path or UNC to the file containing the Groovy script. Examples of file extensions\: .txt, .groovy, .gy, .gvy\n\nResults\:\n    returnResult - This is the primary output. Contains either the object returned by the Groovy script converted to text, or an exception message if the script could not be ran.\n    displayOutput - The displayed output of the script. \n\nResponses\:\n    success - The operation completed as stated in the description.\n    failure - The operation completed unsuccessfully.\n\nNotes\:\n1. You can also use variables from OO in the Groovy script. In order to do this\:\n    1.1 Add to the operation or step an input having the name of the Groovy variable.\n    1.2 Use the variable in the Groovy script as if initialized in the script.\n    1.3 At runtime, the Groovy variable will have the string value of the OO variable.\n \nExample\:\n\nIf you add the following input to the step\:\n    param \= 4\n\nAnd you execute the following script\:\n    def newParam \= param + 1;\n    println newParam;\n    return param;\n\nThe results will be\:\nreturnResult\=4 \ndisplayOutput\=41 \nThis is because <newParam> will have the value of <param> concatenated with 1;\n\n2. In order to read the script from a file residing in a remote shared location, make sure that\:\n    2.1 The RAS and remote hosts are in the same domain.\n    2.2 The domain user under which runs the RAS, needs to have read permissions on the file contained in the shared location. \n</pre>
+]]></descriptionCdata>
+  <annotation>abb786ae-d191-45e2-8888-dc25a8e96a1e.description</annotation>
+  <name>Groovy Script</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="cfa4bb8b-1231-4ef4-997d-39b6757f0c73">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>script</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="cc01abe2-1b75-4f95-b48a-5f6bba28b563">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>file</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="96ec2937-0a37-41a7-9192-f4f1b3f3e1a3">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="71fa9913-aae2-43ad-9a28-ccf244daea73">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="d8fe297e-372e-4e87-b3cf-617e5a4bd5d3">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="c2356f11-84bf-42bb-b888-161598e0a9bd">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="aa0b4c86-d15a-46ac-8c27-a21d75869b9a">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="b88d5c0d-a07f-4783-b54f-68b792694018">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>-1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="15c147e1-a8bb-41f5-9226-ee79876b51ce">
+    <annotation></annotation>
+    <name>returnCode</name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="0b89a2c3-1dfb-4801-8b36-8ddeb61a7eec">
+    <baseIcon>document_xml.png</baseIcon>
+    <basePath>/Databases/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="788001b6-cbe5-41b3-bed0-02df23d1581c">
+        <baseIcon>put.png</baseIcon>
+        <basePath>/Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-groovy-legacy-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>com.hp.oo.content.Groovy.GroovyScript</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="3e260540-0a32-4596-9dbd-34527126396b">
+  <descriptionCdata><![CDATA[3e260540-0a32-4596-9dbd-34527126396b.25b3b659-6a0f-4a2c-8803-5194d3a00b9e.prompt=Restart reading the file from the beginning when finished
+3e260540-0a32-4596-9dbd-34527126396b.2fddd4f0-e725-47ba-ae83-47c61629c57e.prompt=Filter String\:
+3e260540-0a32-4596-9dbd-34527126396b.40795fc0-a1aa-489b-9d00-722f69ae59f7.prompt=Source File\:
+3e260540-0a32-4596-9dbd-34527126396b.description=This operation reads the content of a file. The operation can be used to read the entire file content in one step or to iterate the file line by line.\n\nInputs\:\n    source - The full path and filename of the file to be read. A UNC path can be supported as the source file path.\n    filter - The string to filter on (leave blank for no filter). If this filter is not blank, all rows that contain the filter string will be returned. If no match is found, no lines will be returned.\n    iterate - Determines whether the content of the file should be iterated or not. If set to "true", the content of the file will be iterated row by row and for each subsequent call, the next row will be returned. If set to "false", the content of the file will not be iterated and only the number of lines that matched the "filter" will be returned.\nValid values\: true, false\n    delimiter \u2013 If specified, the entire content of the file  will be read, the specified value will be used as a delimiter between the rows and  the resulting content will be returned. If left blank, the next row will be returned for each subsequent call. \n    eofReset - If set to true, after the No More response has been returned once, the operation will restart reading the file from the beginning on the next call.\nValid values\: true, false\n    characterSet - The character set of the file to read from. For invalid or empty input value the default encoding will be used. \nValid values\: UTF-8, UTF-16 and UTF-32 \nDefault value\: UTF-8\n\nResults\:\n    returnCode - This is the primary output. It is 0 if the operation completed successfully  (or if more rows are available when iterate is set to true), 1 if no more items (if iterate is set to true) and -1 in case of failure. \n    count - The number of lines that matched the filter, or if no filter specified, the total lines read (if iterate is false, or delimiter is not null). Otherwise, it returns the number of rows available for retrieval from the source file.\n    returnResult - Each row by turn (if iterate is true and delimiter is blank) or all rows separated by the delimiter (if iterate is true and delimiter is not blank).\n    exception - An exception message if the operation fails.\n\nResponses\:\n    success - The operation successfully read the file (if iterate is true, more rows are available).\n    no more items - No more items are available for retrieval (if iterate is set to true).\n    failure - The operation failed to read the file.\n\nNotes\:\n1.  Please check File System->Cross Platform properties for more information regarding the use of network share paths with this operation.\n2. The "filter" and "eofReset" fields are taken into consideration only if iterate is set to true. Otherwise, they have no impact on the result.\n3. Note that the "filter" match is not performed based on a regular expression, although the filter field may contain one. The operation only checks for each row if it contains the string given as filter. \n4. If "iterate" is set to "true" and "delimiter" is not null, the entire file may or may not still be fully read at once, depending on size. \n5. If "iterate" is set to "true", then all matching lines are pushed into the Session and then, subsequent calls to the operation, result in the next line being returned.\n6. If the value provided in the "delimiter" field is not null, the entire file will be read once and returned regardless of the value of the "iterate" field.\n\nExamples\:\n    The following examples are used to illustrate the behavior of the operation for three specific use cases. For these examples, the operation will use as the input source a file called "example.txt", with the absolute path "C\:\\Program Files\\example.txt" and the following content\:\n        "line1\n         line2\n         line3\n         line4"\n1. This is a valid inputs example for reading the content of a file, when the "iterate" input field is set to "true" and the "delimiter" input field is not left blank\:\n        source\: C\:\\Program Files\\example.txt\n        filter\:\n        iterate\: true\n        delimiter\: ,\n        eofReset\: false\n        characterSet\: UTF-8\n    In this case, the "returnResult" output field of the operation will have the following value\: line1,line2,line3,line4\n2. This is a valid inputs example for reading the content of a file, when the "iterate" input field is set to "true" and the delimiter input field is left blank\:\n        source\: C\:\\Program Files\\example.txt\n        filter\:\n        iterate\: true\n        delimiter\:\n        eofReset\: false\n        characterSet\: UTF-8\n    In this case, the file will be iterated row by row in four subsequent calls. At each call, the "returnResult" output field of the operation will contain the value of one line from the file, in the same order as they are found in the source file (i.e. line1, line2, lin3, line4). \n3. This is a valid inputs example for reading the content of a file, when the "iterate" input field is set to "false" and the "delimiter" input field is left blank\:       \n        source\: C\:\\Program Files\\example.txt\n        filter\:\n        iterate\: false\n        delimiter\:\n        eofReset\: false\n        characterSet\: UTF-8\n    In this case, the "returnResult" output field of the operation will return all the text without iterating it\:\n        "line1\n         line2\n         line3\n         line4"\n         and the count output field will contain the value 4 (representing the number of lines in the file).\n \n
+3e260540-0a32-4596-9dbd-34527126396b.e7bae6f3-1b90-442c-ab58-60955d47dba4.prompt=Character Set\:
+]]></descriptionCdata>
+  <annotation>3e260540-0a32-4596-9dbd-34527126396b.description</annotation>
+  <name>Read from File</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="40795fc0-a1aa-489b-9d00-722f69ae59f7">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>source</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>3e260540-0a32-4596-9dbd-34527126396b.40795fc0-a1aa-489b-9d00-722f69ae59f7.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="2fddd4f0-e725-47ba-ae83-47c61629c57e">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>filter</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>3e260540-0a32-4596-9dbd-34527126396b.2fddd4f0-e725-47ba-ae83-47c61629c57e.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="7e4baba3-3ab4-40f6-9b06-d33dd27d66f8">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>iterate</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>true</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="c4910444-ee43-47ae-98ab-487d054c47fc">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>delimiter</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="25b3b659-6a0f-4a2c-8803-5194d3a00b9e">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>eofReset</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>3e260540-0a32-4596-9dbd-34527126396b.25b3b659-6a0f-4a2c-8803-5194d3a00b9e.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="e7bae6f3-1b90-442c-ab58-60955d47dba4">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>characterSet</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>3e260540-0a32-4596-9dbd-34527126396b.e7bae6f3-1b90-442c-ab58-60955d47dba4.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="b2d05f9b-46f9-4d2e-bf69-9f61e838a001">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="fc7bce28-d81c-47ab-9d96-90214fec1cc1">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="1745785b-16f9-4767-839f-4be59fe30b92">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="23dbf9f7-df01-432f-9e8e-5f88ced7e2c5">
+      <annotation></annotation>
+      <name>no more items</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules>
+        <expression id="ddc574e3-5762-4d96-82a5-335931270df0">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="e698edf7-5296-40e2-aa85-01df932ea610">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="881c9c7c-ec49-4b8b-bbde-13214f2089a4">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="5a700d7f-bac1-4535-bbe8-06f48eb5c007">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="1720a857-fde3-4994-ab2b-554838aef568">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>-1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions>
+    <expression id="1a9aaf1e-b652-4003-ad3d-aea64b5d88ed">
+      <annotation></annotation>
+      <name>returnResult</name>
+      <fieldName>FailureMessage</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters/>
+    </expression>
+  </availableResultExpressions>
+  <resultExpression id="7777fe77-dada-49d5-966c-3a67508cce36">
+    <annotation></annotation>
+    <name>returnCode</name>
+    <fieldName>returnCode</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="8cd3ff6c-8f4d-428e-8900-ce69255796bc">
+    <baseIcon>document_text.png</baseIcon>
+    <basePath>/Operating System/</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-fs-legacy-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>com.iconclude.content.actions.filesystem.FSReadFile</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

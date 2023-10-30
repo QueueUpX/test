@@ -1,0 +1,570 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="823041d0-151b-4200-b6f8-46d879a0e79c">
+  <descriptionCdata><![CDATA[823041d0-151b-4200-b6f8-46d879a0e79c.056ceaaa-9010-4c90-bf2f-c274333c53b7.prompt=Delimiter\:
+823041d0-151b-4200-b6f8-46d879a0e79c.1f460ef7-2deb-4b9b-8190-5bf5f3bd8dcc.prompt=Encryption key alias\:
+823041d0-151b-4200-b6f8-46d879a0e79c.29a39e9e-bf28-423e-997a-eec329ca74c3.prompt=Subject\:
+823041d0-151b-4200-b6f8-46d879a0e79c.2ac82f59-b0d2-440d-b26d-0f11fb4cbeca.prompt=Username\:
+823041d0-151b-4200-b6f8-46d879a0e79c.30d2251f-7fe8-409e-ab5d-597a06d421be.prompt=Attachments\:
+823041d0-151b-4200-b6f8-46d879a0e79c.34b14a20-a3a3-41bb-90a3-6cc368c53c0e.prompt=Body\:
+823041d0-151b-4200-b6f8-46d879a0e79c.4c9449dc-3cfd-4884-93b5-684e773e359f.prompt=From\:
+823041d0-151b-4200-b6f8-46d879a0e79c.4e78b5bb-ba10-4aba-8dc2-26423e0999d0.prompt=enable TLS\:
+823041d0-151b-4200-b6f8-46d879a0e79c.c1b11337-564c-4f5a-afc4-6f07968e60f6.prompt=Content transfer encoding\:
+823041d0-151b-4200-b6f8-46d879a0e79c.c40ab3fd-4fbd-4a21-b1c6-f1b2219751b5.prompt=Encryption keystore\:
+823041d0-151b-4200-b6f8-46d879a0e79c.cc69294c-6577-43e0-8645-2e9f23aa8c00.prompt=Encryption keystore password\:
+823041d0-151b-4200-b6f8-46d879a0e79c.d1e8b11f-8e8e-489a-b848-a88da36e3a27.prompt=To\:
+823041d0-151b-4200-b6f8-46d879a0e79c.description=<pre>This operation is used to send a smtp email.\n \nInputs\:\n    hostname - The hostname or ip address of the smtp server.\n    port - The port smtp service is listening.\n    from - From email address.\n    to - A delimiter separated list of email address(es) or recipients.\n    cc - A delimiter separated list of email address(es) or recipients, to be placed in the CC.\n    bcc - A delimiter separated list of email address(es) or recipients, to be placed in the BCC.\n    subject - The email subject. If a subject spans on multiple lines, it is formatted to a single one.\n    body - The body of the email.\n    htmlEmail - The value should be true if the email is in rich text/html format. The value should be false if the email is in plain text format.\nValid values\: true, false. \nDefault value\: true. \n    readReceipt - The value should be true if read receipt is required, else false. \nValid values\: true, false. \nDefault value\: false. \n    attachments - A delimiter separated list of files to attach (must be full path).\n    headers - This input contains extra headers you want to be added in the mail. The input has a 'Map' format. Header names are separated from header values through a column delimiter and headers will be separated between them by a row delimiter.\nExample\:\n    Sensitivity\:Company-Confidential\n    message-type\:Multiple Part\n    Sensitivity\:Personal\nIn the above example, the columnDelimiter is "\:" and the rowDelimiter is the new line. You can define multiple values for the same header like in the example above. The delimiters can have multiple characters, but be careful that the rowDelimiter is not a substring of the columnDelimiter.\n    rowDelimiter - The delimiter that separates headers in the 'headers' input.\nDefault value\: "\:"\nExamples\: '|', '\='\n    columnDelimiter - The delimiter that separates the header name from header value on the same row.\nDefault value\: "\\n"\t\nExamples\: ';', '\#'\n    username - If SMTP authentication is needed, the username to send.\n    password - If SMTP authentication is needed, the password to use.\n    authToken - The OAuth 2.0 token used for connecting to the email host. If given, the password input will be ignored.\n    characterSet - The character set encoding for the entire email which includes subject, body, attached file name and the attached file. \nValid values\: UTF-8, UTF-16, UTF-32, EUC-JP, ISO-2022-JP, Shift_JIS, Windows-31J.\nDefault value\: UTF-8.\n    contentTransferEncoding - The content transfer encoding scheme (such as 7bit, 8bit, base64, quoted-printable etc) for the entire email which includes subject, body, attached file name and the attached file. \nValid values\: quoted-printable, base64, 7bit, 8bit, binary, x-token.\nDefault value\: quoted-printable (or Q Encoding).\n    delimiter - A delimiter to separate the email recipients and the attachments.\nDefault value\: ','\n    proxyHost - The proxy server used to access the web site.\n    proxyPort - The proxy server port.\nDefault value\: 8080\n    proxyUsername - The user name used when connecting to the proxy.\n    proxyPassword - The proxy server password associated with the "proxyUsername" input value.\n    enableTLS - Enables starttls. If the server supports TLS or SSL, the communications will be secured by TLS or SSL. If it doesn't support TLS or SSL the communication will be unsecure.\nValid values\: true, false. \nDefault value\: false.\n    tlsVersion - The version of TLS to use. The value of this input will be ignored if "'enableTLS"/"enableSSL" is set to "false". When the STARTTLS value is given to the tlsVersion input, the most secure SSL/TLS version supported by the target server will be used to create the connection. If the target server does not support STARTTLS the connection will fail.\nValid values\: STARTTLS, SSLv3, TLSv1, TLSv1.1, TLSv1.2.\nDefault value\: TLSv1.2.\n    encryptionAlgorithm - A comma delimited list of cyphers to use. The value of this input will be ignored if "tlsVersion" does not contain "TLSv1.2". This capability is provided \u201Cas is\u201D, please see product documentation for further security considerations. In order to connect successfully to the target host, it should accept at least one of the following cyphers. If this is not the case, it is the user's responsibility to configure the host accordingly or to update the list of allowed cyphers.\nDefault value\: TLS_DHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_DHE_RSA_WITH_AES_256_CBC_SHA256, TLS_DHE_RSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, TLS_RSA_WITH_AES_256_GCM_SHA384, TLS_RSA_WITH_AES_256_CBC_SHA256, TLS_RSA_WITH_AES_128_CBC_SHA256.\n    encryptionKeystore - The path to the pks12 formatted keystore used to encrypt the mail.\n    encryptionKeyAlias - The alias of a RSA key pair from the encryptionKeystore. The public key from the pair will be used to encrypt the mail. The key pair must not have password. The recommended key size is 2048 bit or higher.\n    encryptionKeystorePassword - The password for the encryptionKeystore.\n    timeout - The timeout in seconds for sending the mail message.\n\nResponses\:\n    success - Successfully sent the email.\n    failure - Failed to send the email.\n\nNote\:\n1. For special characters (East Asian, right-to-left languages, etc.) you must install the support files on your local machine.\n2. For doing this on Windows go to Control Panel -> Regional and Language Options -> Language and check the options at Supplemental language support.\n3. You can use KeyStore Explorer to obtain RSA Keystore with keyPairs for encryption/decryption.\n    3.1 If you get "llegal key size exception" you don't have JCE Unlimited Strength installed.\n</pre>
+823041d0-151b-4200-b6f8-46d879a0e79c.e55a6cae-fefe-4d0b-9034-dacccd8af5a3.prompt=Host name\:
+823041d0-151b-4200-b6f8-46d879a0e79c.f2a6725c-f1d0-44b5-bfa9-acf484e0ba10.prompt=Character set\:
+823041d0-151b-4200-b6f8-46d879a0e79c.f696701d-3b3a-4e58-95cb-a0fb64100943.prompt=Port\:
+]]></descriptionCdata>
+  <annotation>823041d0-151b-4200-b6f8-46d879a0e79c.description</annotation>
+  <name>Send Mail</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="e55a6cae-fefe-4d0b-9034-dacccd8af5a3">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>hostname</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>823041d0-151b-4200-b6f8-46d879a0e79c.e55a6cae-fefe-4d0b-9034-dacccd8af5a3.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="f696701d-3b3a-4e58-95cb-a0fb64100943">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>port</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>823041d0-151b-4200-b6f8-46d879a0e79c.f696701d-3b3a-4e58-95cb-a0fb64100943.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="4c9449dc-3cfd-4884-93b5-684e773e359f">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>from</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>823041d0-151b-4200-b6f8-46d879a0e79c.4c9449dc-3cfd-4884-93b5-684e773e359f.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="d1e8b11f-8e8e-489a-b848-a88da36e3a27">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>to</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>823041d0-151b-4200-b6f8-46d879a0e79c.d1e8b11f-8e8e-489a-b848-a88da36e3a27.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="4ae832dd-cc23-4071-8b28-202e0f0d872d">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>cc</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="5e0744e0-51cc-4d40-81de-0160953af318">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>bcc</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="29a39e9e-bf28-423e-997a-eec329ca74c3">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>subject</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>823041d0-151b-4200-b6f8-46d879a0e79c.29a39e9e-bf28-423e-997a-eec329ca74c3.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="34b14a20-a3a3-41bb-90a3-6cc368c53c0e">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>body</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>823041d0-151b-4200-b6f8-46d879a0e79c.34b14a20-a3a3-41bb-90a3-6cc368c53c0e.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="b6deada8-2490-4da1-bc20-704ea3bccbf8">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>htmlEmail</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>true</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="386e69ec-94c1-42e1-92f6-11f409c7af92">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>readReceipt</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>false</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="30d2251f-7fe8-409e-ab5d-597a06d421be">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>attachments</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>823041d0-151b-4200-b6f8-46d879a0e79c.30d2251f-7fe8-409e-ab5d-597a06d421be.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="3169b321-77ca-48f7-820f-c45c065139a6">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>headers</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="a317a0f2-f9ce-4ca8-962d-2999f2064e4e">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>rowDelimiter</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="4af411ec-2c54-4043-babf-acbffb5cbc68">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>columnDelimiter</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="2ac82f59-b0d2-440d-b26d-0f11fb4cbeca">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>username</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>823041d0-151b-4200-b6f8-46d879a0e79c.2ac82f59-b0d2-440d-b26d-0f11fb4cbeca.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="35c51073-c5e9-4754-a9e9-b24f019616d5">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>password</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="98071c4e-7cf4-4965-aea0-d5e5c71c41c7">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>authToken</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="f2a6725c-f1d0-44b5-bfa9-acf484e0ba10">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>characterSet</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>823041d0-151b-4200-b6f8-46d879a0e79c.f2a6725c-f1d0-44b5-bfa9-acf484e0ba10.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <link>
+        <refId>3ad6a21d-fc94-4603-aa1e-c5a63f894549</refId>
+        <refName>Character Sets</refName>
+      </link>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="c1b11337-564c-4f5a-afc4-6f07968e60f6">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>contentTransferEncoding</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>823041d0-151b-4200-b6f8-46d879a0e79c.c1b11337-564c-4f5a-afc4-6f07968e60f6.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <link>
+        <refId>c6e8be46-0bbc-46b6-965d-36e523c0aacf</refId>
+        <refName>Content Transfer Encoding</refName>
+      </link>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="056ceaaa-9010-4c90-bf2f-c274333c53b7">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>delimiter</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>823041d0-151b-4200-b6f8-46d879a0e79c.056ceaaa-9010-4c90-bf2f-c274333c53b7.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="faa52f18-be29-47b1-a871-6f91c88eefed">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>proxyHost</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="ca97ce4e-e5b9-4cfb-965d-561ffeedad28">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>proxyPort</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>8080</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="af5aec1f-9a49-4d0f-8460-80943c0ca777">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>proxyUsername</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="2cc503ac-7fab-4599-9a2f-b5547c11d1a6">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>proxyPassword</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="4e78b5bb-ba10-4aba-8dc2-26423e0999d0">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>enableTLS</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>823041d0-151b-4200-b6f8-46d879a0e79c.4e78b5bb-ba10-4aba-8dc2-26423e0999d0.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <link>
+        <refId>96a1ed25-cdc9-4ff6-8fba-e9c044c5ca53</refId>
+        <refName>Boolean - False Default</refName>
+      </link>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="c91700c8-dc9a-49a9-b0c2-bc305a0fdb4d">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>tlsVersion</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>TLSv1.2</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="4f5e3d52-a135-4e70-bbf4-25b89bdc0372">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>encryptionAlgorithm</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>TLS_DHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_DHE_RSA_WITH_AES_256_CBC_SHA256, TLS_DHE_RSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, TLS_RSA_WITH_AES_256_GCM_SHA384, TLS_RSA_WITH_AES_256_CBC_SHA256, TLS_RSA_WITH_AES_128_CBC_SHA256</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="c40ab3fd-4fbd-4a21-b1c6-f1b2219751b5">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>encryptionKeystore</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>823041d0-151b-4200-b6f8-46d879a0e79c.c40ab3fd-4fbd-4a21-b1c6-f1b2219751b5.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="1f460ef7-2deb-4b9b-8190-5bf5f3bd8dcc">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>encryptionKeyAlias</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>823041d0-151b-4200-b6f8-46d879a0e79c.1f460ef7-2deb-4b9b-8190-5bf5f3bd8dcc.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="cc69294c-6577-43e0-8645-2e9f23aa8c00">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>encryptionKeystorePassword</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>823041d0-151b-4200-b6f8-46d879a0e79c.cc69294c-6577-43e0-8645-2e9f23aa8c00.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="88b5b571-2bd8-44c2-8fe5-2666839bfc23">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>timeout</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="bf8845fb-5811-4b27-8ce6-9d5bd97adb73">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="5cd15cea-692e-4e20-8695-5b14b0a25de0">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="cf89c933-d32f-46b2-bf41-f22c43b58042">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>-1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="30db0f08-ce45-40a6-bbb1-8b63fa77c10a">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="3dea3570-9d02-4112-8e79-ce20c97ff50a">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="c731e884-00b2-4dfe-a942-d4bb7614843a">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="10b95445-38d6-4824-bbc3-b8e4e4c5d75c">
+    <annotation></annotation>
+    <name></name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="3ce4e5c1-168f-41ec-a7bd-e5183326f13d">
+    <baseIcon>mail.png</baseIcon>
+    <basePath>E-mail/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="a36d3816-34b8-4d45-aec5-f1e9904e7c6b">
+        <baseIcon>edit.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-mail-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>Send Mail</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

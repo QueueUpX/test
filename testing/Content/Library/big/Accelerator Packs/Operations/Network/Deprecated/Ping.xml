@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="bfe218a7-55b0-4b7a-9727-255476103671">
+  <descriptionCdata><![CDATA[bfe218a7-55b0-4b7a-9727-255476103671.description=<pre>Pings the requested machine from the Web Services machine\n\nInput Parameters\:\nhost - hostname or IP address of the target host\n\nResponses\:\npassed - a successful connection was made\nfailure - unable to make a connection\nhost not found - could not resolve hostname to a valid IP address\n\nExtra Results\:\noutput - raw output of the results\naddress - actual IP address pinged\n% Packet Loss - The percentage of packets that ping replies were received for.\nAverage Latency - The average ping response time in milliseconds.\nmax latency - The maximum response time of all the pings (in milliseconds).\nmin latency - the minimum number of milliseconds it took to receive a ping response.\n</pre>
+]]></descriptionCdata>
+  <annotation>bfe218a7-55b0-4b7a-9727-255476103671.description</annotation>
+  <name>Ping</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="92f02a33-966b-480b-ad5d-b2aef96f5195">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>host</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="6f0e797b-2b02-4853-a75e-cf67c28e84fa">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Environment</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="fadf8e2b-74f3-48d9-8de5-8dbe45cadca2">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Command</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>ping</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="07da5c8c-19bd-449c-8533-f5c91e685fe6">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Working_Dir</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="82df4077-680c-4893-b972-772c2233103d">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Argument</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${host}</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="377d32e1-64f1-4943-abe3-07bb9434b65a">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Path</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="59e81320-f09a-4595-9fb4-35be961dcee3">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="73a4c406-ab32-4408-bb7e-1d841d3b00b2">
+          <annotation></annotation>
+          <name>Code</name>
+          <fieldName>Output String</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="7036a01a-2845-42f5-a327-ae7453a8a443">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>reply from</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>CONTAINS</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+        <expression id="90c748fd-3656-44ae-a8dc-a297b00a33f8">
+          <annotation></annotation>
+          <name>Code</name>
+          <fieldName>Code</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="8e76c0b4-ee80-4255-b0cd-e04940edb9dc">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="3a32e586-72fd-4090-819d-b0648b4fc330">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+    <opResponse id="45856837-9d6e-43fb-b39a-19946f67b6a2">
+      <annotation></annotation>
+      <name>host not found</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="aec049fc-b94c-4f49-9355-76523ec194d4">
+          <annotation></annotation>
+          <name>Code</name>
+          <fieldName>Code</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="41c1db28-c4c9-44b5-88a6-308b135761fc">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <matchType>!=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+        <expression id="b68086ba-643b-41fa-ae1b-a7feb33d2bfe">
+          <annotation></annotation>
+          <name>Code</name>
+          <fieldName>Output String</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="c120a633-c5f0-45c5-8f0c-e20a1dc18be9">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>could not find host</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>CONTAINS</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions>
+    <expression id="5ac6dad5-01af-4a85-9038-311f91a318b2">
+      <annotation></annotation>
+      <name>% Packet Loss</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <regexFilter id="c70c2029-1799-47d5-8f8b-8b066a739451">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+%\s*loss</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <regexFilter id="06ca28ef-f369-4e38-9c6f-1bd5aa161e39">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+      </filters>
+    </expression>
+    <expression id="3c295615-9352-416c-ad56-4dbfd25bcefc">
+      <annotation></annotation>
+      <name>address</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <regexFilter id="4a111e66-68c3-4c49-9edc-fe95f5285086">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>Pinging.*\d+\.\d+\.\d+\.\d+.*with</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <regexFilter id="f4cbfa75-916e-4eaf-8313-fa31b1410286">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+\.\d+\.\d+\.\d+</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+      </filters>
+    </expression>
+    <expression id="078089cb-fc91-4ccc-9bc9-e65485a97aa3">
+      <annotation></annotation>
+      <name>max latency</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <regexFilter id="d0d5ff21-2b64-4545-97af-01bf552e4997">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>Maximum\s*=\s*\d+ms</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <regexFilter id="37d84b8f-3215-4168-ba8c-496c394e24ff">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+      </filters>
+    </expression>
+    <expression id="7c9b57e3-1d1c-467e-860e-135026193291">
+      <annotation></annotation>
+      <name>average latency</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <regexFilter id="8a9a31aa-08f6-4f7a-8570-0b595e8ecf80">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>Average\s*=\s*\d+ms</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <regexFilter id="e1b76bfc-951e-4bf0-b010-fc04f5de9291">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+      </filters>
+    </expression>
+    <expression id="09e2b187-3c95-4aa4-8e13-69df5d597511">
+      <annotation></annotation>
+      <name>min latency</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <regexFilter id="d1ff973b-a561-4a0e-a719-02d6a2027208">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>Minimum\s=\s\d+ms</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <regexFilter id="50243015-dde1-4d66-b100-f25c0e627a08">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+      </filters>
+    </expression>
+  </availableResultExpressions>
+  <resultExpression id="9264377e-5f93-458e-bada-1694fbe5ce81">
+    <annotation></annotation>
+    <name>Code</name>
+    <fieldName>Output String</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="10e1e91f-7882-45f7-b187-3cd378359e80">
+    <baseIcon>client_network.png</baseIcon>
+    <basePath>Networking/</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <opRef>
+    <refId>77f849f5-ea91-437e-b8d2-c1f70038b181</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

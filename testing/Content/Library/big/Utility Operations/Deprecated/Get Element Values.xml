@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="f7a0123e-fb84-428f-9f0c-a15d1ce2bf4e">
+  <descriptionCdata><![CDATA[f7a0123e-fb84-428f-9f0c-a15d1ce2bf4e.53405176-43dc-4381-8900-05d0708fb7f2.prompt=Attribute Name\:
+f7a0123e-fb84-428f-9f0c-a15d1ce2bf4e.b0155f9f-46ca-4276-b603-6b47e75ec827.prompt=or XML String\:
+f7a0123e-fb84-428f-9f0c-a15d1ce2bf4e.bfb79333-896d-4b1f-b8ba-9a8259226c30.prompt=XML Document Location\:
+f7a0123e-fb84-428f-9f0c-a15d1ce2bf4e.description=<pre>Service to return Element values in a XML document.\n\nInputs\: \nelementName - the name of the element you want returned; if more than one element is found, the values will be returned as a comma-delimited list\nxmlLocation - (optional) either a fully qualified url to a HTTP accessible XML doc (i.e WSDL) or the full path to a local xml document\nxmlDocument - (optional) the string representation of a XML doc.  Either this or xmlLocation must be passed in. \nattributeName - (optional) the name of the attribute you want the value returned for\n\nResponses\:\nvalid xml document - valid XML document\ninvalid xml document - not a valid XML document\nxml document not found - could not find XML document\nxml element not found - element/attribute not found\nfailure - general error occurred\n\nExtra Results\: \nelementValues - values of one or more elements found in the XML doc.  if more than one element is found, this will be returned as a comma-delimited list\n</pre>
+f7a0123e-fb84-428f-9f0c-a15d1ce2bf4e.fa1dc5fe-07c7-464c-9a85-92bf5c29ee43.prompt=XML Element Name\:
+]]></descriptionCdata>
+  <annotation>f7a0123e-fb84-428f-9f0c-a15d1ce2bf4e.description</annotation>
+  <name>Get Element Values</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="fa1dc5fe-07c7-464c-9a85-92bf5c29ee43">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>elementName</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>f7a0123e-fb84-428f-9f0c-a15d1ce2bf4e.fa1dc5fe-07c7-464c-9a85-92bf5c29ee43.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="53405176-43dc-4381-8900-05d0708fb7f2">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>attributeName</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>f7a0123e-fb84-428f-9f0c-a15d1ce2bf4e.53405176-43dc-4381-8900-05d0708fb7f2.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="bfb79333-896d-4b1f-b8ba-9a8259226c30">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>xmlLocation</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>f7a0123e-fb84-428f-9f0c-a15d1ce2bf4e.bfb79333-896d-4b1f-b8ba-9a8259226c30.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="b0155f9f-46ca-4276-b603-6b47e75ec827">
+      <annotation></annotation>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>xmlDocument</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>f7a0123e-fb84-428f-9f0c-a15d1ce2bf4e.b0155f9f-46ca-4276-b603-6b47e75ec827.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <scriptlet id="103e1f04-1c2d-4a03-9e6c-996900c283e5">
+    <annotation></annotation>
+    <name>Operation Get Element Values (2b078af1-8acb-456a-8a2c-2823328d7c3c)</name>
+    <script>
+        	scriptletContext.put(&quot;elementValues&quot;, scriptletRawResult[&apos;elementValues&apos;]);
+        </script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="08526915-6247-4431-b42e-6dd501d40675">
+      <annotation></annotation>
+      <name>xml document not found</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules>
+        <expression id="fa717c1d-eb64-43c4-8660-682133c3f8ea">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="391c3854-a973-426a-a4dd-a749a879e6ff">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>9</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="0918b6ed-72a3-43be-9b00-5d3de2a019b3">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="eb116f95-e34d-4523-906c-664d780cc088">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="49b8a2aa-de2e-455a-807d-0259e76d974a">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>-1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="c82f01e9-e677-4701-addf-15cf12ce0616">
+      <annotation></annotation>
+      <name>xml element not found</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules>
+        <expression id="3f487c72-633e-4a4a-bcc0-23f761160511">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="8e30551a-80ca-4df0-bc25-9dfd2df3dc34">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>10</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="115ddac3-b44d-48a8-9308-25660d4090ab">
+      <annotation></annotation>
+      <name>valid xml document</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules>
+        <expression id="f5bf7f95-e3b6-432f-b72f-c05cc2549aef">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="275791e1-cdf5-42e4-b0b9-5784c2578c4f">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>7</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="f2ce6221-6509-486b-9f39-db3ae1538ba4">
+      <annotation></annotation>
+      <name>invalid xml document</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>NO_ACTION_TAKEN</type>
+      <matchRules>
+        <expression id="9c2793c3-55e7-4ed1-8395-a99ee8b69a21">
+          <annotation></annotation>
+          <name></name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="a2109208-2c11-4a06-989d-ca0e1b05cad2">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>8</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="e1908f71-d6e3-4697-be0b-f5fbfd63ad02">
+    <annotation></annotation>
+    <name></name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="b88fdb0b-0f5b-4b2d-86c4-7b57a07ec5d1">
+    <baseIcon>document_xml.png</baseIcon>
+    <basePath>Databases/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="1473e389-cdfc-43db-accf-bdb001923da4">
+        <baseIcon>view.png</baseIcon>
+        <basePath>Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-base-legacy-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>com.iconclude.content.actions.xml.GetElementValues</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

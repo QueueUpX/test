@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="bd5b826d-0001-4971-96bd-b922a05eeba1">
+  <descriptionCdata><![CDATA[bd5b826d-0001-4971-96bd-b922a05eeba1.description=This operation executes PowerShell scripts on a given host using the WinRM protocol.\n\nInputs\:\n    host - The hostname or IP address of the target host.\n    domain - The domain of the target host.\n    port - The port number used to connect to the host. The default value for this input dependents on the protocol input. The default values are 5985 for Http and 5986 for Https.\nDefault value\: 5986\n    protocol - Specifies what protocol is used to execute commands on the remote host. \nValid values\: http, https\nDefault value\: https\n    username - The username to use when connecting to the host.\n    password - The password to use when connecting to the host.\n    authType - The type of authentication used by this operation when trying to execute the request on the target WinRM service. The supported authentication types are\: Basic, NTLM and Kerberos.\nDefault value\: NTLM \n    script - The PowerShell script that will be executed on the remote shell. This capability is provided "as is", please see product documentation for further information.\n    configurationName - The name of the PSSessionConfiguration to use. This can be used to target specific versions of PowerShell if the PSSessionConfiguration is properly configured on the target. By default, after PSRemoting is enabled on the target, the configuration name for PowerShell v5 or lower is 'microsoft.powershell', for PowerShell v6 is 'PowerShell.6', for PowerShell v7 is 'PowerShell.7'. Additional configurations can be created by the user on the target machines. By default the operation will work with PowerShell 5. Valid values\: any PSConfiguration that exists on the host. Examples\: 'microsoft.powershell', 'PowerShell.6', 'PowerShell.7'.\n    requestNewKerberosTicket - Allows you to request a new ticket to the target computer specified by the service principal name (SPN). This input will be ignored if auth_type is not 'kerberos'. Valid values\: true, false.\nDefault value\: true\n    kerberosConfFile - A krb5.conf file path or a text (with \\n used as new line) with content similar to the one in the examples (where you replace CONTOSO.COM with your domain and 'ad.contoso.com' with your kdc FQDN). This configures the Kerberos mechanism required by the Java GSS-API methods. This input will be ignored if auth_type is not 'kerberos'.\n    workingDirectory - The path of the directory where to be executed the CMD or PowerShell command.\n    proxyHost - The proxy server used to access the host.\n    proxyPort - The proxy server port.\n Default value\: 8080\n    proxyUsername - The username used when connecting to the proxy.\n    proxyPassword - The proxy server password associated with the proxy_username input value.\n    tlsVersion - The version of TLS to use. By default, the operation tries to establish a secure connection over TLSv1.2. This capability is provided \u201Cas is\u201D, please see product documentation for further security considerations regarding TLS versions and ciphers. In order to connect successfully to the target host, it should accept the specified TLS version. If this is not the case, it is the user's responsibility to configure the host accordingly. Valid values\: TLSv1, TLSv1.1, TLSv1.2, TLSv1.3\n Default value\: TLSv1.2\n    trustAllRoots - Specifies whether to enable weak security over SSL/TSL. A certificate is trusted even if no trusted certification authority issued it. Valid values\: true, false\n Default value\: false\n    x509HostnameVerifier - Specifies the way the server hostname must match a domain name in the subject's Common Name (CN) or subjectAltName field of the X.509 certificate. The hostname verification system prevents communication with other hosts other than the ones you intended. This is done by checking that the hostname is in the subject alternative name extension of the certificate. This system is designed to ensure that, if an attacker(Man In The Middle) redirects traffic to his machine, the client will not accept the connection. If you set this input to "allow_all", this verification is ignored and you become vulnerable to security attacks. For the value "browser_compatible" the hostname verifier works the same way as Curl and Firefox. The hostname must match either the first CN, or any of the subject-alts. A wildcard can occur in the CN, and in any of the subject-alts. The only difference between "browser_compatible" and "strict" is that a wildcard (such as "*.foo.com") with "browser_compatible" matches all subdomains, including "a.b.foo.com". From the security perspective, to provide protection against possible Man-In-The-Middle attacks, we strongly recommend to use "strict" option. Valid values\: strict, browser_compatible, allow_all \nDefault\: strict \n    trustKeystore - The pathname of the Java TrustStore file. This contains certificates from other parties that you expect to communicate with, or from Certificate Authorities that you trust to identify other parties. If the protocol (specified by the 'url') is not 'https' or if trustAllRoots is 'true' this input is ignored. Format\: Java KeyStore (JKS) Optional\n    trustPassword - The password associated with the TrustStore file. If trustAllRoots is false and trustKeystore is empty, trustPassword default will be supplied.\n Default value\: changeit\n    keystore - The pathname of the Java KeyStore file. You only need this if the server requires client authentication. If the protocol (specified by the 'url') is not 'https' or if trustAllRoots is 'true' this input is ignored. Format\: Java KeyStore (JKS).\n    keystorePassword - The password associated with the KeyStore file. If trustAllRoots is false and keystore is empty, keystorePassword default will be supplied.\n Default value\: changeit\n    operationTimeout - Defines the operation timeout value in seconds to indicate that the client expects a response or a fault within the specified time.\n Default value\: 60\n\nResults\:\n    returnResult - The result of the script execution written on the stdout stream of the opened shell in case of success or the error from stderr in case of failure.\n    returnCode - The return code of the operation\: 0 for success, -1 for failure.\n    stdout - The result of the script execution written on the stdout stream of the opened shell.\n    stderr - The error messages and other warnings written on the stderr stream.\n    commandExitCode - The exit code returned by the powershell script execution.\n    exception - In case of failure response, this result contains the java stack trace of the runtime exception or fault details that the remote server generated throughout its communication with the client.\n\nResponses\:\n    success -  PowerShell script was executed successfully and the 'commandExitCode' value is 0.\n    failure - PowerShell script could not be executed or the value of the 'commandExitCode' is different than 0.\n\n\nNotes\:\n1. This operations uses the Windows Remote Management (WinRM) implementation for WS-Management standard to execute PowerShell scripts. This operations is designed to run PowerShell on remote hosts that have PowerShell installed and configured.\nThe Windows Remote Management (WS-Management) service on the remote host may not be started by default. Start the service and change its Startup type to Automatic (Delayed Start) before proceeding with the next steps.\nOn the remote host, open a Command Prompt using the Run as Administrator option and paste in the following lines\:\n    winrm quickconfig\n    y\nThis command("winrm quickconfig") will start the WinRM service, and set the service startup type to auto-start. Configure a listener for the ports that send and receive WS-Management protocol messages using either HTTP or HTTPS on any IP address.\nOpen the ports for HTTP(5985) and HTTPS(5986). The winrm quickconfig command creates a firewall exception only for the current user profile.\n\nBy default basic authentication is disabled in WinRM. Enable it if you are going to use local accounts to access the remote host\:\n    winrm set winrm/config/service/Auth @{Basic\="true"}\nConfigure WinRM to allow unencrypted SOAP messages\:\n    winrm set winrm/config/service @{AllowUnencrypted\="true"}\nKerberos authentication type should be enabled by default on the WinRM service. If you are not going to use domain accounts to access the remote host you can disable it\:\n    winrm set winrm/config/service/Auth @{Kerberos\="false"}\nConfigure WinRM to provide enough memory to the commands that you are going to run, e.g. 1024 MB\:\n    winrm set winrm/config/winrs @{MaxMemoryPerShellMB\="1024"}\nManualy Enable the WinRM firewall exception if winrm quickconfig did not work\:\n    netsh advfirewall firewall add rule name\="WinRM-HTTP" dir\=in localport\=5985 protocol\=TCP action\=allow\nRun this command to check your configurations\:\n    winrm get Winrm/config\nUse the following command to enumerate the WinRM configured listeners. You should have one for http listening on 5985 and one for https listening on 5986\:\n    winrm enumerate winrm/config/listener\nThe default ports for WinRM connections are 5985 for HTTP and 5986 for HTTPS protocols. Use netstat -ano | findstr "5985" and netstat -ano | findstr "5986" to check if the ports are opened.\n\n2. For HTTPS connection do the following\:\nCreate a self signed certificate for the remote host and copy the thumbprint of the certificate.\n    New-SelfSignedCertificate -DnsName "DnsName" -CertStoreLocation "cert\:\\LocalMachine\\My"\nCreate an HTTPS WinRM listener on the remote host with the thumbprint of certificate you've just copied.\n    winrm create winrm/config/Listener?Address\=*+Transport\=HTTPS @{Hostname\="HOSTNAME"; CertificateThumbprint\="THUMBPRINT"; Port\="5986"}\nExport the certificate on the client and add it to the truststore.\nDo a quickconfig for WinRM with HTTPS\:\n    winrm quickconfig -transport\:https\nCheck the complete WinRM configurations and that the listeners have been configured with\:\n    winrm get winrm/config\n    winrm enumerate winrm/config/listener\n\n3. Basic authentication requires valid certificates for Https connection even if trustAllRoots is set to true.\n\n4. Authenticating with domain accounts is possible through kerberos authentication type.\nThe bellow configurations are not needed if a krb5.conf is given to the input kerberos_conf_file and request_new_kerberos_ticket is "true".\nKerberos configurations need to be made both on the client(OO), server(WSMAN) and on the Domain Controller if you are going to use Windows domain accounts to access the remote host.\nFor the execution of the operation with kerberos authentication you will need to create a configuration file "krb5.conf" file which contains the domain name and the kdc hostname.\nFirst you need to create the keytab file for the user on the Domain Controller. Open a command prompt and type the following command\:\nktpass /princ username@CONTOSO.COM /pass password /ptype KRB5_NT_PRINCIPAL /out username.keytab\n(OPTIONAL) Now in order to test the keytab, you'll need a copy of kinit. You can use the one from <OO_HOME>\\java\\bin\\kinit.exe. You also need to setup your krb5.ini file and copy it under c\:\\windows\\krb5.ini (on Windows) and /etc/krb5.conf (on Linux).\n\nThe krb5.ini file content looks like\:\n\n    [libdefaults]\n        default_realm \= CONTOSO.COM\n    [realms]\n        CONTOSO.COM \= {\n        kdc \= ad.contoso.com\n        admin_server \= ad.contoso.com\n    }\n\nwhere CONTOSO.COM is your domain name and ad.contoso.com is the fully qualified name of your KDC server(usually the domain controller).\nOnce you've got your Kerberos file setup, you can use kinit to test the keytab.  First, try to logon with your user account without using the keytab\:\n    kinit username@CONTOSO.COM\n    - enter the password -\nIf that doesn't work, your krb5 file is wrong.  If it does work, now try the keytab file\:\n    kinit username@CONTOSO.COM -k -t username.keytab\nNow you should successfully authenticate without being prompted for a password.  Success\!\nFor the operation input kerberosConfFile krb5.conf file. The content of the krb5.conf file is exactly the same as the krb5.ini file mentioned above.\n\nThe username and password inputs no longer need to be provided when the kerberos configuration file is provided.\nThe operation will request access to a Kerberos service principal name of the form WSMAN/HOST, for which an SPN should be configured automatically when you configure WinRM for a remote host.\nIf that was not configured correctly, you will have configure the service principal names manually. This can be achieved by invoking the setspn command, as an Administrator, on any host in the domain, as follows\:\n    setspn -A PROTOCOL/ADDRESS\:PORT WINDOWS-HOST\nwhere\:\nPROTOCOL is either WSMAN (default) or HTTP.\nADDRESS is the address used to connect to the remote host,\nPORT (optional) is the port used to connect to the remote host\nWINDOWS-HOST is the short Windows hostname of the remote host.\nSome other useful commands\:\nList all service principal names configured for a domain user\:\n    setspn -L <user>\nList all service principal names configured for a specific host in the domain\:\n    setspn -L <hostname>\n\n5. In case the remote host on which the powershell script is being executed is running WinRM v3.0 (Windows Server 2008 SP2, Windows 7 SP1, Windows Server 2008R2 SP1, Windows 8 or Windows Server 2012) you might run into this issue\: https\://support.microsoft.com/en-us/kb/2842230\nThe issue occurs because the Windows Remote Management (WinRM) service does not use the customized value of the MaxMemoryPerShellMB quota. Instead, the WinRM service uses the default value, which is 150 MB. There's a hotfix available in the mentioned link.
+]]></descriptionCdata>
+  <annotation>bd5b826d-0001-4971-96bd-b922a05eeba1.description</annotation>
+  <name>Powershell Script Cross Platform</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="d693ba63-61b9-4aa5-aeb4-a5915ca117b6">
+      <annotation>The hostname or IP address of the host.</annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>host</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="3be88daf-93f3-4062-813f-8533946cb6a1">
+      <annotation>The domain of the target host.</annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>domain</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="419bc1b8-f63a-4599-8627-0d3a75be6d0c">
+      <annotation>The port number used to connect to the host. The default value for this input dependents on the protocol input. Valid values: 5985 for Http and 5986 for Https.
+Default value: 5986</annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>port</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>5986</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="676e615f-df9b-42f7-9e4d-ec147f585f50">
+      <annotation>Specifies what protocol is used to execute commands on the remote host. Valid values: http, https
+Default value: https</annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>protocol</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>https</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="f6471abd-87e4-48db-8791-068f3a13d79a">
+      <annotation>The username to use when connecting to the host.</annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>username</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="a2d8becd-494d-475b-801b-ec603edcd0cc">
+      <annotation>The password to use when connecting to the host.</annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>password</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>{OBFUSCATED}tFQ2pnWYKQCGLnn/5LPzoA==</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="bc1854b3-bcda-4abe-8e84-d229015e3928">
+      <annotation>The type of authentication used by this operation when trying to execute the request on the target WinRM service. The supported authentication types are: Basic, NTLM and Kerberos.
+Default value: NTLM</annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>authType</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>NTLM</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="15a970be-7c62-43db-b56d-3e64ec9a90d6">
+      <annotation>The PowerShell script that will be executed on the remote shell. Check the notes section for security implications of using this input.</annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>script</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="58e6e385-6d72-458d-ad53-63dd7a9d07bc">
+      <annotation>The name of the PSSessionConfiguration to use. This can be used to target specific versions of PowerShell if the PSSessionConfiguration is properly configured on the target. By default, after PSRemoting is enabled on the target, the configuration name for PowerShell v5 or lower is &apos;microsoft.powershell&apos;, for PowerShell v6 is &apos;PowerShell.6&apos;, for PowerShell v7 is &apos;PowerShell.7&apos;. Additional configurations can be created by the user on the target machines.
+Valid values: any PSConfiguration that exists on the host. This input will be ignored if command type is &apos;cmd&apos;.
+Examples: &apos;microsoft.powershell&apos;, &apos;PowerShell.6&apos;, &apos;PowerShell.7&apos;</annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>configurationName</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="63cc75d0-774e-4c20-addb-17062220c7f9">
+      <annotation>Allows you to request a new ticket to the target computer specified by the service principal name (SPN).
+Valid values: true, false.
+Default value: true</annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>requestNewKerberosTicket</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>true</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="3c56e67c-7643-41a5-b3ae-510784e498f3">
+      <annotation>A krb5.conf file with content similar to the one in the examples (where you replace CONTOSO.COM with your domain and &apos;ad.contoso.com&apos; with your kdc FQDN). This configures the Kerberos mechanism required by the Java GSS-API methods.
+                           Format: http://web.mit.edu/kerberos/krb5-1.4/krb5-1.4.4/doc/krb5-admin/krb5.conf.html</annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>kerberosConfFile</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="eaab48bd-34d0-46ac-bb33-6bc479216fc2">
+      <annotation>The path of the directory where to be executed the PowerShell script.</annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>workingDirectory</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="ed033ca6-fa67-4420-b3a7-f7100d566fc6">
+      <annotation>The proxy server used to access the host.</annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>proxyHost</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="d3b761e8-a9df-4edb-b37c-b94c313856ec">
+      <annotation>The proxy server port.
+ Default value:8080</annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>proxyPort</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>8080</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="0a4b83a8-db87-4010-a35b-fd697af97a7d">
+      <annotation>The username used when connecting to the proxy.</annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>proxyUsername</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="56dee84d-ae76-45cb-842d-d3b3d8a472a8">
+      <annotation>The proxy server password associated with the proxyUsername input value.</annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>proxyPassword</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>{OBFUSCATED}tFQ2pnWYKQCGLnn/5LPzoA==</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="68fba625-9568-440e-b71c-4affdae85c40">
+      <annotation>The version of TLS to use. By default, the operation tries to establish a secure connection over TLSv1.2.
+ Valid values: TLSv1, TLSv1.1, TLSv1.2, TLSv1.3.
+Default value: TLSv1.2
+&quot;This capability is provided &#8220;as is&#8221;, please see product documentation for further security considerations regarding TLS versions and ciphers. In order to connect successfully to the target
+host, it should accept the specified TLS version. If this is not the case, it is the
+user&apos;s responsibility to configure the host accordingly.&quot;</annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>tlsVersion</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>TLSv1.2</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="aa036525-207c-40bc-93cc-d03441a4ae5b">
+      <annotation> Specifies whether to enable weak security over SSL/TSL. A certificate is trusted even if no trusted certification authority issued it.
+Valid values: true, false
+Default value: false</annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>trustAllRoots</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>false</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="b15db4c1-0d9e-4c5a-bcaf-aeb8d1d1f9fb">
+      <annotation>Specifies the way the server hostname must match a domain name in the subject&apos;s Common Name (CN) or subjectAltName field of the X.509 certificate. The hostname verification system prevents communication with other hosts other than the ones you intended. This is done by checking that the hostname is in the subject alternative name extension of the certificate. This system is designed to ensure that, if an attacker(Man In The Middle) redirects traffic to his machine, the client will not accept the connection. If you set this input to &quot;allow_all&quot;, this verification is ignored and you become vulnerable to security attacks. For the value &quot;browser_compatible&quot; the hostname verifier works the same way as Curl and Firefox. The hostname must match either the first CN, or any of the subject-alts. A wildcard can occur in the CN, and in any of the subject-alts. The only difference between &quot;browser_compatible&quot; and &quot;strict&quot; is that a wildcard (such as &quot;*.foo.com&quot;) with &quot;browser_compatible&quot; matches all subdomains, including &quot;a.b.foo.com&quot;. From the security perspective, to provide protection against possible Man-In-The-Middle attacks, we strongly recommend to use &quot;strict&quot; option.
+Valid values: strict, browser_compatible, allow_all
+ Default: strict</annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>x509HostnameVerifier</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>strict</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="e0734005-6406-4649-ba71-577c9c1b6b75">
+      <annotation>The pathname of the Java TrustStore file. This contains certificates from other parties that you expect to communicate with, or from Certificate Authorities that you trust to identify other parties.  If the protocol (specified by the &apos;url&apos;) is not &apos;https&apos; or if trustAllRoots is &apos;true&apos; this input is ignored.
+Default value: &lt;OO_Home&gt;/java/lib/security/cacerts
+Format: Java KeyStore (JKS)</annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>trustKeystore</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="aa050655-c2d2-4b5e-9c42-41a0b24b8b4c">
+      <annotation>The password associated with the TrustStore file. If trustAllRoots is false and trustKeystore is empty, trustPassword default will be supplied.
+Default value: changeit</annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>trustPassword</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>{OBFUSCATED}ZUoMreNLw6qIOyzX7g5YKw==</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="4a2e16b6-18d0-424d-8095-1081495cfff6">
+      <annotation>The pathname of the Java KeyStore file. You only need this if the server requires client authentication. If the protocol (specified by the &apos;url&apos;) is not &apos;https&apos; or if trustAllRoots is &apos;true&apos; this input is ignored.
+ Default value: &lt;OO_Home&gt;/java/lib/security/cacerts
+Format: Java KeyStore (JKS)</annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>keystore</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="e0a78222-13ba-4aaf-9135-5418b0779b0d">
+      <annotation>The password associated with the KeyStore file. If trustAllRoots is false and keystore is empty, keystorePassword default will be supplied.
+Default value: change it</annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>keystorePassword</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>{OBFUSCATED}ZUoMreNLw6qIOyzX7g5YKw==</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="41fe1a7d-2017-4a51-8f22-70c1daee02d6">
+      <annotation>Defines the OperationTimeout value in seconds to indicate that the clients expect a response or a fault within the specified time.</annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>operationTimeout</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>60</value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="41fea96a-a83c-4b99-916c-e826bd48c958">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="8066dbcd-7d89-4191-b450-bffa254f4ba1">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="950eab17-e1ee-4662-97f2-6de0a2c34b34">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="528b7c9f-a9ce-4e4b-9ddc-116793395c52">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="64aa53d6-04d9-43d0-bcc1-c913a232c63d">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="ad11aa9a-3865-446f-ac2b-9c03db8a38a6">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>-1</text>
+            <matchType>=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="7340e28f-4b97-45ee-a201-d4065a3c924e">
+    <annotation></annotation>
+    <name>returnResult</name>
+    <fieldName>returnResult</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="7477c466-aae1-459f-ab39-3848adb15c62">
+    <baseIcon>PowerShell.png</baseIcon>
+    <basePath>/Operating System/</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-winrm-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>Powershell Script Cross Platform</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

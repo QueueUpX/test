@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="14448917-ae9d-45d2-84a3-41cb3771e9b3">
+  <descriptionCdata><![CDATA[14448917-ae9d-45d2-84a3-41cb3771e9b3.01a4dc54-250e-4fc4-b5ad-3a46c8b2e133.prompt=Columns delimiter\:
+14448917-ae9d-45d2-84a3-41cb3771e9b3.3d4e5661-6b77-4aa6-8985-c990131ea856.prompt=Delimiter\:
+14448917-ae9d-45d2-84a3-41cb3771e9b3.64b92c1b-11b3-4df6-9599-5295e0acc50c.prompt=Host\:
+14448917-ae9d-45d2-84a3-41cb3771e9b3.da8276a1-dc5b-42c8-9d86-fa8c3a1189a5.prompt=Password\:
+14448917-ae9d-45d2-84a3-41cb3771e9b3.description=This operation executes PowerShell scripts on a given host.\n\nInputs\:\n    host - The hostname or IP address of the PowerShell host. If you specify this input then you should not specify URI and shellURI.\nDefault value\: localhost\n    URI - Specifies a Uniform Resource Identifier (URI) that defines the connection endpoint for the interactive session. \nValue format\: <Transport>\://<ComputerName>\:<Port>/<ApplicationName>\nExample\: http\://exch2010CAS1/Powershell?serializationLevel\=Full\n    shellURI - Gets the Uniform Resource Identifier (URI) of the shell that is launched when the connection is made.\nExample\: http\://schemas.microsoft.com/powershell/Microsoft.Exchange\n    username - The username to use when connecting to the server.\nValue format\: username@domain or domain\\username.\n    password - The password to use when connecting to the server.\n    certificateThumbprint - The certificate thumbprint used for certificate authentication. Certificate authentication is an alternative to the username/password authentication and it can be used only when the "authType" input is set to "Default". The certificate needs to be installed on the client machine.\n    configurationName - The name of the PSSessionConfiguration to use. This can be used to target specific versions of PowerShell if the PSSessionConfiguration is properly configured on the target. By default, after PSRemoting is enabled on the target, the configuration name for PowerShell v5 or lower is 'microsoft.powershell', for PowerShell v6 is 'PowerShell.6', for PowerShell v7 is 'PowerShell.7'. Additional configurations can be created by the user on the target machines.\nValid values\: any PSConfiguration that exists on the host.\nExamples\: 'microsoft.powershell', 'PowerShell.6', 'PowerShell.7'\n    authType - Specifies the mechanism that is used to authenticate the user's credentials. \nValid values\: Default, Basic, Negotiate, NegotiateWithImplicitCredential, Credssp, Digest and Kerberos. (case-insensitive)\nDefault value\: Default\n    connectionTimeout - Determines how long the client computer waits for the remote session connection to be established. When the interval expires, the command to establish the connection fails. Enter a positive value in milliseconds.\nDefault value\: 180000 (3 minutes).\n    scriptTimeout - Determines how long the client computer waits for the PowerShell script to be executed. When the interval expires, the operation fails. Enter a positive value in milliseconds. An empty value means no time-out; the script execution continues indefinitely.\n    useSSL - If true, the operation uses the Secure Sockets Layer (SSL) protocol to establish a connection to the remote computer. By default, SSL is not used. WS-Management encrypts all Windows PowerShell content transmitted over the network. UseSSL is an additional protection that sends the data across an HTTPS connection instead of an HTTP connection. Default port for SSL is 5986.\nDefault value\: false\n    skipCACheck - Indicates whether, when connecting over HTTPS, the client does not validate that the server certificate is signed by a trusted certificate authority (CA).\nDefault value\: true\n    skipCNCheck - Indicates whether the certificate common name (CN) of the server and the hostname of the server are not checked for being the same.\nDefault value\: true\n    port - Specifies the network port on the remote computer that is used for this connection. To connect to a remote computer, the remote computer must be listening on the port that the connection uses. The default ports are 5985 (the WinRM port for HTTP) and 5986 (the WinRM port for HTTPS).\n    keepSessionAlive - If true, the operation will not close the PowerShell runspace (i.e. the PSSession in case of remote connections ) created during the execution and returns the runspaceID as the result of the operation. Actually the PowerShell runspace is saved in the OO session and can be used in other operations using the runspaceID result of previous operation. It is highly recommended to close the PowerShell runspace (the PSSession in case of remote connections) at the end of the flow to release the allocated memory - this can be done by setting "keepSessionAlive" input to false at the last step of the flow where the operation is used.\nDefault value\: false\n    enablePiping - If true the operation enables piping the way PowerShell does. This input should be used only when keepSessionAlive input is true. First time the piped objects are null and the scope is to save the objects resulted from the PowerShell script execution. Next time the piped objects can be refered in the script as "$_" objects.\nDefault value\: false\nExample\: First, run "Get-Service" script with enablePiping\=true and keepSessionAlive\=true, then run the script  "Select-Object -property name,displayname,status|where-object {$_.Name -lt "C"}" with enablePiping\=true keepSessionAlive\=true. Observe the use of "$_".\n    runspaceID - If not empty, the operation will search the OO session for keys which equal the runspaceID. If the operation finds the runspace specified by the runspaceID it tries to use it and does not create another PowerShell runspace with provided inputs. If the runspace exists but is broken or unavailable the operation uses its authentication parameters and tries to reconnect and recreate the PowerShell runspace. Please note that the operation will use the connection parameters of the runspace identified by runspaceID, not the values provided as user inputs. The operation will take into consideration the connection inputs (i.e. host, username, password, authType, useSSL, etc.) provided by user only if the runspaceID does not exist in the OO session.\n    modules - A list of PowerShell modules to load after the PowerShell connection is established. Each value from the list specifies the name of the module to import. Enter the name of the module or the name of a file in the module, such as a .psd1, .psm1, .dll, or ps1 file. File paths are optional. Wildcards are not permitted. Specify only the module name whenever possible. When you specify a file name, only the members that are implemented in that file are imported. If the module contains other files, they are not imported, and you might be missing important members of the module. The list of modules should be separated by comma "," delimiter.\nExample\: FailoverClusters\n    snapins - A list of PowerShell snapins to load after the PowerShell connection is established. Each value from the list specifies the name of a registered snapin (i.e. the Name, not the AssemblyName or ModuleName).\nExample\: Microsoft.Exchange.Management.PowerShell.E2010\n    script - The script to execute on the PowerShell host. If you want to execute a script from file just provide the file path. Check the notes section for security implications of using this input.\nExample\:c\:\\PowerShellScripts\\GetHost.ps1\n    cmdlet - The name of the PowerShell cmdlet to invoke. If the cmdlet has additional parameters, please provide them as inputs to the operation. If the parameter has the same name as one of the operation's inputs just prefix it with "_". This input is intended to be used together with the PowerShell wizard so please use the script input whenever it's possible.\n    returnTable - If true, the operation will return a table containing a row for each PSObject that the script emits. The table's columns represent the properties of these PSObjects, in the propertyName<delimiter>propertyValue format. If false the operation returns a string representation of the result similar to the output from the PowerShell console.\nDefault value\: false\n    delimiter - The delimiter used to separate each property name from the property value in the output table.\nDefault value\: "\:".\n    colDelimiter - The delimiter used to separate columns in the output table.\nDefault value\: ",".\n    rowDelimiter - The delimiter used to separate rows in the output table.\nDefault value\: newline.\n    hideResults - If this input is added and set to true, the "script", "stdout" and "warnings" results will be hidden. In case of operation failure the "returnResult" will no longer contain the Powershell exception stack-trace details, but the generic message\: "Could not execute powershell command". To use this input you need to manually add it from Studio Inputs tab of the operation, by clicking on the \u201CAdd Input\u201D button.\nValid values\: true, false\nDefault value\: false\n    hideScript - If this input is added and set to true, the "script" result will be hidden. To use this input you need to manually add it from Studio Inputs tab of the operation, by clicking on the \u201CAdd Input\u201D button. In case a value is provided to the hideResults input the hideScript input will be ignored.\nValid values\: true, false\nDefault value\: false\n    localPSRemoting - If this input is added and set to \u2018true\u2019 the operation will use remote impersonation on the local IP address (localhost/loopback) and PowerShell remoting on the same address to execute the script. In this case the credentials under which the script will run must be provided through the \u201Cusername\u201D and \u201Cpassword\u201D inputs. The \u201Chostname\u201D input should be the local ip address or the localhost/loopback address. In case the \u201Chostname\u201D it is left empty the \u2018localhost\u2019 address will be used by default. To use this input you need to manually add it from Studio Inputs tab of the operation, by clicking on the \u201CAdd Input\u201D button.\nValid values\: true, false\nDefault value\: false\n    getLastExitCode - If true, the operation will add $LASTEXITCODE at the end of the script and return the lastExitCode result, if false the lastExitCode result will be empty. Please note that $LASTEXITCODE will be displayed at the end of the "script" result and the "returnResult" result will contain new line at the end which contains a numberfrom 0 to 255 which represents the exit code of the last command in the script. \nValid values\: true, false\nDefault value\: false\n\nResults\:\n    returnResult - The result of the script execution formatted as table or string depending on the returnTable input value as described above. In case of operation failure and "hideResults" is set to true, then this output will no longer contain the powershell exception stacktrace details.\n    script - The actual PowerShell script that was run. This result might be useful when piping is enabled or you want to know exactly the script that was sent to be run on the PowerShell host. Please note that the operation adds "Out-String" command to the end of your script if returnTable input is set to false. This output will be hidden if "hideResults" input is set to true.\n    objectsCount - The number of the PowerShell objects resulted from script execution (e.g. Get-Service will return the number of services found on the target host). This input is relevant only when returnTable is set to true. Otherwise, the value of this result will always be one, because the script returns a string message.\n    warnings - A list of warnings that the cmdlets emit. If the cmdlets were executed without warnings, then this result will be an empty string. This output will be hidden if "hideResults" input is set to true.\n    runspaceID - The runspace ID of the PowerShell runspace created during the execution of the operation.\n    stdout - The result of the commands that succeeded in case the operation fails. In case of operation failure this output will be hidden if "hideResults" input is set to true.\n    lastExitCode -  Holds the last exit code in the powershell script if getLastExitCode is set to true.\n\nResponses\:\n    success - The Powershell script or cmdlet was executed successfully.\n    failure - The command could not be executed.\n\nNotes\:\n1. In order to enable PowerShell scripts execution, run the following command\: Set-ExecutionPolicy RemoteSigned\n2. When interacting with a Microsoft Exchange server, please use the generic Powershell operation available in the Business Application content pack, under /Library/Operations/Exchange/<version specific> folder, instead of loading the Exchange snap-in to this Powershell Script operation. This is a Microsoft Exchange design (http\://www.get-exchange.info/2012/12/30/powershell-scripting-for-exchange-server-some-tips/)\n3. If the "hideResults" is set to false the "script" output will be added to the operation's output in which case the exact script that was executed will be displayed. Displaying the script could be a security risk when encrypted variables (which could be the sensitive data) are passed and referenced in the script, as they will be displayed unobfuscated. Also in case of operation failure the "stdout", "warnings" and "returnResults" outputs could contain the script with unobfuscated sensitive variables in it.\n4. The \u201ClocalPSRemoting\u201D input provides a workaround/alternative to PowerShell impersonation on localhost. It enables the operation to run the script under different users on the local machine.\n5. Use the 'script' input with caution as it can expose the target system to security risks. By exposing the script input as a prompt to the user, it will enable the user to execute any powershell script on the target system taking into account the permissions of the credentials given as inputs.\n6. When keepSessionAlive is set to true and the operation is left to run for many a long time (e.g. hours), the RAS/worker service can crash with an OutOfMemory error. This is expected because while the session is kept open, data accumulates in memory which is released only after the operation completes. To address this issue check HPE OO Administrator Guide on how to increase RAS/worker memory.\n
+14448917-ae9d-45d2-84a3-41cb3771e9b3.eba4658b-b493-4a43-a06e-90f29b44034c.prompt=Rows delimiter\:
+14448917-ae9d-45d2-84a3-41cb3771e9b3.eeae5b3a-d930-4664-a8c6-18b07f6b67a9.prompt=User name\:
+]]></descriptionCdata>
+  <annotation>14448917-ae9d-45d2-84a3-41cb3771e9b3.description</annotation>
+  <name>PowerShell Script</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="64b92c1b-11b3-4df6-9599-5295e0acc50c">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>host</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>14448917-ae9d-45d2-84a3-41cb3771e9b3.64b92c1b-11b3-4df6-9599-5295e0acc50c.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="44800f70-dd8e-46bd-bf2b-4bd574b2c6ab">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>URI</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="593da811-e3ac-4ae3-8fab-661438a8e0cd">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>shellURI</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="eeae5b3a-d930-4664-a8c6-18b07f6b67a9">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>username</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>14448917-ae9d-45d2-84a3-41cb3771e9b3.eeae5b3a-d930-4664-a8c6-18b07f6b67a9.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="da8276a1-dc5b-42c8-9d86-fa8c3a1189a5">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>password</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>14448917-ae9d-45d2-84a3-41cb3771e9b3.da8276a1-dc5b-42c8-9d86-fa8c3a1189a5.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="71ff1e5c-1f7e-42da-82e5-b271273fd9d8">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>certificateThumbprint</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="15d28ce0-bfbb-44ca-9b40-c881737d77ea">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>configurationName</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="e451d327-1cf9-47e3-9bee-6376c80e46a3">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>authType</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <link>
+        <refId>b85e9466-424d-46a5-966c-2e2c0237912e</refId>
+        <refName>PowerShell Authentication Types</refName>
+      </link>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="88d6c0c2-73fd-414e-896e-d6a4fbba892a">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>connectionTimeout</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="db1d7adb-b7e6-4aa1-a6d9-02e2719ce75b">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>scriptTimeout</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="d62a412f-e2d2-417b-ac93-ee953fd9e78a">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>useSSL</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <link>
+        <refId>96a1ed25-cdc9-4ff6-8fba-e9c044c5ca53</refId>
+        <refName>Boolean - False Default</refName>
+      </link>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="e19d5dcf-26ae-4d0c-be92-da79b0a581f5">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>skipCACheck</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="206a657e-e4f7-47f5-b960-405ed36f34f6">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>skipCNCheck</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value></value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="fe5f6c52-b81e-4fb9-bcf0-6cd18c338972">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>port</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="971a02d5-e5d2-4b80-a2f1-66c100d3cd91">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>keepSessionAlive</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <link>
+        <refId>96a1ed25-cdc9-4ff6-8fba-e9c044c5ca53</refId>
+        <refName>Boolean - False Default</refName>
+      </link>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="d2bae552-9544-4bab-befb-bbc91d147c3a">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>enablePiping</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <link>
+        <refId>96a1ed25-cdc9-4ff6-8fba-e9c044c5ca53</refId>
+        <refName>Boolean - False Default</refName>
+      </link>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="f1be70a8-3188-4ab7-90d6-fa6d4fa218b9">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>runspaceID</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="517b49ec-0b69-4508-81d3-2abf87d6af28">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>modules</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="84751eca-e077-4a92-9dae-40f03fe08f40">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>snapins</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="7ed93d1c-3522-4dcb-93a4-8ce172ccb60f">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>script</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="7006b330-5454-44b5-9544-71295c682066">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>cmdlet</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="79d7989b-756f-4da2-9838-d25474cc47f7">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>returnTable</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <link>
+        <refId>96a1ed25-cdc9-4ff6-8fba-e9c044c5ca53</refId>
+        <refName>Boolean - False Default</refName>
+      </link>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="3d4e5661-6b77-4aa6-8985-c990131ea856">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>delimiter</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>14448917-ae9d-45d2-84a3-41cb3771e9b3.3d4e5661-6b77-4aa6-8985-c990131ea856.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="01a4dc54-250e-4fc4-b5ad-3a46c8b2e133">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>colDelimiter</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>14448917-ae9d-45d2-84a3-41cb3771e9b3.01a4dc54-250e-4fc4-b5ad-3a46c8b2e133.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="eba4658b-b493-4a43-a06e-90f29b44034c">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>rowDelimiter</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt>14448917-ae9d-45d2-84a3-41cb3771e9b3.eba4658b-b493-4a43-a06e-90f29b44034c.prompt</prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="ed4f9e5f-fde0-4791-b0ca-9bdd9c4e0a4b">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>getLastExitCode</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <value>false</value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="587c75f6-7df8-4b7c-8017-4f47fc762a53">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="8e1ea2b4-adab-4f98-8e25-132fa2b0e43c">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="5dd49fc6-726d-4728-b795-f0690ee906d3">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="52c5b2e2-84e0-472d-b277-0eca135a3943">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>false</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="0a05ca05-91d1-4edf-863b-c836917cd99b">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="c3fc1c37-fc0e-4f2b-b598-3d57e039b633">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="ec38631d-6274-4618-a2ec-c73551fa057e">
+    <annotation></annotation>
+    <name>returnCode</name>
+    <fieldName>returnCode</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="97e0d02e-0c4a-49cb-bdf9-65ad3bcf1766">
+    <baseIcon>PowerShell.png</baseIcon>
+    <basePath>/Operating System/</basePath>
+    <readOnly>false</readOnly>
+    <layers/>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-dotnet-web-actions-powershell-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>dotNETWebActions_PowerShell.IActions.PowerShellBaseAction</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideNRAS}</overrideGroupAlias>
+</operation>

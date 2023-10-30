@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="2791328b-669c-4a42-8ce9-0d53d742987e">
+  <descriptionCdata><![CDATA[2791328b-669c-4a42-8ce9-0d53d742987e.description=Calculates a checksum for a file and compares it to a given checksum.\n\nInputs\:\n    source - The file to checksum.\n    compareTo - A checksum to compare the file's checksum to.\n\nResults\:\n    returnCode - This is the primary output. It is -1 for failure, 14 if the checksum matched the specified checksum and 16 if checksum did not matched the specified checksum.\n    checksum - The file's calculated checksum.\n\nResponses\:\n    success \: not equal - The file's checksum was calculated, but did not match the specified checksum.\n    success \: equal - The files checksum matched the specified checksum.\n    failure - failure - The operation completed unsuccessfully.\n\nNotes\: \n1. Please check File System->Cross Platform properties for more information regarding the use of network share paths with this operation.
+]]></descriptionCdata>
+  <annotation>2791328b-669c-4a42-8ce9-0d53d742987e.description</annotation>
+  <name>FS MD5 Sum</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="bd6f2801-6709-4c98-9169-bb83b2072d73">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>compareTo</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="84aef7d7-ee0b-45c6-9cb2-bede9df005c0">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>source</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+  </inputs>
+  <scriptlet id="507abf62-99d9-4281-97d8-915c4233ece3">
+    <annotation></annotation>
+    <name>Operation FS MD5 Sum (0d108103-d57c-4a09-8f74-50c10337f1fe)</name>
+    <script>scriptletContext.put(&quot;checksum&quot;, scriptletRawResult[&apos;checksum&apos;]);</script>
+    <type>RHINO</type>
+  </scriptlet>
+  <possibleResponses>
+    <opResponse id="6b985415-c709-4c07-8a94-fd59820eb688">
+      <annotation></annotation>
+      <name>success : not equal</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="0499212f-2653-4e0d-892b-fa217fdbcf6f">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="17118ead-a671-4ed2-b3b1-1099c939033f">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>16</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="2f906f52-d4d2-41a3-92a5-17a9e3980efb">
+      <annotation></annotation>
+      <name>success : equal</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="271ed44b-c5ed-4fd4-9925-d8f43c5e42b0">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="d7d7b55e-53e3-4189-9d90-6f252f130628">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>14</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="8f420953-aac6-481a-a8ae-f4d86199f8d2">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules>
+        <expression id="c254ba78-05d3-4c8d-9da3-c1c2412f14ac">
+          <annotation></annotation>
+          <name>returnCode</name>
+          <fieldName>returnCode</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="11d2f5bc-b7f9-431e-b8e3-bdbe285cbfab">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>-1</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>EXACT_MATCH</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions/>
+  <resultExpression id="3f6328c3-8fd2-454b-babb-f8bede9aff1a">
+    <annotation></annotation>
+    <name>returnCode</name>
+    <fieldName>returnCode</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="fde63643-940a-4fe7-aed7-cec2d7d7789b">
+    <baseIcon>document_text.png</baseIcon>
+    <basePath>/Operating System/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="bc92b21e-cf61-4546-8219-59a3c4a1440b">
+        <baseIcon>lock.png</baseIcon>
+        <basePath>/Annotations/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <plugin>
+    <groupId>com.hp.oo</groupId>
+    <artifactId>oo-fs-legacy-plugin</artifactId>
+    <version>1.23.3</version>
+    <actionName>com.iconclude.content.actions.filesystem.NewFSMD5Sum</actionName>
+  </plugin>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>

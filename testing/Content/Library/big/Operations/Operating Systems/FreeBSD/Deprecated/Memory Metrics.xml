@@ -1,0 +1,850 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation id="c5261c54-230b-4ae7-816c-8429d376622b">
+  <descriptionCdata><![CDATA[c5261c54-230b-4ae7-816c-8429d376622b.description=<pre>This retrieves memory metrics using top.  \n\nInputs\:\n\nhost - the system to check\nusername - the user to log into this system as\npassword - the password to log in with\n\nResponses\:\n\nsuccess - the data was obtained\nfailure - the data could not be obtained\n\nResult\:\n\nthe return code of the top operation\n\nExtra Results\:\nactiveMemory - the number of megabytes of active memory.\nbufferMemory - the number of megabytes of buffer memory.\nfreeMemory - the number of megabytes of unused memory.\nfreeSwap - the number of megabytes of unused swap.\ninactiveMemory - the number of megabytes of inactive memory.\nsharedMemory - the number of megabytes of shared memory.\nswapCache - the number of megabytes of swap cache.\ntotalMemory\t- the number of megabytes of total memory.\ntotalSwap - the number of megabytes of total swap space.\nusedMemory - the number of megabytes of used memory.\nusedSwap - the number of megabytes of used swap.\n</pre>
+]]></descriptionCdata>
+  <annotation>c5261c54-230b-4ae7-816c-8429d376622b.description</annotation>
+  <name>Memory Metrics</name>
+  <categories/>
+  <inputs>
+    <userInputBinding id="d4dfb307-5970-442a-9bd7-cb26650b80d5">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>host</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="af38a0f2-7dc1-48f2-9bd1-a734d28ca7f9">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>STRING</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>username</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="029003c3-6955-4012-8ecd-3b751271ed15">
+      <annotation></annotation>
+      <assignFromContext>true</assignFromContext>
+      <assignToContext>true</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>password</inputSymbol>
+      <listDelimiter>,</listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <userInputBinding id="4ba7ee50-d012-4b25-8e32-29e5df4f6bb4">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Environment</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="d6af25ed-8f35-4b84-aa85-33fe5ce239a9">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>true</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Command</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>top -b -n</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="1f8b40e5-65cf-452e-b24c-41a423114efe">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>User</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${username}</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="2cf7506d-9c63-463b-853d-babfd2c7f941">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Argument</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="6e852d07-29a8-4fe5-8f5b-2a2a4fb61e2b">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Host</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>${host}</value>
+      <record>false</record>
+    </staticBinding>
+    <userInputBinding id="a9d7cadc-e93e-4e0d-8a4d-cfb10f4effdd">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Private_Key_File</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <record>false</record>
+      <prompt></prompt>
+      <isMultiSelect>false</isMultiSelect>
+      <sourceDelimiter>|</sourceDelimiter>
+    </userInputBinding>
+    <staticBinding id="e4485cf7-1338-4b20-9216-3e1657b32cfd">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>ENCRYPTED</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Password</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>{OBFUSCATED}SqstnSxglAP4D4gm72ILRw==</value>
+      <record>false</record>
+    </staticBinding>
+    <staticBinding id="bacb7e7f-fb93-42d7-ae7d-e35c36150e01">
+      <annotation></annotation>
+      <toContextKey></toContextKey>
+      <fromContextKey></fromContextKey>
+      <assignFromContext>false</assignFromContext>
+      <assignToContext>false</assignToContext>
+      <inputType>STRING</inputType>
+      <recordKey></recordKey>
+      <isList>false</isList>
+      <required>false</required>
+      <isPersisted>true</isPersisted>
+      <inputSymbol>Pty</inputSymbol>
+      <listDelimiter></listDelimiter>
+      <value>false</value>
+      <record>false</record>
+    </staticBinding>
+  </inputs>
+  <possibleResponses>
+    <opResponse id="9cafb17c-14d2-4e9e-9985-b8b0023f37bc">
+      <annotation></annotation>
+      <name>success</name>
+      <isDefault>false</isDefault>
+      <onFailure>false</onFailure>
+      <type>RESOLVED</type>
+      <matchRules>
+        <expression id="e2675a53-d1ec-47e4-aec7-3d9399a0f3dd">
+          <annotation></annotation>
+          <name>Code</name>
+          <fieldName>Output String</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="a692da67-27f0-4631-839c-c595698f54d1">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>swap</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>CONTAINS</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+        <expression id="a534317a-744a-41aa-9296-3fdc0a85a15d">
+          <annotation></annotation>
+          <name>Code</name>
+          <fieldName>Code</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <compare id="00bf9464-eeec-40df-b165-745545de5368">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>0</text>
+            <matchType>&gt;=</matchType>
+          </compare>
+          <filters/>
+        </expression>
+        <expression id="1fac815f-1f67-4a52-8099-75314ddc491b">
+          <annotation></annotation>
+          <name>Code</name>
+          <fieldName>Output String</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="e0c2c954-5e63-4fe5-b0f1-771106afe583">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>mem</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>CONTAINS</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+        <expression id="10028301-d6f5-4718-b196-53b4c907d694">
+          <annotation></annotation>
+          <name>Code</name>
+          <fieldName>Output String</fieldName>
+          <sourceType>RAWRESULT</sourceType>
+          <containsEvaluator id="ca8c5fc0-7aee-47a0-8387-a81260880729">
+            <annotation></annotation>
+            <name>Config Item</name>
+            <text>cpu</text>
+            <ignoreCase>true</ignoreCase>
+            <matchType>CONTAINS</matchType>
+          </containsEvaluator>
+          <filters/>
+        </expression>
+      </matchRules>
+    </opResponse>
+    <opResponse id="e0743446-c9e7-48e2-a20c-4e8643904868">
+      <annotation></annotation>
+      <name>failure</name>
+      <isDefault>true</isDefault>
+      <onFailure>true</onFailure>
+      <type>ERROR</type>
+      <matchRules/>
+    </opResponse>
+  </possibleResponses>
+  <availableResultExpressions>
+    <expression id="0b7eabf0-22d6-4192-88ec-872788552d87">
+      <annotation></annotation>
+      <name>totalMemory</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <stripTrailingFilter id="89bc6a1a-4e47-44fe-af7b-666bed49ea8f">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>Mem:</strip>
+          <type>ALL_CHARACTERS_UP_TO_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripTrailingFilter id="f1790834-4d75-4ace-a896-f677f93209ab">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>,</strip>
+          <type>ALL_CHARACTERS_AFTER_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <regexFilter id="4743a15c-78ca-4d33-a66d-519b5e1ec2d3">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <scriptletFilter id="535fccae-6bef-4947-8b42-8513b13948b4">
+          <annotation></annotation>
+          <name>Scriptlet</name>
+          <scriptlet id="51a1ceae-a137-42e1-842e-2904510d0f03">
+            <annotation></annotation>
+            <name>default</name>
+            <script>scriptletResult = &quot;Timestamp:&quot;+new java.util.Date()+&quot;\n&quot;+scriptletInput+&quot;\n&quot;+scriptletInput.length+&quot; characters&quot;</script>
+            <type>RHINO</type>
+            <scriptRef>
+              <refId>61805418-9def-44b6-bf49-2ce17bbb7524</refId>
+              <refName>divide by 1k</refName>
+            </scriptRef>
+          </scriptlet>
+        </scriptletFilter>
+      </filters>
+    </expression>
+    <expression id="4830971f-285c-4745-a013-278959a0afd1">
+      <annotation></annotation>
+      <name>freeSwap</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <stripTrailingFilter id="5e0d2702-006d-46fa-9664-932af225f364">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>Swap:</strip>
+          <type>ALL_CHARACTERS_UP_TO_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripTrailingFilter id="e0688dc2-a614-4a24-9a46-2923fafb8202">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>
+</strip>
+          <type>ALL_CHARACTERS_AFTER_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <regexFilter id="69707fd3-5978-43cb-83cd-4076d78ae9c5">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+k free</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <regexFilter id="4838028b-5ae8-4783-8d8d-448fdab51f6c">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <scriptletFilter id="0f3cf523-1e57-49f4-b748-c216bb819af7">
+          <annotation></annotation>
+          <name>Scriptlet</name>
+          <scriptlet id="d7230073-5fe7-49f9-9612-2586a34314d3">
+            <annotation></annotation>
+            <name>default</name>
+            <script>scriptletResult = &quot;Timestamp:&quot;+new java.util.Date()+&quot;\n&quot;+scriptletInput+&quot;\n&quot;+scriptletInput.length+&quot; characters&quot;</script>
+            <type>RHINO</type>
+            <scriptRef>
+              <refId>61805418-9def-44b6-bf49-2ce17bbb7524</refId>
+              <refName>divide by 1k</refName>
+            </scriptRef>
+          </scriptlet>
+        </scriptletFilter>
+      </filters>
+    </expression>
+    <expression id="a034dbab-03cd-431c-af60-ac369edc7929">
+      <annotation></annotation>
+      <name>bufferMemory</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <stripTrailingFilter id="e3d8b4d4-98a5-4759-8064-b5dec03d93f0">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>Mem:</strip>
+          <type>ALL_CHARACTERS_UP_TO_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripTrailingFilter id="6359aacd-e82b-41d5-a19b-5bb4cb02a256">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>PID</strip>
+          <type>ALL_CHARACTERS_AFTER_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <regexFilter id="fbb8eb3e-3a57-47ef-80ea-eca3b9c2b30c">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+k\s+buff</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <regexFilter id="b09df918-4b4b-4f80-9ced-a9cb9bb5afd4">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <scriptletFilter id="031ffd3c-b904-4a9b-8cb6-3564ee2ac4ae">
+          <annotation></annotation>
+          <name>Scriptlet</name>
+          <scriptlet id="e59bd651-d297-4c2a-a6b5-4dac2be17870">
+            <annotation></annotation>
+            <name>default</name>
+            <script>scriptletResult = &quot;Timestamp:&quot;+new java.util.Date()+&quot;\n&quot;+scriptletInput+&quot;\n&quot;+scriptletInput.length+&quot; characters&quot;</script>
+            <type>RHINO</type>
+            <scriptRef>
+              <refId>61805418-9def-44b6-bf49-2ce17bbb7524</refId>
+              <refName>divide by 1k</refName>
+            </scriptRef>
+          </scriptlet>
+        </scriptletFilter>
+      </filters>
+    </expression>
+    <expression id="4064feba-fb61-4015-a240-054cab0fd4d3">
+      <annotation></annotation>
+      <name>activeMemory</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <stripTrailingFilter id="6b2432a6-fac0-472a-bb3d-10a20df0c5d5">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>Mem:</strip>
+          <type>ALL_CHARACTERS_UP_TO_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripTrailingFilter id="fc9d984c-826b-42af-b071-ad09863e5c17">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>:</strip>
+          <type>ALL_CHARACTERS_AFTER_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <regexFilter id="0af08a25-234b-4e25-b970-fb864e22d872">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+k active</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <regexFilter id="ae0421ff-9652-4902-b796-5e7cfbf67d03">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <scriptletFilter id="122cfddd-67c7-4a62-99b5-43d6b1235f2f">
+          <annotation></annotation>
+          <name>Scriptlet</name>
+          <scriptlet id="ce8e000f-fcb1-47df-b82f-1414c2545240">
+            <annotation></annotation>
+            <name>default</name>
+            <script>scriptletResult = &quot;Timestamp:&quot;+new java.util.Date()+&quot;\n&quot;+scriptletInput+&quot;\n&quot;+scriptletInput.length+&quot; characters&quot;</script>
+            <type>RHINO</type>
+            <scriptRef>
+              <refId>61805418-9def-44b6-bf49-2ce17bbb7524</refId>
+              <refName>divide by 1k</refName>
+            </scriptRef>
+          </scriptlet>
+        </scriptletFilter>
+      </filters>
+    </expression>
+    <expression id="4432bdd9-f086-4413-93ae-21b65a81f625">
+      <annotation></annotation>
+      <name>usedSwap</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <stripTrailingFilter id="de99c61c-8d48-4ff1-96fc-3b12f7ce5752">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>Swap:</strip>
+          <type>ALL_CHARACTERS_UP_TO_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripTrailingFilter id="5e14d60a-1264-428c-b024-e9a0f575e4e0">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>
+</strip>
+          <type>ALL_CHARACTERS_AFTER_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <regexFilter id="ec8a295f-a6f2-479a-beee-acd9242ef792">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+k used</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <regexFilter id="efcbdc37-0a06-4311-bd8f-9d0ef821dff2">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <scriptletFilter id="d1ae9ee5-cc66-49b2-b07d-3308596a21c6">
+          <annotation></annotation>
+          <name>Scriptlet</name>
+          <scriptlet id="a4687ac5-027a-4fc1-8309-27a8a1ebbe8e">
+            <annotation></annotation>
+            <name>default</name>
+            <script>scriptletResult = &quot;Timestamp:&quot;+new java.util.Date()+&quot;\n&quot;+scriptletInput+&quot;\n&quot;+scriptletInput.length+&quot; characters&quot;</script>
+            <type>RHINO</type>
+            <scriptRef>
+              <refId>61805418-9def-44b6-bf49-2ce17bbb7524</refId>
+              <refName>divide by 1k</refName>
+            </scriptRef>
+          </scriptlet>
+        </scriptletFilter>
+      </filters>
+    </expression>
+    <expression id="2f987847-46f3-4a5d-9983-1fe5280a3c9d">
+      <annotation></annotation>
+      <name>sharedMemory</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <stripTrailingFilter id="22967ff9-4e31-4dad-8a7e-09c94f476b83">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>Mem:</strip>
+          <type>ALL_CHARACTERS_UP_TO_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripTrailingFilter id="1427e18a-f90a-40da-8fdb-6605dc9ff7f9">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>
+</strip>
+          <type>ALL_CHARACTERS_AFTER_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <regexFilter id="dc1d2f60-ba62-4d03-8c94-46da345b194b">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+k shrd</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <regexFilter id="99c17b60-a364-4e0a-b0c0-f4fd5e9b8d38">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <scriptletFilter id="ab5ddbd1-7994-44b4-a21d-7321e1c4a659">
+          <annotation></annotation>
+          <name>Scriptlet</name>
+          <scriptlet id="a3d716f6-9061-48d6-8486-aa0414b7b9df">
+            <annotation></annotation>
+            <name>default</name>
+            <script>scriptletResult = &quot;Timestamp:&quot;+new java.util.Date()+&quot;\n&quot;+scriptletInput+&quot;\n&quot;+scriptletInput.length+&quot; characters&quot;</script>
+            <type>RHINO</type>
+            <scriptRef>
+              <refId>61805418-9def-44b6-bf49-2ce17bbb7524</refId>
+              <refName>divide by 1k</refName>
+            </scriptRef>
+          </scriptlet>
+        </scriptletFilter>
+      </filters>
+    </expression>
+    <expression id="58b52d4a-b611-4290-bff6-3dcb50394417">
+      <annotation></annotation>
+      <name>totalSwap</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <stripTrailingFilter id="546691c8-832a-4321-a32f-1e0b8703f2c2">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>Swap:</strip>
+          <type>ALL_CHARACTERS_UP_TO_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripTrailingFilter id="faafc61b-849e-43ab-987a-90caa7fb9048">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>,</strip>
+          <type>ALL_CHARACTERS_AFTER_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <regexFilter id="64a93213-78fb-4057-b92d-cab39af5578e">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <scriptletFilter id="69b739fe-5860-41ce-95e7-7df4afd2234c">
+          <annotation></annotation>
+          <name>Scriptlet</name>
+          <scriptlet id="12190644-ffa1-4786-8b01-d40198c0b56b">
+            <annotation></annotation>
+            <name>default</name>
+            <script>scriptletResult = &quot;Timestamp:&quot;+new java.util.Date()+&quot;\n&quot;+scriptletInput+&quot;\n&quot;+scriptletInput.length+&quot; characters&quot;</script>
+            <type>RHINO</type>
+            <scriptRef>
+              <refId>61805418-9def-44b6-bf49-2ce17bbb7524</refId>
+              <refName>divide by 1k</refName>
+            </scriptRef>
+          </scriptlet>
+        </scriptletFilter>
+      </filters>
+    </expression>
+    <expression id="199afb9b-785c-446d-b931-6b3755c56e9e">
+      <annotation></annotation>
+      <name>swapCache</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <stripTrailingFilter id="106405e9-0b0d-43a2-9aa1-afac15ae5d97">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>Swap:</strip>
+          <type>ALL_CHARACTERS_UP_TO_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripTrailingFilter id="6967d638-61f9-4362-ba63-15eb2c542c8c">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>
+</strip>
+          <type>ALL_CHARACTERS_AFTER_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <regexFilter id="170151e4-df96-4756-9871-f42e222c32dc">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+k cached</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <regexFilter id="fdc7d4fc-8b6d-4659-9757-c5907acb1385">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <scriptletFilter id="461cb496-7a9c-45d9-b39d-5ae251975ddf">
+          <annotation></annotation>
+          <name>Scriptlet</name>
+          <scriptlet id="e9a379b1-e318-4aef-8709-2edd915d3b80">
+            <annotation></annotation>
+            <name>default</name>
+            <script>scriptletResult = &quot;Timestamp:&quot;+new java.util.Date()+&quot;\n&quot;+scriptletInput+&quot;\n&quot;+scriptletInput.length+&quot; characters&quot;</script>
+            <type>RHINO</type>
+            <scriptRef>
+              <refId>61805418-9def-44b6-bf49-2ce17bbb7524</refId>
+              <refName>divide by 1k</refName>
+            </scriptRef>
+          </scriptlet>
+        </scriptletFilter>
+      </filters>
+    </expression>
+    <expression id="c832bcaf-6c56-44ad-8f54-ff1570f8976e">
+      <annotation></annotation>
+      <name>freeMemory</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <stripTrailingFilter id="b22b55ae-bf2d-4d63-891b-240f8e94c5ae">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>Mem:</strip>
+          <type>ALL_CHARACTERS_UP_TO_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripTrailingFilter id="5b0feb1b-678f-4746-b988-7ddf563a3be2">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>PID</strip>
+          <type>ALL_CHARACTERS_AFTER_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <regexFilter id="ff5d7103-e6e8-46a9-823d-62a65888d73d">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+k\s+free</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <regexFilter id="f7010a8a-3074-4ae3-aa98-9e46e25b55f9">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>PERL5</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <scriptletFilter id="6e58c8c7-5aaa-479f-b068-8033a9863dbe">
+          <annotation></annotation>
+          <name>Scriptlet</name>
+          <scriptlet id="214ac5f6-37c3-4d8e-a0b4-691820b67439">
+            <annotation></annotation>
+            <name>default</name>
+            <script>scriptletResult = &quot;Timestamp:&quot;+new java.util.Date()+&quot;\n&quot;+scriptletInput+&quot;\n&quot;+scriptletInput.length+&quot; characters&quot;</script>
+            <type>RHINO</type>
+            <scriptRef>
+              <refId>61805418-9def-44b6-bf49-2ce17bbb7524</refId>
+              <refName>divide by 1k</refName>
+            </scriptRef>
+          </scriptlet>
+        </scriptletFilter>
+      </filters>
+    </expression>
+    <expression id="e1e84cae-7554-4cbd-a2af-270ec56cd006">
+      <annotation></annotation>
+      <name>inactiveMemory</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <stripTrailingFilter id="a78e5dfe-3dd5-4ab7-9ee9-34449a5b9148">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>Mem:</strip>
+          <type>ALL_CHARACTERS_UP_TO_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripTrailingFilter id="c1694f6a-409e-42e9-b209-3b44c955927e">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>:</strip>
+          <type>ALL_CHARACTERS_AFTER_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <regexFilter id="14ccf3b7-a5e6-4d7e-9220-b17d9f377a8f">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+k inactive</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <regexFilter id="7644585f-d60f-4b20-95f7-7248469118a0">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <scriptletFilter id="14e710c4-c06c-42d4-bd71-beb853495967">
+          <annotation></annotation>
+          <name>Scriptlet</name>
+          <scriptlet id="aae661f3-325a-48fa-9f07-c32e3e5f3c5d">
+            <annotation></annotation>
+            <name>default</name>
+            <script>scriptletResult = &quot;Timestamp:&quot;+new java.util.Date()+&quot;\n&quot;+scriptletInput+&quot;\n&quot;+scriptletInput.length+&quot; characters&quot;</script>
+            <type>RHINO</type>
+            <scriptRef>
+              <refId>61805418-9def-44b6-bf49-2ce17bbb7524</refId>
+              <refName>divide by 1k</refName>
+            </scriptRef>
+          </scriptlet>
+        </scriptletFilter>
+      </filters>
+    </expression>
+    <expression id="05b72914-436f-4ef3-91e3-163d8ccab959">
+      <annotation></annotation>
+      <name>usedMemory</name>
+      <fieldName>Output String</fieldName>
+      <sourceType>RAWRESULT</sourceType>
+      <filters>
+        <stripTrailingFilter id="ca24fa28-ed46-47f2-a528-0c1f03988efe">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>Mem:</strip>
+          <type>ALL_CHARACTERS_UP_TO_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <stripTrailingFilter id="cce7a512-de2f-4929-b66d-c01a9f38fca9">
+          <annotation></annotation>
+          <name>Strip</name>
+          <strip>
+</strip>
+          <type>ALL_CHARACTERS_AFTER_AND_INCLUDING</type>
+        </stripTrailingFilter>
+        <regexFilter id="fffc8a3a-9ca5-4ae0-9dd4-ec9c841bc133">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+k used</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <regexFilter id="8efa2668-3159-4411-a466-22309975dabe">
+          <annotation></annotation>
+          <name>RegularExpression</name>
+          <expression>\d+</expression>
+          <ignoreCase>false</ignoreCase>
+          <regType>JAVA</regType>
+          <entireString>true</entireString>
+          <multiLine>false</multiLine>
+        </regexFilter>
+        <scriptletFilter id="2187391d-2e0b-4566-9899-911207f0b015">
+          <annotation></annotation>
+          <name>Scriptlet</name>
+          <scriptlet id="13e4068d-b651-43c4-93ed-b7610e29c0db">
+            <annotation></annotation>
+            <name>default</name>
+            <script>scriptletResult = &quot;Timestamp:&quot;+new java.util.Date()+&quot;\n&quot;+scriptletInput+&quot;\n&quot;+scriptletInput.length+&quot; characters&quot;</script>
+            <type>RHINO</type>
+            <scriptRef>
+              <refId>61805418-9def-44b6-bf49-2ce17bbb7524</refId>
+              <refName>divide by 1k</refName>
+            </scriptRef>
+          </scriptlet>
+        </scriptletFilter>
+      </filters>
+    </expression>
+  </availableResultExpressions>
+  <resultExpression id="996bebdc-b939-49e2-98c9-aae8ce9b465b">
+    <annotation></annotation>
+    <name>Code</name>
+    <fieldName>Output String</fieldName>
+    <sourceType>RAWRESULT</sourceType>
+    <filters/>
+  </resultExpression>
+  <iconSpec id="377ab9d6-c2db-41e4-a339-ec795bd83332">
+    <baseIcon>document_plain.png</baseIcon>
+    <basePath>Others/</basePath>
+    <readOnly>false</readOnly>
+    <layers>
+      <iconSpec id="ed5557bc-da71-4ada-b75e-9a910469366d">
+        <baseIcon>memory.png</baseIcon>
+        <basePath>Operating System/</basePath>
+        <readOnly>false</readOnly>
+        <layers/>
+      </iconSpec>
+    </layers>
+  </iconSpec>
+  <opRef>
+    <refId>46c0f7ea-a981-4ddc-bcaf-d4faed7af0b6</refId>
+  </opRef>
+  <fieldValues/>
+  <groupAliasRef>
+    <refId>5233030c-af46-432b-a682-b326ca6bf2ae</refId>
+    <refName>RAS_Operator_Path</refName>
+  </groupAliasRef>
+  <overrideGroupAlias>${overrideJRAS}</overrideGroupAlias>
+</operation>
